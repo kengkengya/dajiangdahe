@@ -1,0 +1,1228 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/dajiangdahe/img/favicon.png">
+  <link rel="icon" href="/dajiangdahe/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="Hello,here is kengkeng&#39;s blog.">
+  <meta name="author" content="kengkeng">
+  <meta name="keywords" content="">
+  
+  <title>Zookeeper从入门到放弃 - kengkeng&#39;s life</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/dajiangdahe/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/dajiangdahe/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"username.github.io","root":"/dajiangdahe/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/dajiangdahe/js/utils.js" ></script>
+  <script  src="/dajiangdahe/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/dajiangdahe/">&nbsp;<strong>kengkeng's life</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/dajiangdahe/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/dajiangdahe/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/dajiangdahe/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/dajiangdahe/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/dajiangdahe/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/dajiangdahe/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Zookeeper从入门到放弃">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      kengkeng
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-10-23 21:55" pubdate>
+        2021年10月23日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      9.8k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      132
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Zookeeper从入门到放弃</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：1 个月前
+                
+              </p>
+            
+            <div class="markdown-body">
+              <hr>
+<h1>1. zookeeper入门</h1>
+<h2 id="1-1-概述">1.1 概述</h2>
+<p>zookeeper是一个开源的分布式的，为分布式框架提<strong>供协调服务</strong>的Apache项目</p>
+<h2 id="1-2-工作机制">1.2 工作机制</h2>
+<p>Zookeeper从设计模式角度来理解：是一个<strong>基于观察者模式</strong>设计的分布式服务管理框架，它<strong>负责存储和管理</strong>大家都关心的数据，然后<strong>接受观察者的注册</strong>， 一旦这些数据的状态发生变化，Zookeeper 就将<strong>负责通知已经在Zookeeper上注册的那些观察者</strong>做出相应的反应。</p>
+<ol>
+<li>基于观察者模式设计的框架</li>
+<li>负责存储和管理的数据</li>
+<li>接受观察者（服务）的注册</li>
+<li>负责通知已经在zookeeper上注册的观察者（服务）</li>
+</ol>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211023222918327.png" class="" title="image-20211023222918327">
+<ol>
+<li>服务端启动时去注册信息（创建都是临时节点）</li>
+<li>客户端从zookeeper获取当前在线服务器列表，并且注册监听</li>
+<li>if 服务器节点下线</li>
+<li>zookeeper通知客户端服务器节点上下线</li>
+<li>客户端再次获取在线服务器列表，并注册监听</li>
+</ol>
+<h2 id="1-3-zookeeper特点">1.3 zookeeper特点</h2>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211023223955588.png" class="" title="image-20211023223955588">
+<ol>
+<li>Zookeeper：<strong>一个领导者</strong>（Leader），<strong>多个跟随者</strong>（Follower）组成的集群。</li>
+<li>集群中只要有<strong>半数以上节点存活</strong>，Zookeeper集群就能正常服务。所以Zookeeper适合<strong>安装奇数台服务器</strong>。</li>
+<li>全局数据一致：每个<strong>Server保存一份相同的数据副本</strong>，Client无论连接到哪个Server，数据都是一致的。</li>
+<li><strong>更新请求顺序执行</strong>，来自同一个Client的更新请求按其发送顺序依次执行。</li>
+<li>单一Client 数<strong>据更新原子性</strong>，一次数据更新要么成功，要么失败。</li>
+<li><strong>实时性</strong>，在一定时间范围内，Client能读到最新数据。</li>
+</ol>
+<h2 id="1-4-数据结构">1.4 数据结构</h2>
+<p>ZooKeeper 数据模型的结构与 Unix 文件系统很类似，整体上可以看作是<strong>一棵树</strong>，每个 节点称做一个 <strong>ZNode</strong>。每一个 ZNode 默认能够<strong>存储 1MB</strong> 的数据，每个 ZNode 都可以通<strong>过其路径唯一标识</strong>。</p>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211023224426987.png" class="" title="image-20211023224426987">
+<h2 id="1-5-应用场景">1.5 应用场景</h2>
+<ol>
+<li>
+<p><strong>统一命名服务</strong></p>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211023224814675.png" class="" title="image-20211023224814675">
+</li>
+<li>
+<p><strong>统一配置管理</strong></p>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211023225045932.png" class="" title="image-20211023225045932">
+</li>
+<li>
+<p><strong>统一集群管理</strong></p>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211023225313620.png" class="" title="image-20211023225313620">
+</li>
+<li>
+<p><strong>服务器节点动态上下线</strong></p>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211023225524570.png" class="" title="image-20211023225524570">
+</li>
+<li>
+<p><strong>软负载均衡</strong></p>
+</li>
+</ol>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211023225737241.png" class="" title="image-20211023225737241">
+<h1>2. zookeeper安装</h1>
+<h2 id="2-1-本地安装以及目录解读">2.1 本地安装以及目录解读</h2>
+<p><strong>zookeeper目录</strong></p>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211023232208355.png" class="" title="image-20211023232208355">
+<p><strong>zookeeper/bin 目录结构</strong></p>
+<p>其中<strong><a target="_blank" rel="noopener" href="http://zkCli.sh">zkCli.sh</a></strong> 是作为客户端启动</p>
+<p>其中<strong><a target="_blank" rel="noopener" href="http://zkServer.sh">zkServer.sh</a></strong> 是作为服务端启动</p>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211023232835716.png" class="" title="image-20211023232835716">
+<p><strong>zookeeper/conf 目录结构</strong></p>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211023233200810.png" class="" title="image-20211023233200810">
+<p>其中 <strong>zoo_sample.cfg</strong> 是zookeeper配置文件，是示例配置文件，本套课程中修改为zoo.cfg。</p>
+<p>由于/tmp为Linux临时储存地址（会被清理清理），所以将其默认dataDir地址改成自己新建的zkData文件夹下。</p>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211025095457555.png" class="" title="image-20211025095457555">
+<p>一般我们将zookeeper的数据文件放到<strong>zookeeper/zkData</strong>下</p>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211025095409917.png" class="" title="image-20211025095409917">
+<p>启动时</p>
+<ul>
+<li>先启动zkServer</li>
+<li>在启动zkclient</li>
+</ul>
+<h2 id="2-2-参数配置解析">2.2 参数配置解析</h2>
+<p>1）<strong>tickTime = 2000</strong>：通信心跳时间，Zookeeper服务器与客户端心跳时间，单位毫秒</p>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211023235631976.png" class="" title="image-20211023235631976">
+<p>2）<strong>initLimit = 10</strong>：LF初始通信时限</p>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211023235701539.png" class="" title="image-20211023235701539">
+<p>3）<strong>syncLimit = 5</strong>：LF同步通信时限</p>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211023235734230.png" class="" title="image-20211023235734230">
+<p>4）<strong>dataDir</strong>：保存Zookeeper中的数据 注意：<strong>默认的tmp目录，容易被Linux系统定期删除</strong>，所以一般不用默认的tmp目录。</p>
+<p>5）<strong>clientPort = 2181</strong>：客户端连接端口，通常不做修改。</p>
+<h1>3. zookeeper集群操作</h1>
+<h2 id="3-1-服务器集群配置">3.1 服务器集群配置</h2>
+<ol>
+<li>
+<p>在/opt/module/zookeeper-3.5.7/zkData 目录下创建一个 myid 的文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">vi myid<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>在文件中添加与 server 对应的编号（注意：上下不要有空行，左右不要有空格）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">2<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>拷贝配置好的 zookeeper 到其他机器上</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">xsync zookeeper-3.5.7<br></code></pre></td></tr></table></figure>
+<p>分别在其他服务器上，进行server编号更改（3，4）</p>
+</li>
+<li>
+<p>在zoo.cfg配置文件下进行集群配置</p>
+<figure class="highlight plaintext"><figcaption><span>l</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs she">#######################cluster##########################<br>server.2=hadoop102:2888:3888<br>server.3=hadoop103:2888:3888<br>server.4=hadoop104:2888:3888<br></code></pre></td></tr></table></figure>
+<p>配置解读 <strong>server.A=B:C:D</strong></p>
+<ul>
+<li>其中A数字表示第几台服务器。<strong>集群模式下配置一个文件 myid，这个文件在 dataDir目录下，这个文件里面有一个数据就是 A 的值，Zookeeper 启动时读取此文件，拿到里面的数据与 zoo.cfg 里面的配置信息比较从而判断到底是哪个 server。</strong></li>
+<li>B是这个服务器的地址</li>
+<li>C是这个服务器Follower与集群中Leader 服务器交换信息的端口</li>
+<li>D是万一这个集群中的Leader挂了，需要一个端口进行重新选举，这个端口就是用来执行选举时，实现服务器之间消息互通的端口</li>
+</ul>
+</li>
+<li>
+<p>分发配置完成后（xsync命令），启动服务器，<strong>bin/zkServer.sh start</strong></p>
+<ul>
+<li>
+<p><strong>注意1：客户端命令行末尾没有start</strong></p>
+</li>
+<li>
+<p><strong>注意2：如果在启动服务器集群时，并没有start数量超过半数，则会报error错误，不符合集群工作的原理（有半数以上节点启动 ，集群才开始工作）</strong></p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="3-2-选举机制">3.2 选举机制</h2>
+<h3 id="3-2-1-zookeeper集群第一次启动时">3.2.1 zookeeper集群第一次启动时</h3>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211025102232854.png" class="" title="image-20211025102232854">
+<ul>
+<li>总结：一般来说，第一次启动时，leader为server编号（start+end）/2。</li>
+</ul>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211025103218805.png" class="" title="image-20211025103218805">
+<ul>
+<li>客户端对于集群的写操作，主要通过是三个ID号来标志访问的节点，分别是SID、ZXID、Epoch。</li>
+</ul>
+<h3 id="3-2-2-zookeeper集群非第一次启动时">3.2.2 zookeeper集群非第一次启动时</h3>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211025104410548.png" class="" title="image-20211025104410548">
+<h2 id="3-3-客户端命令行操作">3.3 客户端命令行操作</h2>
+<h3 id="3-3-1-启动客户端和znode参数信息">3.3.1 启动客户端和znode参数信息</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">bin/zkCli.sh --server name:xxxx //此方式可以指定服务器等名字<br></code></pre></td></tr></table></figure>
+
+<ol>
+<li>czxid：**创建节点的事务  zxid每次修改 ZooKeeper 状态都会产生一个 ZooKeeper 事务 ID。**事务 ID 是 ZooKeeper 中所 有修改总的次序。每次修改都有唯一的 zxid，如果 zxid1 小于 zxid2，那么 zxid1 在 zxid2 之 前发生。</li>
+<li>ctime：znode 被<strong>创建</strong>的毫秒数（从 1970 年开始）</li>
+<li>mzxid：znode 最后<strong>更新</strong>的事务 zxid</li>
+<li>mtime：znode 最后<strong>修改</strong>的毫秒数（从 1970 年开始）</li>
+<li>pZxid：znode 最后<strong>更新的子节点</strong> zxid</li>
+<li>cversion：znode 子节点变化号，znode 子节点<strong>修改次数</strong></li>
+<li>dataversion：znode <strong>数据变化号</strong></li>
+<li>aclVersion：znode 访问<strong>控制列表的变化号</strong></li>
+<li>ephemeralOwner：如果是<strong>临时节点</strong>，这个是  znode 拥有者的 session id。如果不是临时节点则是 0。</li>
+<li>dataLength：znode 的<strong>数据长度</strong></li>
+<li>numChildren：znode <strong>子节点数量</strong></li>
+</ol>
+<h3 id="3-3-2-znode节点类型">3.3.2 znode节点类型</h3>
+<ol>
+<li>
+<p>持久节点：当客户端与服务器断开链接时，创建的节点不会被删除</p>
+<ol>
+<li>持久节点不带顺序编号</li>
+<li>持久节点带顺序编号，只是zookeeper会给该节点进行编号而已，顺序号由父节点维护</li>
+</ol>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211026214405461.png" class="" title="image-20211026214405461">
+</li>
+<li>
+<p>短暂节点：当客户端与服务器断开连接时，创建的节点会自己删除</p>
+<ol>
+<li>临时节点不带顺序编号</li>
+<li>临时节点带顺序编号，只是zookeeper会给该节点进行编号而已</li>
+</ol>
+</li>
+<li>
+<p>带序号节点 vs 不带序号节点</p>
+<ol>
+<li>不带序号节点只可以创建一个，带序号节点可以创建多个+序列号</li>
+</ol>
+</li>
+</ol>
+<h4 id="3-3-2-1-创建永久节点">3.3.2.1 创建永久节点</h4>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211026214711434.png" class="" title="image-20211026214711434">
+<h4 id="3-3-2-2-获取节点值与其属性">3.3.2.2 获取节点值与其属性</h4>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211026214817531.png" class="" title="image-20211026214817531">
+<h4 id="3-3-2-3-创建持久带序号的节点">3.3.2.3 创建持久带序号的节点</h4>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211026215051736.png" class="" title="image-20211026215051736">
+<h4 id="3-3-2-4-创建短暂节点">3.3.2.4 创建短暂节点</h4>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211026215720659.png" class="" title="image-20211026215720659">
+<h4 id="3-3-2-5-创建短暂带序号节点">3.3.2.5 创建短暂带序号节点</h4>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211026215806271.png" class="" title="image-20211026215806271">
+<h4 id="3-3-2-6-修改节点">3.3.2.6 修改节点</h4>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211026215848192.png" class="" title="image-20211026215848192">
+<h3 id="3-3-4-监听器原理">3.3.4 监听器原理</h3>
+<p>客户端注册监听它关心的目录节点，当目录节点发生变化（数据改变、节点删除、子目 录节点增加删除）时，ZooKeeper 会通知客户端。监听机制保证 ZooKeeper 保存的任何的数 据的任何改变都能快速的响应到监听了该节点的应用程序。</p>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211026220152902.png" class="" title="image-20211026220152902">
+<h4 id="3-3-4-1-节点的值变化监听">3.3.4.1 节点的值变化监听</h4>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211026220610359.png" class="" title="image-20211026220610359">
+<h4 id="3-3-4-2-节点的子节点变化监听">3.3.4.2 节点的子节点变化监听</h4>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211026220849104.png" class="" title="image-20211026220849104">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211026220910133.png" class="" title="image-20211026220910133">
+<h4 id="3-3-4-3-节点的删除与查看">3.3.4.3 节点的删除与查看</h4>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211026221008642.png" class="" title="image-20211026221008642">
+<h3 id="3-3-5-客户端API操作">3.3.5 客户端API操作</h3>
+<h4 id="3-3-5-1-初始化zookeeper">3.3.5.1 初始化zookeeper</h4>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">    * 初始化</span><br><span class="hljs-comment">    *</span><br><span class="hljs-comment">    * <span class="hljs-doctag">@throws</span> IOException ioexception</span><br><span class="hljs-comment">    */</span><br>   <span class="hljs-meta">@Before</span><br>   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">init</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;<br>       <span class="hljs-comment">//string多台服务器地址之间不允许有空格</span><br>       String coonectString = <span class="hljs-string">&quot;hadoop102:2181,hadoop103:2181,hadoop104:2181&quot;</span>;<br>       <span class="hljs-keyword">int</span> sessionTimeout = <span class="hljs-number">2000</span>;<br>       zkClient = <span class="hljs-keyword">new</span> ZooKeeper(coonectString, sessionTimeout, <span class="hljs-keyword">new</span> Watcher() &#123;<br>           <span class="hljs-comment">/**</span><br><span class="hljs-comment">            * 这是监听线程，观察服务器集群中是否有新的节点变化</span><br><span class="hljs-comment">            *</span><br><span class="hljs-comment">            * <span class="hljs-doctag">@param</span> watchedEvent 关注的事件</span><br><span class="hljs-comment">            */</span><br>           <span class="hljs-meta">@Override</span><br>           <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">process</span><span class="hljs-params">(WatchedEvent watchedEvent)</span> </span>&#123;<br>               List&lt;String&gt; children = <span class="hljs-keyword">null</span>;<br>               <span class="hljs-keyword">try</span> &#123;<br>                   children = zkClient.getChildren(<span class="hljs-string">&quot;/&quot;</span>, <span class="hljs-keyword">true</span>);<br>               &#125; <span class="hljs-keyword">catch</span> (KeeperException e) &#123;<br>                   e.printStackTrace();<br>               &#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;<br>                   e.printStackTrace();<br>               &#125;<br>               <span class="hljs-keyword">for</span> (String child : children) &#123;<br>                   System.out.println(<span class="hljs-string">&quot;子节点：&quot;</span> + child);<br>               &#125;<br>           &#125;<br>       &#125;);<br>   &#125;<br></code></pre></td></tr></table></figure>
+<h4 id="3-3-5-2-创建节点">3.3.5.2 创建节点</h4>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 创建节点</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">create</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> InterruptedException, KeeperException </span>&#123;<br>        String nodeCreated = zkClient.create(<span class="hljs-string">&quot;/atguigu&quot;</span>, <span class="hljs-string">&quot;ss.avi&quot;</span>.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);<br>    &#125;<br></code></pre></td></tr></table></figure>
+<h4 id="3-3-5-3-查询子节点">3.3.5.3 查询子节点</h4>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">    * 监听子节点</span><br><span class="hljs-comment">    */</span><br>   <span class="hljs-meta">@Test</span><br>   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">getChildNode</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> InterruptedException, KeeperException </span>&#123;<br>       List&lt;String&gt; children = zkClient.getChildren(<span class="hljs-string">&quot;/&quot;</span>, <span class="hljs-keyword">true</span>);<br>       <span class="hljs-keyword">for</span> (String child : children) &#123;<br>           System.out.println(<span class="hljs-string">&quot;子节点：&quot;</span> + child);<br>       &#125;<br>   &#125;<br></code></pre></td></tr></table></figure>
+<h4 id="3-3-5-4-判断节点是否存在">3.3.5.4 判断节点是否存在</h4>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">    * 判断节点是否存在</span><br><span class="hljs-comment">    */</span><br>   <span class="hljs-meta">@Test</span><br>   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">exist</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> InterruptedException, KeeperException </span>&#123;<br>       Stat stat = zkClient.exists(<span class="hljs-string">&quot;/atguigu&quot;</span>, <span class="hljs-keyword">false</span>);<br>       System.out.println(stat == <span class="hljs-keyword">null</span> ? <span class="hljs-string">&quot;not exist&quot;</span> : <span class="hljs-string">&quot;exist&quot;</span>);<br>   &#125;<br></code></pre></td></tr></table></figure>
+<h2 id="3-4-客户端向服务器端写数据流程">3.4 客户端向服务器端写数据流程</h2>
+<ol>
+<li>
+<p><strong>向leader节点写数据流程</strong></p>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211026225528071.png" class="" title="image-20211026225528071">
+<p>实际上当服务器集群中<strong>超过半数的节点</strong>完成write操作，就由leader返回ack通知</p>
+</li>
+<li>
+<p><strong>向follower节点写数据流程</strong></p>
+</li>
+</ol>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211026225541675.png" class="" title="image-20211026225541675">
+<p>​	当数据流向follower时，<strong>follower不会先进行write操作，而是先进行write请求转发到leader</strong>，再由leader进行write请求分发，可谓等级森严。<strong>当流向follower完成write操作时，返回ack给client，而不是由leader返回。</strong></p>
+<h1>4. 服务器动态上下线监听案例</h1>
+<h2 id="4-1-需求">4.1 需求</h2>
+<p>在分布式系统中，主节点可以用多台，可以动态上下线，任意一台客户端都能实时感受到主节点服务器的上下线</p>
+<h2 id="4-2-需求分析">4.2 需求分析</h2>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211027094852005.png" class="" title="image-20211027094852005">
+<p>zookeeper集群中 主要分两大类，一类是服务器，一类是客户端，服务器主要用作create节点，客户端主要用作get节点。</p>
+<h2 id="4-3-具体代码">4.3 具体代码</h2>
+<ol>
+<li>
+<p>在服务器集群中 create /server “servers”</p>
+</li>
+<li>
+<p>服务器端向zookeeper注册代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> bjut.kengkeng.test;<br><br><span class="hljs-keyword">import</span> org.apache.zookeeper.*;<br><br><span class="hljs-keyword">import</span> java.io.IOException;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 分发服务器</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> guolonghang</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@date</span> 2021-10-27</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DistributeServer</span> </span>&#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * zk服务器</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> ZooKeeper zkServer;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 会话超时</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> sessionTimeout;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 连接地址</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String connString;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 主方法</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> args arg游戏</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> IOException          ioexception</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> InterruptedException 中断异常</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> KeeperException      门将例外</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> IOException, InterruptedException, KeeperException </span>&#123;<br><br>        DistributeServer server = <span class="hljs-keyword">new</span> DistributeServer();<br>        <span class="hljs-comment">//1.获取zk集群</span><br>        server.getConnect();<br>        <span class="hljs-comment">//2.注册服务器到集群中</span><br>        server.registry(args[<span class="hljs-number">0</span>]);<br>        <span class="hljs-comment">//3.启动业务</span><br>        server.business();<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 业务</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> InterruptedException 中断异常</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">business</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> InterruptedException </span>&#123;<br>        Thread.sleep(<span class="hljs-number">1000</span>);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 注册</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> hostname 主机名</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> InterruptedException 中断异常</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> KeeperException      门将例外</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">registry</span><span class="hljs-params">(String hostname)</span> <span class="hljs-keyword">throws</span> InterruptedException, KeeperException </span>&#123;<br>			String path = <span class="hljs-string">&quot;/servers/&quot;</span>+hostname;<br>      String status = zkServer.create(path, hostname.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);<br>        System.out.println(status);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 获得连接</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> IOException ioexception</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">getConnect</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;<br>        connString = <span class="hljs-string">&quot;&quot;</span>;<br>        sessionTimeout = <span class="hljs-number">0</span>;<br>        zkServer = <span class="hljs-keyword">new</span> ZooKeeper(connString, sessionTimeout, <span class="hljs-keyword">new</span> Watcher() &#123;<br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">process</span><span class="hljs-params">(WatchedEvent watchedEvent)</span> </span>&#123;<br>            &#125;<br>        &#125;);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>客户端代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> bjut.kengkeng.test;<br><br><span class="hljs-keyword">import</span> org.apache.zookeeper.KeeperException;<br><span class="hljs-keyword">import</span> org.apache.zookeeper.WatchedEvent;<br><span class="hljs-keyword">import</span> org.apache.zookeeper.Watcher;<br><span class="hljs-keyword">import</span> org.apache.zookeeper.ZooKeeper;<br><br><span class="hljs-keyword">import</span> java.io.IOException;<br><span class="hljs-keyword">import</span> java.util.ArrayList;<br><span class="hljs-keyword">import</span> java.util.List;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 分配客户</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> guolonghang</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@date</span> 2021-10-27</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DistributeClient</span> </span>&#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 康涅狄格州的字符串</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String connString;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 会话超时</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> sessionTimeout;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * zk的客户</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> ZooKeeper zkClient;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 主要</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> args arg游戏</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> IOException          ioexception</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> InterruptedException 中断异常</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> KeeperException      门将例外</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> IOException, InterruptedException, KeeperException </span>&#123;<br><br>        DistributeClient client = <span class="hljs-keyword">new</span> DistributeClient();<br>        <span class="hljs-comment">//1.获取zk连接</span><br>        client.getConnect();<br>        <span class="hljs-comment">//2.监听/servers节点路径的变化(监听器的编写)</span><br>        client.getServerList(args[<span class="hljs-number">0</span>]);<br>        <span class="hljs-comment">//3.业务逻辑</span><br>        client.business();<br><br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 业务</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> InterruptedException 中断异常</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">business</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> InterruptedException </span>&#123;<br>        Thread.sleep(<span class="hljs-number">1000</span>);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 获取服务器列表</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> path 路径</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> InterruptedException 中断异常</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> KeeperException      门将例外</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">getServerList</span><span class="hljs-params">(String path)</span> <span class="hljs-keyword">throws</span> InterruptedException, KeeperException </span>&#123;<br>        List&lt;String&gt; children = zkClient.getChildren(path, <span class="hljs-keyword">true</span>);<br>        ArrayList&lt;String&gt; serverChildren = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();<br>        <span class="hljs-keyword">for</span> (String child : children) &#123;<br>            <span class="hljs-keyword">byte</span>[] data = zkClient.getData(path + child, <span class="hljs-keyword">false</span>, <span class="hljs-keyword">null</span>);<br>            serverChildren.add(data.toString());<br>        &#125;<br>        System.out.println(serverChildren);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 获得连接</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> IOException ioexception</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">getConnect</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;<br>        connString = <span class="hljs-string">&quot;hadoop102:2181,hadoop103:2181,hadoop104:2181&quot;</span>;<br>        sessionTimeout = <span class="hljs-number">0</span>;<br>        zkClient = <span class="hljs-keyword">new</span> ZooKeeper(connString, sessionTimeout, <span class="hljs-keyword">new</span> Watcher() &#123;<br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">process</span><span class="hljs-params">(WatchedEvent watchedEvent)</span> </span>&#123;<br>            &#125;<br>        &#125;);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="4-4-测试">4.4 测试</h2>
+<p>//todo</p>
+<h1>5. zookeeper分布式锁案例</h1>
+<p><strong>什么叫做分布式锁呢？</strong><br>
+比如说&quot;进程   1&quot;在使用该资源的时候，会先去获得锁，&quot;进程   1&quot;获得锁以后会对该资源保持独占，这样其他进程就无法访问资源，&quot;进程 1&quot;用完该资源以后就将锁释放掉，让其他进程来获得锁，那么通过这个锁机制，我们就能保证了分布式系统中多个进程能够有序的访问该临界资源。那么我们把这个分布式环境下的这个锁叫作分布式锁。</p>
+<h2 id="5-1-原生zookeeper分布式锁案例">5.1 原生zookeeper分布式锁案例</h2>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211027104946833.png" class="" title="image-20211027104946833">
+<ol>
+<li>当多台客户端同时访问zookeeper集群时，zookeeper集群会将所有的client都创建一个临时顺序节点，其目录为/locks</li>
+<li>在locks中的节点按照其编号顺序进行取锁访问，处理业务。</li>
+<li>处理完毕后，delete释放锁，进行下一个节点的业务处理。</li>
+<li>有点像AQS中悲观锁的思想，先进先出。</li>
+</ol>
+<h3 id="5-1-1-zookeeper分布式锁实现">5.1.1 zookeeper分布式锁实现</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//全局变量</span><br><span class="hljs-comment">/**</span><br><span class="hljs-comment">     * zookeeper集群连接地址</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> String connString;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 会话超时</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> sessionTimeout;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * zk服务器</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> ZooKeeper zkServer;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 看路</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> String watchPath;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 倒计时门闩</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> CountDownLatch countDownLatch = <span class="hljs-keyword">new</span> CountDownLatch(<span class="hljs-number">1</span>);<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 观察等待</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> CountDownLatch watchAwait = <span class="hljs-keyword">new</span> CountDownLatch(<span class="hljs-number">1</span>);<br></code></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//构造器</span><br><span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 分布式锁 构造器</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> IOException          ioexception</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> InterruptedException 中断异常</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> KeeperException      门将例外</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">DistributeLock</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException, InterruptedException, KeeperException </span>&#123;<br>        <span class="hljs-comment">//1.获取连接</span><br>        zkServer = <span class="hljs-keyword">new</span> ZooKeeper(connString, sessionTimeout, <span class="hljs-keyword">new</span> Watcher() &#123;<br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">process</span><span class="hljs-params">(WatchedEvent watchedEvent)</span> </span>&#123;<br>                <span class="hljs-comment">//如果连接上zookeeper需要释放countDownLatch</span><br>                <span class="hljs-keyword">if</span> (watchedEvent.getState()== Event.KeeperState.SyncConnected)&#123;<br>                    countDownLatch.countDown();<br>                &#125;<br>                <span class="hljs-comment">//节点路径变化需要释放watchAwait</span><br>                <span class="hljs-keyword">if</span> (watchedEvent.getType()==Event.EventType.NodeDeleted&amp;&amp;watchedEvent.getPath().equals(watchAwait))&#123;<br>                    watchAwait.countDown();<br>                &#125;<br>            &#125;<br>        &#125;);<br>        <span class="hljs-comment">//等待zk创建成功</span><br>        countDownLatch.await();<br>        <span class="hljs-comment">//2.判断根节点/locks是否存在</span><br>        Stat stat = zkServer.exists(<span class="hljs-string">&quot;/locks&quot;</span>, <span class="hljs-keyword">true</span>);<br>        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">null</span> == stat) &#123;<br>            <span class="hljs-comment">//服务器创建带序列号带临时节点</span><br>            zkServer.create(<span class="hljs-string">&quot;/locks&quot;</span>, <span class="hljs-string">&quot;locks&quot;</span>.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);<br>        &#125;<br>    &#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//加锁</span><br> <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * zk锁</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">zkLock</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-comment">//客户端创建临时带序号节点</span><br>        <span class="hljs-keyword">try</span> &#123;<br>            String currNode = zkServer.create(<span class="hljs-string">&quot;/locks/&quot;</span> + <span class="hljs-string">&quot;seq-&quot;</span>, <span class="hljs-keyword">null</span>, ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);<br><br>            <span class="hljs-comment">//查看/locks目录下的节点</span><br>            List&lt;String&gt; children = zkServer.getChildren(<span class="hljs-string">&quot;/locks&quot;</span>, <span class="hljs-keyword">false</span>);<br>            <span class="hljs-comment">//判断当前节点是否为当前目录下最小序号节点，是：获取到锁，否：监听前一个节点</span><br>            <span class="hljs-keyword">if</span> (children.size() == <span class="hljs-number">1</span>) &#123;<br>                <span class="hljs-keyword">return</span>;<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                <span class="hljs-comment">//排序</span><br>                Collections.sort(children);<br>                <span class="hljs-comment">//获取当前节点名</span><br>                String currNodeName = currNode.substring(<span class="hljs-string">&quot;/locks/&quot;</span>.length());<br>                <span class="hljs-comment">//找到当前集合位置</span><br>                <span class="hljs-keyword">int</span> currNodeIndex = children.indexOf(currNodeName);<br>                <span class="hljs-keyword">if</span> (-<span class="hljs-number">1</span> == currNodeIndex) &#123;<br>                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> RuntimeException(<span class="hljs-string">&quot;数据异常&quot;</span>);<br>                &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-number">1</span> == currNodeIndex) &#123;<br>                    <span class="hljs-comment">//只有一个节点，就直接获取锁</span><br>                    <span class="hljs-keyword">return</span>;<br>                &#125; <span class="hljs-keyword">else</span> &#123;<br>                    <span class="hljs-comment">//监听前一个节点</span><br>                    watchPath = <span class="hljs-string">&quot;/locks/&quot;</span> + children.get(currNodeIndex - <span class="hljs-number">1</span>);<br>                    zkServer.getData(watchPath, <span class="hljs-keyword">true</span>, <span class="hljs-keyword">null</span>);<br>                    <span class="hljs-comment">//确保监听</span><br>                    watchAwait.await();<br>                    <span class="hljs-keyword">return</span>;<br>                &#125;<br>            &#125;<br><br>        &#125; <span class="hljs-keyword">catch</span> (KeeperException e) &#123;<br>            e.printStackTrace();<br>        &#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;<br>            e.printStackTrace();<br>        &#125; <span class="hljs-keyword">finally</span> &#123;<br>        &#125;<br><br>    &#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//解锁</span><br><span class="hljs-comment">/**</span><br><span class="hljs-comment">     * zk解锁</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">zkUnlock</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-comment">//删除节点</span><br>        <span class="hljs-keyword">try</span> &#123;<br>            zkServer.delete(<span class="hljs-string">&quot;/locks/&quot;</span>,-<span class="hljs-number">1</span>);<br>        &#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;<br>            e.printStackTrace();<br>        &#125; <span class="hljs-keyword">catch</span> (KeeperException e) &#123;<br>            e.printStackTrace();<br>        &#125; <span class="hljs-keyword">finally</span> &#123;<br>        &#125;<br>    &#125;<br></code></pre></td></tr></table></figure>
+<p>总结：zookeeper原生分布式锁实现主要是依托<strong>创建一个子节点目录群</strong>实现</p>
+<ol>
+<li>当多个client访问zookeeper集群时，服务器端会在/locks/文件下为每个client创建一个带序号的临时节点，这就是zkLock加锁</li>
+<li>每个client按照节点顺序去执行。当业务逻辑执行完成后，删除自己的临时节点。</li>
+<li>其中<strong>countDownLatch</strong>的作用是为了保证代码的健壮性，既确保可以连接到zookeeper集群以及可以监听到“当前节点”</li>
+</ol>
+<h3 id="5-1-2-zookeeper分布式锁测试">5.1.2 zookeeper分布式锁测试</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> bjut.kengkeng.test;<br><br><span class="hljs-keyword">import</span> org.apache.zookeeper.KeeperException;<br><br><span class="hljs-keyword">import</span> java.io.IOException;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DistributedLockTest</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> InterruptedException, IOException, KeeperException </span>&#123;<br>        <span class="hljs-keyword">final</span> DistributeLock lock1 = <span class="hljs-keyword">new</span> DistributeLock();<br>        <span class="hljs-keyword">final</span> DistributeLock lock2 = <span class="hljs-keyword">new</span> DistributeLock();<br>        <span class="hljs-keyword">new</span> Thread(<span class="hljs-keyword">new</span> Runnable() &#123;<br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span> </span>&#123; <span class="hljs-comment">// 获取锁对象 </span><br>                <span class="hljs-keyword">try</span> &#123;<br>                    lock1.zkLock();<br>                    System.out.println(<span class="hljs-string">&quot;线程 1获取锁&quot;</span>);<br>                    Thread.sleep(<span class="hljs-number">5</span> * <span class="hljs-number">1000</span>);<br>                    lock1.zkUnlock();<br>                    System.out.println(<span class="hljs-string">&quot;线程 1释放锁&quot;</span>);<br>                &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>                    e.printStackTrace();<br>                &#125;<br><br><br>            &#125;<br>        &#125;).start();<br><br>        <span class="hljs-keyword">new</span> Thread(() -&gt; &#123;<br>            <span class="hljs-keyword">try</span> &#123;<br>                lock2.zkLock();<br>                System.out.println(<span class="hljs-string">&quot;线程 1获取锁&quot;</span>);<br>                Thread.sleep(<span class="hljs-number">5</span> * <span class="hljs-number">1000</span>);<br>                lock2.zkUnlock();<br>                System.out.println(<span class="hljs-string">&quot;线程 1释放锁&quot;</span>);<br>            &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>                e.printStackTrace();<br>            &#125;<br><br><br>        &#125;).start();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="5-2-Curator-框架实现分布式锁案例">5.2 Curator 框架实现分布式锁案例</h2>
+<h3 id="5-2-1-原生API存在的问题">5.2.1 原生API存在的问题</h3>
+<ol>
+<li>会话连接是异步的，需要自己去处理。比如使用  CountDownLatch</li>
+<li>Watch 需要重复注册，不然就不能生效</li>
+<li>开发的复杂性还是比较高的</li>
+<li>不支持多节点删除和创建。需要自己去递归</li>
+</ol>
+<h3 id="5-2-2-代码示例">5.2.2 代码示例</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> bjut.kengkeng.test;<br><br><span class="hljs-keyword">import</span> org.apache.curator.framework.CuratorFramework;<br><span class="hljs-keyword">import</span> org.apache.curator.framework.CuratorFrameworkFactory;<br><span class="hljs-keyword">import</span> org.apache.curator.framework.recipes.locks.InterProcessMutex;<br><span class="hljs-keyword">import</span> org.apache.curator.retry.ExponentialBackoffRetry;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 馆长锁</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> guolonghang</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@date</span> 2021-10-27</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CuratorLock</span> </span>&#123;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 主要</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> args arg游戏</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        <span class="hljs-comment">//创建分布式锁1</span><br>        InterProcessMutex lock1 = <span class="hljs-keyword">new</span> InterProcessMutex(getCuratorFramework(), <span class="hljs-string">&quot;/locks&quot;</span>);<br>        <span class="hljs-comment">//创建分布式锁2</span><br>        InterProcessMutex lock2 = <span class="hljs-keyword">new</span> InterProcessMutex(getCuratorFramework(), <span class="hljs-string">&quot;/locks&quot;</span>);<br><br>        <span class="hljs-keyword">new</span> Thread(() -&gt; &#123;<br>            <span class="hljs-keyword">try</span> &#123;<br>                lock1.acquire();<br>                System.out.println(<span class="hljs-string">&quot;线程1获取锁&quot;</span>);<br>                lock1.release();<br>                System.out.println(<span class="hljs-string">&quot;释放锁&quot;</span>);<br>                lock1.acquire();<br>                System.out.println(<span class="hljs-string">&quot;线程1再次获取锁&quot;</span>);<br>                lock1.release();<br>                System.out.println(<span class="hljs-string">&quot;再次释放锁&quot;</span>);<br>            &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>                e.printStackTrace();<br>            &#125; <span class="hljs-keyword">finally</span> &#123;<br>            &#125;<br>        &#125;).start();<br><br>        <span class="hljs-keyword">new</span> Thread(() -&gt; &#123;<br>            <span class="hljs-keyword">try</span> &#123;<br>                lock2.acquire();<br>                System.out.println(<span class="hljs-string">&quot;线程2获取锁&quot;</span>);<br>                lock2.release();<br>                System.out.println(<span class="hljs-string">&quot;释放锁&quot;</span>);<br>                lock2.acquire();<br>                System.out.println(<span class="hljs-string">&quot;线程2再次获取锁&quot;</span>);<br>                lock2.release();<br>                System.out.println(<span class="hljs-string">&quot;再次释放锁&quot;</span>);<br>            &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>                e.printStackTrace();<br>            &#125; <span class="hljs-keyword">finally</span> &#123;<br>            &#125;<br>        &#125;).start();<br><br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 得到馆长框架</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> &#123;<span class="hljs-doctag">@code</span> CuratorFramework&#125;</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> CuratorFramework <span class="hljs-title">getCuratorFramework</span><span class="hljs-params">()</span> </span>&#123;<br>        ExponentialBackoffRetry retry = <span class="hljs-keyword">new</span> ExponentialBackoffRetry(<span class="hljs-number">3000</span>, <span class="hljs-number">3</span>);<br>        CuratorFramework curatorFramework = CuratorFrameworkFactory.builder().connectString(<span class="hljs-string">&quot;hadoop102:2181&quot;</span>)<br>                .sessionTimeoutMs(<span class="hljs-number">2000</span>)<br>                .connectionTimeoutMs(<span class="hljs-number">2000</span>)<br>                .retryPolicy(retry).build();<br><br>        <span class="hljs-comment">//启动客户端</span><br>        curatorFramework.start();<br>        <span class="hljs-keyword">return</span> curatorFramework;<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<h1>6. 企业面试真题</h1>
+<h2 id="6-1-选举机制">6.1 选举机制</h2>
+<p>半数机制，超过半数的投票通过，即通过。</p>
+<ol>
+<li>
+<p>第一次启动选举规则：<br>
+投票过半数时，服务器  id 大的胜出</p>
+</li>
+<li>
+<p>第二次启动选举规则：<br>
+①EPOCH 大的直接胜出<br>
+②EPOCH 相同，事务 id 大的胜出 ③事务 id 相同，服务器 id 大的胜出</p>
+</li>
+</ol>
+<h2 id="6-2-生产集群安装多少zk合适">6.2 生产集群安装多少zk合适</h2>
+<p>安装奇数台。<br>
+生产经验：<br>
+⚫         10 台服务器：3 台 zk；<br>
+⚫         20 台服务器：5 台 zk；<br>
+⚫         100 台服务器：11 台 zk；<br>
+⚫         200 台服务器：11 台 zk<br>
+服务器台数多：好处，提高可靠性；坏处：提高通信延时</p>
+<h2 id="6-3-常用命令">6.3 常用命令</h2>
+<p>ls、get、create、delete</p>
+<h1>7.算法基础</h1>
+<h2 id="7-1-拜占庭将军问题">7.1 拜占庭将军问题</h2>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211027162834105.png" class="" title="image-20211027162834105">
+<h2 id="7-2-Paxos算法">7.2 Paxos算法</h2>
+<p><strong>Paxos算法</strong>：一种基于消息传递且具有高度容错特性的一致性算法。</p>
+<p><strong>Paxos算法解决的问题</strong>：如何快速正确的在一个分布<code>式系统中实现数据的一致性，并且保证</code>不论发生什么异常，都不会破坏整个系统的一致性</p>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211028100509787.png" class="">
+<h3 id="7-2-1-算法描述">7.2.1 算法描述</h3>
+<p>在一个Paxos系统中，将所有的节点划分成了Proposer（提议者）、Acceptor（接受者）、learner（学习者）。每个节点都可以身兼数职。</p>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211028102420149.png" class="" title="image-20211028102420149">
+<p>一个完整的Paxos算法流程分为三个阶段：</p>
+<ol>
+<li>prepare准备阶段
+<ol>
+<li>Proposer向多个Acceptor发出propose请求promise（承诺）。</li>
+<li>Acceptor对收到的propose进行promise（承诺）</li>
+</ol>
+</li>
+<li>Accept接收阶段
+<ol>
+<li>Proposer收到多数Acceptor的promise后，向Acceptor发出propose请求</li>
+<li>Acceptor针对收到的promise进行accept处理</li>
+</ol>
+</li>
+<li>Learn学习阶段：Proposer将形成的决议发给全部Learner</li>
+</ol>
+<h3 id="7-2-2-算法流程">7.2.2 算法流程</h3>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211028104555482.png" class="" title="image-20211028104555482">
+<ol>
+<li><strong>Prepare</strong>: Proposer生成全局唯一旦递增的Proposal 1D，向所有Acceptor发送Propose请求，这里无需携带提案内容，只携<br>
+带Proposal ID即可</li>
+<li><strong>Promise</strong>: Acceptor收到Propose请求后，做出“两个承诺，一个应答”
+<ol>
+<li>不再接收Proposal ID小于等于（注意：这里是＜二）当前请求的Propose请求。</li>
+<li>不再接收Proposal ID小于（注意：这里是＜）当前请求的Accept请求。</li>
+<li>不违背以前做出的承诺下，回复己经Accept过的提案中Proposal ID最大的那个提案的Value 和Proposal DD，没有则<br>
+返回空值</li>
+</ol>
+</li>
+<li><strong>Propose</strong>：Proposer收到多数Acceptor的Promnise应答后，从应答中选择Proposal ID最大的提案的Value，作为本次要发起的<br>
+提案。如果所有应答的提案Value均为空值，则可以自己随意决定提案Value。然后携带当前Proposal ID，向所有Acceptor发送<br>
+Propose请求。</li>
+<li><strong>Accept</strong>: Acceptor收到Propose请求后，在不违背自己之前做出的承诺下，接受并持久化当 前ProposalID和提家Value。</li>
+<li><strong>Learn</strong>: Proposer收到多数Acceptor的Accept后，决议形成，将形成的决议发送给所有Learner。</li>
+</ol>
+<h3 id="7-2-3-举例">7.2.3 举例</h3>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211028105528384.png" class="" title="image-20211028105528384">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211028105601544.png" class="" title="image-20211028105601544">
+<p>Paxos 算法缺陷：在网络复杂的情况下，一个应用  Paxos 算法的分布式系统，可能很久 无法收敛，甚至陷入活锁的情况。</p>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211028145240380.png" class="" title="image-20211028145240380">
+<p>造成这种情况的原因是系统中有一个以上的 Proposer，多 个 Proposers 相互争夺 Acceptor， 造成迟迟无法达成一致的情况。**针对这种情况，一种改进的 Paxos 算法被提出：从系统中选 出一个节点作为 Leader，只有 Leader 能够发起提案。**这样，一次 Paxos 流程中只有一个 Proposer，不会出现活锁的情况，此时只会出现例子中第一种情况。</p>
+<h2 id="7-3-ZAB算法">7.3 ZAB算法</h2>
+<h3 id="7-3-1-什么是ZAB算法">7.3.1 什么是ZAB算法</h3>
+<p>Zab 借鉴了 Paxos 算法，是特别为 Zookeeper 设计的<strong>支持崩溃恢复的原子广播协议</strong>。基 于该协议，Zookeeper 设计为**只有一台客户端（Leader）**负责处理外部的写事务请求，然后 Leader 客户端将数据同步到其他 Follower 节点。<strong>即 Zookeeper 只有一个 Leader 可以发起提 案。</strong></p>
+<h3 id="7-3-2-ZAB协议内容">7.3.2 ZAB协议内容</h3>
+<p>Zab 协议包括两种基本的模式：消息广播、崩溃恢复。</p>
+<h4 id="7-3-2-1-消息广播模式">7.3.2.1 消息广播模式</h4>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211028151529925.png" class="" title="image-20211028151529925">
+<ol>
+<li>客户端发起一个写操作请求。</li>
+<li>Leader服务器<strong>将客户端的请求转化为事务Proposal 提案</strong>，同时<strong>为每个Proposal 分配一个全局的1D，即zxid.</strong></li>
+<li>Leader服务器<strong>为每个Follower服务器分配一个单独的队列</strong>，然后将需要广播的 Proposal依次放到队列中去，<strong>并且根据FIFO策略进行消息发送。</strong></li>
+<li>Follower接收到Proposal后，会首先<strong>将其以事务日志的方式写入本地磁盘</strong>中，写入成功后<strong>向Leader反馈一个Ack响应消息</strong></li>
+<li>Ieader接收到<strong>超过半数以上Follower的Ack响应消息</strong>后，即认为消息发送成功，可以发送commit消息。</li>
+<li>Leader向所有Follower广播commit消息，同时自身也会完成事务提交。Follower 接收到commit消息后，会将上一条事务提交。</li>
+<li>zookeeper采用Zab协议的核心，就是只要有一台服务器提交了Proposal，就要确保所有的服务器最终都能正确提交Proposal。</li>
+</ol>
+<p><strong>【问题】</strong></p>
+<p>ZAB协议针对于事务请求的操作类似于一个两段式提交操作。</p>
+<p>（1）广播事务阶段</p>
+<p>（2）广播提交阶段</p>
+<p>（1）但是当Leader提交一个proposal后，就接着宕机了，Follower都没有办法完成proposal</p>
+<p>（2）Leader收到半数的ACK后，还没有来的及commit，就宕机了，Follower也没有办法完成proposal</p>
+<h4 id="7-3-2-2-崩溃恢复">7.3.2.2 崩溃恢复</h4>
+<p>一旦Leader出现了崩溃现象或者因为网络问题与过半的follower失去了连接，Leader就会进入崩溃恢复模式。</p>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211028152824245.png" class="" title="image-20211028152824245">
+<ol>
+<li>假设两种服务器异常情况：
+<ol>
+<li>假设一个事务 在Ieader提出之后，Leader挂了。</li>
+<li>一个事务在Ieader上提交了，并且过半的Follower都响应Ack了，但是Leader在Commit消息发出之前挂了。</li>
+</ol>
+</li>
+<li>zab协议崩溃恢复要求满足以下两个要求：
+<ol>
+<li>确保已经被Ieader提交的提案Proposal，必须最终被所有的Follower服务器提交。</li>
+<li>确保丢弃已经被Icader提出的，但是没有被提交的Proposal。（丢弃胎死腹中的提案）<br>
+（己经产生的提案，Follower必须执行)</li>
+</ol>
+</li>
+</ol>
+<p>崩溃恢复主要包括两个阶段即：<strong>【Leader选举】和【数据恢复】</strong></p>
+<p><strong>【Leader选举】</strong></p>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211028153512643.png" class="" title="image-20211028153512643">
+<p>Leader选举:根据上述要求，Zab协议需要保证选举出来的Leader需要要满足以下条件:</p>
+<p>(1)新选举出来的Leader不能包含未提交的Proposal。<strong>即新Leader必须都是已经提交了Proposal的Follower服务器节点。</strong></p>
+<p>(2)新选举的Leader节点中含有最大的zxid。<strong>这样做的好处是可以近避免Leader服务器检查Proposal的提交和丢弃工作。</strong></p>
+<p><strong>【数据恢复】</strong></p>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211028153957554.png" class="" title="image-20211028153957554">
+<p>Zab如何数据同步:</p>
+<p>(1)完成Leader选举后，在正式开始工作之前(接收事务请求，然后提出新的Proposal)，Leader服务器会<strong>首先确认事务日志中的所有的Proposal 是否已经被集群中过半的服务器Commit。</strong></p>
+<p>(2)**Leader服务器需要确保所有的Follower服务器能够接收到每条事务的Proposal，并且能将所有已经提交的事务Proposal，应用到内存数据中。**等到Follower将所有尚未同步的事务Proposal都在Leader服务器上同步过，并且应用到内存数据中以后，Leader才会把该Follower加入到真正可用的Follower列表中。</p>
+<h2 id="7-4-CAP理论">7.4 CAP理论</h2>
+<p>CAP理论告诉我们，一个分布式系统不可能同时满足以下三种</p>
+<ul>
+<li><strong>一致性(C:Consistency)</strong></li>
+<li><strong>可用性(A:Available)</strong></li>
+<li><strong>分区容错性(P:Partition Tolerance)</strong></li>
+</ul>
+<p>这三个基本需求，最多只能同时满足其中的两项，<strong>因为P是必须的，因此往往选择就在CP或者AP中。</strong></p>
+<ol>
+<li>一致性(C:Consistency)：在分布式环境中，<strong>一致性是指数据在多个副本之间是否能够保持数据一致的特性</strong>。在一致性的需求下，<strong>当一个系统在数据一致的状态下执行更新操作后，应该保证系统的数据仍然处于一致的状态。</strong></li>
+<li>可用性(A:Available)：<strong>可用性是指系统提供的服务必须一直处于可用的状态</strong>，对于用户的每一个操作请求总是能够在有限的时间内返回结果。</li>
+<li>分区容错性(P:Partition Tolerance)：<strong>分布式系统在遇到任何网络分区故障的时候，仍然需要能够保证对外提供满足一致性和可用性的服务</strong>，除非是整个网络环境都发生了故障。</li>
+<li><strong>ZooKeeper保证的是CP</strong></li>
+<li>ZooKeeper不能保证每次服务请求的可用性。(注:在极端环境下，ZooKeeper可能会丢弃一些请求，消费者程序需要<br>
+重新请求才能获得结果)。所以说，ZooKeeper不能保证服务可用性。</li>
+<li>进行Leader选举时集群都是不可用。</li>
+</ol>
+<h1>8. 源码详解</h1>
+<h2 id="8-1-辅助源码">8.1 辅助源码</h2>
+<h3 id="8-1-1-持久化源码">8.1.1 持久化源码</h3>
+<p>Leader和follower的数据会在内存和磁盘各保存一份，所以需要将内存中的数据持久化到磁盘里</p>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029094728816.png" class="" title="image-20211029094728816">
+<p>（1）：SnapShot源码：快照的源码一般就是序列化和反序列化</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">SnapShot</span> </span>&#123;<br>    <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * deserialize a data tree from the last valid snapshot and </span><br><span class="hljs-comment">     * return the last zxid that was deserialized</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> dt the datatree to be deserialized into</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> sessions the sessions to be deserialized into</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> the last zxid that was deserialized from the snapshot</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> IOException</span><br><span class="hljs-comment">     * 反序列化</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">long</span> <span class="hljs-title">deserialize</span><span class="hljs-params">(DataTree dt, Map&lt;Long, Integer&gt; sessions)</span> </span><br><span class="hljs-function">        <span class="hljs-keyword">throws</span> IOException</span>;<br>    <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * persist the datatree and the sessions into a persistence storage</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> dt the datatree to be serialized</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> sessions </span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> IOException</span><br><span class="hljs-comment">     * 序列化</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">serialize</span><span class="hljs-params">(DataTree dt, Map&lt;Long, Integer&gt; sessions, </span></span><br><span class="hljs-params"><span class="hljs-function">            File name)</span> </span><br><span class="hljs-function">        <span class="hljs-keyword">throws</span> IOException</span>;<br>    <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * find the most recent snapshot file</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> the most recent snapshot file</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> IOException</span><br><span class="hljs-comment">     * 找到最近的快照</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function">File <span class="hljs-title">findMostRecentSnapshot</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * free resources from this snapshot immediately</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> IOException</span><br><span class="hljs-comment">     * 关闭</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">close</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>&#125; <br><br></code></pre></td></tr></table></figure>
+<p>（2）TxnLog 日志源码：一般就是对日志的增删改查或者一些定制化的功能</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">TxnLog</span> </span>&#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * Setter for ServerStats to monitor fsync threshold exceed</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> serverStats used to update fsyncThresholdExceedCount</span><br><span class="hljs-comment">     * 设置服务器的状态</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setServerStats</span><span class="hljs-params">(ServerStats serverStats)</span></span>;<br>    <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * roll the current</span><br><span class="hljs-comment">     * log being appended to</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> IOException </span><br><span class="hljs-comment">     * 回滚日志</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">rollLog</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * Append a request to the transaction log</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> hdr the transaction header</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> r the transaction itself</span><br><span class="hljs-comment">     * returns true iff something appended, otw false </span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> IOException</span><br><span class="hljs-comment">     * 追加日志</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">boolean</span> <span class="hljs-title">append</span><span class="hljs-params">(TxnHeader hdr, Record r)</span> <span class="hljs-keyword">throws</span> IOException</span>;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * Start reading the transaction logs</span><br><span class="hljs-comment">     * from a given zxid</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> zxid</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> returns an iterator to read the </span><br><span class="hljs-comment">     * next transaction in the logs.</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> IOException</span><br><span class="hljs-comment">     * 根据对应的事务ID读取日志</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function">TxnIterator <span class="hljs-title">read</span><span class="hljs-params">(<span class="hljs-keyword">long</span> zxid)</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * the last zxid of the logged transactions.</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> the last zxid of the logged transactions.</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> IOException</span><br><span class="hljs-comment">     * 得到最后一个日志事务ID</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">long</span> <span class="hljs-title">getLastLoggedZxid</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * truncate the log to get in sync with the </span><br><span class="hljs-comment">     * leader.</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> zxid the zxid to truncate at.</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> IOException </span><br><span class="hljs-comment">     * 删除</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">boolean</span> <span class="hljs-title">truncate</span><span class="hljs-params">(<span class="hljs-keyword">long</span> zxid)</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * the dbid for this transaction log. </span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> the dbid for this transaction log.</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> IOException</span><br><span class="hljs-comment">     * 获取BDID</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">long</span> <span class="hljs-title">getDbId</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * commit the transaction and make sure</span><br><span class="hljs-comment">     * they are persisted</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> IOException</span><br><span class="hljs-comment">     * 提交</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">commit</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException</span>;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> transaction log&#x27;s elapsed sync time in milliseconds</span><br><span class="hljs-comment">     * 获取同步时间</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">long</span> <span class="hljs-title">getTxnLogSyncElapsedTime</span><span class="hljs-params">()</span></span>;<br>   <br>    <span class="hljs-comment">/** </span><br><span class="hljs-comment">     * close the transactions logs</span><br><span class="hljs-comment">     * 关闭</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">close</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * an iterating interface for reading </span><br><span class="hljs-comment">     * transaction logs. </span><br><span class="hljs-comment">     * 读取日志的接口</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">TxnIterator</span> </span>&#123;<br>        <span class="hljs-comment">/**</span><br><span class="hljs-comment">         * return the transaction header.</span><br><span class="hljs-comment">         * <span class="hljs-doctag">@return</span> return the transaction header.</span><br><span class="hljs-comment">         * 获取头信息</span><br><span class="hljs-comment">         */</span><br>        <span class="hljs-function">TxnHeader <span class="hljs-title">getHeader</span><span class="hljs-params">()</span></span>;<br>        <br>        <span class="hljs-comment">/**</span><br><span class="hljs-comment">         * return the transaction record.</span><br><span class="hljs-comment">         * <span class="hljs-doctag">@return</span> return the transaction record.</span><br><span class="hljs-comment">         * 获取传输的内容</span><br><span class="hljs-comment">         */</span><br>        <span class="hljs-function">Record <span class="hljs-title">getTxn</span><span class="hljs-params">()</span></span>;<br>     <br>        <span class="hljs-comment">/**</span><br><span class="hljs-comment">         * go to the next transaction record.</span><br><span class="hljs-comment">         * <span class="hljs-doctag">@throws</span> IOException</span><br><span class="hljs-comment">         * 下一条资源</span><br><span class="hljs-comment">         */</span><br>        <span class="hljs-function"><span class="hljs-keyword">boolean</span> <span class="hljs-title">next</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>        <br>        <span class="hljs-comment">/**</span><br><span class="hljs-comment">         * close files and release the </span><br><span class="hljs-comment">         * resources</span><br><span class="hljs-comment">         * <span class="hljs-doctag">@throws</span> IOException</span><br><span class="hljs-comment">         * 关闭</span><br><span class="hljs-comment">         */</span><br>        <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">close</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>        <br>        <span class="hljs-comment">/**</span><br><span class="hljs-comment">         * Get an estimated storage space used to store transaction records</span><br><span class="hljs-comment">         * that will return by this iterator</span><br><span class="hljs-comment">         * <span class="hljs-doctag">@throws</span> IOException</span><br><span class="hljs-comment">         * 获取存储的大小</span><br><span class="hljs-comment">         */</span><br>        <span class="hljs-function"><span class="hljs-keyword">long</span> <span class="hljs-title">getStorageSize</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    &#125;<br>&#125;<br><br><br></code></pre></td></tr></table></figure>
+<p>（3）处理持久化的核心类</p>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029100817877.png" class="" title="image-20211029100817877">
+<h3 id="8-1-2-序列化源码">8.1.2 序列化源码</h3>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029100855921.png" class="" title="image-20211029100855921">
+<p>（1）序列化和反序列化</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Interface that is implemented by generated classes.</span><br><span class="hljs-comment"> * </span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@InterfaceAudience</span>.Public<br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Record</span> </span>&#123;<br>  <span class="hljs-comment">// 序列化</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">serialize</span><span class="hljs-params">(OutputArchive archive, String tag)</span></span><br><span class="hljs-function">        <span class="hljs-keyword">throws</span> IOException</span>;<br>  <span class="hljs-comment">// 反序列化</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">deserialize</span><span class="hljs-params">(InputArchive archive, String tag)</span></span><br><span class="hljs-function">        <span class="hljs-keyword">throws</span> IOException</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>（2）迭代</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Interface that acts as an iterator for deserializing maps.</span><br><span class="hljs-comment"> * The deserializer returns an instance that the record uses to</span><br><span class="hljs-comment"> * read vectors and maps. An example of usage is as follows:</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * &lt;code&gt;</span><br><span class="hljs-comment"> * Index idx = startVector(...);</span><br><span class="hljs-comment"> * while (!idx.done()) &#123;</span><br><span class="hljs-comment"> *   .... // read element of a vector</span><br><span class="hljs-comment"> *   idx.incr();</span><br><span class="hljs-comment"> * &#125;</span><br><span class="hljs-comment"> * &lt;/code&gt;</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Index</span> </span>&#123;<br>    <span class="hljs-comment">// 结束</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">done</span><span class="hljs-params">()</span></span>;<br>    <span class="hljs-comment">// 下一个</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">incr</span><span class="hljs-params">()</span></span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>(3) 序列化支持的数据类型</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Interface that alll the serializers have to implement.</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">OutputArchive</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">writeByte</span><span class="hljs-params">(<span class="hljs-keyword">byte</span> b, String tag)</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">writeBool</span><span class="hljs-params">(<span class="hljs-keyword">boolean</span> b, String tag)</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">writeInt</span><span class="hljs-params">(<span class="hljs-keyword">int</span> i, String tag)</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">writeLong</span><span class="hljs-params">(<span class="hljs-keyword">long</span> l, String tag)</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">writeFloat</span><span class="hljs-params">(<span class="hljs-keyword">float</span> f, String tag)</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">writeDouble</span><span class="hljs-params">(<span class="hljs-keyword">double</span> d, String tag)</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">writeString</span><span class="hljs-params">(String s, String tag)</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">writeBuffer</span><span class="hljs-params">(<span class="hljs-keyword">byte</span> buf[], String tag)</span></span><br><span class="hljs-function">        <span class="hljs-keyword">throws</span> IOException</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">writeRecord</span><span class="hljs-params">(Record r, String tag)</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">startRecord</span><span class="hljs-params">(Record r, String tag)</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">endRecord</span><span class="hljs-params">(Record r, String tag)</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">startVector</span><span class="hljs-params">(List&lt;?&gt; v, String tag)</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">endVector</span><span class="hljs-params">(List&lt;?&gt; v, String tag)</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">startMap</span><span class="hljs-params">(TreeMap&lt;?,?&gt; v, String tag)</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">endMap</span><span class="hljs-params">(TreeMap&lt;?,?&gt; v, String tag)</span> <span class="hljs-keyword">throws</span> IOException</span>;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>(4) 反序列化支持的数据类型</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Interface that all the Deserializers have to implement.</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">InputArchive</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">byte</span> <span class="hljs-title">readByte</span><span class="hljs-params">(String tag)</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">readBool</span><span class="hljs-params">(String tag)</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">readInt</span><span class="hljs-params">(String tag)</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">long</span> <span class="hljs-title">readLong</span><span class="hljs-params">(String tag)</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">float</span> <span class="hljs-title">readFloat</span><span class="hljs-params">(String tag)</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">readDouble</span><span class="hljs-params">(String tag)</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">readString</span><span class="hljs-params">(String tag)</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">byte</span>[] readBuffer(String tag) <span class="hljs-keyword">throws</span> IOException;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">readRecord</span><span class="hljs-params">(Record r, String tag)</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">startRecord</span><span class="hljs-params">(String tag)</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">endRecord</span><span class="hljs-params">(String tag)</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Index <span class="hljs-title">startVector</span><span class="hljs-params">(String tag)</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">endVector</span><span class="hljs-params">(String tag)</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Index <span class="hljs-title">startMap</span><span class="hljs-params">(String tag)</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">endMap</span><span class="hljs-params">(String tag)</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<h2 id="8-2-ZK-服务端初始化源码解析">8.2 ZK 服务端初始化源码解析</h2>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029101916331.png" class="" title="image-20211029101916331">
+<h3 id="8-2-1-ZK-服务端启动脚本分析">8.2.1 ZK 服务端启动脚本分析</h3>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029102200208.png" class="" title="image-20211029102200208">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029102302273.png" class="" title="image-20211029102302273">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029102414373.png" class="" title="image-20211029102414373">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029102508800.png" class="" title="image-20211029102508800">
+<h3 id="8-2-2-ZK-服务端启动入口">8.2.2 ZK 服务端启动入口</h3>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029103021012.png" class="" title="image-20211029103021012">
+<ol>
+<li>首先是创建了一个QuorumPeerMain实例对象，然后执行QuorumPeerMain.initializeAndRun()方法</li>
+</ol>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029103145824.png" class="" title="image-20211029103145824">
+<ol start="2">
+<li>其中initializeAndRun方法用来管理zk的配置信息</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">initializeAndRun</span><span class="hljs-params">(String[] args)</span></span><br><span class="hljs-function">        <span class="hljs-keyword">throws</span> ConfigException, IOException, AdminServerException</span><br><span class="hljs-function">    </span>&#123;<br>  			<span class="hljs-comment">// 1. 新建一个配置对象</span><br>        QuorumPeerConfig config = <span class="hljs-keyword">new</span> QuorumPeerConfig();<br>        <span class="hljs-keyword">if</span> (args.length == <span class="hljs-number">1</span>) &#123;<br>          <span class="hljs-comment">// 解析参数，获取zoo.cfg myid</span><br>            config.parse(args[<span class="hljs-number">0</span>]);<br>        &#125;<br><br>        <span class="hljs-comment">//  2. 启动定时任务，对过期的快照，执行删除（默认该功能关闭）</span><br>        DatadirCleanupManager purgeMgr = <span class="hljs-keyword">new</span> DatadirCleanupManager(config<br>                .getDataDir(), config.getDataLogDir(), config<br>                .getSnapRetainCount(), config.getPurgeInterval());<br>        purgeMgr.start();<br>				<span class="hljs-comment">// 3  启动集群</span><br>        <span class="hljs-keyword">if</span> (args.length == <span class="hljs-number">1</span> &amp;&amp; config.isDistributed()) &#123;<br>            runFromConfig(config);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            LOG.warn(<span class="hljs-string">&quot;Either no config or no quorum defined in config, running &quot;</span><br>                    + <span class="hljs-string">&quot; in standalone mode&quot;</span>);<br>            <span class="hljs-comment">// there is only server in the quorum -- run as standalone</span><br>            ZooKeeperServerMain.main(args);<br>        &#125;<br>    &#125;<br></code></pre></td></tr></table></figure>
+<h3 id="8-2-3-解析参数-zoo-cfg-和-myid">8.2.3 解析参数 zoo.cfg 和 myid</h3>
+<ol>
+<li>解析zoo.cfg 和 myid</li>
+</ol>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029103735304.png" class="" title="image-20211029103735304">
+<ol start="4">
+<li>根据路径解析zoo.cfg 然后将其转换为properties文件</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">parse</span><span class="hljs-params">(String path)</span> <span class="hljs-keyword">throws</span> ConfigException </span>&#123;<br>       LOG.info(<span class="hljs-string">&quot;Reading configuration from: &quot;</span> + path);<br>      <br>       <span class="hljs-keyword">try</span> &#123;<br>           File configFile = (<span class="hljs-keyword">new</span> VerifyingFileFactory.Builder(LOG)<br>               .warnForRelativePath()<br>               .failForNonExistingPath()<br>               .build()).create(path);<br>               <br>           Properties cfg = <span class="hljs-keyword">new</span> Properties();<br>           FileInputStream in = <span class="hljs-keyword">new</span> FileInputStream(configFile);<br>           <span class="hljs-keyword">try</span> &#123;<br>               cfg.load(in);<br>               configFileStr = path;<br>           &#125; <span class="hljs-keyword">finally</span> &#123;<br>               in.close();<br>           &#125;<br>           <span class="hljs-comment">// 构造成properties类型文件</span><br>           parseProperties(cfg);<br>       &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>           <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ConfigException(<span class="hljs-string">&quot;Error processing &quot;</span> + path, e);<br>       &#125; <span class="hljs-keyword">catch</span> (IllegalArgumentException e) &#123;<br>           <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ConfigException(<span class="hljs-string">&quot;Error processing &quot;</span> + path, e);<br>       &#125;   <br></code></pre></td></tr></table></figure>
+<ol start="5">
+<li>解析properties文件。<strong>zoo.cfg配置文件–&gt;properties文件–&gt;map集合</strong> 根据zoo.cfg配置文件对实例对象进行setter设置。完成初始化。</li>
+</ol>
+
+<ol start="6">
+<li>设置myid和QuorumPeerConfig</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setupMyId</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;<br>        File myIdFile = <span class="hljs-keyword">new</span> File(dataDir, <span class="hljs-string">&quot;myid&quot;</span>);<br>        <span class="hljs-comment">// standalone server doesn&#x27;t need myid file.</span><br>        <span class="hljs-keyword">if</span> (!myIdFile.isFile()) &#123;<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br>        BufferedReader br = <span class="hljs-keyword">new</span> BufferedReader(<span class="hljs-keyword">new</span> FileReader(myIdFile));<br>        String myIdString;<br>        <span class="hljs-keyword">try</span> &#123;<br>            myIdString = br.readLine();<br>        &#125; <span class="hljs-keyword">finally</span> &#123;<br>            br.close();<br>        &#125;<br>        <span class="hljs-keyword">try</span> &#123;<br>            serverId = Long.parseLong(myIdString);<br>            MDC.put(<span class="hljs-string">&quot;myid&quot;</span>, myIdString);<br>        &#125; <span class="hljs-keyword">catch</span> (NumberFormatException e) &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IllegalArgumentException(<span class="hljs-string">&quot;serverid &quot;</span> + myIdString<br>                    + <span class="hljs-string">&quot; is not a number&quot;</span>);<br>        &#125;<br>    &#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setupQuorumPeerConfig</span><span class="hljs-params">(Properties prop, <span class="hljs-keyword">boolean</span> configBackwardCompatibilityMode)</span></span><br><span class="hljs-function">            <span class="hljs-keyword">throws</span> IOException, ConfigException </span>&#123;<br>        quorumVerifier = parseDynamicConfig(prop, electionAlg, <span class="hljs-keyword">true</span>, configBackwardCompatibilityMode);<br>        setupMyId();<br>        setupClientPort();<br>        setupPeerType();<br>        checkValidity();<br>    &#125;<br></code></pre></td></tr></table></figure>
+<ol start="7">
+<li>小结
+<ol>
+<li>首先是创建了一个<strong>QuorumPeerMain</strong>实例对象，然后执行QuorumPeerMain.i**nitializeAndRun()**方法</li>
+<li>其中initializeAndRun方法用来管理zk的配置信息</li>
+<li>解析<strong>zoo.cfg</strong> 和 <strong>myid</strong></li>
+<li>根据路径解析zoo.cfg 然后将其转换为properties文件</li>
+<li>解析properties文件。<strong>zoo.cfg配置文件–&gt;properties文件–&gt;map集合</strong> 根据zoo.cfg配置文件对实例对象进行setter设置。完成初始化。</li>
+<li>设置myid和QuorumPeerConfig</li>
+</ol>
+</li>
+</ol>
+<h3 id="8-2-4-过期快照删除">8.2.4  过期快照删除</h3>
+<p>可以启动定时任务，对过期的快照，执行删除。默认该功能时关闭的</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">initializeAndRun</span><span class="hljs-params">(String[] args)</span></span><br><span class="hljs-function">        <span class="hljs-keyword">throws</span> ConfigException, IOException, AdminServerException</span><br><span class="hljs-function">    </span>&#123;<br>        QuorumPeerConfig config = <span class="hljs-keyword">new</span> QuorumPeerConfig();<br>        <span class="hljs-keyword">if</span> (args.length == <span class="hljs-number">1</span>) &#123;<br>            config.parse(args[<span class="hljs-number">0</span>]);<br>        &#125;<br><br>        <span class="hljs-comment">// 启动定时任务</span><br>        DatadirCleanupManager purgeMgr = <span class="hljs-keyword">new</span> DatadirCleanupManager(config<br>                .getDataDir(), config.getDataLogDir(), config<br>                .getSnapRetainCount(), config.getPurgeInterval());<br>        purgeMgr.start();<br><br>        <span class="hljs-keyword">if</span> (args.length == <span class="hljs-number">1</span> &amp;&amp; config.isDistributed()) &#123;<br>            runFromConfig(config);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            LOG.warn(<span class="hljs-string">&quot;Either no config or no quorum defined in config, running &quot;</span><br>                    + <span class="hljs-string">&quot; in standalone mode&quot;</span>);<br>            <span class="hljs-comment">// there is only server in the quorum -- run as standalone</span><br>            ZooKeeperServerMain.main(args);<br>        &#125;<br>    &#125;<br><br><span class="hljs-keyword">protected</span> <span class="hljs-keyword">int</span> snapRetainCount = <span class="hljs-number">3</span>; <br><span class="hljs-keyword">protected</span> <span class="hljs-keyword">int</span> purgeInterval = <span class="hljs-number">0</span>;<br></code></pre></td></tr></table></figure>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029105415327.png" class="" title="image-20211029105415327">
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><code class="hljs java"> <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">start</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (PurgeTaskStatus.STARTED == purgeTaskStatus) &#123;<br>            LOG.warn(<span class="hljs-string">&quot;Purge task is already running.&quot;</span>);<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br>   			<span class="hljs-comment">// //  默认情况  purgeInterval=0，该任务关闭，直接返回</span><br>        <span class="hljs-comment">// Don&#x27;t schedule the purge task with zero or negative purge interval.</span><br>        <span class="hljs-keyword">if</span> (purgeInterval &lt;= <span class="hljs-number">0</span>) &#123;<br>            LOG.info(<span class="hljs-string">&quot;Purge task is not scheduled.&quot;</span>);<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br>				<span class="hljs-comment">//  创建一个定时器</span><br>        timer = <span class="hljs-keyword">new</span> Timer(<span class="hljs-string">&quot;PurgeTask&quot;</span>, <span class="hljs-keyword">true</span>);<br>   			<span class="hljs-comment">//  创建一个清理快照任务</span><br>        TimerTask task = <span class="hljs-keyword">new</span> PurgeTask(dataLogDir, snapDir, snapRetainCount);<br>   			<span class="hljs-comment">//  如果  purgeInterval 设置的值是 1，表示  1 小时检查一次，判断是否有过期快照， 有则删除</span><br>        timer.scheduleAtFixedRate(task, <span class="hljs-number">0</span>, TimeUnit.HOURS.toMillis(purgeInterval));<br><br>        purgeTaskStatus = PurgeTaskStatus.STARTED;<br>    &#125;<br><br> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PurgeTask</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">TimerTask</span> </span>&#123;<br>        <span class="hljs-keyword">private</span> File logsDir;<br>        <span class="hljs-keyword">private</span> File snapsDir;<br>        <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> snapRetainCount;<br><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">PurgeTask</span><span class="hljs-params">(File dataDir, File snapDir, <span class="hljs-keyword">int</span> count)</span> </span>&#123;<br>            logsDir = dataDir;<br>            snapsDir = snapDir;<br>            snapRetainCount = count;<br>        &#125;<br><br>        <span class="hljs-meta">@Override</span><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span> </span>&#123;<br>          	<span class="hljs-comment">//  清理过期的数据</span><br>            LOG.info(<span class="hljs-string">&quot;Purge task started.&quot;</span>);<br>            <span class="hljs-keyword">try</span> &#123;<br>                PurgeTxnLog.purge(logsDir, snapsDir, snapRetainCount);<br>            &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>                LOG.error(<span class="hljs-string">&quot;Error occurred while purging.&quot;</span>, e);<br>            &#125;<br>            LOG.info(<span class="hljs-string">&quot;Purge task completed.&quot;</span>);<br>        &#125;<br>    &#125;<br><br><span class="hljs-comment">//PurgeTxnLog类中的方法</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">purge</span><span class="hljs-params">(File dataDir, File snapDir, <span class="hljs-keyword">int</span> num)</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;<br>        <span class="hljs-keyword">if</span> (num &lt; <span class="hljs-number">3</span>) &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IllegalArgumentException(COUNT_ERR_MSG);<br>        &#125;<br><br>        FileTxnSnapLog txnLog = <span class="hljs-keyword">new</span> FileTxnSnapLog(dataDir, snapDir);<br><br>        List&lt;File&gt; snaps = txnLog.findNRecentSnapshots(num);<br>        <span class="hljs-keyword">int</span> numSnaps = snaps.size();<br>        <span class="hljs-keyword">if</span> (numSnaps &gt; <span class="hljs-number">0</span>) &#123;<br>            purgeOlderSnapshots(txnLog, snaps.get(numSnaps - <span class="hljs-number">1</span>));<br>        &#125;<br>    &#125;<br></code></pre></td></tr></table></figure>
+<h3 id="8-2-5-初始化通信组件">8.2.5  初始化通信组件</h3>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029105918689.png" class="" title="image-20211029105918689">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029105934464.png" class="" title="image-20211029105934464">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029105954513.png" class="" title="image-20211029105954513">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029110018034.png" class="" title="image-20211029110018034">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029110033262.png" class="" title="image-20211029110033262">
+<h2 id="8-3-ZK-服务端加载数据源码解析">8.3 ZK 服务端加载数据源码解析</h2>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030212621640.png" class="" title="image-20211030212621640">
+<ol>
+<li>zk 中的数据模型，是一棵树，DataTree，每个节点，叫做 DataNode</li>
+<li>zk 集群中的 DataTree 时刻保持状态同步</li>
+<li>Zookeeper 集群中每个 zk 节点中，数据在内存和磁盘中都有一份完整的数据。
+<ol>
+<li>内存数据：DataTree</li>
+<li>磁盘数据：快照文件   + 编辑日志</li>
+</ol>
+</li>
+</ol>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030212738023.png" class="" title="image-20211030212738023">
+<h3 id="8-3-1-冷启动数据恢复快照数据">8.3.1 冷启动数据恢复快照数据</h3>
+<p>（1） 启动集群</p>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030212915995.png" class="" title="image-20211030212915995">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030212935913.png" class="" title="image-20211030212935913">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030212958876.png" class="" title="image-20211030212958876">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030213013216.png" class="" title="image-20211030213013216">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030213026552.png" class="" title="image-20211030213026552">
+<h3 id="8-3-2-冷启动恢复数据">8.3.2 冷启动恢复数据</h3>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030213100808.png" class="" title="image-20211030213100808">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030213138996.png" class="" title="image-20211030213138996">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030213227375.png" class="" title="image-20211030213227375">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030213244097.png" class="" title="image-20211030213244097">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030213258817.png" class="" title="image-20211030213258817">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030213342877.png" class="" title="image-20211030213342877">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030213357497.png" class="" title="image-20211030213357497">
+<h3 id="8-3-3-冷启动数据恢复编辑日志">8.3.3  冷启动数据恢复编辑日志</h3>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030213731826.png" class="" title="image-20211030213731826">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030213748259.png" class="" title="image-20211030213748259">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030213803310.png" class="" title="image-20211030213803310">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030213907481.png" class="" title="image-20211030213907481">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030213920741.png" class="" title="image-20211030213920741">
+<h2 id="8-4-ZK选举机制源码解析">8.4 ZK选举机制源码解析</h2>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030214158626.png" class="" title="image-20211030214158626">
+<p>QuorumPeer类包含两个部分：1.快速选举选择部分。2.通信部分</p>
+<ol>
+<li>首先生成选举算法（生成 选票）</li>
+<li>将选票放入到sendqueue中（发送选票缓冲池）</li>
+<li>通过WorkerSender处理选票，将其发送给通信部分的recvQueue</li>
+<li>当ZK2的sid比自己的sid大的时候
+<ol>
+<li>通过快速选举部分的WorkerReceiver将选票放入到recequeue中（处理投票缓冲池）</li>
+<li>进行选票生成并通过通信部分的Listener（监听器）的handleConnection中的queueSendMap中选择发送给的对应sid的服务器。然后通过handleConnection中的SendWorkerMap进行选票的接收与发送。实现与其他节点进行通信。</li>
+</ol>
+</li>
+</ol>
+<h3 id="8-4-1-选举准备">8.4.1 选举准备</h3>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030214859394.png" class="" title="image-20211030214859394">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030214912240.png" class="" title="image-20211030214912240">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030214939573.png" class="" title="image-20211030214939573">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215014397.png" class="" title="image-20211030215014397">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215034395.png" class="" title="image-20211030215034395">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215046337.png" class="" title="image-20211030215046337">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215056946.png" class="" title="image-20211030215056946">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215107302.png" class="" title="image-20211030215107302">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215118265.png" class="" title="image-20211030215118265">
+<h3 id="8-4-2-选举执行">8.4.2 选举执行</h3>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215249974.png" class="" title="image-20211030215249974">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215348106.png" class="" title="image-20211030215348106">
+<p>1）执行 super.start();就相当于执行 QuorumPeer.java 类中的  run()方法</p>
+<p>2）当 Zookeeper 启动后，首先都是 Looking 状态，通过选举，让其中一台服务器成为 Leader， 其他的服务器成为 Follower。</p>
+<p>QuorumPeer.java类</p>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215429881.png" class="" title="image-20211030215429881">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215444136.png" class="" title="image-20211030215444136">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215459890.png" class="" title="image-20211030215459890">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215511802.png" class="" title="image-20211030215511802">
+<p>2）ctrl+alt+b 点击 lookForLeader()的实现类 FastLeaderElection.java</p>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215529162.png" class="" title="image-20211030215529162">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215542587.png" class="" title="image-20211030215542587">
+<p>3）点击 sendNotifications，广播选票，把自己的选票发给其他服务器</p>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215600689.png" class="" title="image-20211030215600689">
+<p>4）在 FastLeaderElection.java 类中查找 WorkerSender 线程。</p>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215625746.png" class="" title="image-20211030215625746">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215638853.png" class="" title="image-20211030215638853">
+<p>5）如果数据是发送给自己的，添加到自己的接收队列</p>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215654633.png" class="" title="image-20211030215654633">
+<p>6）数据添加到发送队列</p>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215710145.png" class="" title="image-20211030215710145">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215722219.png" class="" title="image-20211030215722219">
+<p>7）与要发送的服务器节点建立通信连接</p>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215741633.png" class="" title="image-20211030215741633">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215802592.png" class="" title="image-20211030215802592">
+<p>8）创建并启动发送器线程和接收器线程</p>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215821268.png" class="" title="image-20211030215821268">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215833919.png" class="" title="image-20211030215833919">
+<p>9）点击 SendWorker，并查找该类下的 run 方法</p>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215852138.png" class="" title="image-20211030215852138">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215902615.png" class="" title="image-20211030215902615">
+<p>10）点击 RecvWorker，并查找该类下的 run 方法</p>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215920441.png" class="" title="image-20211030215920441">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215931808.png" class="" title="image-20211030215931808">
+<p>11）在  FastLeaderElection.java 类中查找 WorkerReceiver 线程。</p>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215947280.png" class="" title="image-20211030215947280">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215957762.png" class="" title="image-20211030215957762">
+<h2 id="8-5-Follower-和-Leader-状态同步源码">8.5 Follower 和  Leader 状态同步源码</h2>
+<p>当选举结束后，每个节点都需要根据自己的角色更新自己的状态。选举出的  Leader 更 新自己状态为 Leader，其他节点更新自己状态为  Follower。<br>
+Leader 更新状态入口：leader.lead()<br>
+Follower 更新状态入口：follower.followerLeader()</p>
+<p>注意：</p>
+<p>（1）follower 必须要让  leader 知道自己的状态：epoch、zxid、sid 必须要找出谁是 leader；<br>
+发起请求连接 leader； 发送自己的信息给 leader；<br>
+leader 接收到信息，必须要返回对应的信息给 follower。<br>
+（2）当 leader得知 follower的状态了，就确定需要做何种方式的数据同步 DIFF、TRUNC、SNAP<br>
+（3）执行数据同步<br>
+（4）当  leader 接收到超过半数  follower 的  ack 之后，进入正常工作状态，集群启动完成了。</p>
+<p>最终总结同步的方式：<br>
+（1）DIFF 咱两一样，不需要做什么<br>
+（2）TRUNC follower 的 zxid 比  leader 的  zxid 大，所以  Follower 要回滚<br>
+（3）COMMIT leader 的 zxid 比  follower 的  zxid 大，发送  Proposal 给 foloower 提交执行<br>
+（4）如果  follower 并没有任何数据，直接使用  SNAP 的方式来执行数据同步（直接把数据全部序列到 follower）</p>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030220245513.png" class="" title="image-20211030220245513">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030220257505.png" class="" title="image-20211030220257505">
+<h3 id="8-5-1-Leader-lead-等待接收-follower-的状态同步申请">8.5.1 Leader.lead()等待接收 follower 的状态同步申请</h3>
+<p>1）在 Leader.java 种查找  lead()方法</p>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030220621010.png" class="" title="image-20211030220621010">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030220645569.png" class="" title="image-20211030220645569">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030220658893.png" class="" title="image-20211030220658893">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030220709319.png" class="" title="image-20211030220709319">
+<p>其中  ss 的初始化是在创建 Leader 对象时，创建的  socket</p>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030220731560.png" class="" title="image-20211030220731560">
+<h3 id="8-5-2-Follower-lead-查找并连接-Leader">8.5.2 Follower.lead()查找并连接 Leader</h3>
+<p>1）在 Follower.java 种查找  followLeader()方法</p>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030220802936.png" class="" title="image-20211030220802936">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030220816526.png" class="" title="image-20211030220816526">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030220828497.png" class="" title="image-20211030220828497">
+<h3 id="8-5-3-Leader-lead-创建-LearnerHandler">8.5.3 Leader.lead()创建 LearnerHandler</h3>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030220853998.png" class="" title="image-20211030220853998">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030220904550.png" class="" title="image-20211030220904550">
+<p>由于  public class LearnerHandler extends ZooKeeperThread{}，说明 LearnerHandler 是一 个线程。所以 fh.start()执行的是  LearnerHandler 中的  run()方法。</p>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030220921577.png" class="" title="image-20211030220921577">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030220933993.png" class="" title="image-20211030220933993">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030220945549.png" class="" title="image-20211030220945549">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030220956473.png" class="" title="image-20211030220956473">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221007757.png" class="" title="image-20211030221007757">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221018867.png" class="" title="image-20211030221018867">
+<h3 id="8-5-4-Follower-lead-创建-registerWithLeader">8.5.4 Follower.lead()创建 registerWithLeader</h3>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221045608.png" class="" title="image-20211030221045608">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221057508.png" class="" title="image-20211030221057508">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221109212.png" class="" title="image-20211030221109212">
+<h3 id="8-5-5-Leader-lead-接收-Follwer-状态，根据同步方式发送同步消息">8.5.5 Leader.lead()接收 Follwer 状态，根据同步方式发送同步消息</h3>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221133892.png" class="" title="image-20211030221133892">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221147124.png" class="" title="image-20211030221147124">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221200410.png" class="" title="image-20211030221200410">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221213079.png" class="" title="image-20211030221213079">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221224433.png" class="" title="image-20211030221224433">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221235376.png" class="" title="image-20211030221235376">
+<h3 id="8-5-6-Follower-lead-应答-Leader-同步结果">8.5.6 Follower.lead()应答 Leader 同步结果</h3>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221302556.png" class="" title="image-20211030221302556">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221313344.png" class="" title="image-20211030221313344">
+<h3 id="8-5-7-Leader-lead-应答-Follower">8.5.7 Leader.lead()应答 Follower</h3>
+<p>由于  public class LearnerHandler extends ZooKeeperThread{}，说明 LearnerHandler 是一个线程。所以 fh.start()执行的是  LearnerHandler 中的  run()方法。</p>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221456812.png" class="" title="image-20211030221456812">
+<h2 id="8-6-服务端-Leader-启动">8.6 服务端  Leader 启动</h2>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221600403.png" class="" title="image-20211030221600403">
+<p>Leader.java</p>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221630700.png" class="" title="image-20211030221630700">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221641139.png" class="" title="image-20211030221641139">
+<p>LeaderZooKeeperServer.java</p>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221716803.png" class="" title="image-20211030221716803">
+<p>ZookeeperServer.java</p>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221732734.png" class="" title="image-20211030221732734">
+<p>点击  PrepRequestProcessor，并查找它的  run 方法</p>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221755242.png" class="" title="image-20211030221755242">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221814625.png" class="" title="image-20211030221814625">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221826191.png" class="" title="image-20211030221826191">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221840829.png" class="" title="image-20211030221840829">
+<h2 id="8-7-服务端-Follower-启动">8.7 服务端  Follower 启动</h2>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221913656.png" class="" title="image-20211030221913656">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221935387.png" class="" title="image-20211030221935387">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221950327.png" class="" title="image-20211030221950327">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222000679.png" class="" title="image-20211030222000679">
+<h2 id="8-8-客户端启动">8.8 客户端启动</h2>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222020324.png" class="" title="image-20211030222020324">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222208842.png" class="" title="image-20211030222208842">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222224429.png" class="" title="image-20211030222224429">
+<p>在 <a target="_blank" rel="noopener" href="http://ZkCli.sh">ZkCli.sh</a> 启动 Zookeeper 时，会调用 ZooKeeperMain.java Ctrl + n  查找 ZooKeeperMain，找到程序的入口 main()方法</p>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222247705.png" class="" title="image-20211030222247705">
+<h3 id="8-8-1-创建-ZookeeperMain">8.8.1  创建  ZookeeperMain</h3>
+<p>连接  zk</p>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222326239.png" class="" title="image-20211030222326239">
+<p>创建 ZooKeeperAdmin 对象</p>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222349163.png" class="" title="image-20211030222349163">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222400599.png" class="" title="image-20211030222400599">
+<h3 id="8-8-2-初始化监听器">8.8.2  初始化监听器</h3>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222428088.png" class="" title="image-20211030222428088">
+<h3 id="8-8-3-解析连接地址">8.8.3  解析连接地址</h3>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222455728.png" class="" title="image-20211030222455728">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222514022.png" class="" title="image-20211030222514022">
+<h3 id="8-8-4-创建通信">8.8.4  创建通信</h3>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222550649.png" class="" title="image-20211030222550649">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222608264.png" class="" title="image-20211030222608264">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222623896.png" class="" title="image-20211030222623896">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222641142.png" class="" title="image-20211030222641142">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222656757.png" class="" title="image-20211030222656757">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222708109.png" class="" title="image-20211030222708109">
+<p>ctrl + alt +B  查找  connect 实现类，ClientCnxnSocketNIO.java</p>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222833428.png" class="" title="image-20211030222833428">
+<p>ctrl + alt +B  查找  doTransport 实现类，ClientCnxnSocketNIO.java</p>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222854939.png" class="" title="image-20211030222854939">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222908968.png" class="" title="image-20211030222908968">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222922391.png" class="" title="image-20211030222922391">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222932871.png" class="" title="image-20211030222932871">
+<h3 id="8-8-5-执行-run">8.8.5  执行  run()</h3>
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030223009732.png" class="" title="image-20211030223009732">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030223023920.png" class="" title="image-20211030223023920">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030223036400.png" class="" title="image-20211030223036400">
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/dajiangdahe/categories/Zookeeper/">Zookeeper</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/dajiangdahe/tags/Zookeeper/">Zookeeper</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/dajiangdahe/2021/10/30/xcrun/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">MacOS系统每次更新系统后missing xcrun</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/dajiangdahe/2021/10/22/%E7%A0%B4%E8%A7%A3%E5%8E%8B%E7%BC%A9%E5%8C%85/">
+                        <span class="hidden-mobile">python暴力破解压缩包</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        京ICP证123456号
+      </a>
+    </span>
+    
+      
+        <span>
+          <a
+            href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=12345678"
+            rel="nofollow noopener"
+            class="beian-police"
+            target="_blank"
+          >
+            
+              <span style="visibility: hidden; width: 0">|</span>
+              <img src="/dajiangdahe/img/police_beian.png" alt="police-icon"/>
+            
+            <span>京公网安备12345678号</span>
+          </a>
+        </span>
+      
+    
+  </div>
+
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/dajiangdahe/js/events.js" ></script>
+<script  src="/dajiangdahe/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/dajiangdahe/js/local-search.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/dajiangdahe/js/boot.js" ></script>
+
+
+</body>
+</html>

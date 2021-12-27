@@ -1,0 +1,1768 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/dajiangdahe/img/favicon.png">
+  <link rel="icon" href="/dajiangdahe/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="Hello,here is kengkeng&#39;s blog.">
+  <meta name="author" content="kengkeng">
+  <meta name="keywords" content="">
+  
+  <title>计算机网络基础 - kengkeng&#39;s life</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/dajiangdahe/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/dajiangdahe/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"username.github.io","root":"/dajiangdahe/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/dajiangdahe/js/utils.js" ></script>
+  <script  src="/dajiangdahe/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/dajiangdahe/">&nbsp;<strong>kengkeng's life</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/dajiangdahe/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/dajiangdahe/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/dajiangdahe/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/dajiangdahe/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/dajiangdahe/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/dajiangdahe/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="计算机网络基础">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      kengkeng
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-11-03 17:34" pubdate>
+        2021年11月3日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      26.8k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      291
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">计算机网络基础</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2 个月前
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h1>一、网络层次划分</h1>
+<p>计算机网络学习的核心内容就是网络协议的学习。网络协议是为计算机网络中进行数据交换而建立的规则、标准或者说是约定的集合。因为不同用户的数据终端可能采取的字符集是不同的，两者需要进行通信，必须要在一定的标准上进行。</p>
+<h2 id="1-1-OSI七层网络模型">1.1 OSI七层网络模型</h2>
+<p>为了使不同计算机厂家生产的计算机能够相互通信，以便在更大的范围内建立计算机网络，国际标准化组织（ISO）在1978年提出了”开放系统互联参考模型”，即著名的<strong>OSI/RM模型</strong>（Open System Interconnection/Reference Model）。它将计算机网络体系结构的通信协议划分为七层，自下而上依次为：<strong>物理层</strong>（Physics Layer）、<strong>数据链路层</strong>（Data Link Layer）、<strong>网络层</strong>（Network Layer）、<strong>传输层</strong>（Transport Layer）、<strong>会话层</strong>（Session Layer）、<strong>表示层</strong>（Presentation Layer）、<strong>应用层</strong>（Application Layer）。其中第四层完成数据传送服务，上面三层面向用户。</p>
+<p>除了标准的OSI七层模型以外，常见的网络层次划分还有TCP/IP四层协议以及TCP/IP五层协议，它们之间的对应关系如下图所示：</p>
+<img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20211103192227336.png" class="" title="image-20211103192227336">
+<img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20211103192238025.png" class="" title="image-20211103192238025">
+<img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20211103192253822.png" class="" title="image-20211103192253822">
+<hr>
+<h1>二、物理层</h1>
+<h2 id="2-1-概述">2.1 概述</h2>
+<p><strong>物理层（Physical Layer）</strong>：激活、维持、关闭通信端点之间的机械特性、电气特性、功能特性以及过程特性。<strong>该层为上层协议提供了一个传输数据的可靠的物理媒体。简单的说，物理层确保原始的数据可在各种物理媒体上传输。</strong></p>
+<ul>
+<li>物理层的任务：<strong>透明地传输比特流</strong>。</li>
+<li>物理层的功能：<strong>为数据段设备提供传送数据通路</strong></li>
+<li>物理层传输单位：<strong>比特</strong></li>
+<li>物理层实现的硬件：<strong>集线器</strong>，<strong>中继器</strong>（Repeater，也叫放大器）</li>
+</ul>
+<hr>
+<h1>三、数据链路层</h1>
+<h2 id="3-1-概述">3.1 概述</h2>
+<p><strong>数据链路层（Data Link Layer）</strong>：在物理层提供的服务的基础上向网络层提供服务，其最基本的服务是将源自网络层来的数据可靠地传输到<strong>相邻节点的目标机网络层</strong>。为达到这一目的，数据链路必须具备一系列相应的功能，主要有：如何将数据组合成数据块，在数据链路层中称这种数据块为帧（frame），<strong>帧是数据链路层的传送单位</strong>；如何控制帧在物理信道上的传输，包括如何处理传输差错，如何调节发送速率以使与接收方相匹配；以及在两个网络实体之间提供数据链路通路的建立、维持和释放的管理。数据链路层在不可靠的物理介质上提供可靠的传输。</p>
+<ul>
+<li>数据链路层的任务：<strong>将网络层传输下来的IP数据报组装成帧</strong>、<strong>物理地址寻址、流量控制、数据的检错、重发</strong>等</li>
+<li>数据链路层的功能：
+<ul>
+<li><strong>链路连接的建立、拆除和分离</strong></li>
+<li><strong>帧定界和帧同步</strong></li>
+<li><strong>差错检测</strong></li>
+</ul>
+</li>
+<li>物理层传输单位：<strong>帧</strong></li>
+<li>数据链路层实现的硬件：<strong>交换机</strong>、<strong>网桥</strong></li>
+<li>协议：PPP,HDLC、SDLC、STP、ARQ</li>
+</ul>
+<hr>
+<h1>四、网络层</h1>
+<h2 id="4-1-概述">4.1 概述</h2>
+<p><strong>网络层（Network Layer）</strong>：目的是实现两个端系统之间的数据透明传送，具体功能包括寻址和路由选择、连接的建立、保持和终止等。它提供的服务使传输层不需要了解网络中的数据传输和交换技术。如果想用尽量少的词来记住网络层，那就是**”路径选择、路由及逻辑寻址”**。</p>
+<p>网络层中涉及众多的协议，其中包括最重要的协议，也是TCP/IP的核心协议——IP协议。IP协议非常简单，仅仅提供不可靠、无连接的传送服务。IP协议的主要功能有：无连接数据报传输、数据报路由选择和差错控制。与IP协议配套使用实现其功能的还有地址解析协议ARP、逆地址解析协议RARP、因特网报文协议ICMP、因特网组管理协议IGMP。</p>
+<ul>
+<li>网络层的任务：
+<ul>
+<li>将传输层传下来的报文段<strong>封装成分组</strong></li>
+<li><strong>选择合适的路由</strong>，使得传输层传下来的分组能够交付到目的主机</li>
+</ul>
+</li>
+<li>网络层的功能：
+<ul>
+<li>为传输层提供服务</li>
+<li>组包和拆包</li>
+<li>路由选择</li>
+<li>拥塞控制</li>
+</ul>
+</li>
+<li>网络层传输单位：<strong>数据段</strong></li>
+<li>网络层实现的硬件：<strong>路由器</strong></li>
+<li>协议：ICMP、ARP、RARP、IP、IGMP、OSPF</li>
+</ul>
+<h2 id="4-2-IP协议">4.2 IP协议</h2>
+<h3 id="IP地址">IP地址</h3>
+<h4 id="概述">概述</h4>
+<p>IP地址是IP协议提供的一种统一的地址格式，它为互联网上的每一个网络和每一台主机分配一个逻辑地址，以此来屏蔽物理地址的差异。</p>
+<p>每个IP地址都包含两部分：<strong>网络ID</strong>和<strong>主机ID</strong>，网络ID标识在同一个物理网络上的所有宿主机，主机ID标识网络上的每一个宿主机，运行TCP/IP的每个计算机都需要唯一的IP地址。</p>
+<p><strong>IPV4</strong></p>
+<p>IPV4有一个<strong>32</strong>位的连接地址，由4个8位字段组成，8位字段称为8位位组，每个8位位组之间用点号隔开，用于标识TCP/IP宿主机。</p>
+<p><strong>IPV6</strong></p>
+<p>IPv6的地址长度为<strong>128位</strong>，是IPv4地址长度的4倍，采用十六进制表示。IPv6有3种表示方法。</p>
+<p>主要使用<strong>冒分十六进制</strong>表示法</p>
+<p>格式为X:X:X:X:X:X:X:X，其中每个X表示地址中的16b，以十六进制表示，例如：</p>
+<p>ABCD:EF01:2345:6789:ABCD:EF01:2345:6789</p>
+<h4 id="IPV4和IPV6的区别">IPV4和IPV6的区别</h4>
+<p>IPv4和IPv6是是目前使用的两种Internet协议版本，IPv4和IPv6协议之间存在各种差异，包括它们的功能，但关键的一点是它生成的地址（地址空间）的数量的区别。</p>
+<ol>
+<li>
+<p>协议地址的区别</p>
+<p>（1）地址长度</p>
+<p>IPv4协议具有32位（4字节）地址长度；IPv6协议具有128位（16字节）地址长度。</p>
+<p>（2）地址的表示方法</p>
+<p>IPv4地址是以小数表示的二进制数。 IPv6地址是以十六进制表示的二进制数。</p>
+<p>（3）地址配置</p>
+<p>IPv4协议的地址可以通过手动或DHCP配置的。</p>
+<p>IPv4协议需要使用Internet控制消息协议版本6（ICMPv6）或DHCPv6的无状态地址自动配置（SLAAC）。</p>
+</li>
+<li>
+<p>数据包的区别</p>
+<p>（1）包的大小</p>
+<p>IPv4协议的数据包需要576个字节，碎片可选 ；IPv6协议的数据包需要1280个字节，不会碎片。</p>
+<p>（2）包头</p>
+<p>IPv4协议的包头的长度为20个字节，不识别用于QoS处理的数据包流，包含checksum，包含最多40个字节的选项字段。</p>
+<p>IPv6协议的包头的长度为40个字节，包含指定QoS处理的数据包流的Flow Label字段，不包含checksum；IPv6协议没有字段，但IPv6扩展标头可用。</p>
+<p>（3）数据包碎片</p>
+<p>IPv4协议的数据包碎片会由转发路由器和发送主机完成。IPv6协议的数据包碎片仅由发送主机完成。</p>
+</li>
+<li>
+<p>DNS记录</p>
+<p>IPv4协议的地址（A）记录，映射主机名；指针（PTR）记录，IN-ADDR.ARPA DNS域。</p>
+<p>IPv6协议的地址（AAAA）记录，映射主机名；指针（PTR）记录，IP6.ARPA DNS域</p>
+</li>
+<li>
+<p>IPSec支持</p>
+<p>IPv4协议的IPSec支持只是可选的；IPv6协议有内置的IPSec支持。</p>
+</li>
+<li>
+<p>地址解析协议</p>
+<p>IPv4协议：地址解析协议（ARP）可用于将IPv4地址映射到MAC地址。</p>
+<p>IPv6协议：地址解析协议（ARP）被邻居发现协议（NDP）的功能所取代。</p>
+</li>
+<li>
+<p>身份验证和加密</p>
+<p>Pv6提供身份验证和加密；但IPv4不提供。</p>
+</li>
+</ol>
+<h4 id="IP分类">IP分类</h4>
+<p>Intenet委员会定义了五种地址类型以适应不同尺寸的网络。地址类型定义网络ID使用哪些位,它也定义了网络的可能数目和每个网络可能的宿主机数目．</p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210906221555685.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210906221555685.png" class="" title="image-20210906221555685"></a></p>
+<p>IP地址根据网络号和主机号来分，分为A、B、C三类及特殊地址D、E。 全0和全1的都保留不用。</p>
+<ul>
+<li>A类：(0.0.0.0-127.255.255.255)（默认子网掩码：255.0.0.0或 0xFF000000）第一个字节为网络号，后三个字节为主机号。该类IP地址的最前面为“0”，所以地址的网络号取值于1~126之间。一般用于大型网络。</li>
+<li>B类：(128.0.0.0-191.255.255.255)（默认子网掩码：255.255.0.0或0xFFFF0000）前两个字节为网络号，后两个字节为主机号。该类IP地址的最前面为“10”，所以地址的网络号取值于128~191之间。一般用于中等规模网络。</li>
+<li>C类：(192.0.0.0-223.255.255.255)（子网掩码：255.255.255.0或 0xFFFFFF00）前三个字节为网络号，最后一个字节为主机号。该类IP地址的最前面为“110”，所以地址的网络号取值于192~223之间。一般用于小型网络。</li>
+<li>D类：是多播地址。该类IP地址的最前面为“1110”，所以地址的网络号取值于224~239之间。一般用于多路广播用户 。</li>
+<li>E类：是保留地址。该类IP地址的最前面为“1111”，所以地址的网络号取值于240~255之间。</li>
+</ul>
+<p>注：只有A,B,C有网络号和主机号之分，D类地址和E类地址没有划分网络号和主机号。</p>
+<blockquote>
+<p>255.255.255.255</p>
+<p>该IP地址指的是受限的广播地址。受限广播地址与一般广播地址（直接广播地址）的区别在于，受限广播地址只能用于本地网络，路由器不会转发以受限广播地址为目的地址的分组；一般广播地址既可在本地广播，也可跨网段广播。例如：主机192.168.1.1/30上的直接广播数据包后，另外一个网段192.168.1.5/30也能收到该数据报；若发送受限广播数据报，则不能收到。</p>
+<p>注：一般的广播地址（直接广播地址）能够通过某些路由器（当然不是所有的路由器），而受限的广播地址不能通过路由器。</p>
+</blockquote>
+<blockquote>
+<p>0.0.0.0</p>
+<p>常用于寻找自己的IP地址，例如在RARP，BOOTP和DHCP协议中，若某个未知IP地址的无盘机想要知道自己的IP地址，它就以255.255.255.255为目的地址，向本地范围（具体而言是被各个路由器屏蔽的范围内）的服务器发送IP请求分组。</p>
+</blockquote>
+<blockquote>
+<p>回环地址</p>
+<p>127.0.0.0/8被用作回环地址，回环地址表示本机的地址，常用于对本机的测试，用的最多的是127.0.0.1。</p>
+</blockquote>
+<blockquote>
+<p>A、B、C类私有地址</p>
+<p>私有地址(private address)也叫专用地址，它们不会在全球使用，只具有本地意义。</p>
+<p>A类私有地址：10.0.0.0/8，范围是：10.0.0.0~10.255.255.255</p>
+<p>B类私有地址：172.16.0.0/12，范围是：172.16.0.0~172.31.255.255</p>
+<p>C类私有地址：192.168.0.0/16，范围是：192.168.0.0~192.168.255.255</p>
+</blockquote>
+<h4 id="IP为什么要分类">IP为什么要分类</h4>
+<p>根据IP地址访问终端是通过路由器，路由设备当中有一张路由表，该路由表记录了所有IP地址的位置，这样就可以进行包的转发了，如果我们不区分网络地址，那么这张路由表当中就要保存有所有IP地址的方向，这张路由表就会很大，就像下面说的那样：如果不分网络位和主机位，路由器的路由表就是都是32位的地址，那所有的路由器维护的路由表会很大，转发速度会变慢（因为查询变慢）。而且所有的路由器都要有全Internet的地址，所有人的路由器都要有足够的性能来存下全网地址。估计建造这样的Internet成本是现在的几万倍，甚至更高。</p>
+<p><strong>有了网络地址，就可以限定拥有相同网络地址的终端都在同一个范围内，那么路由表只需要维护这个网络地址的方向，就可以找到相应的终端了。</strong></p>
+<h3 id="子网掩码">子网掩码</h3>
+<p>随着互连网应用的不断扩大，原先的IPv4的弊端也逐渐暴露出来，即网络号占位太多，而主机号位太少，所以其能提供的主机地址也越来越稀缺，目前除了使用NAT在企业内部利用保留地址自行分配以外，通常都对一个高类别的IP地址进行再划分，以形成多个子网，提供给不同规模的用户群使用。</p>
+<p>这里主要是为了在网络分段情况下有效地利用IP地址，通过对主机号的高位部分取作为子网号，从通常的网络位界限中扩展或压缩子网掩码，用来创建某类地址的更多子网。但创建更多的子网时，在每个子网上的可用主机地址数目会比原先减少。</p>
+<p>使用子网可以把单个大网分成多个物理网络，并用路由器把它们连接起来。</p>
+<p>子网掩码(Subnet Mask)用于<strong>屏蔽IP地址的一部分，使得TCP/IP能够区别网络ID和宿主机ID</strong>。当TCP/IP宿主机要通信时,子网掩码用于判断一个宿主机是在本地网络还是在远程网络。</p>
+<p>缺省的子网掩码用于不分成子网的TCP/IP网络，对应于网络ID的所有位都置为1，每个8位位组的十进制数是255，对应于宿主机ID的所有位都置为0。</p>
+<p>用于子网掩码的位数决定可能的子网数目和每个子网的宿主机数目，子网掩码的位数越多，则子网越多，但是宿主机也较少。</p>
+<p>例：假设A类地址子网数是14，则所需位数至少为4，用于子网的位为：11111111, 11110000, 00000000, 00000000, 子网掩码为255.240.0.0,每个子网的宿主机数目为2^20-2=1,048, 574个。</p>
+<h4 id="有关子网掩码和网络划分常见的面试考题">有关子网掩码和网络划分常见的面试考题</h4>
+<h5 id="利用子网数来计算">利用子网数来计算</h5>
+<p>在求子网掩码之前必须先搞清楚要划分的子网数目，以及每个子网内的所需主机数目。</p>
+<p>(1) 将子网数目转化为二进制来表示;</p>
+<p>如欲将B类IP地址168.195.0.0划分成27个子网：27=11011；</p>
+<p>(2) 取得该二进制的位数，为N；</p>
+<p>该二进制为五位数，N = 5</p>
+<p>(3) 取得该IP地址的类子网掩码，将其主机地址部分的的前N位置1即得出该IP地址划分子网的子网掩码。</p>
+<p>将B类地址的子网掩码255.255.0.0的主机地址前5位置 1，得到 255.255.248.0</p>
+<h5 id="利用主机数来计算">利用主机数来计算</h5>
+<p>如欲将B类IP地址168.195.0.0划分成若干子网，每个子网内有主机700台：</p>
+<p>(1) 将主机数目转化为二进制来表示<code>700=1010111100</code>；</p>
+<p>(2) 如果主机数小于或等于254（注意去掉保留的两个IP地址），则取得该主机的二进制位数，为N，这里肯定 N&lt;8。如果大于254，则 N&gt;8，这就是说主机地址将占据不止8位；该二进制为十位数，N=10；</p>
+<p>(3) 使用255.255.255.255来将该类IP地址的主机地址位数全部置1，然后从后向前的将N位全部置为 0，即为子网掩码值。</p>
+<p>将该B类地址的子网掩码255.255.0.0的主机地址全部置1，得到255.255.255.255，然后再从后向前将后 10位置0,即为：11111111.11111111.11111100.00000000，即255.255.252.0。这就是该欲划分成主机为700台的B类IP地址 168.195.0.0的子网掩码。</p>
+<h5 id="根据每个网络的主机数量进行子网地址的规划计算子网掩码">根据每个网络的主机数量进行子网地址的规划计算子网掩码</h5>
+<p>比如一个子网有10台主机，那么对于这个子网需要的IP地址是：<code>10＋1＋1＋1＝13</code></p>
+<p><strong>注意：加的第一个1是指这个网络连接时所需的网关地址，接着的两个1分别是指网络地址和广播地址。</strong></p>
+<p>因为13小于16（16等于2的4次方），所以主机位为4位。而256－16＝240，所以该子网掩码为255.255.255.240。</p>
+<p>如果一个子网有14台主机，不少人常犯的错误是：依然分配具有16个地址空间的子网，而忘记了给网关分配地址。这样就错误了，因为14＋1＋1＋1＝17，17大于16，所以我们只能分配具有32个地址（32等于2的5次方）空间的子网。这时子网掩码为：255.255.255.224。</p>
+<h2 id="4-3-ARP-RARP协议">4.3 ARP/RARP协议</h2>
+<p>**地址解析协议，即ARP（Address Resolution Protocol），是根据IP地址获取物理地址的一个TCP/IP协议。**主机发送信息时将包含目标IP地址的ARP请求广播到网络上的所有主机，并接收返回消息，以此确定目标的物理地址；收到返回消息后将该IP地址和物理地址存入本机ARP缓存中并保留一定时间，下次请求时直接查询ARP缓存以节约资源。地址解析协议是建立在网络中各个主机互相信任的基础上的，网络上的主机可以自主发送ARP应答消息，其他主机收到应答报文时不会检测该报文的真实性就会将其记入本机ARP缓存；由此攻击者就可以向某一主机发送伪ARP应答报文，使其发送的信息无法到达预期的主机或到达错误的主机，这就构成了一个ARP欺骗。<strong>ARP命令可用于查询本机ARP缓存中IP地址和MAC地址的对应关系、添加或删除静态对应关系等。</strong></p>
+<p>ARP工作流程举例：</p>
+<p>主机A的IP地址为192.168.1.1，MAC地址为0A-11-22-33-44-01；</p>
+<p>主机B的IP地址为192.168.1.2，MAC地址为0A-11-22-33-44-02；</p>
+<p>当主机A要与主机B通信时，地址解析协议可以将主机B的IP地址（192.168.1.2）解析成主机B的MAC地址，以下为工作流程：</p>
+<p>（1）根据主机A上的路由表内容，IP确定用于访问主机B的转发IP地址是192.168.1.2。然后A主机在自己的本地ARP缓存中检查主机B的匹配MAC地址。</p>
+<p>（2）如果主机A在ARP缓存中没有找到映射，它将询问192.168.1.2的硬件地址，从而将ARP请求帧广播到本地网络上的所有主机。源主机A的IP地址和MAC地址都包括在ARP请求中。本地网络上的每台主机都接收到ARP请求并且检查是否与自己的IP地址匹配。如果主机发现请求的IP地址与自己的IP地址不匹配，它将丢弃ARP请求。</p>
+<p>（3）主机B确定ARP请求中的IP地址与自己的IP地址匹配，则将主机A的IP地址和MAC地址映射添加到本地ARP缓存中。</p>
+<p>（4）主机B将包含其MAC地址的ARP回复消息直接发送回主机A。</p>
+<p>（5）当主机A收到从主机B发来的ARP回复消息时，会用主机B的IP和MAC地址映射更新ARP缓存。本机缓存是有生存期的，生存期结束后，将再次重复上面的过程。主机B的MAC地址一旦确定，主机A就能向主机B发送IP通信了。</p>
+<p><strong>逆地址解析协议，即RARP，功能和ARP协议相对，其将局域网中某个主机的物理地址转换为IP地址</strong></p>
+<p>比如局域网中有一台主机只知道物理地址而不知道IP地址，那么可以通过RARP协议发出征求自身IP地址的广播请求，然后由RARP服务器负责回答。</p>
+<p>RARP协议工作流程：</p>
+<p>（1）给主机发送一个本地的RARP广播，在此广播包中，声明自己的MAC地址并且请求任何收到此请求的RARP服务器分配一个IP地址；</p>
+<p>（2）本地网段上的RARP服务器收到此请求后，检查其RARP列表，查找该MAC地址对应的IP地址；</p>
+<p>（3）如果存在，RARP服务器就给源主机发送一个响应数据包并将此IP地址提供给对方主机使用；</p>
+<p>（4）如果不存在，RARP服务器对此不做任何的响应；</p>
+<h2 id="4-4-路由选择协议">4.4 路由选择协议</h2>
+<p>常见的路由选择协议有：RIP协议、OSPF协议。</p>
+<p><strong>RIP协议</strong> ：底层是贝尔曼福特算法，它选择路由的度量标准（metric)是跳数，最大跳数是15跳，如果大于15跳，它就会丢弃数据包。</p>
+<p><strong>OSPF协议</strong> ：Open Shortest Path First开放式最短路径优先，底层是迪杰斯特拉算法，是链路状态路由选择协议，它选择路由的度量标准是带宽，延迟。</p>
+<hr>
+<h1>五、传输层</h1>
+<h2 id="5-1-概述">5.1 概述</h2>
+<p><strong>传输层（Transport Layer）</strong>：负责将上层数据分段并提供<strong>端到端</strong>的、可靠的或不可靠的传输。此外，传输层还要处理端到端的差错控制和流量控制问题。 传输层的任务是根据通信子网的特性，最佳的利用网络资源，为两个端系统的会话层之间，提供建立、维护和取消传输连接的功能，负责端到端的可靠数据传输。在这一层，信息传送的协议数据单元称为段或<strong>报文</strong>。 <strong>网络层只是根据网络地址将源结点发出的数据包传送到目的结点，而传输层则负责将数据可靠地传送到相应的端口。</strong></p>
+<p>传输层的作用包括：<strong>将上层数据分段并提供端到端的、可靠的或不可靠的传输以及端到端的差错控制和流量控制问题</strong>等。</p>
+<p>传输层重要的设备名称：<strong>网关</strong></p>
+<ul>
+<li>传输层的任务：<strong>负责主机中两个进程（端到端）之间的通信</strong></li>
+<li>传输层的功能：
+<ul>
+<li>为端到端连接提供可靠的服务</li>
+<li>为端到端连接提供流量控制、差错控制、服务质量等管理服务</li>
+</ul>
+</li>
+<li>传输层传输单位：<strong>报文段</strong>（TCP）或<strong>用户数据报</strong>（UDP）</li>
+<li>传输层实现的硬件：<strong>网关</strong></li>
+<li>协议：TCP、UDP</li>
+</ul>
+<h2 id="5-2-TCP协议">5.2 TCP协议</h2>
+<h3 id="概述-2">概述</h3>
+<p>TCP协议全称: <strong>传输控制协议</strong></p>
+<p>TCP是面向连接的通信协议，通过三次握手建立连接，通讯完成时要拆除连接，由于TCP是面向连接的所以只能用于<strong>端到端</strong>的通讯。TCP提供的是一种可靠的数据流服务，采用”带重传的肯定确认”技术来实现传输的可靠性。TCP还采用一种称为”滑动窗口”的方式进行流量控制，所谓窗口实际表示接收能力，用以限制发送方的发送速度。</p>
+<p>报头如下，首部大小固定20字节</p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210907161940230.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210907161940230.png" class="" title="image-20210907161940230"></a></p>
+<ul>
+<li>源端口号/目的端口号: 表示数据从哪个进程来, 到哪个进程去.</li>
+<li>32位序号:</li>
+<li>4位首部长度: 标识该TCP头部有多少个32bit字（4字节）。因为4位最大能标识15，所以TCP头部最长是60字节。</li>
+<li>6位保留: 顾名思义, 先保留着, 以防万一</li>
+<li>6位标志位</li>
+<li>URG: 标识紧急指针是否有效
+<ul>
+<li>ACK: 标识确认序号是否有效，我们称携带ACK标识的TCP报文段为<strong>确认报文</strong>段。</li>
+<li>PSH: 用来提示接收端应用程序立刻将数据从tcp缓冲区读走，为接收后续数据腾出空间（如果应用程序不将接收到的数据读走，它们就会一直停留在TCP接收缓冲区中</li>
+<li>RST: 要求重新建立连接。我们把含有RST标识的报文称为<strong>复位报文</strong>段</li>
+<li>SYN: 请求建立连接。我们把含有SYN标识的报文称为<strong>同步报文</strong>段</li>
+<li>FIN: 通知对端，本端即将关闭.。我们把含有FIN标识的报文称为<strong>结束报文</strong>段</li>
+</ul>
+</li>
+<li>16位窗口大小：是TCP<strong>流量控制</strong>的一个手段。这里说的窗口，指的是<strong>接收通道窗口</strong>（Receiver Window，RWND）。它告诉对方本端的TCP接收缓冲区还能容纳多少字节的数据，这样对方就可以控制发送数据的速度。</li>
+<li>16位检验和: 由发送端填充，接收端对TCP报文段执行CRC算法以检验TCP报文段在传输过程中是否损坏。注意，这个校验不仅包括TCP头部，也包括数据部分。这也是TCP可靠传输的一个重要保障。</li>
+<li>16位紧急指针:是一个正的偏移量。它和序号字段的值相加表示最后一个紧急数据的下一字节的序号。因此，确切地说，这个字段是紧急指针相对当前序号的偏移。TCP的紧急指针是发送端向接收端发送紧急数据的方法。</li>
+<li>选项和数据暂时忽略</li>
+</ul>
+<h3 id="TCP如何保证传输可靠性">TCP如何保证传输可靠性</h3>
+<h4 id="校验和">校验和</h4>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile">发送的数据包的二进制相加然后取反，目的是检测数据在传输过程中的任何变化。如果收到段的检验和有差错，TCP将丢弃这个报文段和不确认收到此报文段。 <br><span class="hljs-keyword">Copy</span><br></code></pre></td></tr></table></figure>
+<p>计算方式：在数据传输的过程中，将发送的数据段都当做一个16位的整数。将这些整数加起来。并且前面的进位不能丢弃，补在后面，最后取反，得到校验和。</p>
+<ul>
+<li>发送方：在发送数据之前计算检验和，并进行校验和的填充。</li>
+<li>接收方：收到数据后，对数据以同样的方式进行计算，求出校验和，与发送方的进行比对。</li>
+</ul>
+<p>注意：如果接收方比对校验和与发送方不一致，那么数据一定传输有误。但是如果接收方比对校验和与发送方一致，数据不一定传输成功。</p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210907162918376.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210907162918376.png" class="" title="image-20210907162918376"></a></p>
+<h4 id="确认应答-序列号">确认应答+序列号</h4>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile">应用数据被分割成 TCP 认为最适合发送的数据块。<br>TCP 给发送的每一个包进行编号，接收方对数据包进行排序，把有序数据传送给应用层。<br>TCP 的接收端会丢弃重复的数据。<br><span class="hljs-keyword">Copy</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li>序列号：TCP传输时将每个字节的数据都进行了编号，这就是序列号。</li>
+<li>确认应答：TCP传输的过程中，每次接收方收到数据后，都会对传输方进行确认应答。也就是发送ACK报文。这个ACK报文当中带有对应的确认序列号，告诉发送方，接收到了哪些数据，下一次的数据从哪里发。</li>
+</ul>
+<p>序列号的作用不仅仅是应答的作用，有了序列号能够将接收到的数据根据序列号排序，并且去掉重复序列号的数据。这也是TCP传输可靠性的保证之一。</p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210907165231469.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210907165231469.png" class="" title="image-20210907165231469"></a></p>
+<h4 id="超时重传">超时重传</h4>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile">当TCP发出一个段后，它启动一个定时器，等待目的端确认收到这个报文段。如果不能及时收到一个确认，将重发这个报文段。 <br><span class="hljs-keyword">Copy</span><br></code></pre></td></tr></table></figure>
+<p>在进行TCP传输时，由于确认应答与序列号机制，也就是说发送方发送一部分数据后，都会等待接收方发送的ACK报文，并解析ACK报文，判断数据是否传输成功。如果发送方发送完数据后，迟迟没有等到接收方的ACK报文，这该怎么办呢？而没有收到ACK报文的原因可能是什么呢？</p>
+<p>首先，发送方没有接收到响应的ACK报文原因可能有两点：</p>
+<ul>
+<li>数据在传输过程中由于网络原因等直接全体丢包，接收方没有接收到。</li>
+<li>接收方接收到了响应的数据，但是发送的ACK报文响应却由于网络原因丢包了。</li>
+</ul>
+<p>TCP在解决这个问题的时候引入了一个新的机制，叫做<strong>超时重传机制</strong>。简单理解就是发送方在发送完数据后等待一个时间（里面有一个超时计数器），时间到达没有接收到ACK报文，那么对刚才发送的数据进行重新发送。如果是刚才第一个原因，接收方收到二次重发的数据后，便进行ACK应答。如果是第二个原因，接收方发现接收的数据已存在（判断存在的根据就是序列号，所以上面说序列号还有去除重复数据的作用），那么直接丢弃，仍旧发送ACK应答。</p>
+<h5 id="一般报文超时是怎么确定的？">一般报文超时是怎么确定的？</h5>
+<p>一刀切的办法就是，我<strong>直接把超时时间设成一个固定值</strong>，比如说 200ms，但这样肯定是有问题的，我们的电脑和很多服务器都有交互，这些服务器位于天南海北，国内国外，延迟差异巨大，所以设置固定值是很不可靠的，<strong>我们要根据网络延迟，动态调整超时时间</strong>，延迟越大，超时时间越长。</p>
+<p>在这里先引入两个概念：</p>
+<ul>
+<li>RTT（Round Trip Time）：往返时延，也就是**数据包从发出去到收到对应 ACK 的时间。**RTT 是针对连接的，每一个连接都有各自独立的 RTT。</li>
+<li>RTO（Retransmission Time Out）：重传超时，也就是前面说的超时时间。</li>
+</ul>
+<p>jacobson算法：</p>
+<p>工作原理是：</p>
+<ol>
+<li>将每条连接TCP都保持一个变量RTT。</li>
+<li>当发送一个数据段时，同时启动连接的定时器。</li>
+<li>如果定时器超时前确认到达，则记录所需的时间。</li>
+<li>修正RTT的值。</li>
+<li>如果定时器超时前没有收到确认，则将RTT的值增加一倍。</li>
+</ol>
+<p>[<img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210410175136539.png" class="" title="image-20210410175136539"></p>
+<p>发送一个报文段，设定的重传时间到了，还没有收到确认。于是重传报文段，经过一段时间后：收到了确认报文段。</p>
+<p>现在的问题是：如何判定此报文段是对先发送的报文段的确认，还是对后来重传的报文段的确认？由于重传的报文段和原来的报文段完全一样，所以源主机在接受到确认后，无法做出正确的判断，而正确的判断对确定加权平均RTTs的值关系很大。因此产生了Karn算法，只要报文段重传了，就不采用其往返时间样本</p>
+<p>Karn算法：</p>
+<ol>
+<li>报文段每重传一次，就将重传时间增大一些：</li>
+<li>新的重传时间 = γ×(旧的重传时间)</li>
+<li>系数 γ 的典型值是2 。</li>
+<li>当不再发生报文段的重传时，才根据报文段的往返时延更新平均往返时延 RTT 和重传时间的数值。</li>
+</ol>
+<p>实践证明，这种策略较为合理。</p>
+<h5 id="SYN报文重传间隔时间">SYN报文重传间隔时间</h5>
+<p>在实际情况下，由于SYN报文是TCP连接的第一个报文，如果该报文在传输的过程中丢弃了，那么发送方则无法测量RTT，也就无法根据RTT来计算RTO。因此，SYN重传的算法就要简单一些，SYN重传时间间隔一般根据系统实现的不同稍有差别，windows系统一般将第一次重传超时设为3秒，以后每次超时重传时间为上一次的2倍</p>
+<h5 id="重传次数">重传次数</h5>
+<p>在三次握手时，重传次数时可以确定的。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs stylus">net<span class="hljs-selector-class">.ipv4</span><span class="hljs-selector-class">.tcp_syn_retries</span> = <span class="hljs-number">6</span>        <span class="hljs-comment">//for client, 用于在syn发送阶段</span><br>net<span class="hljs-selector-class">.ipv4</span><span class="hljs-selector-class">.tcp_synack_retries</span> = <span class="hljs-number">5</span>     <span class="hljs-comment">//for server, 用于在yn-ack发送阶段</span><br>Copy<br></code></pre></td></tr></table></figure>
+<h5 id="ARQ协议">ARQ协议</h5>
+<p>当 TCP 发出一个段后，它启动一个定时器，等待目的端确认收到这个报文段。如果不能及时收到一个确认，将重发这个报文段。</p>
+<p>自动重传请求（Automatic Repeat-reQuest，ARQ）是OSI模型中数据链路层的错误纠正协议之一。它包括停止等待ARQ协议和连续ARQ协议，错误侦测（Error Detection）、正面确认（Positive Acknowledgment）、逾时重传（Retransmission after Timeout）与负面确认继以重传（Negative Acknowledgment and Retransmission）等机制。</p>
+<h4 id="流量控制">流量控制</h4>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile">TCP 连接的每一方都有固定大小的缓冲空间，TCP的接收端只允许发送端发送接收端缓冲区能接纳的数据。当接收方来不及处理发送方的数据，能提示发送方降低发送的速率，防止包丢失。TCP 使用的流量控制协议是可变大小的滑动窗口协议。 （TCP利用滑动窗口实现流量控制）<br><span class="hljs-keyword">Copy</span><br></code></pre></td></tr></table></figure>
+<p>接收端在接收到数据后，对其进行处理。如果发送端的发送速度太快，导致接收端的结束缓冲区很快的填充满了。此时如果发送端仍旧发送数据，那么接下来发送的数据都会丢包，继而导致丢包的一系列连锁反应，超时重传什么的。而TCP根据接收端对数据的处理能力，决定发送端的发送速度，这个机制就是流量控制。</p>
+<p>在TCP协议的报头信息当中，有一个16位字段的窗口大小。在介绍这个窗口大小时我们知道，<strong>窗口大小的内容实际上是接收端接收数据缓冲区的剩余大小</strong>。这个数字越大，证明接收端接收缓冲区的剩余空间越大，网络的吞吐量越大。接收端会在确认应答发送ACK报文时，将自己的即时窗口大小填入，并跟随ACK报文一起发送过去。而发送方根据ACK报文里的窗口大小的值的改变进而改变自己的发送速度。如果接收到窗口大小的值为0，那么发送方将停止发送数据。并定期的向接收端发送窗口探测数据段，让接收端把窗口大小告诉发送端。</p>
+<p>注：16位的窗口大小最大能表示65535个字节（64K），但是TCP的窗口大小最大并不是64K。在TCP首部中40个字节的选项中还包含了一个窗口扩大因子M，实际的窗口大小就是16为窗口字段的值左移M位。每移一位，扩大两倍。</p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210406215601482.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210406215601482.png" class="" title="image-20210406215601482"></a></p>
+<h5 id="可变滑动窗口">可变滑动窗口</h5>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/yao5hed/article/details/81046945">https://blog.csdn.net/yao5hed/article/details/81046945</a></p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210410181120147.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210410181120147.png" class="" title="image-20210410181120147"></a></p>
+<h5 id="流量控制引发的死锁？怎么避免死锁的发生？">流量控制引发的死锁？怎么避免死锁的发生？</h5>
+<p>当发送者收到了一个窗口为0的应答，发送者便停止发送，等待接收者的下一个应答。但是如果这个窗口不为0的应答在传输过程丢失，发送者一直等待下去，而接收者以为发送者已经收到该应答，等待接收新数据，这样双方就相互等待，从而产生死锁。</p>
+<p>为了避免流量控制引发的死锁，TCP使用了持续计时器。每当发送者收到一个零窗口的应答后就启动该计时器。时间一到便主动发送报文询问接收者的窗口大小。若接收者仍然返回零窗口，则重置该计时器继续等待；若窗口不为0，则表示应答报文丢失了，此时重置发送窗口后开始发送，这样就避免了死锁的产生。</p>
+<h4 id="拥塞控制">拥塞控制</h4>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile">当网络拥塞时，减少数据的发送。<br><br>发送方有拥塞窗口，发送数据前比对接收方发过来的接收窗口，取小<br><br>慢启动、拥塞避免、拥塞发送、快速恢复<br>应用数据被分割成TCP认为最适合发送的数据块。TCP的接收端会丢弃重复的数据。 <br><span class="hljs-keyword">Copy</span><br></code></pre></td></tr></table></figure>
+<p>TCP传输的过程中，发送端开始发送数据的时候，如果刚开始就发送大量的数据，那么就可能造成一些问题。网络可能在开始的时候就很拥堵，如果给网络中在扔出大量数据，那么这个拥堵就会加剧。拥堵的加剧就会产生大量的丢包，就对大量的超时重传，严重影响传输。</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">发送方维持一个拥塞窗口 cwnd ( congestion <span class="hljs-keyword">window</span> )的状态变量。拥塞窗口的大小取决于网络的拥塞程度，并且动态地在变化。发送方让自己的发送窗口等于拥塞。<br><br>发送方控制拥塞窗口的原则是：只要网络没有出现拥塞，拥塞窗口就再增大一些，以便把更多的分组发送出去。但只要网络出现拥塞，拥塞窗口就减小一些，以减少注入到网络中的分组数。<br><span class="hljs-keyword">Copy</span><br></code></pre></td></tr></table></figure>
+<h5 id="慢启动">慢启动</h5>
+<p>所以TCP引入了<strong>慢启动</strong>的机制，在开始发送数据时，先发送少量的数据探路。探清当前的网络状态如何，再决定多大的速度进行传输。发送刚开始定义拥塞窗口为 1，每次收到ACK应答，拥塞窗口加 1。在发送数据之前，<strong>首先将拥塞窗口与接收端反馈的窗口大小比对，取较小的值作为实际发送的窗口。</strong></p>
+<ul>
+<li>算法流程
+<ul>
+<li>连接建好的开始先初始化cwnd = 1(窗口)，表明可以传一个<strong>MSS</strong>（最大报文段长度）大小的数据</li>
+<li>每当收到一个<strong>ACK</strong>，cwnd++，线性上升</li>
+<li>每当过了一个<strong>RTT</strong>，cwnd = cwnd*2， 呈指数上升。</li>
+<li>ssthresh（slow start threshold），是一个上限，当cwnd &gt;= ssthresh时，就会进入“拥塞避免算法”</li>
+</ul>
+</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210410194920966.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210410194920966.png" class="" title="image-20210410194920966"></a></p>
+<h5 id="拥塞避免">拥塞避免</h5>
+<p>拥塞窗口的增长是指数级别的。慢启动的机制只是说明在开始的时候发送的少，发送的慢，但是增长的速度是非常快的。为了控制拥塞窗口的增长，不能使拥塞窗口单纯的加倍，设<strong>置一个拥塞窗口的阈值，当拥塞窗口大小超过阈值时，不能再按照指数来增长，而是线性的增长</strong>。</p>
+<ul>
+<li>一般来说ssthresh的值是65535字节(2的16次方)，当cwnd达到这个值时后</li>
+<li>算法流程
+<ul>
+<li>收到一个ACK时，cwnd = cwnd + 1/cwnd</li>
+<li>每过一个RTT时，cwnd = cwnd + 1</li>
+</ul>
+</li>
+</ul>
+<h5 id="阻塞发生">阻塞发生</h5>
+<p>一旦出现网络拥塞，发生超时重传时，慢启动的阈值会为原来的一半（这里的原来指的是发生网络拥塞时拥塞窗口的大小），同时拥塞窗口重置为 1。</p>
+<p>当丢包的时候，有两种情况</p>
+<ul>
+<li>等到RTO超时，重传数据包，TCP认为该情况太糟糕了
+<ul>
+<li>sshthreash = swnd / 2</li>
+<li>cwnd 重置为1</li>
+<li>进入<strong>慢启动算法</strong></li>
+</ul>
+</li>
+</ul>
+<p>[<img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210406221637813.png" class="" title="image-20210406221637813"></p>
+<ul>
+<li>快速重传算法，即收到3个重复的ACK就开始重传，无需等待RTO超时
+<ul>
+<li>TCP Tahoe（代表版本）的实现和RTO超时一样。</li>
+<li>TCP Reno的实现：
+<ul>
+<li>cwnd = cwnd / 2</li>
+<li>sshthresh = cwnd</li>
+<li>进入<strong>快速恢复算法</strong>——Fast Recovery</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210410200127345.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210410200127345.png" class="" title="image-20210410200127345"></a></p>
+<p>拥塞控制是TCP在传输时尽可能快的将数据传输，并且避免拥塞造成的一系列问题。是可靠性的保证，同时也是维护了传输的高效性。</p>
+<h5 id="快重传和快恢复">快重传和快恢复</h5>
+<p><strong>快重传算法要求首先接收方收到一个失序的报文段后就立刻发出重复确认，而不要等待自己发送数据时才进行捎带确认</strong>。</p>
+<p>接收方成功的接受了发送方发送来的M1、M2并且分别给发送了ACK，现在接收方没有收到M3，而接收到了M4，显然接收方不能确认M4，因为M4是失序的报文段。如果根据可靠性传输原理接收方什么都不做，但是按照快速重传算法，在收到M4、M5等报文段的时候，不断重复的向发送方发送M2的ACK，如果接收方一连收到三个重复的ACK，那么发送方不必等待重传计时器到期，由发送方尽早重传未被确认的报文段。</p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210410201904592.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210410201904592.png" class="" title="image-20210410201904592"></a></p>
+<p>与快重传配合使用的还有<strong>快恢复</strong>算法，其过程有以下两个要点：</p>
+<ul>
+<li>当发送方连续收到三个重复确认，就执行“乘法减小”算法，把慢开始门限ssthresh减半。这是为了预防网络发生拥塞。请注意：接下去不执行慢开始算法。</li>
+<li>由于发送方现在认为网络很可能没有发生拥塞，因此与慢开始不同之处是现在不执行慢开始算法（即拥塞窗口cwnd现在不设置为1），而是把cwnd值设置为 慢开始门限ssthresh减半后的数值，然后开始执行拥塞避免算法（“加法增大”），使拥塞窗口缓慢地线性增大。</li>
+</ul>
+<blockquote>
+<p>也有的快重传实现是把开始时的拥塞窗口cwnd值再增大一点，即等于 ssthresh + 3 X MSS 。这样做的理由是：既然发送方收到三个重复的确认，就表明有三个分组已经离开了网络。这三个分组不再消耗网络 的资源而是停留在接收方的缓存中。可见现在网络中并不是堆积了分组而是减少了三个分组。因此可以适当把拥塞窗口扩大了些。</p>
+</blockquote>
+<blockquote>
+<h2 id="流量控制和阻塞控制的区别">流量控制和阻塞控制的区别</h2>
+<ul>
+<li>流量控制：流量控制是控制<strong>端到端的速率</strong>，作用于接收者的，它是控制发送者的发送速度从而使接收者来得及接收，防止分组丢失的。</li>
+<li>拥塞控制：拥塞控制是控制<strong>全局网络的速率</strong>，作用于网络的，它是防止过多的数据注入到网络中，避免出现网络负载过大的情况；常用的方法就是：（ 1 ）慢开始、拥塞避免（ 2 ）快重传、快恢复。</li>
+</ul>
+<p>流量，而拥塞控制。<br>
+举个例子，<br>
+1.宽带速率1Gb/s，网络只有两台机器，从一台主机传送数据到另一台，这需要流量控制，以保证接收方能正常接收数据。<br>
+2.宽带速率1Gb/s，网络中有成千上万台机器，几万台主机发送到另外几万台，这需要拥塞控制，不然网络会瘫痪。<br>
+所以折中一下，在连接数较少的情况下可能需要流量控制，配合拥塞控制。</p>
+<h2 id="阻塞控制题目">阻塞控制题目</h2>
+<p>设 TCP 的 ssthresh （慢开始门限）的初始值为 8 （单位为报文段）。当拥塞窗口上升到 12 时网络发生了超时， TCP 使用慢开始和拥塞避免。试分别求出第 1 次到第 15 次传输的各拥塞窗口大小。</p>
+<table>
+<thead>
+<tr>
+<th>次数</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+<th>11</th>
+<th>12</th>
+<th>13</th>
+<th>14</th>
+<th>15</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>拥塞窗口大小</td>
+<td>1</td>
+<td>2</td>
+<td>4</td>
+<td>8</td>
+<td>9</td>
+<td>10</td>
+<td>11</td>
+<td>12</td>
+<td>1</td>
+<td>2</td>
+<td>4</td>
+<td>6</td>
+<td>7</td>
+<td>8</td>
+<td>9</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<h4 id="连接管理">连接管理</h4>
+<h5 id="三次握手">三次握手</h5>
+<ul>
+<li>
+<p>TCP服务器进程先创建传输控制块TCB，时刻准备接受客户进程的连接请求，此时服务器就进入了LISTEN（监听）状态；</p>
+</li>
+<li>
+<p>TCP客户进程也是先创建传输控制块TCB，然后向服务器发出连接请求报文，这是报文首部中的同部位SYN=1，同时选择一个初始序列号 seq=x ，此时，TCP客户端进程进入了 SYN-SENT（同步已发送状态）状态。TCP规定，SYN报文段（SYN=1的报文段）不能携带数据，但需要消耗掉一个序号。</p>
+</li>
+<li>
+<p>TCP服务器收到请求报文后，如果同意连接，则发出确认报文。确认报文中应该 ACK=1，SYN=1，确认号是ack=x+1，同时也要为自己初始化一个序列号 seq=y，此时，TCP服务器进程进入了SYN-RCVD（同步收到）状态。这个报文也不能携带数据，但是同样要消耗一个序号。</p>
+</li>
+<li>
+<p>TCP客户进程收到确认后，还要向服务器给出确认。确认报文的ACK=1，ack=y+1，自己的序列号seq=x+1，此时，TCP连接建立，客户端进入ESTABLISHED（已建立连接）状态。TCP规定，ACK报文段可以携带数据，但是如果不携带数据则不消耗序号。</p>
+</li>
+<li>
+<p>当服务器收到客户端的确认后也进入ESTABLISHED状态，此后双方就可以开始通信了。</p>
+<img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210330145507987.png" class="" title="image-20210330145507987">
+</li>
+</ul>
+<h5 id="为什么不能两次握手">为什么不能两次握手</h5>
+<p>主要是<strong>为了防止已经失效的连接请求报文突然又传送到了服务器</strong>，从而产生错误。如果使用的是两次握手建立连接，假设有这样一种场景，客户端发送的第一个请求连接并且没有丢失，只是因为在网络中滞留的时间太长了，由于TCP的客户端迟迟没有收到确认报文，以为服务器没有收到，此时重新向服务器发送这条报文，此后客户端和服务器经过两次握手完成连接，传输数据，然后关闭连接。此时之前滞留的那一次请求连接，因为网络通畅了, 到达了服务器，这个报文本该是失效的，但是，两次握手的机制将会让客户端和服务器再次建立连接，这将导致不必要的错误和资源的费。<br>
+如果采用的是三次握手，就算是那一次失效的报文传送过来了，服务端接受到了那条失效报文并且回复了确认报文，但是客户端不会再次发出确认。由于服务器收不到确认，就知道客户端并没有请求连接。</p>
+<h5 id="四次挥手">四次挥手</h5>
+<ul>
+<li>
+<p>客户端进程发出连接释放报文，并且停止发送数据。释放数据报文首部，FIN=1，其序列号为seq=u（等于前面已经传送过来的数据的最后一个字节的序号加1），此时，客户端进入FIN-WAIT-1（终止等待1）状态。 <strong>TCP规定，FIN报文段即使不携带数据，也要消耗一个序号</strong>。</p>
+</li>
+<li>
+<p>服务器收到连接释放报文，发出确认报文，ACK=1，ack=u+1，并且带上自己的序列号seq=v，此时，服务端就进入了CLOSE-WAIT（关闭等待）状态。TCP服务器通知高层的应用进程，客户端向服务器的方向就释放了，这时候处于半关闭状态，即客户端已经没有数据要发送了，但是服务器若发送数据，客户端依然要接受。这个状态还要持续一段时间，也就是整个CLOSE-WAIT状态持续的时间。</p>
+</li>
+<li>
+<p>客户端收到服务器的确认请求后，此时，客户端就进入FIN-WAIT-2（终止等待2）状态，等待服务器发送连接释放报文（在这之前还需要接受服务器发送的最后的数据）。</p>
+</li>
+<li>
+<p>服务器将最后的数据发送完毕后，就向客户端发送连接释放报文，FIN=1，ack=u+1，由于在半关闭状态，服务器很可能又发送了一些数据，假定此时的序列号为seq=w，此时，服务器就进入了LAST-ACK（最后确认）状态，等待客户端的确认。</p>
+</li>
+<li>
+<p>客户端收到服务器的连接释放报文后，必须发出确认，ACK=1，ack=w+1，而自己的序列号是seq=u+1，此时，客户端就进入了TIME-WAIT（时间等待）状态。注意此时TCP连接还没有释放，必须经过2∗MSL（最长报文段寿命）的时间后，当客户端撤销相应的TCB后，才进入CLOSED状态。</p>
+</li>
+<li>
+<p><strong>服务器只要收到了客户端发出的确认，立即进入CLOSED状态</strong>。同样，撤销TCB后，就结束了这次的TCP连接。可以看到，服务器结束TCP连接的时间要比客户端早一些。</p>
+<img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210330145711359.png" class="" title="image-20210330145711359">
+</li>
+</ul>
+<h5 id="为什么客户端最后还要等待2MSL？">为什么客户端最后还要等待2MSL？</h5>
+<p>MSL（Maximum Segment Lifetime），TCP允许不同的实现可以设置不同的MSL值。</p>
+<p>第一，保证客户端发送的最后一个ACK报文能够到达服务器，因为这个ACK报文可能丢失，站在服务器的角度看来，我已经发送了FIN+ACK报文请求断开了，客户端还没有给我回应，应该是我发送的请求断开报文它没有收到，于是服务器又会重新发送一次，而客户端就能在这个2MSL时间段内收到这个重传的报文，接着给出回应报文，并且会重启2MSL计时器。</p>
+<p>第二，防止类似与“三次握手”中提到了的“已经失效的连接请求报文段”出现在本连接中。客户端发送完最后一个确认报文后，在这个2MSL时间中，就可以使本连接持续的时间内所产生的所有报文段都从网络中消失。这样新的连接中不会出现旧连接的请求报文。</p>
+<h3 id="TCP提高性能的机制">TCP提高性能的机制</h3>
+<ul>
+<li>
+<p>滑动窗口（上面写了）</p>
+</li>
+<li>
+<p>快速重传（上面写了）</p>
+</li>
+<li>
+<p>延迟应答</p>
+<ul>
+<li>
+<p>如果接收数据的主机立刻返回ACK应答, 这时候返回的窗口可能比较小。<br>
+假设接收端缓冲区为1M. 一次收到了500K的数据，如果立刻应答, 返回的窗口大小就是500K。但实际上可能处理端处理的速度很快, 10ms之内就把500K数据从缓冲区消费掉了。在这种情况下, 接收端处理还远没有达到自己的极限, 即使窗口再放大一些, 也能处理过来，如果接收端稍微等一会儿再应答，比如等待200ms再应答, 那么这个时候返回的窗口大小就是1M。</p>
+</li>
+<li>
+<p>不是所有的数据包都可以延迟应答，有两个限制</p>
+<ul>
+<li>数量限制: 每隔N个包就应答一次</li>
+<li>时间限制: 超过最大延迟时间就应答一次</li>
+</ul>
+<blockquote>
+<p>一般 N 取2, 最大延迟时间取200ms</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>
+<p>捎带应答</p>
+<ul>
+<li>客户端和服务器在应用层也是 “一发一收” 的，意味着客户端给服务器说了 “How are you”，服务器也会给客户端回一个 “Fine, thank you”。那么这个时候ACK就可以搭顺风车, 和服务器回应的 “Fine, thank you” 一起发送给客户端</li>
+</ul>
+</li>
+</ul>
+<h3 id="TCP-粘包-拆包的原因及解决方法">TCP 粘包/拆包的原因及解决方法</h3>
+<p>TCP是以流的方式来处理数据，一个完整的包可能会被TCP拆分成多个包进行发送，也可能把小的封装成一个大的数据包发送。</p>
+<p>首先要明确，粘包问题中的 “包”，是指应用层的数据包。在TCP的协议头中,，没有如同UDP一样的 “报文长度” 字段，但是有一个序号字段。<br>
+站在传输层的角度，TCP是一个一个报文传过来的，按照序号排好序放在缓冲区中。<br>
+站在应用层的角度，看到的只是一串连续的字节数据。<br>
+那么应用程序看到了这一连串的字节数据，就不知道从哪个部分开始到哪个部分是一个完整的应用层数据包。此时数据之间就没有了边界, 就产生了粘包问题</p>
+<p>TCP粘包/分包的原因：</p>
+<p>应用程序写入的字节大小大于套接字发送缓冲区的大小，会发生拆包现象，而应用程序写入数据小于套接字缓冲区大小，网卡将应用多次写入的数据发送到网络上，这将会发生粘包现象；</p>
+<p>进行MSS大小的TCP分段，当TCP报文长度-TCP头部长度&gt;MSS的时候将发生拆包</p>
+<p>以太网帧的payload（净荷）大于MTU（1500字节）进行ip分片。</p>
+<p>解决方法</p>
+<p><strong>消息定长</strong>：FixedLengthFrameDecoder类</p>
+<p>包尾增加特殊字符分割：行分隔符类：LineBasedFrameDecoder或自定义分隔符类 ：DelimiterBasedFrameDecoder</p>
+<p>将消息分为消息头和消息体：LengthFieldBasedFrameDecoder类。分为有头部的拆包与粘包、长度字段在前且有头部的拆包与粘包、多扩展头部的拆包与粘包。</p>
+<p>**对于UDP协议来说, 是否也存在 “粘包问题” **</p>
+<p>对于UDP, 如果还没有向上层交付数据, UDP的报文长度仍然存在.同时, UDP是一个一个把数据交付给应用层的, 就有很明确的数据边界.<br>
+站在应用层的角度, 使用UDP的时候, 要么收到完整的UDP报文, 要么不收.不会出现收到 “半个” 的情况.</p>
+<h3 id="半连接攻击和全连接攻击">半连接攻击和全连接攻击</h3>
+<p>tcp通信是一个面向连接的过程，客户端要和服务端连接，必须进行连接才能进行通信。在tcp连接中，有两种连接攻击方式，是半连接攻击机和全连接攻击。</p>
+<h4 id="半连接攻击（syn泛洪）">半连接攻击（syn泛洪）</h4>
+<p>半连接攻击是一种攻击协议栈的攻击方式，坦白说就是攻击主机的一种攻击方式。通过将主机的资源消耗殆尽，从而导致应用层的程序无资源可用，导致无法运行。在正常情况下，客户端连接服务端需要通过三次握手，首先客户端构造一个SYN连接数据包发送至服务端，自身进入SYN_SEND状态，当服务端收到客户端的SYN包之后，为其分配内存核心内存，并将其放置在半连接队列中，服务端接收客户SYN包并会向客户端发送一个SYN包和ACK包，此刻服务端进入SYN_RECV态。客户端收到包之后，再次向服务端发送ACK确认包。至此连接建立完成，双方都进入ESTABLSHEDZ状态。半连接就是通过不断地构造客户端的SYN连接数据包发向服务端，等到服务端的半连接队列满的时候，后续的正常用户的连接请求将会被丢弃，从而无法连接到服务端。此为半连接攻击方式。根据服务端的半连接队列的大小，不同主机的抵抗这种SYN攻击的能力也是不一样。</p>
+<p>如何来解决半连接攻击？</p>
+<p>可以通过拓展半连接队列的大小，来进行补救，但缺点是，不能无限制的增加，这样会耗费过多的服务端资源，导致服务端性能地下。这种方式几乎不可取。现主要通syn cookie或者syn中继机制来防范半连接攻，部位半连接分配核心内存的方式来防范。</p>
+<h4 id="全连接攻击">全连接攻击</h4>
+<p>全连接攻击是通过消费服务端进程数和连接数，只连接而不进行发送数据的一种攻击方式。当客户端连接到服务端，仅仅只是连接，此时服务端会为每一个连接创建一个进程来处理客户端发送的数据。但是客户端只是连接而不发送数据，此时服务端会一直阻塞在recv或者read的状态，如此一来，多个连接，服务端的每个连接都是出于阻塞状态从而导致服务端的崩溃。</p>
+<p>如何来解决全连接攻击？</p>
+<p>可以通过不为全连接分配进程处理的方式来防范全连接攻击，具体的情况是当收到数据之后，在为其分配一个处理线程。具体的处理方式在accept返回之前是不分配处理线程的。直到接收相关的数据之后才为之提供一个处理过程。例如在apache服务中，是通过预创建一定量的子进程作为处理连接继承。所有的自己进程都继承父进程的sockfd，每当有一个连接过来时，只有当accept返回是，才会为该链接分配一个进程来处理连接请求。负责，子进程一直处于等待状态。如果出现值是连接存在，而始终不放数据，该链接的状态是SYN_RECV，在协议栈中，提供一个保活期给该链接，如果超过保活期还没有数据到来，服务端协议栈将会断开该链接。如果没有该保活期，虽然避免了ESTABLESHED状态的数量，但是SYN_RECV的数据量的增长仍旧是不可估算的，所以需要利用保活期来监控该链接是需要清除断开。</p>
+<h2 id="5-3-Socket">5.3 Socket</h2>
+<h3 id="如何使用socket实现可靠连接">如何使用socket实现可靠连接</h3>
+<p>sockets（套接字）编程有三种：流式套接字（SOCK_STREAM），数据报套接字（SOCK_DGRAM），原始套接字（SOCK_RAW）；基于TCP的socket编程是采用的流式套接字。</p>
+<ul>
+<li>服务器端编程的步骤</li>
+</ul>
+<p>（1）加载套接字库，创建套接字(WSAStartup()/socket())；</p>
+<p>（2）绑定套接字到一个IP地址和一个端口上(bind())；</p>
+<p>（3）将套接字设置为监听模式等待连接请求(listen())；</p>
+<p>（4）请求到来后，接受连接请求，返回一个新的对应于此次连接的套接字(accept())；</p>
+<p>（5）用返回的套接字和客户端]进行通信(send()/recv())；</p>
+<p>（6）返回，等待另一连接请求；</p>
+<p>（7）关闭套接字，关闭加载的套接字库(closesocket()/WSACleanup())。</p>
+<ul>
+<li>客户端编程的步骤：</li>
+</ul>
+<p>（1）加载套接字库，创建套接字(WSAStartup()/socket())；</p>
+<p>（2）向服务器发出连接请求(connect())；</p>
+<p>（3）和服务器端进行通信(send()/recv())；</p>
+<p>（4）关闭套接字，关闭加载的套接字库(closesocket()/WSACleanup())。</p>
+<hr>
+<h1>六、会话层</h1>
+<h2 id="6-1-概述">6.1 概述</h2>
+<p><strong>会话层</strong>：会话层管理主机之间的会话进程，即负责建立、管理、终止进程之间的会话。会话层还利用在数据中插入校验点来实现数据的同步。</p>
+<ul>
+<li>会话层的任务：不同主机上各进程间的对话</li>
+<li>会话层的功能：管理主机间的会话进程，包括建立、管理以及终止进程间的会话。是一种<strong>端到端</strong>的服务</li>
+</ul>
+<hr>
+<h1>七、表示层</h1>
+<h2 id="7-1-概述">7.1 概述</h2>
+<p><strong>表示层</strong>：表示层对上层数据或信息进行变换以保证一个主机应用层信息可以被另一个主机的应用程序理解。表示层的数据转换包括数据的加密、压缩、格式转换等。</p>
+<p>负责处理在两个内部数据表示结构不同的通信系统之间交换信息的表示格式，为数据加密和解密以及为提高传输效率提供必需的数据压缩以及解压等功能。</p>
+<hr>
+<h1>八、应用层</h1>
+<h2 id="8-1-概述">8.1 概述</h2>
+<p><strong>应用层</strong>：为操作系统或网络应用程序提供访问网络服务的接口。</p>
+<ul>
+<li>应用层的任务：提供系统与用户的接口</li>
+<li>应用层的功能：
+<ul>
+<li>文件传输</li>
+<li>访问和管理</li>
+<li>电子邮件服务</li>
+</ul>
+</li>
+<li>协议：FTP、SMTP、POP3、HTTP、DNS、TELnet</li>
+</ul>
+<h2 id="8-2-从输入URL到浏览器显示页面的流程">8.2 从输入URL到浏览器显示页面的流程</h2>
+<h3 id="URL解析">URL解析</h3>
+<h4 id="1、地址解析">1、地址解析</h4>
+<p>浏览器会根据你的输入来判断该输入是一条合法的URL，还是需要被搜索的关键词。并且根据你输入的内容进行自动完成、字符编码等操作。</p>
+<h4 id="2、其他操作">2、其他操作</h4>
+<p>目前大部分浏览器都会<strong>强制客户端使用HTTPS协议</strong>以保证信息传输的安全性。同时还会进行一些额外的操作，比如安全检查、访问限制等。</p>
+<h4 id="3、缓存检查">3、缓存检查</h4>
+<p>有时候博客在gitee上进行了更新，但是通过谷歌浏览器查看博客时，仍是更新前的博客，这是因为浏览器中缓存了之前的博客界面。</p>
+<p>浏览器会先检测是否缓存了目标URL的页面，如果有且缓存未过期，则直接展示缓存页面，无需再向服务器进行请求</p>
+<img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210415185211636.png" class="" title="image-20210415185211636">
+<h3 id="DNS解析">DNS解析</h3>
+<p><strong>DNS解析是寻找所需要的资源的IP地址的过程</strong>。因为互联网中每一台连网的机器都有<strong>唯一IP作为标识</strong>，但是它是一串数字，记忆太过困难。所以就需要将网址和IP地址进行转换，也就是DNS解析。其具体步骤如下。</p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210415185234770.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210415185234770.png" class="" title="image-20210415185234770"></a></p>
+<h4 id="第一步：检查浏览器缓存中是否缓存过该域名对应的IP地址">第一步：检查浏览器缓存中是否缓存过该域名对应的IP地址</h4>
+<p>用户通过浏览器浏览过某网站之后，浏览器就会自动缓存该网站域名对应的地址，当用户再次访问的时候，浏览器就会从缓存中查找该域名对应的IP地址，因为缓存不仅是有大小限制，而且还有时间限制（域名被缓存的时间通过属性来设置），所以存在域名对应的找不到的情况。当浏览器从缓存中找到了该网站域名对应的地址，那么整个解析过程结束，如果没有找到，将进行下一步骤。对于的缓存时间问题，不宜设置太长的缓存时间，时间太长，如果域名对应的发生变化，那么用户将在一段时间内无法正常访问到网站，如果太短，那么又造成频繁解析域名。</p>
+<h4 id="第二步：如果在浏览器缓存中没有找到IP，那么将继续查找本机系统是否缓存过IP">第二步：如果在浏览器缓存中没有找到IP，那么将继续查找本机系统是否缓存过IP</h4>
+<p>如果第一个步骤没有完成对域名的解析过程，那么浏览器会去系统缓存中查找系统是否缓存过这个域名对应的地址，也可以理解为系统自己也具备域名解析的基本能力。在系统中，可以通过设置文件来将域名手动绑定到某上，文件位置在。对于普通用户，并不推荐自己手动绑定域名和，对于开发者来说，通过绑定域名和，可以轻松切换环境，可以从测试环境切换到开发环境，方便开发和测试。在系统中，黑客常常修改他的电脑的文件，将用户常常访问的域名绑定到他指定的上，从而实现了本地解析，导致这些域名被劫持。在或者系统中，文件在，修改该文件也可以实现同样的目的。</p>
+<ul>
+<li>查找<strong>路由器缓存</strong>，通过路由器看看有没有DNS缓存</li>
+</ul>
+<p>前两步都是在本机上完成的，所以没有在上面示例图上展示出来，从第三步开始，才正在地向远程DNS服务器发起解析域名的请求。</p>
+<h4 id="第三步：向本地域名解析服务系统发起域名解析的请求">第三步：向本地域名解析服务系统发起域名解析的请求</h4>
+<p>如果在本机上无法完成域名的解析，那么系统只能请求本地域名解析服务系统进行解析，本地域名系统一般都是本地区的域名服务器，比如你连接的校园网，那么域名解析系统就在你的校园机房里，如果你连接的是电信、移动或者联通的网络，那么本地域名解析服务器就在本地区，由各自的运营商来提供服务。对于本地服务器地址，系统使用命令就可以查看，在和系统下，直接使用命令来查看服务地址。一般都缓存了大部分的域名解析的结果，当然缓存时间也受域名失效时间控制，大部分的解析工作到这里就差不多已经结束了，负责了大部分的解析工作。</p>
+<h4 id="第四步：向根域名解析服务器发起域名解析请求">第四步：向根域名解析服务器发起域名解析请求</h4>
+<p>本地域名解析器还没有完成解析的话，那么本地域名解析服务器将向根域名服务器发起解析请求。</p>
+<h4 id="第五步：根域名服务器返回gTLD（通用顶级域名）域名解析服务器地址">第五步：根域名服务器返回gTLD（通用顶级域名）域名解析服务器地址</h4>
+<p>本地域名解析向根域名服务器发起解析请求，根域名服务器返回的是所查域的通用顶级域（）地址，常见的通用顶级域有cn、com、edu等。</p>
+<h4 id="第六步：向gTLD服务器发起解析请求">第六步：向gTLD服务器发起解析请求</h4>
+<p>本地域名解析服务器向gTLD服务器发起请求。</p>
+<h4 id="第七步：gTLD服务器接收请求并返回Name-Server服务器">第七步：gTLD服务器接收请求并返回Name Server服务器</h4>
+<p>服务器接收本地域名服务器发起的请求，并根据需要解析的域名，找到该域名对应的域名服务器，通常情况下，这个服务器就是你注册的域名服务器，那么你注册的域名的服务商的服务器将承担起域名解析的任务。</p>
+<h4 id="第八步：Name-Server服务器返回IP地址给本地服务器">第八步：Name Server服务器返回IP地址给本地服务器</h4>
+<p>服务器查找域名对应的地址，将地址连同值返回给本地域名服务器。</p>
+<h4 id="第九步：本地域名服务器缓存解析结果">第九步：本地域名服务器缓存解析结果</h4>
+<p>本地域名服务器缓存解析后的结果，缓存时间由时间来控制。</p>
+<blockquote>
+<p>概述版：</p>
+<ul>
+<li>查询缓存</li>
+</ul>
+<p>我们的浏览器、操作系统、路由器都会缓存一些URL对应的IP地址，统称为<strong>DNS高速缓存</strong>。这是为了加快DNS解析速度，使得不必每次都到根域名服务器中去查询。</p>
+<ul>
+<li>递归解析</li>
+</ul>
+<p>输入<code>www.baidu.com</code>网址后，首先在高速缓存中查找，没找到去根域名服务器查找，没有再去<code>com</code>顶级域名服务器查找，依次类推，直到找到IP地址，然后把它记录在本地告诉缓存中，供下次使用。</p>
+<p>大致过程就是<code>.</code>-&gt; <code>.com</code> -&gt;<code>baidu.com.</code> -&gt; <code>www.baidu.com.</code></p>
+<p>其中<code>.</code>代表根域名服务器。</p>
+<ul>
+<li>DNS负载均衡</li>
+</ul>
+<p>访问<code>baidu.com</code>的时候，每次响应的可能并非是同一个服务器（IP地址不同），一般大公司都有成百上千台服务器来支撑访问，DNS可以返回一个<strong>合适的机器的IP</strong>给用户，例如可以<strong>根据每台机器的负载量，该机器离用户地理位置的距离</strong>等等，这种过程就是DNS负载均衡。</p>
+</blockquote>
+<h3 id="建立TCP连接">建立TCP连接</h3>
+<p>TCP/IP 分为四层，在发送数据时，<strong>每层都要对数据进行封装</strong></p>
+<p>[<img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/20201209141851.png" class="" title="img"></p>
+<h3 id="发送HTTPS请求">发送HTTPS请求</h3>
+<p><strong>大致过程如下</strong></p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921110642708.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921110642708.png" class="" title="image-20210921110642708"></a></p>
+<h3 id="查询MAC地址">查询MAC地址</h3>
+<p>这一步主要负责为打包好的<code>数据+TCP首部+IP首部</code>寻找传输路线，<strong>找到IP对应的物理机</strong>，这里会用到ARP协议。</p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/#arp">ARP协议</a></p>
+<h3 id="请求在Tomcat中的处理流程">请求在Tomcat中的处理流程</h3>
+<p>Web 容器以<strong>进程</strong>的方式在计算机上运行，<strong>它主要负责接收请求，并将其投送至特定的应用</strong>，但Web容器并不属于计算机网络的组成部分。接下来将以Tomcat为例介绍Web容器的核心组件。</p>
+<h4 id="Tomcat的核心组件">Tomcat的核心组件</h4>
+<p>Tomcat的核心组件主要有：<strong>Server、Service、Connector、Engine、Host和Context</strong>。</p>
+<p><strong>一个Server可以包含多个Service，一个Service可以包含多个Connector，但只能包含一个Engine，一个Engine可以包含多个Host，一个Host可以包含多个Context</strong>。</p>
+<p><strong>它们之间的关系如下图所示</strong></p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921111523133.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921111523133.png" class="" title="image-20210921111523133"></a></p>
+<p><strong>配置文件的结构如下</strong></p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-section">&lt;Server&gt;</span>                              <br>    <span class="hljs-section">&lt;Service&gt;</span><br>        <span class="hljs-section">&lt;Engine&gt;</span><br>            <span class="hljs-section">&lt;Host&gt;</span><br>                <span class="hljs-section">&lt;Context /&gt;</span><br>            <span class="hljs-section">&lt;/Host&gt;</span><br>            <span class="hljs-section">&lt;Host&gt;</span><br>                <span class="hljs-section">&lt;Context /&gt;</span><br>            <span class="hljs-section">&lt;/Host&gt;</span><br>        <span class="hljs-section">&lt;/Engine&gt;</span>  <br>        <span class="hljs-section">&lt;Connector /&gt;</span><br>        <span class="hljs-section">&lt;Connector /&gt;</span><br>    <span class="hljs-section">&lt;/Service&gt;</span><br><span class="hljs-section">&lt;/Server&gt;</span><br><span class="hljs-attribute">Copy</span><br></code></pre></td></tr></table></figure>
+<h5 id="Server">Server</h5>
+<p>Server 是整个配置文件的<strong>唯一根元素</strong>，代表整个 Tomcat 容器。Server 内部可以包含多个 Service，其主要职责就是管理多个 Service，对外提供给客户端访问，同时维护所有 Service 的生命周期，包括初始化服务、结束服务、定位客户端要访问的 Service 等等。</p>
+<h5 id="Service">Service</h5>
+<p>Service 的主要职责就是将 Engine 与 Connector 装配在一起对外提供服务。一个 Service 可以包含多个 Connector，但只能包含一个 Engine，<strong>其中 Connector 负责从客户端接收请求，Engine 负责处理 Connector 接收进来的请求。</strong></p>
+<h5 id="Connector">Connector</h5>
+<p><strong>Connector是主要负责接收请求的组件</strong>。</p>
+<p><strong>Tomcat有以下两种工作模式</strong></p>
+<ul>
+<li>作为Web服务器，直接接收客户端的请求</li>
+<li>作为Java Web服务器，接收前置Web服务器的请求</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921111734338.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921111734338.png" class="" title="image-20210921111734338"></a></p>
+<p>每个 Service 可以有一个或多个 Connector，不同工作模式下，Tomcat 需要为各种类型的请求分别定义相应的 Connector，这样才能正确接收客户端对应协议的请求。定义 Connector 可以使用多种属性，某些属性只适用于某种特定的 Connector 类型。</p>
+<p>一般说来，常见的 Connector 有 4 种类型</p>
+<ul>
+<li><strong>HTTP</strong></li>
+<li><strong>HTTPS</strong></li>
+<li><strong>AJP</strong></li>
+<li><strong>Proxy</strong></li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921111805468.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921111805468.png" class="" title="image-20210921111805468"></a></p>
+<p>Connector作为通信接口，<strong>它为其所属特定的 Service 接收外部客户端请求，以及回送应答至外部客户端</strong>。具体职责包括创建 Request、Response 对象用于跟外部客户端交换数据，并<strong>将 Request 交给配套的 Engine 来处理</strong>。</p>
+<h5 id="Engine">Engine</h5>
+<p>Engine 是 Service 组件中<strong>负责请求处理的组件</strong>，其内部可以包含多个 Host。Engine 从一个或多个 Connector 中接收请求并处理，并将处理结果封装成应答交给 Connector，最终回传给外部客户端。</p>
+<h5 id="Host">Host</h5>
+<p><strong>Host 代表一个虚拟主机，它对应计算机网络上的一个实体</strong>。即某个在 DNS 服务器上注册过的域名或者 IP 地址，例如：<code>www.baidu.com</code>或 201.187.10.21。Host 内部可以包含多个 Context，<strong>每个 Context 表示一个 Web 应用</strong>。Host 负责安装、展开、启动和结束每个 Web 应用。</p>
+<p>客户端在填写目标地址时会通过主机名来标识它希望访问的服务器，Tomcat 将从 HTTP 请求头的 Host 字段提取主机名，然后再匹配对应的虚拟主机。如果没有找到匹配的，HTTP 请求将被发送至默认主机 defaultHost。</p>
+<h5 id="Context">Context</h5>
+<p>Context 代表在特定虚拟主机上运行的一个 Web 应用，<strong>负责处理某个特定 Web 应用的所有请求</strong>。</p>
+<h4 id="Tomcat处理HTTP请求">Tomcat处理HTTP请求</h4>
+<p>当以 HTTP 请求到达Tomcat服务器（Server）以后，Tomcat会进行以下几个步骤，将请求交给对应的Web应用进行处理</p>
+<ul>
+<li>根据协议类型和端口号选定 Service 和 Engine
+<ul>
+<li>Connector 主要负责接收请求。当 Connector 接收到特定协议和特定端口的请求后，<strong>其所属的 Service 和 Service 下的 Engine 也就确定了</strong></li>
+</ul>
+</li>
+<li>根据域名或 IP 地址选定 Host
+<ul>
+<li>Engine一旦确定了，就会根据 IP 来选择对应的虚拟主机Host来处理请求。如果匹配失败了，则会使用默认虚拟主机来处理请求</li>
+</ul>
+</li>
+<li>根据 URI 选定 Context
+<ul>
+<li>URI 中的 context-path 指定了 HTTPS 请求将要访问的 Web 应用</li>
+<li>当请求抵达时，Tomcat 将根据 Context 的属性 path 取值与 URI 中的 context-path 的匹配程度来选择 Web 应用处理相应请求</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="请求在Web应用中的处理流程">请求在Web应用中的处理流程</h3>
+<p>请求被 Web 容器中的 Connector 捕获，选取对应的 Server 中的 Engine ，Engine 再根据IP选择对应的虚拟主机，虚拟主机根据URI将请求交给对应的Web应用进行处理。接下来将介绍请求在Web请求中的处理过程。</p>
+<p>介绍处理过程前，先对Web应用的基本组件进行简单介绍。</p>
+<h4 id="Web应用核心组件">Web应用核心组件</h4>
+<h5 id="Listener">Listener</h5>
+<p>监听器 Listener 主要用于监听 Application、Session、Request 等对象的变化，每当这些对象发生变化就会回调用对应的监听方法。</p>
+<h5 id="Filter">Filter</h5>
+<p>过滤器 Filter 负责对请求做<strong>预处理</strong>，接着将请求交给 Servlet 进行处理并生成响应，最后 Filter 再对响应进行后处理。</p>
+<p>从请求的处理过程来看，Filter 主要参与以下几个环节</p>
+<ul>
+<li>在 HttpServletRequest <strong>到达 Servlet 之前，拦截客户的 HttpServletRequest</strong></li>
+<li>根据需要检查 HttpServletRequest，也可以修改 HttpServletRequest 报文头和数据</li>
+<li>在 Servlet 生成的 HttpServletResponse <strong>抵达客户端之前，拦截 HttpServletResponse</strong></li>
+<li>根据需要检查 HttpServletResponse，也可以修改 HttpServletResponse 报文头和数据</li>
+</ul>
+<p><strong>简单来说就是在真正处理请求以及返回响应之前，通过过滤器对内容再进行一些修改</strong></p>
+<h5 id="Servlet">Servlet</h5>
+<p><strong>Servlet 负责处理客户端访问动态资源的 HTTP 请求</strong>，接口 javax.servlet.Servlet 定义了所有 Servlet 必须要实现的方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Servlet</span> </span>&#123;<br>    <span class="hljs-comment">// 由 Servlet 容器调用，完成 Servlet 初始化，启动对外服务</span><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">init</span><span class="hljs-params">(ServletConfig var1)</span> <span class="hljs-keyword">throws</span> ServletException</span>;<br><br>    <span class="hljs-comment">// 获取 Servlet 初始化和启动时参数的配置信息对象 ServletConfig</span><br>    <span class="hljs-function">ServletConfig <span class="hljs-title">getServletConfig</span><span class="hljs-params">()</span></span>;<br><br>    <span class="hljs-comment">// 由 Servlet 容器调用，让 Servlet 处理某个 HTTP 请求</span><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">service</span><span class="hljs-params">(ServletRequest var1, ServletResponse var2)</span> <span class="hljs-keyword">throws</span> ServletException, IOException</span>;<br><br>    <span class="hljs-comment">// 获取 Servlet 的说明信息，包括：作者、版本和版权等等</span><br>    <span class="hljs-function">String <span class="hljs-title">getServletInfo</span><span class="hljs-params">()</span></span>;<br><br>    <span class="hljs-comment">// 由 Servlet 容器调用，用于关闭停止 Servlet 提供的服务</span><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">destroy</span><span class="hljs-params">()</span></span>;<br>&#125;<br>Copy<br></code></pre></td></tr></table></figure>
+<p>从 HTTP 请求的处理过程来看，Servlet 主要参与以下几个环节</p>
+<ul>
+<li>接收请求
+<ul>
+<li>客户端请求会被封装成 HttpServletRequest 对象，包含报文头参数和报文体等信息</li>
+</ul>
+</li>
+<li>处理请求
+<ul>
+<li>通常调用 Servlet 的方法 service、doPost 或 doGet 等方法处理请求，并<strong>进一步调用业务层相应逻辑对其进行处理等</strong></li>
+</ul>
+</li>
+<li>反回响应
+<ul>
+<li>处理完请求后，可以转发（forward）、重定向（redirect）到某个视图页面或者直接返回结果数据</li>
+</ul>
+</li>
+</ul>
+<h4 id="Web应用处理HTTP请求流程">Web应用处理HTTP请求流程</h4>
+<p>Web 应用处理 HTTP 请求的流程主要是<strong>穿越 Listener 和多个 Filters，最终抵达 Servlet 的过程</strong>，Servlet再进行下一步的处理。</p>
+<p><strong>具体流程如下图</strong></p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921112418359.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921112418359.png" class="" title="image-20210921112418359"></a></p>
+<hr>
+<h3 id="请求在Spring-Web应用中的处理流程">请求在Spring Web应用中的处理流程</h3>
+<p>因为使用 SSM 框架，所以 Spring MVC 中的 DispatcherServlet 充当了 Web 应用中的 Serlvet，负责将任务分配给对应的Controller，并将最终视图返回给 Web 容器。</p>
+<h4 id="Spring-MVC的核心组件">Spring MVC的核心组件</h4>
+<h5 id="DispatcherServlet">DispatcherServlet</h5>
+<p>DispatcherServlet 是整个流程<strong>控制的中心</strong>，由它来<strong>接收请求并调用其它组件处理用户的请求</strong>，同时还负责响应结果。DispatcherServlet的存在降低了组件之间的耦合性。</p>
+<h5 id="HandlerMapping">HandlerMapping</h5>
+<p>HandlerMapping 负责<strong>根据用户请求映射获得对应的 Handler和 HandlerInterceptor</strong>。处理方法为从 URL 获得 URI，在通过 URI 从 HandlerMapping 中找到对应的 Handler 和 HandlerInterceptor，即处理器和拦截器。</p>
+<h5 id="HandlerAdapter">HandlerAdapter</h5>
+<p>HandlerAdapter 负责按照特定规则去执行 Handler。</p>
+<p>如果 Handler 有对应的 HandlerAdapater，<strong>HandlerAdapater 则会在调用 Handler 之前执行 HandlerInterceptor 的 preHandler() 方法对 Handler 进行拦截</strong>。</p>
+<h5 id="HandlerInterceptor">HandlerInterceptor</h5>
+<p>HandlerInterceptor 主要负责在执行 Handler 前对其进行拦截。HandlerInterceptor 中的 preHandler() 方法将会提取 HTTP 请求中的数据填充到处理器 Handler 的中。</p>
+<h5 id="Handler">Handler</h5>
+<p>Handler <strong>即Controller ，是处理业务代码的核心器件</strong>。这部分由程序员自行编写，一般的SSM框架中，其下层还有Service和Dao。</p>
+<h4 id="Spring-MVC处理请求流程">Spring MVC处理请求流程</h4>
+<p>当 Web 容器中的 Host 会选择对应的 Web应用来处理请求，这里将请求交给了 Spring MVC 中的 DispatcherServlet 来进一步处理请求。</p>
+<ul>
+<li>DispatcherServlet 通过解析 HTTP 请求的 URL 获得 URI，再根据该 URI <strong>从 HandlerMapping 当中获得该请求对应的 Handler 和 HandlerInterceptor</strong></li>
+<li>DispatcherServlet 根据获得的 Handler 选择合适的 HandlerAdapter。如果成功获得 HandlerAdapter，<strong>HandlerAdapater 则会在调用 Handler 之前执行 HandlerInterceptor 的 preHandler() 方法对 Handler 进行拦截</strong></li>
+<li>Handler 即 Controller 会进行请求的处理，并向下调用 Service 和 Dao 来处理请求</li>
+<li>Hander 处理完成请求后会返回模型数据，模型数据由 DispatcherServlet 封装后返回给Web 容器</li>
+</ul>
+<p><strong>处理的流程图如下</strong></p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921112655885.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921112655885.png" class="" title="image-20210921112655885"></a></p>
+<hr>
+<h3 id="返回过程">返回过程</h3>
+<p>Web 应用处理完请求并将结果返回给 Web 容器后，容器会将响应结果返回给客户端，这是上面流程的逆过程。浏览器收到响应结果后，会对结果进行解析和渲染。这样我们就能看到浏览器给我们显示的网页了。</p>
+<img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921113017358.png" class="" title="image-20210921113017358">
+<hr>
+<h2 id="8-3-HTTP协议">8.3 HTTP协议</h2>
+<h3 id="概述-3">概述</h3>
+<p>HTTP（HyperText Transfer Protocol）：<strong>超文本传输协议</strong>，HTTP是一个客户端终端（用户）和服务器端（网站）请求和应答的标准（TCP）。通过使用网页浏览器、网络爬虫或者其它的工具，客户端发起一个HTTP请求到服务器上指定端口（默认端口为80）。一旦收到请求，服务器会向客户端返回一个状态，比如”HTTP/1.1 200 OK”，以及返回的内容，如请求的文件、错误消息、或者其它信息。</p>
+<p>尽管TCP/IP协议是互联网上最流行的应用，HTTP协议中，并没有规定必须使用它或它支持的层。事实上，HTTP可以在任何互联网协议上，或其他网络上实现。HTTP假定其下层协议提供可靠的传输。因此，任何能够提供这种保证的协议都可以被其使用。因此也就是其在TCP/IP协议族使用TCP作为其传输层。</p>
+<ul>
+<li>超文本：超文本指的是HTML，css，JavaScript和图片等，HTTP的出现是为了接收和发布HTML页面，经过不断的发展也可以用于接收一些音频，视频，文件等内容。</li>
+</ul>
+<img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210910145213312.png" class="" title="image-20210910145213312">
+<hr>
+<h3 id="报文结构">报文结构</h3>
+<p>报文结构：<strong>起始行 + 头部 + 空行 + 实体</strong></p>
+<blockquote>
+<p>http <code>请求报文</code>和<code>响应报文</code>是有一定区别</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210915150323696.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210915150323696.png" class="" title="image-20210915150323696"></a></p>
+<h4 id="起始行">起始行</h4>
+<h5 id="请求行">请求行</h5>
+<ul>
+<li>请求报文 GET /home HTTP/1.1，也就是<strong>方法 + 路径 + http版本</strong></li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/#http%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95">HTTP请求方法</a></p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/#uri%E4%B8%8Eurl">URI与URL</a></p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/#http%E7%89%88%E6%9C%AC">HTTP版本</a></p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/1625556960701-67d07a26-61ea-4708-b378-a33ce98e5907.webp"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/1625556960701-67d07a26-61ea-4708-b378-a33ce98e5907.webp" class="" title="img"></a></p>
+<h5 id="状态行">状态行</h5>
+<ul>
+<li>响应报文 HTTP/1.1 200 OK ，由<strong>http版本、状态码和原因</strong>三部分组成</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/#http%E7%89%88%E6%9C%AC">HTTP版本</a></p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/#http%E7%8A%B6%E6%80%81%E7%A0%81">HTTP状态码</a></p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/1625556999909-c5905faf-64de-41a8-a43b-780207247fa8.webp"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/1625556999909-c5905faf-64de-41a8-a43b-780207247fa8.webp" class="" title="img"></a></p>
+<blockquote>
+<p>在起始行中，每两个部分之间用<strong>空格</strong>隔开，最后一个部分后面应该接一个<strong>换行</strong>，严格遵循<code>ABNF</code>语法规范。</p>
+</blockquote>
+<h4 id="头部">头部</h4>
+<h5 id="请求头">请求头</h5>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210915151245871.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210915151245871.png" class="" title="image-20210915151245871"></a></p>
+<p>Cache-Control：</p>
+<ul>
+<li><strong>private：</strong> 仅浏览器可以缓存</li>
+<li><strong>public：</strong> 浏览器和代理服务器都可以缓存（对于private和public，前端可以认为一样，不用深究</li>
+<li><strong>max-age=xxx</strong> 过期时间（重要）</li>
+<li><strong>no-cache</strong> 不进行强缓存（重要）,使用任何缓存前都要向服务器验证</li>
+<li><strong>no-store</strong> 真正的不缓存</li>
+</ul>
+<h5 id="响应头">响应头</h5>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210915151401084.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210915151401084.png" class="" title="image-20210915151401084"></a></p>
+<p>Content-Type：</p>
+<p>常见的媒体格式：text/html,text/plain,image/gif</p>
+<p>application开头的媒体格式类型：application/xml, appliation/json</p>
+<p>multipart/form-data</p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210915151540851.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210915151540851.png" class="" title="image-20210915151540851"></a></p>
+<h4 id="实体">实体</h4>
+<h5 id="请求体">请求体</h5>
+<h5 id="响应体">响应体</h5>
+<hr>
+<h3 id="HTTP-请求方法">HTTP 请求方法</h3>
+<p><code>http/1.1</code>规定了以下请求方法(注意，都是大写):</p>
+<ul>
+<li>GET: 通常用来获取资源</li>
+<li>HEAD: 获取资源的元信息</li>
+<li>POST: 提交数据，即上传数据</li>
+<li>PUT: 修改数据</li>
+<li>DELETE: 删除资源(几乎用不到)</li>
+<li>CONNECT: 建立连接隧道，用于代理服务器</li>
+<li>OPTIONS: 列出可对资源实行的请求方法，用来跨域请求</li>
+<li>TRACE: 追踪请求-响应的传输路径</li>
+</ul>
+<h4 id="get请求与post请求的区别">get请求与post请求的区别</h4>
+<ul>
+<li>GET在浏览器回退时是无害的，而POST会再次提交请求。</li>
+<li>GET产生的URL地址可以被Bookmark，而POST不可以。</li>
+<li>GET请求会被浏览器主动缓存，而POST不会，除非手动设置。</li>
+<li><strong>GET请求只能进行url编码，而POST支持多种编码方式</strong>。</li>
+<li>GET请求参数会被完整保留在浏览器历史记录里，而POST中的参数不会被保留。</li>
+<li>GET请求在URL中传送的参数是有长度限制的，而POST没有。</li>
+<li><strong>对参数的数据类型，GET只接受ASCII字符，而POST没有限制</strong>。</li>
+<li>GET比POST更不安全，因为参数直接暴露在URL上，所以不能用来传递敏感信息。</li>
+<li>GET参数通过URL传递，POST放在Request body中。</li>
+<li>从<strong>幂等性</strong>的角度，<code>GET</code>是<strong>幂等</strong>的，而<code>POST</code>不是。(<code>幂等</code>表示执行相同的操作，结果也是相同的)</li>
+</ul>
+<hr>
+<h3 id="HTTP-版本">HTTP 版本</h3>
+<h4 id="HTTP1-0">HTTP1.0</h4>
+<ul>
+<li>HTTP 1.0 浏览器与服务器只保持短暂的连接，每次请求都需要与服务器建立一个TCP连接</li>
+</ul>
+<h4 id="HTTP1-1">HTTP1.1</h4>
+<ul>
+<li>新增Connection字段，用于<strong>支持提供TCP持久连接</strong> Connection: keep-alive
+<ul>
+<li>即TCP连接默认不关闭，可以被多个请求复用</li>
+<li>虽然允许复用TCP连接，但是同一个TCP连接里面，所有的数据通信是按次序进行的，服务器只有处理完一个请求，才会接着处理下一个请求。如果前面的处理特别慢，后面就会有许多请求排队等着。（<strong>HTTP队头阻塞</strong>）</li>
+</ul>
+</li>
+<li>增加更多请求头和响应头来完善功能</li>
+<li>新增 Host 字段，用于支持虚拟主机</li>
+<li>缓存策略：If-Match，If-None-Match</li>
+<li>添加了新的请求方法 put, delete, options</li>
+</ul>
+<blockquote>
+<p>队头阻塞</p>
+<p>”队头阻塞“与短连接和长连接无关，而是由 HTTP 基本的“请求 - 应答”模型所导致的。</p>
+<p>因为 HTTP 规定报文必须是“一发一收”，这就形成了一个先进先出的“串行”队列。</p>
+<p>队列里的请求没有轻重缓急的优先级，只有入队的先后顺序，排在最前面的请求被最优先处理。</p>
+<p>如果队首的请求因为处理的太慢耽误了时间，那么队列里后面的所有请求也不得不跟着一起等待，结果就是其他的请求承担了不应有的时间成本。</p>
+</blockquote>
+<p>因为“请求 - 应答”模型不能变，所以“队头阻塞”问题在 HTTP/1.1 里无法解决，只能缓解</p>
+<ul>
+<li>这在 HTTP 里就是“并发连接”（concurrent connections），也就是同时对一个域名发起多个长连接，用数量来解决质量的问题。但这种方式也存在缺陷。如果每个客户端都想自己快，建立很多个连接，用户数×并发数就会是个天文数字。服务器的资源根本就扛不住，或者被服务器认为是恶意攻击，反而会造成“拒绝服务”。所以，HTTP 协议建议客户端使用并发，但不能“滥用”并发。RFC2616 里明确限制每个客户端最多并发 2 个连接。不过实践证明这个数字实在是太小了，众多浏览器都“无视”标准，把这个上限提高到了 6~8。后来修订的 RFC7230 也就“顺水推舟”，取消了这个“2”的限制。</li>
+<li>“域名分片”（domain sharding）技术，还是用数量来解决质量的思路。HTTP 协议和浏览器不是限制并发连接数量吗？好，那我就多开几个域名，比如 <a target="_blank" rel="noopener" href="http://shard1.chrono.com">shard1.chrono.com</a>、<a target="_blank" rel="noopener" href="http://shard2.chrono.com">shard2.chrono.com</a>，而这些域名都指向同一台服务器 <a target="_blank" rel="noopener" href="http://www.chrono.xn--com%2C-gp7i66a065axd527gosbxw3cvxfw3lxu1d087ewca058bk9s1zd/">www.chrono.com，这样实际长连接的数量就又上去了</a></li>
+</ul>
+<h4 id="HTTP2-0">HTTP2.0</h4>
+<ul>
+<li>
+<p><strong>支持服务端推送</strong></p>
+<ul>
+<li>允许服务端推送资源给客户端，在响应一个页面请求中，可以把需要的其他资源一起发给客户端，免得需要再次发送请求，适合加载静态资源，比如请求html时，把css也传过去</li>
+</ul>
+</li>
+<li>
+<p><strong>支持TCP连接IO多路复用</strong></p>
+<ul>
+<li>在一个连接里，客户端和服务器都可以同时发送多个请求或回应，避免队头阻塞</li>
+</ul>
+</li>
+<li>
+<p><strong>二进制分帧（而非文本格式）</strong></p>
+<ul>
+<li>支持多个连接穿插执行，避免队头阻塞</li>
+</ul>
+</li>
+<li>
+<p>首部压缩：HPACK算法</p>
+<ul>
+<li>
+<p>首先是在服务器和客户端之间建立哈希表，将用到的字段存放在这张表中，那么在传输的时候对于之前出现过的值，只需要把</p>
+<p>索引</p>
+<p>(比如0，1，2，…)传给对方即可，对方拿到索引查表就行了。这种</p>
+<p>传索引</p>
+<p>的方式，可以说让请求头字段得到极大程度的精简和复用。废除了起始行的概念。</p>
+<ul>
+<li>HTTP2.0当中废除了起始行的概念，将起始行中的请求方法、URI、状态码转换成了头字段，不过这些字段都有一个”:”前缀，用来和其它请求头区分开。</li>
+<li>其次是对于整数和字符串进行<strong>哈夫曼编码</strong>，哈夫曼编码的原理就是先将所有出现的字符建立一张索引表，然后让出现次数多的字符对应的索引尽可能短，传输的时候也是传输这样的<strong>索引序列</strong>，可以达到非常高的压缩率。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="HTTP-状态码">HTTP 状态码</h3>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status">https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status</a></p>
+<p>RFC 规定 HTTP 的状态码为<strong>三位数</strong>，被分为五类:</p>
+<ul>
+<li>
+<p><strong>1xx</strong>: 表示目前是协议处理的中间状态，还需要后续操作。</p>
+<ul>
+<li><strong>100 Continue</strong>：迄今为止的所有内容都是可行的，客户端应该继续请求，如果已经完成，则忽略它。</li>
+<li><strong>101 Switching Protocols</strong>：在<code>HTTP</code>升级为<code>WebSocket</code>的时候，如果服务器同意变更（切换协议），就会发送状态码 101。</li>
+<li><strong>102 Processing</strong>：服务器已收到并正在处理该请求，但没有响应可用</li>
+</ul>
+</li>
+<li>
+<p><strong>2xx</strong>: 表示成功状态。</p>
+<ul>
+<li><strong>200 OK</strong>：请求成功。</li>
+<li><strong>201 Created</strong>：该请求已成功，并因此创建了一个新的资源。这通常是在POST请求，或是某些PUT请求之后返回的响应。</li>
+<li><strong>202 Accepted</strong>：请求已经接收到，但还未响应，没有结果。意味着不会有一个异步的响应去表明当前请求的结果，预期另外的进程和服务去处理请求，或者批处理。</li>
+<li><strong>204 No Content</strong>：含义与 200 相同，但响应头后没有 body 数据。</li>
+<li><strong>206 Partial Content</strong>：表示部分内容，它的使用场景为 HTTP 分块下载和断点续传，当然也会带上相应的响应头字段<code>Content-Range</code>。</li>
+</ul>
+</li>
+<li>
+<p><strong>3xx</strong>: 重定向状态，资源位置发生变动，需要重新请求。</p>
+<ul>
+<li>
+<p><strong>301 Moved Permanently</strong>：永久重定向，求的URL已被移除时使用</p>
+<p>比如网站从 HTTP 升级到了 HTTPS 了，以前的站点再也不用了，应当返回<code>301</code>，这个时候浏览器默认会做缓存优化，在第二次访问的时候自动访问重定向的那个地址。</p>
+</li>
+<li>
+<p><strong>302 Found</strong>：临时重定向，请求的资源现在临时从不同的 URI 响应请求。由于这样的重定向是临时的，客户端应当继续向原有地址发送以后的请求。只有在Cache-Control或Expires中进行了指定的情况下，这个响应才是可缓存的。</p>
+</li>
+<li>
+<p><strong>304 Not Modified</strong>: 当协商缓存命中时会返回这个状态码。如果客户端发送了一个带条件的 GET 请求且该请求已被允许，而文档的内容（自上次访问以来或者根据请求的条件）并没有改变，则服务器应当返回这个状态码。304 响应禁止包含消息体，因此始终以消息头后的第一个空行结尾。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>4xx</strong>: 请求报文有误。</p>
+<ul>
+<li><strong>400 Bad Request</strong>:
+<ul>
+<li>1、语义有误，当前请求无法被服务器理解。除非进行修改，否则客户端不应该重复提交这个请求。</li>
+<li>2、请求参数有误。</li>
+</ul>
+</li>
+<li><strong>401 Unauthorized</strong>：未授权，当前请求需要用户验证。该响应必须包含一个适用于被请求资源的 WWW-Authenticate 信息头用以询问用户信息。</li>
+<li><strong>403 Forbidden</strong>：服务器已经理解请求，但是拒绝执行它。这并不是请求报文出错，而是服务器禁止访问，原因有很多，比如法律禁止、信息敏感。</li>
+<li><strong>404 Not Found</strong>：资源未找到，表示没在服务器上找到相应的资源。</li>
+<li><strong>405 Method Not Allowed</strong>：请求方法不被服务器端允许。该响应必须返回一个Allow 头信息用以表示出当前资源能够接受的请求方法的列表。</li>
+<li><strong>406 Not Acceptable</strong>: 资源无法满足客户端的条件。请求的资源的内容特性无法满足请求头中的条件，因而无法生成响应实体。</li>
+<li><strong>408 Request Timeout</strong>：服务器等待了太长时间。请求超时。客户端没有在服务器预备等待的时间内完成一个请求的发送。客户端可以随时再次提交这一请求而无需进行任何更改。</li>
+<li><strong>409 Conflict</strong>：多个请求发生了冲突。</li>
+<li><strong>413 Request Entity Too Large</strong>：请求体的数据过大。</li>
+<li><strong>414 Request-URI Too Long</strong>：请求行里的 URI 太大。</li>
+<li><strong>429 Too Many Request</strong>：客户端发送的请求过多。</li>
+<li><strong>431 Request Header Fields Too Large</strong>：请求头的字段内容太大。</li>
+</ul>
+</li>
+<li>
+<p><strong>5xx</strong>: 服务器端发生错误。</p>
+<ul>
+<li><strong>500 Internal Server Error</strong>：服务器遇到了不知道如何处理的情况。</li>
+<li><strong>501 Not Implemented</strong>：客户端请求的功能还不支持。此请求方法不被服务器支持且无法被处理。只有<code>GET</code>和<code>HEAD</code>是要求服务器支持的，它们必定不会返回此错误代码。</li>
+<li><strong>502 Bad Gateway</strong>：此错误响应表明服务器作为网关需要得到一个处理这个请求的响应，但是得到一个错误的响应。服务器自身是正常的，但访问的时候出错了。</li>
+<li><strong>503 Service Unavailable</strong>：服务器没有准备好处理请求。 常见原因是服务器因维护或重载而停机。 请注意，与此响应一起，应发送解释问题的用户友好页面。</li>
+<li><strong>504 Gateway Timeout</strong>：当服务器作为网关，不能及时得到响应时返回此错误代码。</li>
+<li><strong>505 HTTP Version Not Supported</strong>：服务器不支持请求中所使用的HTTP协议版本。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="URI与URL">URI与URL</h3>
+<ul>
+<li><strong>URI</strong>：Uniform Resource Identifier，统一资源标识符</li>
+<li><strong>URL</strong>：Uniform Resource Locator，统一资源定位符，不仅标识了资源，还指定了操作或者获取方式，同时指出了主要访问机制和网络位置；</li>
+<li><strong>URN</strong>：Uniform Resource Name，统一资源名称，用特定命名空间的名字标识资源，使用URN可以在不知道其网络位置及访问方式的情况下讨论资源。</li>
+</ul>
+<h4 id="URI结构">URI结构</h4>
+<p>URI 真正最完整的结构是这样的。</p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210915233628185.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210915233628185.png" class="" title="image-20210915233628185"></a></p>
+<ul>
+<li><strong>scheme</strong> 表示协议名，比如<code>http</code>, <code>https</code>, <code>file</code>等等。后面必须和<code>://</code>连在一起。</li>
+<li><strong>user:passwd</strong>@ 表示登录主机时的用户信息，不过很不安全，不推荐使用，也不常用。</li>
+<li><strong>host:port</strong>表示主机名和端口。</li>
+<li><strong>path</strong>表示请求路径，标记资源所在位置。</li>
+<li><strong>query</strong>表示查询参数，为<code>key=val</code>这种形式，多个键值对之间用<code>&amp;</code>隔开。</li>
+<li><strong>fragment</strong>表示 URI 所定位的资源内的一个<strong>锚点</strong>，浏览器可以根据这个锚点跳转到对应的位置。</li>
+</ul>
+<p>URI 只能使用<code>ASCII</code>, ASCII 之外的字符是不支持显示的，而且还有一部分符号是界定符，如果不加以处理就会导致解析出错。</p>
+<p>因此，URI 引入了<code>编码</code>机制，将所有<strong>非 ASCII 码字符</strong>和<strong>界定符</strong>转为十六进制字节值，然后在前面加个<code>%</code>。</p>
+<p>如，空格被转义成了<code>%20</code>。</p>
+<p>URI允许统一识别资源。URI另外被分组为定位符，名称或两者，这意味着它可以描述URL，URN或两者。</p>
+<blockquote>
+<p><strong>URL和URN都是URI的子集</strong>。换而言之，URL和URN都是URI，但是URI不一定是URL或者URN。</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/640"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/640" class="" title="图片"></a></p>
+<p>举例如下：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs awk">构造一个URI	<br>	http:*<span class="hljs-regexp">//</span>bitpoetry.io<span class="hljs-regexp">/posts/</span>hello.html<span class="hljs-comment">#intro</span><br><br>其中<br>   http:<span class="hljs-regexp">//</span>  <span class="hljs-regexp">//</span> 是定义如何访问资源的方式<br>   bitpoetry.io<span class="hljs-regexp">/posts/</span>hello.html  <span class="hljs-regexp">//</span> 是资源存放的位置<br>   <span class="hljs-comment">#intro  // 是资源</span><br>   <br>URL是URI的一个子集，告诉我们访问资源位置的方式。在例子中，URL应该如下所示：   <br>    http:<span class="hljs-regexp">//</span>bitpoetry.io<span class="hljs-regexp">/posts/</span>hello.html<br>    <br>URN是URI的子集，包括名字（给定的命名空间内），但是不包括访问方式。在例子中，URN如下所示：  <br>	 bitpoetry.io<span class="hljs-regexp">/posts/</span>hello.html<span class="hljs-comment">#intro</span><br>Copy<br></code></pre></td></tr></table></figure>
+<hr>
+<h3 id="HTTP-传输定长和不定长的数据">HTTP 传输定长和不定长的数据</h3>
+<h4 id="定长数据">定长数据</h4>
+<ul>
+<li>
+<p>对于定长包体而言，发送端在传输的时候一般会带上</p>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arcade">Content-<span class="hljs-built_in">Length</span><br></code></pre></td></tr></table></figure>
+<p>, 来指明包体的长度</p>
+<ul>
+<li>用一个<code>nodejs</code>服务器来模拟一下:</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript">const http = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;http&#x27;</span>);<br><br>const server = http.createServer();<br><br>server.<span class="hljs-literal">on</span>(<span class="hljs-string">&#x27;request&#x27;</span>, <span class="hljs-function"><span class="hljs-params">(req, res)</span> =&gt;</span> &#123;<br>  <span class="hljs-keyword">if</span>(req.url === <span class="hljs-string">&#x27;/&#x27;</span>) &#123;<br>    res.setHeader(<span class="hljs-string">&#x27;Content-Type&#x27;</span>, <span class="hljs-string">&#x27;text/plain&#x27;</span>);<br>    res.setHeader(<span class="hljs-string">&#x27;Content-Length&#x27;</span>, <span class="hljs-number">10</span>);<br>    res.write(<span class="hljs-string">&quot;helloworld&quot;</span>);<br>  &#125;<br>&#125;)<br><br>server.listen(<span class="hljs-number">8081</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;成功启动&quot;</span>);<br>&#125;)<br>Copy<br></code></pre></td></tr></table></figure>
+<p>启动后访问: <strong>localhost:8081</strong>。</p>
+<p>浏览器中显示如下:</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile">helloworld<br><span class="hljs-keyword">Copy</span><br></code></pre></td></tr></table></figure>
+<p>这是长度正确的情况，那不正确的情况是如何处理的呢</p>
+<p>我们试着把这个长度设置的小一些:</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile">res.setHeader(<span class="hljs-string">&#x27;Content-Length&#x27;</span>, <span class="hljs-number">8</span>);<br><span class="hljs-keyword">Copy</span><br></code></pre></td></tr></table></figure>
+<p>重启服务，再次访问，现在浏览器中内容如下:</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile">hellowor<br><span class="hljs-keyword">Copy</span><br></code></pre></td></tr></table></figure>
+<p>那后面的<code>ld</code>哪里去了呢？实际上在 http 的响应体中直接被截去了。</p>
+<p>然后我们试着将这个长度设置得大一些:</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile">res.setHeader(<span class="hljs-string">&#x27;Content-Length&#x27;</span>, <span class="hljs-number">12</span>);<br><span class="hljs-keyword">Copy</span><br></code></pre></td></tr></table></figure>
+<p>此时浏览器显示如下：</p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210916161841752.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210916161841752.png" class="" title="image-20210916161841752"></a></p>
+<p>直接无法显示了。可以看到<code>Content-Length</code>对于 http 传输过程起到了十分关键的作用，如果设置不当可以直接导致传输失败。</p>
+<h4 id="不定长包体">不定长包体</h4>
+<p>上述是针对于<code>定长包体</code>，那么对于<code>不定长包体</code>而言是如何传输的呢？</p>
+<p>这里就必须介绍另外一个 http 头部字段了:</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">Transfer-<span class="hljs-keyword">Encoding</span>: chunked<br><span class="hljs-keyword">Copy</span><br></code></pre></td></tr></table></figure>
+<p>表示分块传输数据，设置这个字段后会自动产生两个效果:</p>
+<ul>
+<li>Content-Length 字段会被忽略</li>
+<li>基于长连接持续推送动态内容</li>
+</ul>
+<p>我们依然以一个实际的例子来模拟分块传输，nodejs 程序如下:</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript">const http = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;http&#x27;</span>);<br><br>const server = http.createServer();<br><br>server.<span class="hljs-literal">on</span>(<span class="hljs-string">&#x27;request&#x27;</span>, <span class="hljs-function"><span class="hljs-params">(req, res)</span> =&gt;</span> &#123;<br>  <span class="hljs-keyword">if</span>(req.url === <span class="hljs-string">&#x27;/&#x27;</span>) &#123;<br>    res.setHeader(<span class="hljs-string">&#x27;Content-Type&#x27;</span>, <span class="hljs-string">&#x27;text/html; charset=utf8&#x27;</span>);<br>    res.setHeader(<span class="hljs-string">&#x27;Content-Length&#x27;</span>, <span class="hljs-number">10</span>);<br>    res.setHeader(<span class="hljs-string">&#x27;Transfer-Encoding&#x27;</span>, <span class="hljs-string">&#x27;chunked&#x27;</span>);<br>    res.write(<span class="hljs-string">&quot;&lt;p&gt;来啦&lt;/p&gt;&quot;</span>);<br>    <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;<br>      res.write(<span class="hljs-string">&quot;第一次传输&lt;br/&gt;&quot;</span>);<br>    &#125;, <span class="hljs-number">1000</span>);<br>    <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;<br>      res.write(<span class="hljs-string">&quot;第二次传输&quot;</span>);<br>      res.end()<br>    &#125;, <span class="hljs-number">2000</span>);<br>  &#125;<br>&#125;)<br><br>server.listen(<span class="hljs-number">8009</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;成功启动&quot;</span>);<br>&#125;)<br>Copy<br></code></pre></td></tr></table></figure>
+<p>访问效果入下:</p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210917105352387.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210917105352387.png" class="" title="image-20210917105352387"></a></p>
+<hr>
+<h3 id="传输过程">传输过程</h3>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921105357172.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921105357172.png" class="" title="image-20210921105357172"></a></p>
+<hr>
+<h2 id="8-4-HTTPS协议">8.4 HTTPS协议</h2>
+<p>顾名思义，就是在HTTP（超文本传输协议）的基础上再加一层TLS（传输层安全性协议）或者SSL（安全套接层），说白了就是为了应付HTTP是明文传输的缺点，容易被中间人窃听或者篡改，导致隐私和信息安全出现问题的解决方案。</p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210918144054923.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210918144054923.png" class="" title="image-20210918144054923"></a></p>
+<h3 id="通信过程">通信过程</h3>
+<h4 id="Client-Hello">Client Hello</h4>
+<p>握手第一步是客户端向服务端发送 Client Hello 消息，这个消息里包含了一个客户端生成的随机数 <strong>Random1</strong>、客户端支持的加密套件（Support Ciphers）和 SSL Version 等信息。</p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210918151748632.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210918151748632.png" class="" title="image-20210918151748632"></a></p>
+<h4 id="Server-Hello">Server Hello</h4>
+<p>第二步是服务端向客户端发送 Server Hello 消息，这个消息会从 Client Hello 传过来的 Support Ciphers 里确定一份加密套件，这个套件决定了后续加密和生成摘要时具体使用哪些算法，另外还会生成一份随机数 <strong>Random2</strong>。注意，至此客户端和服务端都拥有了两个随机数（Random1+ Random2），这两个随机数会在后续生成对称秘钥时用到。</p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210918151908297.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210918151908297.png" class="" title="image-20210918151908297"></a></p>
+<h4 id="Certificate">Certificate</h4>
+<p>这一步是服务端将自己的证书下发给客户端，让客户端验证自己的身份，客户端验证通过后取出证书中的公钥。</p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210918152228237.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210918152228237.png" class="" title="image-20210918152228237"></a></p>
+<h4 id="Certificate-Verify">Certificate Verify</h4>
+<p>客户端收到服务端传来的证书后，先从 CA 验证该证书的合法性，验证通过后取出证书中的服务端公钥，再生成一个随机数 <strong>Random3</strong>，再用服务端公钥非对称加密 <strong>Random3</strong> 生成 <strong>PreMaster Key</strong>。</p>
+<h4 id="Client-Key-Exchange">Client Key Exchange</h4>
+<p>上面客户端根据服务器传来的公钥生成了 <strong>PreMaster Key</strong>，Client Key Exchange 就是将这个 key 传给服务端，服务端再用自己的私钥解出这个 <strong>PreMaster Key</strong> 得到客户端生成的 <strong>Random3</strong>。至此，客户端和服务端都拥有 <strong>Random1</strong> + <strong>Random2</strong> + <strong>Random3</strong>，两边再根据同样的算法就可以生成一份秘钥，握手结束后的应用层数据都是使用这个秘钥进行对称加密。为什么要使用三个随机数呢？这是因为 SSL/TLS 握手过程的数据都是明文传输的，并且多个随机数种子来生成秘钥不容易被暴力破解出来。客户端将 <strong>PreMaster Key</strong> 传给服务端的过程如下图所示：</p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210918152355695.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210918152355695.png" class="" title="image-20210918152355695"></a></p>
+<h4 id="Encrypted-Handshake-Message-Client">Encrypted Handshake Message(Client)</h4>
+<p>这一步对应的是 Client Finish 消息，客户端将前面的握手消息生成摘要再用协商好的秘钥加密，这是客户端发出的第一条加密消息。服务端接收后会用秘钥解密，能解出来说明前面协商出来的秘钥是一致的。</p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210918152438216.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210918152438216.png" class="" title="image-20210918152438216"></a></p>
+<h4 id="Change-Cipher-Spec-Server">Change Cipher Spec(Server)</h4>
+<p>这一步是服务端通知客户端后面再发送的消息都会使用加密，也是一条事件消息。</p>
+<h4 id="Encrypted-Handshake-Message-Server">Encrypted Handshake Message(Server)</h4>
+<p>这一步对应的是 Server Finish 消息，服务端也会将握手过程的消息生成摘要再用秘钥加密，这是服务端发出的第一条加密消息。客户端接收后会用秘钥解密，能解出来说明协商的秘钥是一致的。</p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210918152522642.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210918152522642.png" class="" title="image-20210918152522642"></a></p>
+<h4 id="Application-Data">Application Data</h4>
+<p>到这里，双方已安全地协商出了同一份秘钥，所有的应用层数据都会用这个秘钥加密后再通过 TCP 进行可靠传输。</p>
+<hr>
+<h3 id="传输过程-2">传输过程</h3>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921105440452.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921105440452.png" class="" title="image-20210921105440452"></a></p>
+<ul>
+<li><strong>HTTPS传输过程最多会比HTTP多7个RTT</strong></li>
+</ul>
+<p>step1：正常的TCP连接三次握手，这不必说</p>
+<p>step2：然后链接会跳转到HTTPS的网站，毕竟协议都不同，考虑到不可能人会把网址打全，所以还需要跳转一步。</p>
+<p>step3：又是TCP连接，这里需要又一步TCP连接是因为HTTPS的传输端口不同（这个是传输层的，http是80，https是443）。</p>
+<p>step4：完成加密套件的协商和证书的身份确认，这次交互客户端和服务端会协商出相同的密钥交换算法、对称加密算法、内容一致性校验算法、证书签名算法等等。浏览器获取到证书之后，也要验证证书的有效性，是否过期是否撤销。</p>
+<p>step5：浏览器获取CA域名，如果没有命中CA域名的缓存，还需要进行DNS解析，又需要多一次交互。</p>
+<p>step6：解析成功解析ip之后，需要和CA网站进行tcp三次握手。</p>
+<p>step7：这里OCSP请求，全称是Online Certificate Status Protocol，在线证书状态协议，顾名思义用来获取证书状态的请求，这里的状态包括有效、过期、未知。并且可以宽限一段客户端访问证书的时间。</p>
+<p>step8：主要进行密钥协商。</p>
+<hr>
+<h3 id="CA证书">CA证书</h3>
+<ul>
+<li>CA是Certificate Authority的缩写，也叫“证书授权中心”。它是负责管理和签发证书的第三方机构，作用是检查证书持有者身份的合法性，并签发证书，以防证书被伪造或篡改。</li>
+<li>CA 证书就是CA颁发的证书。 CA证书也就我们常说的数字证书，包含证书拥有者的身份信息，CA机构的签名，公钥和私钥。身份信息用于证明证书持有者的身份；CA签名用于保证身份的真实性；公钥和私钥用于通信过程中加解密，从而保证通讯信息的安全性。</li>
+</ul>
+<h4 id="CA证书内容">CA证书内容</h4>
+<ul>
+<li>颁发者</li>
+<li>使用者</li>
+<li>版本</li>
+<li>签名算法</li>
+<li>签名哈希算法</li>
+<li>使用者</li>
+<li>公钥</li>
+<li>指纹</li>
+<li>指纹算法</li>
+</ul>
+<hr>
+<h1>九、其它</h1>
+<h2 id="9-1-Cookie与Session">9.1 Cookie与Session</h2>
+<h3 id="区别">区别</h3>
+<ol>
+<li>存储位置不同：<strong>cookie存放于客户端；session存放于服务端</strong>。</li>
+<li>存储容量不同：单个cookie保存的数据&lt;=4KB，一个站点最多保存20个cookie；而session并没有上限。</li>
+<li>存储方式不同：cookie只能保存ASCII字符串，并需要通过编码当时存储为Unicode字符或者二进制数据；session中能够存储任何类型的数据，例如字符串、整数、集合等。</li>
+<li>隐私策略不同：cookie对客户端是可见的，别有用心的人可以分析存放在本地的cookie并进行cookie欺骗，所以它是不安全的；session存储在服务器上，对客户端是透明的，不存在敏感信息泄露的风险。</li>
+<li>生命周期不同：可以通过设置cookie的属性，达到cookie长期有效的效果；session依赖于名为JSESSIONID的cookie，而该cookie的默认过期时间为-1，只需关闭窗口该session就会失效，因此session不能长期有效。</li>
+<li>服务器压力不同：cookie保存在客户端，不占用服务器资源；session保管在服务器上，每个用户都会产生一个session，如果并发量大的话，则会消耗大量的服务器内存。</li>
+<li>浏览器支持不同：cookie是需要浏览器支持的，如果客户端禁用了cookie，则会话跟踪就会失效；运用session就需要使用URL重写的方式，所有用到session的URL都要进行重写，否则session会话跟踪也会失效。</li>
+<li>跨域支持不同：cookie支持跨域访问，session不支持跨域访问。</li>
+</ol>
+<h3 id="Cookie">Cookie</h3>
+<h4 id="Cookie-属性">Cookie 属性</h4>
+<h5 id="生存周期">生存周期</h5>
+<p>Cookie 的有效期可以通过<strong>Expires</strong>和<strong>Max-Age</strong>两个属性来设置。</p>
+<ul>
+<li><strong>Expires</strong>即<code>过期时间</code></li>
+<li><strong>Max-Age</strong>用的是一段时间间隔，单位是秒，从浏览器收到报文开始计算。</li>
+</ul>
+<p>若 Cookie 过期，则这个 Cookie 会被删除，并不会发送给服务端。</p>
+<h5 id="作用域">作用域</h5>
+<p>关于作用域也有两个属性: <strong>Domain</strong>和<strong>path</strong>, 给 <strong>Cookie</strong> 绑定了域名和路径，在发送请求之前，发现域名或者路径和这两个属性不匹配，那么就不会带上 Cookie。值得注意的是，对于路径来说，<code>/</code>表示域名下的任意路径都允许使用 Cookie。</p>
+<h5 id="安全相关">安全相关</h5>
+<p>如果带上<code>Secure</code>，说明只能通过 HTTPS 传输 cookie。</p>
+<p>如果 cookie 字段带上<code>HttpOnly</code>，那么说明只能通过 HTTP 协议传输，不能通过 JS 访问，这也是预防 XSS 攻击的重要手段。</p>
+<p>相应的，对于 CSRF 攻击的预防，也有<code>SameSite</code>属性。</p>
+<p><code>SameSite</code>可以设置为三个值，<code>Strict</code>、<code>Lax</code>和<code>None</code>。</p>
+<p><strong>a.</strong> 在<code>Strict</code>模式下，浏览器完全禁止第三方请求携带Cookie。比如请求<code>sanyuan.com</code>网站只能在<code>sanyuan.com</code>域名当中请求才能携带 Cookie，在其他网站请求都不能。</p>
+<p><strong>b.</strong> 在<code>Lax</code>模式，就宽松一点了，但是只能在 <code>get 方法提交表单</code>况或者<code>a 标签发送 get 请求</code>的情况下可以携带 Cookie，其他情况均不能。</p>
+<p><strong>c.</strong> 在<code>None</code>模式下，也就是默认模式，请求会自动携带上 Cookie。</p>
+<h4 id="Cookie-的缺点">Cookie 的缺点</h4>
+<ol>
+<li>容量缺陷。Cookie 的体积上限只有<code>4KB</code>，只能用来存储少量的信息。</li>
+<li>性能缺陷。Cookie 紧跟域名，不管域名下面的某一个地址需不需要这个 Cookie ，请求都会携带上完整的 Cookie，这样随着请求数的增多，其实会造成巨大的性能浪费的，因为请求携带了很多不必要的内容。但可以通过<code>Domain</code>和<code>Path</code>指定<strong>作用域</strong>来解决。</li>
+<li>安全缺陷。由于 Cookie 以纯文本的形式在浏览器和服务器中传递，很容易被非法用户截获，然后进行一系列的篡改，在 Cookie 的有效期内重新发送给服务器，这是相当危险的。另外，在<code>HttpOnly</code>为 false 的情况下，Cookie 信息能直接通过 JS 脚本来读取。</li>
+</ol>
+<hr>
+<h2 id="9-2-跨域">9.2 跨域</h2>
+<p>当一个请求url的协议、域名、端口三者之间任意一个与当前页面url不同即为跨域</p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210918143407829.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210918143407829.png" class="" title="image-20210918143407829"></a></p>
+<h3 id="跨域问题出现原因">跨域问题出现原因</h3>
+<p>出于浏览器的同源策略限制。同源策略（Sameoriginpolicy）是一种约定，它是浏览器最核心也最基本的安全功能，如果缺少了同源策略，则浏览器的正常功能可能都会受到影响。可以说Web是构建在同源策略基础之上的，浏览器只是针对同源策略的一种实现。</p>
+<p><strong>同源策略会阻止一个域的javascript脚本和另外一个域的内容进行交互</strong>。所谓同源（即指在同一个域）就是两个页面具有相同的协议（protocol），主机（host）和端口号（port）</p>
+<h3 id="非同源限制">非同源限制</h3>
+<ul>
+<li>无法读取非同源网页的 Cookie、LocalStorage 和 IndexedDB</li>
+<li>无法接触非同源网页的 DOM</li>
+<li>无法向非同源地址发送 AJAX 请求</li>
+</ul>
+<h3 id="解决方法">解决方法</h3>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/06/03/JavaWeb/SpringBoot%E4%B8%AD%E5%AE%9E%E7%8E%B0%E8%B7%A8%E5%9F%9F%E7%9A%845%E7%A7%8D%E6%96%B9%E5%BC%8F/">后端解决方式</a></p>
+<hr>
+<h2 id="9-3-XSS、CSRF">9.3 XSS、CSRF</h2>
+<h3 id="XSS">XSS</h3>
+<h4 id="概述-4">概述</h4>
+<p>XSS：跨站脚本攻击（Cross Site Scripting），攻击者通过在目标网站上注入恶意脚本，使之在用户的浏览器上运行。利用这些恶意脚本，攻击者可获取用户的敏感信息如 Cookie、SessionID等，进而危害数据安全。</p>
+<p>XSS分为存储型XSS、反射型XSS、DOM型XSS</p>
+<ul>
+<li>存储型XSS的恶意代码存在数据库里</li>
+<li>反射型XSS的恶意代码存在URL里。</li>
+<li>DOM型XSS属于前端JavaScript自身的安全漏洞，</li>
+</ul>
+<h4 id="危害">危害</h4>
+<ul>
+<li>窃取cookies</li>
+<li>配合其他漏洞，如CSRF</li>
+<li>插入广告</li>
+</ul>
+<h4 id="防范">防范</h4>
+<p>防止 HTML 中出现注入，防止 JavaScript 执行时，执行恶意代码。</p>
+<p>存储型XSS、反射型XSS</p>
+<ul>
+<li>纯前端渲染，但是还是要注意避免DOM型XSS漏洞（onload事件和href中的javascript:xxx）</li>
+<li>转义HTML</li>
+<li>白名单过滤</li>
+</ul>
+<p>DOM型XSS</p>
+<ul>
+<li>如果不使用框架，避免直接使用innerHTML，尽量使用.textContent、.setAttribute</li>
+<li>避免内联事件（onClick,onLoad）等</li>
+<li>set-cookies设置Http-Only</li>
+</ul>
+<h3 id="CSRF">CSRF</h3>
+<h4 id="概述-5">概述</h4>
+<p>CSRF：跨站请求伪造（Cross-site request forgery），挟制用户在当前已登录的Web应用程序上执行非本意的操作的攻击方法。</p>
+<h4 id="危害-2">危害</h4>
+<p>攻击者盗用了你的身份，以你的名义发送恶意请求。CSRF能够做的事情包括：以你名义发送邮件，发消息，盗取你的账号，甚至于购买商品，虚拟货币转账……造成的问题包括：<strong>个人隐私泄露以及财产安全</strong>。</p>
+<h4 id="原理">原理</h4>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921115900826.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921115900826.png" class="" title="image-20210921115900826"></a></p>
+<p>从上图可以看出，要完成一次CSRF攻击，受害者必须依次完成两个步骤：</p>
+<ul>
+<li>登录受信任网站A，并在本地生成Cookie。</li>
+<li>在不登出A的情况下，访问危险网站B。</li>
+</ul>
+<h4 id="避免">避免</h4>
+<ul>
+<li>cookies不随着跨域请求发送</li>
+<li>请求头中的Referer请求头来判断请求来源</li>
+<li>使用Token</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/dajiangdahe/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/">计算机网络基础</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/dajiangdahe/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/dajiangdahe/2021/11/09/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E4%B9%8B%E5%B8%B8%E7%94%A8%E6%A1%86%E6%9E%B6/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">单元测试之常用框架</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/dajiangdahe/2021/11/03/@Transactional%E4%B8%AD%E7%9A%84rollback%E6%83%85%E5%86%B5/">
+                        <span class="hidden-mobile">需要在@Transactional注解指定rollbackFor或者在方法中显示的rollback</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        京ICP证123456号
+      </a>
+    </span>
+    
+      
+        <span>
+          <a
+            href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=12345678"
+            rel="nofollow noopener"
+            class="beian-police"
+            target="_blank"
+          >
+            
+              <span style="visibility: hidden; width: 0">|</span>
+              <img src="/dajiangdahe/img/police_beian.png" alt="police-icon"/>
+            
+            <span>京公网安备12345678号</span>
+          </a>
+        </span>
+      
+    
+  </div>
+
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/dajiangdahe/js/events.js" ></script>
+<script  src="/dajiangdahe/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/dajiangdahe/js/local-search.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/dajiangdahe/js/boot.js" ></script>
+
+
+</body>
+</html>

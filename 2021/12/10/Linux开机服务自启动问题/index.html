@@ -1,0 +1,653 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/dajiangdahe/img/favicon.png">
+  <link rel="icon" href="/dajiangdahe/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="Hello,here is kengkeng&#39;s blog.">
+  <meta name="author" content="kengkeng">
+  <meta name="keywords" content="">
+  
+  <title>Linux开机服务自启动问题 - kengkeng&#39;s life</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/dajiangdahe/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/dajiangdahe/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"username.github.io","root":"/dajiangdahe/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/dajiangdahe/js/utils.js" ></script>
+  <script  src="/dajiangdahe/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/dajiangdahe/">&nbsp;<strong>kengkeng's life</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/dajiangdahe/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/dajiangdahe/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/dajiangdahe/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/dajiangdahe/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/dajiangdahe/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/dajiangdahe/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Linux开机服务自启动问题">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      kengkeng
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-12-10 10:02" pubdate>
+        2021年12月10日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      33
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Linux开机服务自启动问题</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：15 天前
+                
+              </p>
+            
+            <div class="markdown-body">
+              <p>Linux系统下服务开机自启动脚本基本三个步骤</p>
+<ol>
+<li>在初始化目录下创建 <code>/etc/init.d/xxx-service</code>文件</li>
+<li>在文件中加入对应的环境变量以及case对应的启动命令内容</li>
+<li>增加文件权限，建议选择<code>chmod 775 xxx-service</code></li>
+<li>使用<code>chkconfig</code>or <code>sysv-rc-conf</code> <code>xxx-service on</code></li>
+<li>使用<code>ps -ef | grep -i xxx-service</code>查询对应服务进程状态</li>
+</ol>
+<h1>1.tomcat服务开机自启动</h1>
+<p>没有<code>tomcat</code>，<code>jdk</code>需要下一个</p>
+<p>配置<code>/etc/profile</code>文件中的环境变量</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs routeros">unset i<br>unset -f pathmunge<br><span class="hljs-builtin-name">export</span> <span class="hljs-attribute">JAVA_HOME</span>=/jdk路径/jdk1.8.0_221<br><span class="hljs-builtin-name">export</span> <span class="hljs-attribute">JRE_HOME</span>=<span class="hljs-variable">$&#123;JAVA_HOME&#125;</span>/jre<br><span class="hljs-builtin-name">export</span> <span class="hljs-attribute">CATALINA_HOME</span>=/tomcat路径/tomcat8<br><span class="hljs-builtin-name">export</span> <span class="hljs-attribute">CLASSPATH</span>=.:$&#123;JAVA_HOME&#125;/lib:<span class="hljs-variable">$&#123;JRE_HOME&#125;</span>/lib:<span class="hljs-variable">$CLASSPATH</span><br><span class="hljs-builtin-name">export</span> <span class="hljs-attribute">JAVA_PATH</span>=<span class="hljs-variable">$&#123;JAVA_HOME&#125;</span>/bin:$&#123;JRE_HOME&#125;/bin:<span class="hljs-variable">$&#123;CATALINA_HOME&#125;</span>/bin<br><span class="hljs-builtin-name">export</span> <span class="hljs-attribute">PATH</span>=<span class="hljs-variable">$PATH</span>:$&#123;JAVA_PATH&#125;:<span class="hljs-variable">$PATH</span><br></code></pre></td></tr></table></figure>
+<p>编辑完成之后使用命令进行刷新环境变量</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gradle"><span class="hljs-keyword">source</span> <span class="hljs-regexp">/etc/</span>profile<br></code></pre></td></tr></table></figure>
+<p>在 tomcat/bin 目录下面，增加 <a target="_blank" rel="noopener" href="http://setenv.sh">setenv.sh</a> 配置，服务启动的时候会调用，同时配置java内存参数。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">vim <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/tomcat/</span>bin/setenv.sh <span class="hljs-comment"># 自己路径</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-comment">#add tomcat pid  </span><br><span class="hljs-attr">CATALINA_PID</span>=<span class="hljs-string">&quot;$CATALINA_BASE/tomcat.pid&quot;</span>  <br><span class="hljs-comment">#add java opts  </span><br><span class="hljs-attr">JAVA_OPTS</span>=<span class="hljs-string">&quot;-server -XX:PermSize=256M -XX:MaxPermSize=1024m -Xms512M -Xmx1024M -XX:MaxNewSize=256m&quot;</span> <br></code></pre></td></tr></table></figure>
+<p>增加tomcat.service，在/usr/lib/systemd/system目录下增加tomcat.service</p>
+<p>输入命令编辑：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">vi <span class="hljs-regexp">/usr/</span>lib<span class="hljs-regexp">/systemd/</span>system/tomcat.service<br></code></pre></td></tr></table></figure>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[Unit]</span><br><span class="hljs-attr">Description</span>=Apache Tomcat Web Application Container<br><span class="hljs-attr">After</span>=syslog.target network.target remote-fs.target nss-lookup.target<br><br><span class="hljs-section">[Service]</span><br><span class="hljs-attr">Type</span>=forking<br><span class="hljs-attr">Environment</span>=<span class="hljs-string">&#x27;JAVA_HOME=/usr/local/java/jdk1.8.0_221/&#x27;</span><br><span class="hljs-attr">Environment</span>=<span class="hljs-string">&#x27;CATALINA_PID=/usr/local/tomcat/tomcat.pid&#x27;</span><br><span class="hljs-attr">Environment</span>=<span class="hljs-string">&#x27;CATALINA_HOME=/usr/local/tomcat/&#x27;</span><br><span class="hljs-attr">Environment</span>=<span class="hljs-string">&#x27;CATALINA_BASE=/usr/local/tomcat/&#x27;</span><br><span class="hljs-attr">Environment</span>=<span class="hljs-string">&#x27;CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC&#x27;</span><br><br><span class="hljs-attr">PIDFile</span>=/usr/local/tomcat/tomcat.pid<br><span class="hljs-attr">ExecStart</span>=/usr/local/tomcat/bin/startup.sh<br><span class="hljs-attr">ExecReload</span>=/bin/kill -s HUP <span class="hljs-variable">$MAINPID</span><br><span class="hljs-attr">ExecStop</span>=/bin/kill -s QUIT <span class="hljs-variable">$MAINPID</span><br><span class="hljs-attr">PrivateTmp</span>=<span class="hljs-literal">true</span><br><br><span class="hljs-section">[Install]</span><br><span class="hljs-attr">WantedBy</span>=multi-user.target<br></code></pre></td></tr></table></figure>
+<p>[unit]配置了服务的描述，规定了在network启动之后执行。</p>
+<p>[service]配置了环境变量，JAVA_HOME，服务的pid，服务的启动，停止，重启，内存参数。</p>
+<p>[install]配置了使用用户。</p>
+<p>当需要启动多个tomcat时，复制多个tomcat安装文件在/usr/local/下，如/usr/local/tomcat2，并配置多个tomcat.service 如tomcat2.service，tomcat3.service 在配置中修改对应的路径即可。</p>
+<p>因为配置pid，在启动的时候会在tomcat根目录生成tomcat.pid文件，停止之后删除。</p>
+<p>同时tomcat在启动时候，执行start不会启动两个tomcat，保证始终只有一个tomcat服务在运行。</p>
+<p>多个tomcat可以配置在多个目录下，使用不同的端口，互不影响。</p>
+<p>移动到<code>tomcat/bin</code>目录</p>
+<p>1.编写开机自启动脚本</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">sudo gedit <span class="hljs-regexp">/etc/i</span>nit.d/tomcat<br></code></pre></td></tr></table></figure>
+<p>2.脚本内容</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-comment">#!/bin/sh -e</span><br><span class="hljs-comment">### BEGIN TOMCAT SERVICE</span><br><span class="hljs-comment">### END INIT INFO</span><br> <br>export JAVA_HOME=<span class="hljs-regexp">/jdk路径/</span>jdk1.<span class="hljs-number">8.0</span><br>export JRE_HOME=<span class="hljs-variable">$JAVA_HOME</span>/jre<br>export PATH=<span class="hljs-variable">$PATH</span>:<span class="hljs-variable">$JAVA_HOME</span>/bin<br>export CLASSPATH=. <span class="hljs-comment"># 从/etc/profile里面可以复制</span><br>export CATALINA_HOME=<span class="hljs-regexp">/tomcat路径/</span>tomcat<br> <br>case <span class="hljs-string">&quot;$1&quot;</span> <span class="hljs-keyword">in</span><br>start)<br>        <span class="hljs-variable">$&#123;CATALINA_HOME&#125;</span><span class="hljs-regexp">/bin/</span>startup.sh<br>        <span class="hljs-keyword">exit</span> <span class="hljs-number">0</span><br>        ;;<br>stop)<br>        <span class="hljs-variable">$&#123;CATALINA_HOME&#125;</span><span class="hljs-regexp">/bin/</span>shutdown.sh<br>        <span class="hljs-keyword">exit</span> <span class="hljs-number">0</span><br>        ;;<br>debug)<br>        <span class="hljs-variable">$&#123;CATALINA_HOME&#125;</span><span class="hljs-regexp">/bin/</span>shutdown.sh<br>        <span class="hljs-variable">$&#123;CATALINA_HOME&#125;</span><span class="hljs-regexp">/bin/</span>catalina.sh run<br>        <span class="hljs-keyword">exit</span> <span class="hljs-number">0</span><br>        ;;<br>force-reload|restart)<br>        <span class="hljs-variable">$&#123;CATALINA_HOME&#125;</span><span class="hljs-regexp">/bin/</span>startup.sh<br>        <span class="hljs-variable">$&#123;CATALINA_HOME&#125;</span><span class="hljs-regexp">/bin/</span>shutdown.sh<br>        <span class="hljs-keyword">exit</span> <span class="hljs-number">0</span><br>        ;;<br> <br>*)<br>        echo <span class="hljs-string">&quot;Usage: /etc/init.d/tomcat &#123;start|stop|restart|force-reload|debug&#125;&quot;</span><br>        <span class="hljs-keyword">exit</span> <span class="hljs-number">1</span><br>        ;;<br>esac<br> <br><span class="hljs-keyword">exit</span> <span class="hljs-number">0</span><br></code></pre></td></tr></table></figure>
+<p>这样，就可以通过<code>service tomcat start </code>来启动<code>tomcat</code>了。</p>
+<p>3.设置开机自启动（在<code>ubuntu</code>系统中使用<code>sysv-rc-conf</code>代替<code>chkconfig</code>）</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">chkconfig</span> tomcat <span class="hljs-literal">on</span><br></code></pre></td></tr></table></figure>
+<p>4.查询<code>tomcat</code>进程状态</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">ps</span> -ef | <span class="hljs-keyword">grep</span> -i tomcat<br></code></pre></td></tr></table></figure>
+<h2 id="JDK安装过程">JDK安装过程</h2>
+<p>下载<code>jdk</code>对应安装包</p>
+<p>解压到自选目录</p>
+<p>编辑环境变量</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">sudo gedit <span class="hljs-regexp">/etc/</span>profile<br></code></pre></td></tr></table></figure>
+<p>导入信息</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-builtin-name">export</span> <span class="hljs-attribute">JAVA_HOME</span>=/usr/java/jdk1.8.0_131 #自己的jdk路径<br><span class="hljs-builtin-name">export</span> <span class="hljs-attribute">JRE_HOME</span>=<span class="hljs-variable">$&#123;JAVA_HOME&#125;</span>/jre<br><span class="hljs-builtin-name">export</span> <span class="hljs-attribute">CLASSPATH</span>=.:$&#123;JAVA_HOME&#125;/lib:<span class="hljs-variable">$&#123;JRE_HOME&#125;</span>/lib:<span class="hljs-variable">$CLASSPATH</span><br><span class="hljs-builtin-name">export</span> <span class="hljs-attribute">JAVA_PATH</span>=<span class="hljs-variable">$&#123;JAVA_HOME&#125;</span>/bin:$&#123;JRE_HOME&#125;/bin<br><span class="hljs-builtin-name">export</span> <span class="hljs-attribute">PATH</span>=<span class="hljs-variable">$PATH</span>:$&#123;JAVA_PATH&#125;<br></code></pre></td></tr></table></figure>
+<p>更新环境变量文件</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gradle"><span class="hljs-keyword">source</span> <span class="hljs-regexp">/etc/</span>profile<br></code></pre></td></tr></table></figure>
+<p>查看java版本</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">java <span class="hljs-comment">--version</span><br></code></pre></td></tr></table></figure>
+<h1>2.redis服务开机自启动</h1>
+<p>1、设置<code>redis.conf</code>中<code>daemonize</code>为<code>yes</code>,确保守护进程开启。</p>
+<p>2、编写开机自启动脚本</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">sudo cp <span class="hljs-regexp">/redis路径/u</span>tils<span class="hljs-regexp">/redis_init_script /</span>etc<span class="hljs-regexp">/init.d/</span>redis<br></code></pre></td></tr></table></figure>
+<p>内容如下：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-comment"># chkconfig: 2345 10 90  </span><br><span class="hljs-comment"># description: Start and Stop redis   </span><br>  <br>PATH=<span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/bin:/</span>sbin:<span class="hljs-regexp">/usr/</span>bin:/bin   <br>REDISPORT=<span class="hljs-number">6379</span>  <br>EXEC=<span class="hljs-regexp">/redis路径/</span>redis-server   <br>REDIS_CLI=<span class="hljs-regexp">/redis路径/</span>redis-cli   <br> <br>PIDFILE=<span class="hljs-regexp">/var/</span>run/redis.pid   <br>CONF=<span class="hljs-string">&quot;/redis路径/redis.conf&quot;</span>  <br>AUTH=<span class="hljs-string">&quot;1234&quot;</span>  <br><br>case <span class="hljs-string">&quot;$1&quot;</span> <span class="hljs-keyword">in</span>   <br>        start)   <br>                <span class="hljs-keyword">if</span> [ -f <span class="hljs-variable">$PIDFILE</span> ]   <br>                then   <br>                        echo <span class="hljs-string">&quot;$PIDFILE exists, process is already running or crashed.&quot;</span>  <br>                <span class="hljs-keyword">else</span>  <br>                        echo <span class="hljs-string">&quot;Starting Redis server...&quot;</span>  <br>                        <span class="hljs-variable">$EXEC</span> <span class="hljs-variable">$CONF</span>   <br>                fi   <br>                <span class="hljs-keyword">if</span> [ <span class="hljs-string">&quot;$?&quot;</span>=<span class="hljs-string">&quot;0&quot;</span> ]   <br>                then   <br>                        echo <span class="hljs-string">&quot;Redis is running...&quot;</span>  <br>                fi   <br>                ;;   <br>        stop)   <br>                <span class="hljs-keyword">if</span> [ ! -f <span class="hljs-variable">$PIDFILE</span> ]   <br>                then   <br>                        echo <span class="hljs-string">&quot;$PIDFILE exists, process is not running.&quot;</span>  <br>                <span class="hljs-keyword">else</span>  <br>                        PID=$(cat <span class="hljs-variable">$PIDFILE</span>)   <br>                        echo <span class="hljs-string">&quot;Stopping...&quot;</span>  <br>                       <span class="hljs-variable">$REDIS_CLI</span> -p <span class="hljs-variable">$REDISPORT</span>  SHUTDOWN    <br>                        sleep <span class="hljs-number">2</span>  <br>                       <span class="hljs-keyword">while</span> [ -x <span class="hljs-variable">$PIDFILE</span> ]   <br>                       <span class="hljs-keyword">do</span>  <br>                                echo <span class="hljs-string">&quot;Waiting for Redis to shutdown...&quot;</span>  <br>                               sleep <span class="hljs-number">1</span>  <br>                        done   <br>                        echo <span class="hljs-string">&quot;Redis stopped&quot;</span>  <br>                fi   <br>                ;;   <br>        restart|force-reload)   <br>                <span class="hljs-variable">$&#123;0&#125;</span> stop   <br>                <span class="hljs-variable">$&#123;0&#125;</span> start   <br>                ;;   <br>        *)   <br>               echo <span class="hljs-string">&quot;Usage: /etc/init.d/redis &#123;start|stop|restart|force-reload&#125;&quot;</span> &gt;&amp;<span class="hljs-number">2</span>  <br>                <span class="hljs-keyword">exit</span> <span class="hljs-number">1</span>  <br>esac<br></code></pre></td></tr></table></figure>
+<p>3、写完后保存退出VI</p>
+<p>4、设置权限</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">chmod</span> <span class="hljs-number">777</span> redis<br></code></pre></td></tr></table></figure>
+<p>5、启动测试</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">/etc/i</span>nit.d/redis start<br></code></pre></td></tr></table></figure>
+<p>启动成功会提示如下信息：</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs gams"><span class="hljs-function"><span class="hljs-title">Starting</span></span> Redis server...<br><span class="hljs-function"><span class="hljs-title">Redis</span></span> is running...<br></code></pre></td></tr></table></figure>
+<p>6、设置开机自启动（在ubuntu系统中使用sysv-rc-conf代替chkconfig）</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">chkconfig</span> redis <span class="hljs-literal">on</span><br></code></pre></td></tr></table></figure>
+<p>7、关机重启测试</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">reboot</span><br></code></pre></td></tr></table></figure>
+<p>8、<code>redis-cli</code>测试即可。</p>
+<p>9、查询<code>redis</code>进程状态</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">ps</span> -ef | <span class="hljs-keyword">grep</span> -i redis<br></code></pre></td></tr></table></figure>
+<h2 id="make安装过程">make安装过程</h2>
+<p>需要先执行</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">cd</span> redis-<span class="hljs-number">3</span>.<span class="hljs-number">0</span>.<span class="hljs-number">5</span><br><span class="hljs-attribute">make</span><br></code></pre></td></tr></table></figure>
+<p>如果没有<code>make</code>包</p>
+<p>两种下载方式：</p>
+<ol>
+<li>
+<p>有网状态</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">yum -y <span class="hljs-keyword">install</span> make<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>静默状态</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">点击此链接 http:<span class="hljs-regexp">//</span>ftp.gnu.org<span class="hljs-regexp">/gnu/m</span>ake/make-<span class="hljs-number">4.2</span>.tar.gz下载make安装包<br></code></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>将<code>make</code>安装包移植到Linux系统解压安装包</p>
+<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gauss">tar -zxvf <span class="hljs-built_in">make</span><span class="hljs-number">-4.2</span>.tar.gz -C /usr/<span class="hljs-keyword">local</span>/<span class="hljs-built_in">make</span><br></code></pre></td></tr></table></figure>
+<p>进入到解压后的目录里执行<code>./configure</code>命令</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli"><span class="hljs-string">./configure</span><br></code></pre></td></tr></table></figure>
+<p>在<code>/usr/local/make/make-4.2</code>目录下执行make命令</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">make</span><br></code></pre></td></tr></table></figure>
+<p>在<code>/usr/local/make/</code>目录下执行<code>make install</code>命令</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">make <span class="hljs-keyword">install</span><br></code></pre></td></tr></table></figure>
+<p>输入make可以进行源码包编译</p>
+<h1>3.oracle服务开机自启动</h1>
+<p>1.以root身份登录到linux系统</p>
+<p>编辑<code>/etc/oratab</code>文件，找到（Red had和Centos 7禁止oracle启动）</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">testsid</span>:/data/oracle/product/<span class="hljs-number">11</span>.<span class="hljs-number">2</span>.<span class="hljs-number">0</span>/db_<span class="hljs-number">1</span>:N<br></code></pre></td></tr></table></figure>
+<p>改为</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">testsid</span>:/data/oracle/product/<span class="hljs-number">11</span>.<span class="hljs-number">2</span>.<span class="hljs-number">0</span>/db_<span class="hljs-number">1</span>:Y<br></code></pre></td></tr></table></figure>
+<p>注意：<code>/data/oracle/product/11.2.0/db_1</code>为安装的<code>$ORACLE_HOME</code>，根据情况自行修改路径。</p>
+<p>2.配置<code>/etc/rc.d/rc.local</code>,其中路径替换成自己的。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs awk">vim <span class="hljs-regexp">/etc/</span>rc.d/rc.local<br><br><span class="hljs-comment"># 添加脚本内容</span><br>su oracle -lc <span class="hljs-string">&quot;/data/oracle/product/11.2.0/db_1/bin/lsnrctl start&quot;</span><br>su oracle -lc <span class="hljs-regexp">/data/</span>oracle<span class="hljs-regexp">/product/</span><span class="hljs-number">11.2</span>.<span class="hljs-number">0</span><span class="hljs-regexp">/db_1/</span>bin/dbstart<br></code></pre></td></tr></table></figure>
+<p>其中第一行因为lsnrctl之后有空格，需要引号，第二行加不加引号都可以。修改完保存退出即可。</p>
+<img src="/dajiangdahe/2021/12/10/Linux%E5%BC%80%E6%9C%BA%E6%9C%8D%E5%8A%A1%E8%87%AA%E5%90%AF%E5%8A%A8%E9%97%AE%E9%A2%98/image-20211211184913364.png" class="" title="image-20211211184913364">
+<p>3.在<code>/etc/init.d/</code>下创建oracle服务启动脚本</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-comment">#!/bin/sh</span><br><span class="hljs-comment"># chkconfig: 345 61 61</span><br><span class="hljs-comment"># description: Oracle 11g R2 AutoRun Servimces</span><br><span class="hljs-comment"># /etc/init.d/oracle</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># Run-level Startup script for the Oracle Instance, Listener, and</span><br><span class="hljs-comment"># Web Interface</span><br>export ORACLE_BASE=<span class="hljs-regexp">/data/</span>oracle    <span class="hljs-comment">#根据个人情况修改路径</span><br>export ORACLE_HOME=<span class="hljs-variable">$ORACLE_BASE</span><span class="hljs-regexp">/product/</span><span class="hljs-number">11.2</span>.<span class="hljs-number">0</span>/db_1<br>export ORACLE_SID=testsid          <span class="hljs-comment">#改成自己的ORACLE_SID:testsid</span><br>export PATH=<span class="hljs-variable">$PATH</span>:<span class="hljs-variable">$ORACLE_HOME</span>/bin<br>ORA_OWNR=<span class="hljs-string">&quot;oracle&quot;</span><br><span class="hljs-comment"># if the executables do not exist -- display error</span><br><span class="hljs-keyword">if</span> [ ! -f <span class="hljs-variable">$ORACLE_HOME</span><span class="hljs-regexp">/bin/</span>dbstart -o ! -d <span class="hljs-variable">$ORACLE_HOME</span> ]<br>then<br>echo <span class="hljs-string">&quot;Oracle startup: cannot start&quot;</span><br><span class="hljs-keyword">exit</span> <span class="hljs-number">1</span><br>fi<br><span class="hljs-comment"># depending on parameter -- startup, shutdown, restart</span><br><span class="hljs-comment"># of the instance and listener or usage display</span><br>case <span class="hljs-string">&quot;$1&quot;</span> <span class="hljs-keyword">in</span><br>start)<br><span class="hljs-comment"># Oracle listener and instance startup</span><br>su <span class="hljs-variable">$ORA_OWNR</span> -lc <span class="hljs-variable">$ORACLE_HOME</span><span class="hljs-regexp">/bin/</span>dbstart<br>echo <span class="hljs-string">&quot;Oracle Start Succesful!OK.&quot;</span><br>;;<br>stop)<br><span class="hljs-comment"># Oracle listener and instance shutdown</span><br>su <span class="hljs-variable">$ORA_OWNR</span> -lc <span class="hljs-variable">$ORACLE_HOME</span><span class="hljs-regexp">/bin/</span>dbshut<br>echo <span class="hljs-string">&quot;Oracle Stop Succesful!OK.&quot;</span><br>;;<br>reload|restart)<br><span class="hljs-variable">$0</span> stop<br><span class="hljs-variable">$0</span> start<br>;;<br>*)<br>echo $<span class="hljs-string">&quot;Usage: `basename $0` &#123;start|stop|reload|reload&#125;&quot;</span><br><span class="hljs-keyword">exit</span> <span class="hljs-number">1</span><br>esac<br><span class="hljs-keyword">exit</span> <span class="hljs-number">0</span><br></code></pre></td></tr></table></figure>
+<p>4.赋予权限</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">chmod <span class="hljs-number">777</span> <span class="hljs-regexp">/etc/i</span>nit.d/oracle<br></code></pre></td></tr></table></figure>
+<p>5.配置Oracle监听开机自启动服务</p>
+<p>修改dbstart和dbshut启动关闭脚本,使其启动数据库的同时也自动启动监听器（即启动数据库时启动监听器，停止数据库时停止监听器）：<br>
+执行脚本：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs gradle"># vim <span class="hljs-regexp">/data/</span>oracle<span class="hljs-regexp">/product/</span><span class="hljs-number">11.2</span>.<span class="hljs-number">0</span><span class="hljs-regexp">/db_1/</span>bin/dbstart  # 自己路径<br>找到下面的代码:<br>ORACLE_HOME_LISTNER=$<span class="hljs-number">1</span><br>将其改为<br>ORACLE_HOME_LISTNER=$ORACLE_HOME<br></code></pre></td></tr></table></figure>
+<p>Dbstart修改结果：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-comment"># Set path if path not set (if called from /etc/rc)</span><br><span class="hljs-attribute">SAVE_PATH</span>=/bin:/usr/bin:/etc:$&#123;PATH&#125; ; <span class="hljs-builtin-name">export</span> PATH<br><span class="hljs-attribute">SAVE_LLP</span>=<span class="hljs-variable">$LD_LIBRARY_PATH</span><br><br><span class="hljs-comment"># First argument is used to bring up Oracle Net Listener</span><br><span class="hljs-comment">#ORACLE_HOME_LISTNER=$1</span><br><span class="hljs-attribute">ORACLE_HOME_LISTNER</span>=<span class="hljs-variable">$ORACLE_HOME</span><br><span class="hljs-keyword">if</span> [ ! <span class="hljs-variable">$ORACLE_HOME_LISTNER</span> ] ; then<br>  echo <span class="hljs-string">&quot;ORACLE_HOME_LISTNER is not SET, unable to auto-start Oracle Net Listener&quot;</span><br>  echo <span class="hljs-string">&quot;Usage: <span class="hljs-variable">$0</span> ORACLE_HOME&quot;</span><br><span class="hljs-keyword">else</span><br>  <span class="hljs-attribute">LOG</span>=<span class="hljs-variable">$ORACLE_HOME_LISTNER</span>/listener.log<br></code></pre></td></tr></table></figure>
+<p>同样也修改dbshut脚本：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs gradle"># vim <span class="hljs-regexp">/data/</span>oracle<span class="hljs-regexp">/product/</span><span class="hljs-number">11.2</span>.<span class="hljs-number">0</span><span class="hljs-regexp">/db_1/</span>bin/dbshut # 自己路径<br>找到下面的代码:<br>ORACLE_HOME_LISTNER=$<span class="hljs-number">1</span><br>将其改为<br>ORACLE_HOME_LISTNER=$ORACLE_HOME<br></code></pre></td></tr></table></figure>
+<p>Dbshut修正结果：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-comment"># Set path if path not set (if called from /etc/rc)</span><br><span class="hljs-attribute">SAVE_PATH</span>=/bin:/usr/bin:/etc:$&#123;PATH&#125; ; <span class="hljs-builtin-name">export</span> PATH<br><span class="hljs-attribute">SAVE_LLP</span>=<span class="hljs-variable">$LD_LIBRARY_PATH</span><br><br><span class="hljs-comment"># The  this to bring down Oracle Net Listener</span><br><span class="hljs-comment">#ORACLE_HOME_LISTNER=$1</span><br><span class="hljs-attribute">ORACLE_HOME_LISTNER</span>=<span class="hljs-variable">$ORACLE_HOME</span><br><span class="hljs-keyword">if</span> [ ! <span class="hljs-variable">$ORACLE_HOME_LISTNER</span> ] ; then<br>  echo <span class="hljs-string">&quot;ORACLE_HOME_LISTNER is not SET, unable to auto-stop Oracle Net Listener&quot;</span><br>  echo <span class="hljs-string">&quot;Usage: <span class="hljs-variable">$0</span> ORACLE_HOME&quot;</span><br><span class="hljs-keyword">else</span><br>  <span class="hljs-attribute">LOG</span>=<span class="hljs-variable">$ORACLE_HOME_LISTNER</span>/listener.log<br></code></pre></td></tr></table></figure>
+<p>6.再度执行Oracle服务脚本</p>
+<p>执行脚本：</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli"><span class="hljs-keyword">cd</span> <span class="hljs-string">/etc/rc.d/init.d</span><br><span class="hljs-string">./oracle</span> start<br></code></pre></td></tr></table></figure>
+<p>执行结果：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs awk">[root@zm-centos7 <span class="hljs-regexp">/]# cd /</span>etc<span class="hljs-regexp">/rc.d/i</span>nit.d<br>[root@zm-centos7 init.d]<span class="hljs-comment"># ./oracle start</span><br>Processing Database instance <span class="hljs-string">&quot;testsid&quot;</span>: log file <span class="hljs-regexp">/data/</span>oracle<span class="hljs-regexp">/product/</span><span class="hljs-number">11.2</span>.<span class="hljs-number">0</span><span class="hljs-regexp">/db_1/</span>startup.log<br>Oracle Start Succesful!OK.<br></code></pre></td></tr></table></figure>
+<ol start="7">
+<li>加入自动启动行列</li>
+</ol>
+<p>执行脚本：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs awk">ln –s <span class="hljs-regexp">/etc/</span>rc.d<span class="hljs-regexp">/init.d/</span>oracle <span class="hljs-regexp">/etc/</span>rc0.d/K61oracle<br>ln –s <span class="hljs-regexp">/etc/</span>rc.d<span class="hljs-regexp">/init.d/</span>oracle <span class="hljs-regexp">/etc/</span>rc2.d/S61oracle<br>ln –s <span class="hljs-regexp">/etc/</span>rc.d<span class="hljs-regexp">/init.d/</span>oracle <span class="hljs-regexp">/etc/</span>rc3.d/S61oracle<br>ln –s <span class="hljs-regexp">/etc/</span>rc.d<span class="hljs-regexp">/init.d/</span>oracle <span class="hljs-regexp">/etc/</span>rc4.d/S61oracle<br>ln –s <span class="hljs-regexp">/etc/</span>rc.d<span class="hljs-regexp">/init.d/</span>oracle <span class="hljs-regexp">/etc/</span>rc6.d/K61oracle<br></code></pre></td></tr></table></figure>
+<p>8.将服务加入到系统服务</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ada">chkconfig <span class="hljs-comment">--level 234 oracle on</span><br>chkconfig <span class="hljs-comment">--add oracle</span><br></code></pre></td></tr></table></figure>
+<p>检查 oracle服务是否已经生效</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">chkconfig <span class="hljs-comment">--list  oracle</span><br></code></pre></td></tr></table></figure>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/dajiangdahe/categories/Linux/">Linux</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/dajiangdahe/tags/%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1/">开机启动服务</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/dajiangdahe/2021/12/16/remote:%20Support%20for%20password%20authentication%20was%20removed%20on%20August%2013,%202021./">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">remote Support for password authentication was removed on August 13, 2021.</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/dajiangdahe/2021/11/29/MySQL%E6%98%AF%E6%80%8E%E6%A0%B7%E8%BF%90%E8%A1%8C%E7%9A%84/">
+                        <span class="hidden-mobile">MySQL是怎样运行的--小孩子</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        京ICP证123456号
+      </a>
+    </span>
+    
+      
+        <span>
+          <a
+            href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=12345678"
+            rel="nofollow noopener"
+            class="beian-police"
+            target="_blank"
+          >
+            
+              <span style="visibility: hidden; width: 0">|</span>
+              <img src="/dajiangdahe/img/police_beian.png" alt="police-icon"/>
+            
+            <span>京公网安备12345678号</span>
+          </a>
+        </span>
+      
+    
+  </div>
+
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/dajiangdahe/js/events.js" ></script>
+<script  src="/dajiangdahe/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/dajiangdahe/js/local-search.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/dajiangdahe/js/boot.js" ></script>
+
+
+</body>
+</html>

@@ -1,0 +1,811 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/dajiangdahe/img/favicon.png">
+  <link rel="icon" href="/dajiangdahe/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="Hello,here is kengkeng&#39;s blog.">
+  <meta name="author" content="kengkeng">
+  <meta name="keywords" content="">
+  
+  <title>JavaInterview-02 - kengkeng&#39;s life</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/dajiangdahe/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/dajiangdahe/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"username.github.io","root":"/dajiangdahe/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/dajiangdahe/js/utils.js" ></script>
+  <script  src="/dajiangdahe/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/dajiangdahe/">&nbsp;<strong>kengkeng's life</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/dajiangdahe/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/dajiangdahe/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/dajiangdahe/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/dajiangdahe/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/dajiangdahe/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/dajiangdahe/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="JavaInterview-02">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      kengkeng
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-10-22 15:21" pubdate>
+        2021年10月22日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      6.9k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      75
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">JavaInterview-02</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2 个月前
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h3 id="四、反射">四、反射</h3>
+<h4 id="57-什么是反射？">57.什么是反射？</h4>
+<p>反射是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；这种动态获取的信息以及动态调用对象的方法的功能称为 java 语言的反射机制。</p>
+<h4 id="58-什么是-java-序列化？什么情况下需要序列化？">58.什么是 java 序列化？什么情况下需要序列化？</h4>
+<p>java 序列化是为了保存各种对象在内存中的状态，并且可以把保存的对象状态再读出来。</p>
+<p>以下情况需要使用 java 序列化：</p>
+<ul>
+<li>想把的内存中的对象状态保存到一个文件中或者数据库中时候；</li>
+<li>想用套接字在网络上传送对象的时候；</li>
+<li>想通过RMI（远程方法调用）传输对象的时候。</li>
+</ul>
+<h4 id="59-动态代理是什么？有哪些应用？">59.动态代理是什么？有哪些应用？</h4>
+<p>在运行时提供了一系列的API来访问系统里面的对象和类的信息。</p>
+<p>动态代理的应用有 spring aop、hibernate 数据查询、测试框架的后端 mock、rpc，java注解对象获取等。</p>
+<p>JDK提供了java.lang.reflect.InvocationHandler接口和 java.lang.reflect.Proxy类，这两个类相互配合，入口是Proxy。</p>
+<h4 id="60-怎么实现动态代理？">60.怎么实现动态代理？</h4>
+<p>jdk 原生动态代理和 cglib 动态代理。jdk 原生动态代理是基于接口实现的，而 cglib 是基于继承当前类的子类实现的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//代理类</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ProxyFactory</span></span>&#123;<br>    <span class="hljs-comment">//解决问题1：如何根据加载到内存中的被代理类，动态的创建一个代理类及其对象</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Object <span class="hljs-title">getProxyInstance</span><span class="hljs-params">(Object obj)</span></span>&#123;<br>        <span class="hljs-comment">//obj:被代理类</span><br>        <span class="hljs-comment">//解决问题2：当通过代理类的对象调用方法时，如何动态的去调用被代理类中的同名方法</span><br>        MyInvocationHandler handler = <span class="hljs-keyword">new</span> MyInvocationHandler();<br>        handler.bind(obj);<br><br>        <span class="hljs-keyword">return</span> Proxy.newProxyInstance(obj.getClass().getClassLoader(), obj.getClass().getInterfaces(),handler);<br>    &#125;<br>&#125;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyInvocationHandler</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">InvocationHandler</span></span>&#123;<br>    <span class="hljs-keyword">private</span> Object object;<span class="hljs-comment">//需要使用被代理类的对象进行赋值</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">bind</span><span class="hljs-params">(Object object)</span></span>&#123;<br>        <span class="hljs-keyword">this</span>.object = object;<br>    &#125;<br>    <span class="hljs-comment">//当我们通过代理类的对象时，调用方法a，就会跑到下面来调用invoke()。</span><br>    <span class="hljs-comment">//将被代理类要执行的方法a声明带invoke中</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">invoke</span><span class="hljs-params">(Object proxy, Method method, Object[] args)</span> <span class="hljs-keyword">throws</span> Throwable </span>&#123;<br>        <span class="hljs-comment">//代理类对象调用的方法，也是被代理类即将调用的方法。</span><br>        <span class="hljs-comment">//object:被代理类对象</span><br>        Object returnValue = method.invoke(object, args);<br>        <span class="hljs-comment">//上述方法的返回值就是作为当前类中的invoke（）值</span><br>        <span class="hljs-keyword">return</span> returnValue;<br>    &#125;<br></code></pre></td></tr></table></figure>
+<h3 id="五、对象拷贝">五、对象拷贝</h3>
+<h4 id="61-为什么要使用克隆？">61.为什么要使用克隆？</h4>
+<p>克隆的对象可能包含一些已经修改过的属性，而 new 出来的对象的属性都还是初始化时候的值，所以当需要一个新的对象来保存当前对象的“状态”就靠克隆方法了。</p>
+<h4 id="62-如何实现对象克隆？">62.如何实现对象克隆？</h4>
+<ul>
+<li>实现 Cloneable 接口并重写 Object 类中的 clone()方法。</li>
+<li>实现 Serializable 接口，通过对象的序列化和反序列化实现克隆，可以实现真正的深度克隆。</li>
+</ul>
+<h4 id="63-深拷贝和浅拷贝区别是什么？">63.深拷贝和浅拷贝区别是什么？</h4>
+<ul>
+<li>浅克隆：当对象被复制时只复制它本身和其中包含的值类型的成员变量，而引用类型的成员对象并没有复制。</li>
+<li>深克隆：除了对象本身被复制外，对象所包含的所有成员变量也将复制。</li>
+</ul>
+<h3 id="六、Java-Web">六、Java Web</h3>
+<h4 id="64-jsp-和-servlet-有什么区别？">64.jsp 和 servlet 有什么区别？</h4>
+<ol>
+<li>Servlet是一种服务器端的Java程序，担当客户端请求与服务器端响应的中间层。Servlet由web服务器端进行加载。</li>
+<li>JSP是一种动态页面设计，主要目的是将表示逻辑从Servlet中分离出来。</li>
+</ol>
+<p>jsp 是 servlet 技术的扩展，本质上就是 servlet 的简易方式。servlet 和 jsp 最主要的不同点在于，servlet 的应用逻辑是在 java 文件中，并且完全从表示层中的 html 里分离开来，而 jsp 的情况是 java 和 html 可以组合成一个扩展名为 jsp 的文件。jsp代码经过web容器的编译就能变成JVM识别的java类。</p>
+<ol>
+<li>jsp 侧重于视图，servlet 主要用于控制逻辑</li>
+<li>JSP中的内置对象都是必须通过HttpServletRequest对象，HttpServletResponse对象以及HttpServlet对象得到。</li>
+</ol>
+<h4 id="65-jsp-有哪些内置对象？作用分别是什么？">65.jsp 有哪些内置对象？作用分别是什么？</h4>
+<p>jsp 有 9 大内置对象：</p>
+<ul>
+<li>HttpServletRequet类的Request对象：代表请求对象，主要用于接受客户端通过HTTP协议连接传输服务器端的数据；</li>
+<li>HttpSevletResponse类的Response对象：代表响应对象，主要用于向客户端发送数据；</li>
+<li>PageContext类的PageContext对象：管理网页属性，为jsp页面包装页面的上下文，管理对属于jsp的特殊可见部分中已经命名对象的访问，它的创建和初始化都是由容器来完成的；</li>
+<li>HttpSession类的session对象：主要用来分别保存每个月的信息与请求关联的会话；会话状态的维持是web应用开发者必须面对的问题；</li>
+<li>ServletContext类的application对象：主要用于保存用户信息，代码片段的运行环境；它是一个共享的内置对象，即一个容器中的多个用户共享一个application；</li>
+<li>JspWriter类的out对象：主要用于向客户端输出数据，out的基类是jspWriter；</li>
+<li>ServletConfig类的Config对象：代码片段配置对象，标识Servlet的配置；</li>
+<li>Object类的Page对象：处理jsp页面，是object类的一个实例，指的是jsp实现类的实例；</li>
+<li>Exception：处理jsp文件执行时发生的错误和异常，只有在错误页面里才使用，前提是在页面指令里要有isErrorPage=true。。</li>
+</ul>
+<h4 id="66-说一下-jsp-的-4-种作用域？">66.说一下 jsp 的 4 种作用域？</h4>
+<ul>
+<li>page：代表与一个页面相关的对象和属性。</li>
+<li>request：代表与客户端发出的一个请求相关的对象和属性。一个请求可能跨越多个页面，涉及多个 web 组件；需要在页面显示的临时数据可以置于此作用域。</li>
+<li>session：代表与某个用户与服务器建立的一次会话相关的对象和属性。跟某个用户相关的数据应该放在用户自己的 session 中。</li>
+<li>application：代表与整个 web 应用程序相关的对象和属性，它实质上是跨越整个 web 应用程序，包括多个页面、请求和会话的一个全局作用域。</li>
+</ul>
+<h4 id="67-session-和-cookie-有什么区别？">67.session 和 cookie 有什么区别？</h4>
+<ul>
+<li>存储位置不同：session 存储在服务器端；cookie 存储在浏览器端。</li>
+<li>安全性不同：cookie 安全性一般，在浏览器存储，可以被伪造和修改。</li>
+<li>容量和个数限制：cookie 有容量限制&lt;=4KB，一个站点下的 cookie 最多存20个cookie。</li>
+<li>存储的多样性：session 可以存储在 redis 中、数据库中、应用程序中；而 cookie 只能存储在浏览器中。</li>
+<li>有效期不同：开发可以通过设置cookie的属性，达到使cookie长期有效的效果。session依赖于名为JSESSIONID的cookie，而cookie JSESSIONID的过期时间默认为-1，只需关闭窗口该session就会失效，因而session不能达到长期有效的效果。</li>
+<li>跨域支持上不同：cookie支持跨域访问，session不支持跨域访问。</li>
+</ul>
+<h4 id="68-说一下-session-的工作原理？">68.说一下 session 的工作原理？</h4>
+<p><img src="https://img-blog.csdnimg.cn/20200422094415521.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NpbmF0XzM2MTg0MDc1,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>执行流程：</p>
+<ol>
+<li>第一次请求，请求头中没有jsessionid的cookie，当访问到对应的servlet资源时，执行到getSession()会创建HttpSession对象；进而响应时就将session的id作为cookie的value，响应到浏览器 Set-cookie:jsessionid=xxxx;</li>
+<li>再一次请求时，http请求中就有一个cookie:jsessionid=xxxx信息，那么该servlet就可以通过getSession()获取到jsessionid在服务器内查找对应的session对象，有就使用，无就创建。</li>
+</ol>
+<p>生命周期：</p>
+<p>​	一般都是默认30min，取决于tomcat中的web.xml文件里的设置</p>
+<p>​	结束时机：</p>
+<ul>
+<li>浏览器关闭：销毁cookie中的jsessionid=xxx</li>
+<li>session销毁：主动调用session.invalidate()方法后，立即将session对象销毁。</li>
+</ul>
+<h4 id="69-如果客户端禁止-cookie-能实现-session-还能用吗？">69.如果客户端禁止 cookie 能实现 session 还能用吗？</h4>
+<p>可以用，session 只是依赖 cookie 存储 sessionid，如果 cookie 被禁用了，可以使用 url 中添加 sessionid 的方式保证 session 能正常使用。</p>
+<h4 id="70-spring-mvc-和-struts-的区别是什么？">70.spring mvc 和 struts 的区别是什么？</h4>
+<ul>
+<li>拦截级别：struts2 是类级别的拦截；spring mvc 是方法级别的拦截。</li>
+<li>数据独立性：spring mvc 的方法之间基本上独立的，独享 request 和 response 数据，请求数据通过参数获取，处理结果通过 ModelMap 交回给框架，方法之间不共享变量；而 struts2 虽然方法之间也是独立的，但其所有 action 变量是共享的，这不会影响程序运行，却给我们编码和读程序时带来了一定的麻烦。</li>
+<li>拦截机制：struts2 有以自己的 interceptor 机制，spring mvc 用的是独立的 aop 方式，这样导致struts2 的配置文件量比 spring mvc 大。</li>
+<li>对 ajax 的支持：spring mvc 集成了ajax，所以 ajax 使用很方便，只需要一个注解 @ResponseBody 就可以实现了；而 struts2 一般需要安装插件或者自己写代码才行。</li>
+</ul>
+<h4 id="71-如何避免-sql-注入？">71.如何避免 sql 注入？</h4>
+<ul>
+<li>使用预处理 PreparedStatement。</li>
+<li>使用正则表达式过滤掉字符中的特殊字符。</li>
+</ul>
+<h4 id="72-什么是-XSS-攻击，如何避免？">72.什么是 XSS 攻击，如何避免？</h4>
+<p>XSS 攻击：即跨站脚本攻击，它是 web 程序中常见的漏洞。原理是攻击者往 web 页面里插入恶意的脚本代码（css 代码、javascript 代码等），当用户浏览该页面时，嵌入其中的脚本代码会被执行，从而达到恶意攻击用户的目的，如盗取用户 cookie、破坏页面结构、重定向到其他网站等。</p>
+<p>预防 XSS 的核心是必须对输入的数据做过滤处理。</p>
+<h4 id="73-什么是-CSRF-攻击，如何避免？">73.什么是 CSRF 攻击，如何避免？</h4>
+<p>CSRF：Cross-Site Request Forgery（中文：跨站请求伪造），可以理解为攻击者盗用了你的身份，以你的名义发送恶意请求，比如：以你名义发送邮件、发消息、购买商品，虚拟货币转账等。</p>
+<p>防御手段：</p>
+<ul>
+<li>验证请求来源地址；</li>
+<li>关键操作添加验证码；</li>
+<li>在请求地址添加 token 并验证。</li>
+</ul>
+<h3 id="七、异常">七、异常</h3>
+<h4 id="74-throw-和-throws-的区别？">74.throw 和 throws 的区别？</h4>
+<ul>
+<li>throw：是真实抛出一个异常。</li>
+<li>throws：是声明可能会抛出一个异常。</li>
+</ul>
+<h4 id="75-final、finally、finalize-有什么区别？">75.final、finally、finalize 有什么区别？</h4>
+<ul>
+<li>final：是修饰符，如果修饰类，此类不能被继承；如果修饰方法和变量，则表示此方法和此变量不能在被改变，只能使用。</li>
+<li>finally：是 try{} catch{} finally{} 最后一部分，表示不论发生任何情况都会执行，finally 部分可以省略，但如果 finally 部分存在，则一定会执行 finally 里面的代码。</li>
+<li>finalize： 是 Object 类的一个方法，在垃圾收集器执行的时候会调用被回收对象的此方法。</li>
+</ul>
+<h4 id="76-try-catch-finally-中哪个部分可以省略？">76.try-catch-finally 中哪个部分可以省略？</h4>
+<p>try-catch-finally 其中 catch 和 finally 都可以被省略，但是不能同时省略，也就是说有 try 的时候，必须后面跟一个 catch 或者 finally。</p>
+<h4 id="77-try-catch-finally-中，如果-catch-中-return-了，finally-还会执行吗？">77.try-catch-finally 中，如果 catch 中 return 了，finally 还会执行吗？</h4>
+<p>finally 一定会执行，即使是 catch 中 return 了，catch 中的 return 会等 finally 中的代码执行完之后，才会执行。</p>
+<h4 id="78-常见的异常类有哪些？">78.常见的异常类有哪些？</h4>
+<ul>
+<li>NullPointerException 空指针异常</li>
+<li>ClassNotFoundException 指定类不存在</li>
+<li>NumberFormatException 字符串转换为数字异常</li>
+<li>IndexOutOfBoundsException 数组下标越界异常</li>
+<li>ClassCastException 数据类型转换异常</li>
+<li>FileNotFoundException 文件未找到异常</li>
+<li>NoSuchMethodException 方法不存在异常</li>
+<li>IOException IO 异常</li>
+<li>SocketException Socket 异常</li>
+</ul>
+<h3 id="八、网络">八、网络</h3>
+<h4 id="79-http-响应码-301-和-302-代表的是什么？有什么区别？">79.http 响应码 301 和 302 代表的是什么？有什么区别？</h4>
+<p>301：永久重定向。</p>
+<p>302：暂时重定向。</p>
+<p>它们的区别是，301 对搜索引擎优化（SEO）更加有利；302 有被提示为网络拦截的风险。</p>
+<h4 id="80-forward-和-redirect-的区别？">80.forward 和 redirect 的区别？</h4>
+<p>forward 是转发 和 redirect 是重定向：</p>
+<ul>
+<li>地址栏 url 显示：foward url 不会发生改变，redirect url 会发生改变；</li>
+<li>数据共享：forward 可以共享 request 里的数据，redirect 不能共享；</li>
+<li>效率：forward 比 redirect 效率高。</li>
+</ul>
+<h4 id="81-简述-tcp-和-udp的区别？">81.简述 tcp 和 udp的区别？</h4>
+<p>tcp 和 udp 是 OSI 模型中的运输层中的协议。tcp 提供可靠的通信传输，而 udp 则常被用于让广播和细节控制交给应用的通信传输。</p>
+<p>两者的区别大致如下：</p>
+<ul>
+<li>tcp 面向连接，udp 面向非连接即发送数据前不需要建立链接；</li>
+<li>tcp 提供可靠的服务（数据传输），udp 无法保证；</li>
+<li>tcp 面向字节流，udp 面向报文；</li>
+<li>tcp 数据传输慢，udp 数据传输快；</li>
+</ul>
+<ol>
+<li>
+<p><strong>TCP详解</strong></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/sinat_36629696/article/details/80740678">https://blog.csdn.net/sinat_36629696/article/details/80740678</a></p>
+<p><img src="https://img-blog.csdn.net/20180620002403691?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NpbmF0XzM2NjI5Njk2/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="Alt text"></p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs avrasm"><span class="hljs-symbol">URG:</span> 标识紧急指针是否有效<br><span class="hljs-symbol">ACK:</span> 标识确认序号是否有效<br><span class="hljs-symbol">PSH:</span> 用来提示接收端应用程序立刻将数据从tcp缓冲区读走<br><span class="hljs-symbol">RST:</span> 要求重新建立连接. 我们把含有RST标识的报文称为复位报文段<br><span class="hljs-symbol">SYN:</span> 请求建立连接. 我们把含有SYN标识的报文称为同步报文段<br><span class="hljs-symbol">FIN:</span> 通知对端, 本端即将关闭. 我们把含有FIN标识的报文称为结束报文段<br></code></pre></td></tr></table></figure>
+<p><img src="C:%5CUsers%5C13126%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210517141753451.png" alt="image-20210517141753451"><strong>三次握手过程原理</strong>：</p>
+<ul>
+<li>TCP服务器进程先创建传输控制块TCB, 时刻准备接受客户端进程的连接请求, 此时服务器就进入了 LISTEN（监听）状态</li>
+<li>TCP客户端进程也是先创建传输控制块TCB, 然后向服务器发出连接请求报文，此时报文首部中的同步标志位SYN=1, 同时选择一个初始序列号 seq = x, 此时，TCP客户端进程进入了 SYN-SENT（同步已发送状态）状态。TCP规定, SYN报文段（SYN=1的报文段）不能携带数据，但需要消耗掉一个序号。</li>
+<li>TCP服务器收到请求报文后, 如果同意连接, 则发出确认报文。确认报文中的 ACK=1, SYN=1, 确认序号是 x+1, 同时也要为自己初始化一个序列号 seq = y, 此时, TCP服务器进程进入了SYN-RCVD（同步收到）状态。这个报文也不能携带数据, 但是同样要消耗一个序号。</li>
+<li>TCP客户端进程收到确认后还, 要向服务器给出确认。确认报文的ACK=1，确认序号是 y+1，自己的序列号是 x+1</li>
+<li>此时，TCP连接建立，客户端进入ESTABLISHED（已建立连接）状态。当服务器收到客户端的确认后也进入ESTABLISHED状态，此后双方就可以开始通信了。</li>
+</ul>
+<p><img src="C:%5CUsers%5C13126%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210517143200048.png" alt="image-20210517143200048"></p>
+<p><strong>四次挥手过程原理</strong>：</p>
+<p>数据传输完毕后，双方都可以释放连接.<br>
+此时客户端和服务器都是处于ESTABLISHED状态，然后客户端主动断开连接，服务器被动断开连接.</p>
+<ul>
+<li>客户端进程发出连接释放报文，并且停止发送数据。<br>
+释放数据报文首部，FIN=1，其序列号为seq=u（等于前面已经传送过来的数据的最后一个字节的序号加1），此时客户端进入FIN-WAIT-1（终止等待1）状态。 TCP规定，FIN报文段即使不携带数据，也要消耗一个序号。</li>
+<li>服务器收到连接释放报文，发出确认报文，ACK=1，确认序号为 u+1，并且带上自己的序列号seq=v，此时服务端就进入了CLOSE-WAIT（关闭等待）状态。<br>
+TCP服务器通知高层的应用进程，客户端向服务器的方向就释放了，这时候处于半关闭状态，即客户端已经没有数据要发送了，但是服务器若发送数据，客户端依然要接受。这个状态还要持续一段时间，也就是整个CLOSE-WAIT状态持续的时间。</li>
+<li>客户端收到服务器的确认请求后，此时客户端就进入FIN-WAIT-2（终止等待2）状态，等待服务器发送连接释放报文（在这之前还需要接受服务器发送的最终数据）</li>
+<li>服务器将最后的数据发送完毕后，就向客户端发送连接释放报文，FIN=1，确认序号为v+1，由于在半关闭状态，服务器很可能又发送了一些数据，假定此时的序列号为seq=w，此时，服务器就进入了LAST-ACK（最后确认）状态，等待客户端的确认</li>
+<li>客户端收到服务器的连接释放报文后，必须发出确认，ACK=1，确认序号为w+1，而自己的序列号是u+1，此时，客户端就进入了TIME-WAIT（时间等待）状态。注意此时TCP连接还没有释放，必须经过2∗MSL（最长报文段寿命）的时间后，当客户端撤销相应的TCB后，才进入CLOSED状态。</li>
+<li>服务器只要收到了客户端发出的确认，立即进入CLOSED状态。同样，撤销TCB后，就结束了这次的TCP连接。可以看到，服务器结束TCP连接的时间要比客户端早一些。</li>
+</ul>
+</li>
+<li>
+<p><strong>tcp在四次挥手时，为什么还要等待2*MSL秒呢？</strong></p>
+<ol>
+<li>MSL（Maximum Segment Lifetime），TCP允许不同的实现可以设置不同的MSL值。</li>
+<li>第一，保证客户端发送的最后一个ACK报文能够到达服务器，因为这个ACK报文可能丢失，站在服务器的角度看来，我已经发送了FIN+ACK报文请求断开了，客户端还没有给我回应，应该是我发送的请求断开报文它没有收到，于是服务器又会重新发送一次，而客户端就能在这个2MSL时间段内收到这个重传的报文，接着给出回应报文，并且会重启2MSL计时器。</li>
+<li>第二，防止类似与“三次握手”中提到了的“已经失效的连接请求报文段”出现在本连接中。客户端发送完最后一个确认报文后，在这个2MSL时间中，就可以使本连接持续的时间内所产生的所有报文段都从网络中消失。这样新的连接中不会出现旧连接的请求报文。</li>
+</ol>
+</li>
+<li>
+<p><strong>tcp关闭连接为什么会比建立连接多一次呢？</strong></p>
+<ol>
+<li>建立连接的时候， 服务器在LISTEN状态下，收到建立连接请求的SYN报文后，把ACK和SYN放在一个报文里发送给客户端。<br>
+而关闭连接时，服务器收到对方的FIN报文时，仅仅表示对方不再发送数据了但是还能接收数据，而自己也未必全部数据都发送给对方了，所以己方可以立即关闭，也可以发送一些数据给对方后，再发送FIN报文给对方来表示同意现在关闭连接，因此，己方ACK和FIN一般都会分开发送，从而导致多了一次。</li>
+</ol>
+</li>
+<li>
+<p><strong>如果已经建立了连接，但是客户端又发生了故障怎么办？</strong></p>
+<ol>
+<li>TCP设有一个保活计时器，显然，客户端如果出现故障，服务器不能一直等下去，白白浪费资源。服务器每收到一次客户端的请求后都会重新复位这个计时器，时间通常是设置为2小时，若两小时还没有收到客户端的任何数据，服务器就会发送一个探测报文段，以后每隔75分钟发送一次。若一连发送10个探测报文仍然没反应，服务器就认为客户端出了故障，接着就关闭连接。</li>
+</ol>
+</li>
+<li>
+<p><strong>拥塞控制</strong></p>
+<ol>
+<li>TCP引入慢启动机制，先发少量的数据探探路，摸清当前的网络拥堵情况以后，在按照多大的速度传输数据。</li>
+<li>拥塞窗口：每接收到一次ACK应答，拥塞窗口大小+1</li>
+<li>慢启动阈值：当拥塞窗口达到阈值的时候，改为线性增加的方式。当TCP启动的时候，慢启动阈值等于窗口最大值。在每次超时重发的时候，慢启动阈值会变为原来的一半，同时拥塞窗口置为1</li>
+</ol>
+</li>
+</ol>
+<h4 id="82-tcp-为什么要三次握手，两次不行吗？为什么？">82.tcp 为什么要三次握手，两次不行吗？为什么？</h4>
+<p>​      主要是为了防止已经失效的连接请求报文突然又传送到了服务器，从而产生错误。如果使用的是两次握手建立连接，假设有这样一种场景，客户端发送的第一个请求连接并且没有丢失，只是因为在网络中滞留的时间太长了，由于TCP的客户端迟迟没有收到确认报文，以为服务器没有收到，此时重新向服务器发送这条报文，此后客户端和服务器经过两次握手完成连接，传输数据，然后关闭连接。此时之前滞留的那一次请求连接，因为网络通畅了, 到达了服务器，这个报文本该是失效的，但是，两次握手的机制将会让客户端和服务器再次建立连接，这将导致不必要的错误和资源的费。<br>
+​     如果采用的是三次握手，就算是那一次失效的报文传送过来了，服务端接受到了那条失效报文并且回复了确认报文，但是客户端不会再次发出确认。由于服务器收不到确认，就知道客户端并没有请求连接。</p>
+<h4 id="83-tcp粘包产生的原因？">83.tcp粘包产生的原因？</h4>
+<p>粘包：指的是应用层的数据包，指的是站在应用层的角度，看到了发来的一连串的字节数据，就不知道从哪个部分开始，到哪个部分结束是一个完整的应用数据包。此时数据没有了边界，就产生了粘包问题。</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">对于定长的包<br><span class="hljs-bullet">- </span>保证每次都按固定大小读取即可<br>例如上面的Request结构, 是固定大小的, 那么就从缓冲区从头开始按sizeof(Request)依次读取即可<br><br>对于变长的包<br><span class="hljs-bullet">- </span>可以在数据包的头部, 约定一个数据包总长度的字段, 从而就知道了包的结束位置<br>还可以在包和包之间使用明确的分隔符来作为边界(应用层协议, 是程序员自己来定的, 只要保证分隔符不和正文冲突即可)<br></code></pre></td></tr></table></figure>
+<p>tcp 粘包可能发生在发送端或者接收端，分别来看两端各种产生粘包的原因：</p>
+<ul>
+<li>发送端粘包：发送端需要等缓冲区满才发送出去，造成粘包；</li>
+<li>接收方粘包：接收方不及时接收缓冲区的包，造成多个包接收。</li>
+</ul>
+<h4 id="84-OSI-的七层模型都有哪些？">84.OSI 的七层模型都有哪些？</h4>
+<ul>
+<li>物理层：利用传输介质为数据链路层提供物理连接，实现比特流的透明传输。</li>
+<li>数据链路层：负责建立和管理节点间的链路。</li>
+<li>网络层：通过路由选择算法，为报文或分组通过通信子网选择最适当的路径。</li>
+<li>传输层：向用户提供可靠的端到端的差错和流量控制，保证报文的正确传输。</li>
+<li>会话层：向两个实体的表示层提供建立和使用连接的方法。</li>
+<li>表示层：处理用户信息的表示问题，如编码、数据格式转换和加密解密等。</li>
+<li>应用层：直接向用户提供服务，完成用户希望在网络上完成的各种工作。</li>
+</ul>
+<h4 id="85-get-和-post-请求有哪些区别？">85.get 和 post 请求有哪些区别？</h4>
+<ul>
+<li>在浏览器进行回退操作时,get请求是无害的,而post请求则会重新请求一次</li>
+<li>get请求参数是连接在url后面的,而post请求参数是存放在requestbody内的</li>
+<li>get请求因为浏览器对url长度有限制(不同浏览器长度限制不一样)对传参数量有限制,而post请求因为参数存放在requestbody内所以参数数量没有限制(事实上get请求也能在requestbody内携带参数,只不过不符合规定,有的浏览器能够获取到数据,而有的不能)</li>
+<li>因为get请求参数暴露在url上,所以安全方面post比get更加安全</li>
+<li>get请求浏览器会主动cache,post并不会,除非主动设置</li>
+<li>get请求参数会保存在浏览器历史记录内,post请求并不会</li>
+<li>get请求只能进行url编码,而post请求可以支持多种编码方式</li>
+<li>get请求产生1个tcp数据包,post请求产生2个tcp数据包</li>
+<li>==浏览器在发送get请求时会将header和data一起发送给服务器,服务器返回200状态码,而在发送post请求时,会先将header发送给服务器,服务器返回100,之后再将data发送给服务器,服务器返回200 OK==</li>
+</ul>
+<h4 id="86-如何实现跨域？">86.如何实现跨域？</h4>
+<p>跨域：当浏览器执行脚本时会检查是否同源，只有同源的脚本才会执行，如果不同源即为跨域。</p>
+<ul>
+<li>
+<p>这里的同源指访问的协议、域名、端口都相同。</p>
+</li>
+<li>
+<p>同源策略是由 Netscape 提出的著名安全策略，是浏览器最核心、基本的安全功能，它限制了一个源中加载脚本与来自其他源中资源的交互方式。</p>
+</li>
+<li>
+<p>Ajax 发起的跨域 HTTP 请求，结果被浏览器拦截，同时 Ajax 请求不能携带与本网站不同源的 Cookie。</p>
+</li>
+<li>
+<script> <img> <iframe> <link> <video> <audio> 等带有 src 属性的标签可以从不同的域加载和执行资源
+<script> <img> <iframe> <link> <video> <audio> 等带有 src 属性的标签可以从不同的域加载和执行资
+</li>
+</ul>
+<p>实现跨域有以下几种方案：</p>
+<ul>
+<li>服务器端运行跨域 设置 CORS（Cross-Origin Resource Sharing）跨域资源共享 等于 *；
+<ul>
+<li>当使用XMLHttpRequest发送请求时，如果浏览器发现违反了同源策略就会自动加上一个请求头 origin；</li>
+<li>后端在接受到请求后确定响应后会在后端在接受到请求后确定响应后会在 Response Headers 中加入一个属性 Access-Control-Allow-Origin；</li>
+<li>浏览器判断响应中的 Access-Control-Allow-Origin 值是否和当前的地址相同，匹配成功后才继续响应处理，否则报错</li>
+</ul>
+</li>
+<li>在单个接口使用注解 @CrossOrigin 运行跨域；</li>
+<li>使用 jsonp 跨域；利用了scripts不受同源策略的限制</li>
+</ul>
+<h4 id="87-说一下-JSONP-实现原理？">87.说一下 JSONP 实现原理？</h4>
+<p>jsonp：JSON with Padding，它是利用<script>标签的 src 连接可以访问不同源的特性，加载远程返回的“JS 函数”来执行的。</p>
+<h4 id="88-HTTP响应类型有哪几种？">88.HTTP响应类型有哪几种？</h4>
+<ol>
+<li>消息响应：100（继续）、101（切换协议）</li>
+<li>成功响应：200（成功）</li>
+<li>重定向：301（永久移动）表示所请求的URI资源路径已经改变,新的URL会在响应的<code>Location</code>:头字段里找到.）、302（临时移动）==http0.9==、307（临时重定向）、308（永久重定向） ==http1.1==，区别 307、308必须是两次相同请求访问。</li>
+<li>客户端错误：400（错误请求）、401（未授权）、403（禁止访问）、404（请求资源找不到）、405（不允许使用此方法）、408（请求超时）</li>
+<li>服务器端错误：500（内部服务器错误）、501（服务器不支持使用的方法，如put、delete）、502（网关错误）、503（服务不可用）</li>
+</ol>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/dajiangdahe/categories/JavaInterview/">JavaInterview</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/dajiangdahe/tags/%E9%9D%A2%E8%AF%95/">面试</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/dajiangdahe/2021/10/22/JavaInterview-03/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">JavaInterview-03</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/dajiangdahe/2021/10/22/JavaInterview-01/">
+                        <span class="hidden-mobile">JavaInterview-01</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        京ICP证123456号
+      </a>
+    </span>
+    
+      
+        <span>
+          <a
+            href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=12345678"
+            rel="nofollow noopener"
+            class="beian-police"
+            target="_blank"
+          >
+            
+              <span style="visibility: hidden; width: 0">|</span>
+              <img src="/dajiangdahe/img/police_beian.png" alt="police-icon"/>
+            
+            <span>京公网安备12345678号</span>
+          </a>
+        </span>
+      
+    
+  </div>
+
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/dajiangdahe/js/events.js" ></script>
+<script  src="/dajiangdahe/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/dajiangdahe/js/local-search.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/dajiangdahe/js/boot.js" ></script>
+
+
+</body>
+</html>
