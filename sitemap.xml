@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://kengkengya.github.io/dajiangdahe/2021/12/28/%E5%AE%9A%E6%97%B6%E6%8F%90%E9%86%92%E8%84%9A%E6%9C%AC/</loc>
+    
+    <lastmod>2021-12-28</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://kengkengya.github.io/dajiangdahe/2021/10/22/%E3%80%90ZZ%E3%80%91%E8%AE%BAZY/</loc>
     
     <lastmod>2021-12-27</lastmod>
@@ -418,6 +425,13 @@
   
   <url>
     <loc>https://kengkengya.github.io/dajiangdahe/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</loc>
+    <lastmod>2021-12-28</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://kengkengya.github.io/dajiangdahe/tags/%E5%AE%9A%E6%97%B6%E6%8F%90%E9%86%92%E8%84%9A%E6%9C%AC/</loc>
     <lastmod>2021-12-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
