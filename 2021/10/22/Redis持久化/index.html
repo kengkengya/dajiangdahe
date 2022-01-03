@@ -268,27 +268,27 @@
 <h3 id="1-触发条件">1.触发条件</h3>
 <p>RDB持久化的触发分为手动触发和自动触发两种。</p>
 <p><strong>save</strong>和<strong>bgsave</strong>的区别</p>
-<img src="/dajiangdahe.github.io/2021/10/22/Redis%E6%8C%81%E4%B9%85%E5%8C%96/1c950a7b02087bf43b4490d50ac25f2a11dfcf7e.jpeg" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/Redis%E6%8C%81%E4%B9%85%E5%8C%96/1c950a7b02087bf43b4490d50ac25f2a11dfcf7e.jpeg" class="" title="img">
 <h4 id="1-手动触发">(1)手动触发</h4>
 <p><strong>save</strong>命令和<strong>bgsave</strong>命令都可以生成RDB文件。</p>
 <p><strong>save</strong>命令会阻塞Redis服务器进程，直到RDB文件创建完毕为止，在Redis服务器阻塞期间，服务器不能处理任何命令请求。</p>
-<img src="/dajiangdahe.github.io/2021/10/22/Redis%E6%8C%81%E4%B9%85%E5%8C%96/1174710-20180605085242889-137050862.png" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/Redis%E6%8C%81%E4%B9%85%E5%8C%96/1174710-20180605085242889-137050862.png" class="" title="img">
 <p>而<strong>bgsave</strong>命令会创建一个子进程，由子进程来负责创建RDB文件，父进程(即Redis主进程)则继续处理请求。</p>
-<img src="/dajiangdahe.github.io/2021/10/22/Redis%E6%8C%81%E4%B9%85%E5%8C%96/1174710-20180605085309364-1576452765.png" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/Redis%E6%8C%81%E4%B9%85%E5%8C%96/1174710-20180605085309364-1576452765.png" class="" title="img">
 <p>此时服务器执行日志如下：</p>
-<img src="/dajiangdahe.github.io/2021/10/22/Redis%E6%8C%81%E4%B9%85%E5%8C%96/1174710-20180605085325656-76060516.png" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/Redis%E6%8C%81%E4%B9%85%E5%8C%96/1174710-20180605085325656-76060516.png" class="" title="img">
 <p>bgsave命令执行过程中，只有fork子进程时会阻塞服务器，而对于save命令，整个过程都会阻塞服务器，因此save已基本被废弃，线上环境要杜绝save的使用；后文中也将只介绍bgsave命令。此外，在自动触发RDB持久化时，Redis也会选择bgsave而不是save来进行持久化；下面介绍自动触发RDB持久化的条件。</p>
 <h4 id="2-自动触发">(2).自动触发</h4>
 <p><strong>save m n</strong>:自动触发最常见的情况是在配置文件中通过save m n，指定当m秒内发生n次变化时，会触发bgsave。</p>
-<img src="/dajiangdahe.github.io/2021/10/22/Redis%E6%8C%81%E4%B9%85%E5%8C%96/1174710-20180605085420533-1928501600.png" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/Redis%E6%8C%81%E4%B9%85%E5%8C%96/1174710-20180605085420533-1928501600.png" class="" title="img">
 <p>除了<strong>save m n</strong> 以外，还有一些其他情况会触发bgsave：</p>
 <ul>
 <li>在主从复制场景下，如果从节点执行全量复制操作，则主节点会执行bgsave命令，并将rdb文件发送给从节点</li>
 <li>执行shutdown命令时，自动执行rdb持久化，如下图所示：</li>
 </ul>
-<img src="/dajiangdahe.github.io/2021/10/22/Redis%E6%8C%81%E4%B9%85%E5%8C%96/1174710-20180605085620830-1223048825.png" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/Redis%E6%8C%81%E4%B9%85%E5%8C%96/1174710-20180605085620830-1223048825.png" class="" title="img">
 <h3 id="2-执行流程">2.执行流程</h3>
-<img src="/dajiangdahe.github.io/2021/10/22/Redis%E6%8C%81%E4%B9%85%E5%8C%96/1174710-20180605085813461-389677620.png" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/Redis%E6%8C%81%E4%B9%85%E5%8C%96/1174710-20180605085813461-389677620.png" class="" title="img">
 <p>图片中的5个步骤所进行的操作如下：</p>
 <ol>
 <li>
@@ -317,17 +317,17 @@
 <h2 id="AOF机制">AOF机制</h2>
 <p>全量备份总是耗时的，有时候我们提供一种更加高效的方式AOF，工作机制很简单，redis会将每一个收到的写命令都通过write函数追加到文件中。通俗的理解就是日志记录。</p>
 <h3 id="1-持久化原理">1.持久化原理</h3>
-<img src="/dajiangdahe.github.io/2021/10/22/Redis%E6%8C%81%E4%B9%85%E5%8C%96/32fa828ba61ea8d3c2502e396b1b3848251f58b0.jpeg" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/Redis%E6%8C%81%E4%B9%85%E5%8C%96/32fa828ba61ea8d3c2502e396b1b3848251f58b0.jpeg" class="" title="img">
 <p>每当有一个<strong>写命令</strong>过来时，就直接保存到我们的AOF中</p>
 <h3 id="2-文件重写原理">2.文件重写原理</h3>
 <p>AOF的方式也同时带来了另一个问题。持久化文件会变的越来越大。为了压缩aof的持久化文件。redis提供了bgrewriteaof命令。将内存中的数据以命令的方式保存到临时文件中，同时会fork出一条新进程来将文件重写。</p>
-<img src="/dajiangdahe.github.io/2021/10/22/Redis%E6%8C%81%E4%B9%85%E5%8C%96/09fa513d269759ee28454d2c4cea4b106c22dfd3.jpeg" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/Redis%E6%8C%81%E4%B9%85%E5%8C%96/09fa513d269759ee28454d2c4cea4b106c22dfd3.jpeg" class="" title="img">
 <p>重写AOF文件的操作，并没有读取旧的AOF文件，而是将整个内存中的数据库内容用命令的方式重写了一个新的AOF文件，这点和快照有点类似。</p>
 <h3 id="3-触发机制">3.触发机制</h3>
 <p>（1）每修改同步always：同步持久化 每次发生数据变更会被立即记录到磁盘 性能较差但数据完整性比较好</p>
 <p>（2）每秒同步everysec：异步操作，每秒记录 如果一秒内宕机，有数据丢失</p>
 <p>（3）不同no：从不同步</p>
-<img src="/dajiangdahe.github.io/2021/10/22/Redis%E6%8C%81%E4%B9%85%E5%8C%96/b17eca8065380cd7df69859ba056a5325982816c.jpeg" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/Redis%E6%8C%81%E4%B9%85%E5%8C%96/b17eca8065380cd7df69859ba056a5325982816c.jpeg" class="" title="img">
 <h3 id="4-AOF优缺点">4.AOF优缺点</h3>
 <p>①、优势</p>
 <p>（1）AOF可以更好的保护数据不丢失，一般AOF会每隔1秒，通过一个后台线程执行一次fsync操作，最多丢失1秒钟的数据。</p>
@@ -339,7 +339,7 @@
 <p>（2）AOF开启后，支持的写QPS会比RDB支持的写QPS低，因为AOF一般会配置成每秒fsync一次日志文件，当然，每秒一次fsync，性能也还是很高的</p>
 <p>（3）以前AOF发生过bug，就是通过AOF记录的日志，进行数据恢复的时候，没有恢复一模一样的数据出来。</p>
 <h2 id="RDB和AOF到底该如何选择">RDB和AOF到底该如何选择</h2>
-<img src="/dajiangdahe.github.io/2021/10/22/Redis%E6%8C%81%E4%B9%85%E5%8C%96/8326cffc1e178a82c532308ef2117b8ba977e8ae.jpeg" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/Redis%E6%8C%81%E4%B9%85%E5%8C%96/8326cffc1e178a82c532308ef2117b8ba977e8ae.jpeg" class="" title="img">
             </div>
             <hr>
             <div>

@@ -254,9 +254,9 @@
 <h2 id="1-1-OSI七层网络模型">1.1 OSI七层网络模型</h2>
 <p>为了使不同计算机厂家生产的计算机能够相互通信，以便在更大的范围内建立计算机网络，国际标准化组织（ISO）在1978年提出了”开放系统互联参考模型”，即著名的<strong>OSI/RM模型</strong>（Open System Interconnection/Reference Model）。它将计算机网络体系结构的通信协议划分为七层，自下而上依次为：<strong>物理层</strong>（Physics Layer）、<strong>数据链路层</strong>（Data Link Layer）、<strong>网络层</strong>（Network Layer）、<strong>传输层</strong>（Transport Layer）、<strong>会话层</strong>（Session Layer）、<strong>表示层</strong>（Presentation Layer）、<strong>应用层</strong>（Application Layer）。其中第四层完成数据传送服务，上面三层面向用户。</p>
 <p>除了标准的OSI七层模型以外，常见的网络层次划分还有TCP/IP四层协议以及TCP/IP五层协议，它们之间的对应关系如下图所示：</p>
-<img src="/dajiangdahe.github.io/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20211103192227336.png" class="" title="image-20211103192227336">
-<img src="/dajiangdahe.github.io/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20211103192238025.png" class="" title="image-20211103192238025">
-<img src="/dajiangdahe.github.io/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20211103192253822.png" class="" title="image-20211103192253822">
+<img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20211103192227336.png" class="" title="image-20211103192227336">
+<img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20211103192238025.png" class="" title="image-20211103192238025">
+<img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20211103192253822.png" class="" title="image-20211103192253822">
 <hr>
 <h1>二、物理层</h1>
 <h2 id="2-1-概述">2.1 概述</h2>
@@ -364,7 +364,7 @@
 </ol>
 <h4 id="IP分类">IP分类</h4>
 <p>Intenet委员会定义了五种地址类型以适应不同尺寸的网络。地址类型定义网络ID使用哪些位,它也定义了网络的可能数目和每个网络可能的宿主机数目．</p>
-<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210906221555685.png"><img src="/dajiangdahe.github.io/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210906221555685.png" class="" title="image-20210906221555685"></a></p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210906221555685.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210906221555685.png" class="" title="image-20210906221555685"></a></p>
 <p>IP地址根据网络号和主机号来分，分为A、B、C三类及特殊地址D、E。 全0和全1的都保留不用。</p>
 <ul>
 <li>A类：(0.0.0.0-127.255.255.255)（默认子网掩码：255.0.0.0或 0xFF000000）第一个字节为网络号，后三个字节为主机号。该类IP地址的最前面为“0”，所以地址的网络号取值于1~126之间。一般用于大型网络。</li>
@@ -470,7 +470,7 @@
 <p>TCP协议全称: <strong>传输控制协议</strong></p>
 <p>TCP是面向连接的通信协议，通过三次握手建立连接，通讯完成时要拆除连接，由于TCP是面向连接的所以只能用于<strong>端到端</strong>的通讯。TCP提供的是一种可靠的数据流服务，采用”带重传的肯定确认”技术来实现传输的可靠性。TCP还采用一种称为”滑动窗口”的方式进行流量控制，所谓窗口实际表示接收能力，用以限制发送方的发送速度。</p>
 <p>报头如下，首部大小固定20字节</p>
-<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210907161940230.png"><img src="/dajiangdahe.github.io/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210907161940230.png" class="" title="image-20210907161940230"></a></p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210907161940230.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210907161940230.png" class="" title="image-20210907161940230"></a></p>
 <ul>
 <li>源端口号/目的端口号: 表示数据从哪个进程来, 到哪个进程去.</li>
 <li>32位序号:</li>
@@ -500,7 +500,7 @@
 <li>接收方：收到数据后，对数据以同样的方式进行计算，求出校验和，与发送方的进行比对。</li>
 </ul>
 <p>注意：如果接收方比对校验和与发送方不一致，那么数据一定传输有误。但是如果接收方比对校验和与发送方一致，数据不一定传输成功。</p>
-<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210907162918376.png"><img src="/dajiangdahe.github.io/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210907162918376.png" class="" title="image-20210907162918376"></a></p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210907162918376.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210907162918376.png" class="" title="image-20210907162918376"></a></p>
 <h4 id="确认应答-序列号">确认应答+序列号</h4>
 <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile">应用数据被分割成 TCP 认为最适合发送的数据块。<br>TCP 给发送的每一个包进行编号，接收方对数据包进行排序，把有序数据传送给应用层。<br>TCP 的接收端会丢弃重复的数据。<br><span class="hljs-keyword">Copy</span><br></code></pre></td></tr></table></figure>
 <ul>
@@ -508,7 +508,7 @@
 <li>确认应答：TCP传输的过程中，每次接收方收到数据后，都会对传输方进行确认应答。也就是发送ACK报文。这个ACK报文当中带有对应的确认序列号，告诉发送方，接收到了哪些数据，下一次的数据从哪里发。</li>
 </ul>
 <p>序列号的作用不仅仅是应答的作用，有了序列号能够将接收到的数据根据序列号排序，并且去掉重复序列号的数据。这也是TCP传输可靠性的保证之一。</p>
-<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210907165231469.png"><img src="/dajiangdahe.github.io/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210907165231469.png" class="" title="image-20210907165231469"></a></p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210907165231469.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210907165231469.png" class="" title="image-20210907165231469"></a></p>
 <h4 id="超时重传">超时重传</h4>
 <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile">当TCP发出一个段后，它启动一个定时器，等待目的端确认收到这个报文段。如果不能及时收到一个确认，将重发这个报文段。 <br><span class="hljs-keyword">Copy</span><br></code></pre></td></tr></table></figure>
 <p>在进行TCP传输时，由于确认应答与序列号机制，也就是说发送方发送一部分数据后，都会等待接收方发送的ACK报文，并解析ACK报文，判断数据是否传输成功。如果发送方发送完数据后，迟迟没有等到接收方的ACK报文，这该怎么办呢？而没有收到ACK报文的原因可能是什么呢？</p>
@@ -534,7 +534,7 @@
 <li>修正RTT的值。</li>
 <li>如果定时器超时前没有收到确认，则将RTT的值增加一倍。</li>
 </ol>
-<p>[<img src="/dajiangdahe.github.io/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210410175136539.png" class="" title="image-20210410175136539"></p>
+<p>[<img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210410175136539.png" class="" title="image-20210410175136539"></p>
 <p>发送一个报文段，设定的重传时间到了，还没有收到确认。于是重传报文段，经过一段时间后：收到了确认报文段。</p>
 <p>现在的问题是：如何判定此报文段是对先发送的报文段的确认，还是对后来重传的报文段的确认？由于重传的报文段和原来的报文段完全一样，所以源主机在接受到确认后，无法做出正确的判断，而正确的判断对确定加权平均RTTs的值关系很大。因此产生了Karn算法，只要报文段重传了，就不采用其往返时间样本</p>
 <p>Karn算法：</p>
@@ -558,10 +558,10 @@
 <p>接收端在接收到数据后，对其进行处理。如果发送端的发送速度太快，导致接收端的结束缓冲区很快的填充满了。此时如果发送端仍旧发送数据，那么接下来发送的数据都会丢包，继而导致丢包的一系列连锁反应，超时重传什么的。而TCP根据接收端对数据的处理能力，决定发送端的发送速度，这个机制就是流量控制。</p>
 <p>在TCP协议的报头信息当中，有一个16位字段的窗口大小。在介绍这个窗口大小时我们知道，<strong>窗口大小的内容实际上是接收端接收数据缓冲区的剩余大小</strong>。这个数字越大，证明接收端接收缓冲区的剩余空间越大，网络的吞吐量越大。接收端会在确认应答发送ACK报文时，将自己的即时窗口大小填入，并跟随ACK报文一起发送过去。而发送方根据ACK报文里的窗口大小的值的改变进而改变自己的发送速度。如果接收到窗口大小的值为0，那么发送方将停止发送数据。并定期的向接收端发送窗口探测数据段，让接收端把窗口大小告诉发送端。</p>
 <p>注：16位的窗口大小最大能表示65535个字节（64K），但是TCP的窗口大小最大并不是64K。在TCP首部中40个字节的选项中还包含了一个窗口扩大因子M，实际的窗口大小就是16为窗口字段的值左移M位。每移一位，扩大两倍。</p>
-<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210406215601482.png"><img src="/dajiangdahe.github.io/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210406215601482.png" class="" title="image-20210406215601482"></a></p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210406215601482.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210406215601482.png" class="" title="image-20210406215601482"></a></p>
 <h5 id="可变滑动窗口">可变滑动窗口</h5>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/yao5hed/article/details/81046945">https://blog.csdn.net/yao5hed/article/details/81046945</a></p>
-<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210410181120147.png"><img src="/dajiangdahe.github.io/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210410181120147.png" class="" title="image-20210410181120147"></a></p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210410181120147.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210410181120147.png" class="" title="image-20210410181120147"></a></p>
 <h5 id="流量控制引发的死锁？怎么避免死锁的发生？">流量控制引发的死锁？怎么避免死锁的发生？</h5>
 <p>当发送者收到了一个窗口为0的应答，发送者便停止发送，等待接收者的下一个应答。但是如果这个窗口不为0的应答在传输过程丢失，发送者一直等待下去，而接收者以为发送者已经收到该应答，等待接收新数据，这样双方就相互等待，从而产生死锁。</p>
 <p>为了避免流量控制引发的死锁，TCP使用了持续计时器。每当发送者收到一个零窗口的应答后就启动该计时器。时间一到便主动发送报文询问接收者的窗口大小。若接收者仍然返回零窗口，则重置该计时器继续等待；若窗口不为0，则表示应答报文丢失了，此时重置发送窗口后开始发送，这样就避免了死锁的产生。</p>
@@ -581,7 +581,7 @@
 </ul>
 </li>
 </ul>
-<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210410194920966.png"><img src="/dajiangdahe.github.io/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210410194920966.png" class="" title="image-20210410194920966"></a></p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210410194920966.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210410194920966.png" class="" title="image-20210410194920966"></a></p>
 <h5 id="拥塞避免">拥塞避免</h5>
 <p>拥塞窗口的增长是指数级别的。慢启动的机制只是说明在开始的时候发送的少，发送的慢，但是增长的速度是非常快的。为了控制拥塞窗口的增长，不能使拥塞窗口单纯的加倍，设<strong>置一个拥塞窗口的阈值，当拥塞窗口大小超过阈值时，不能再按照指数来增长，而是线性的增长</strong>。</p>
 <ul>
@@ -605,7 +605,7 @@
 </ul>
 </li>
 </ul>
-<p>[<img src="/dajiangdahe.github.io/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210406221637813.png" class="" title="image-20210406221637813"></p>
+<p>[<img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210406221637813.png" class="" title="image-20210406221637813"></p>
 <ul>
 <li>快速重传算法，即收到3个重复的ACK就开始重传，无需等待RTO超时
 <ul>
@@ -620,12 +620,12 @@
 </ul>
 </li>
 </ul>
-<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210410200127345.png"><img src="/dajiangdahe.github.io/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210410200127345.png" class="" title="image-20210410200127345"></a></p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210410200127345.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210410200127345.png" class="" title="image-20210410200127345"></a></p>
 <p>拥塞控制是TCP在传输时尽可能快的将数据传输，并且避免拥塞造成的一系列问题。是可靠性的保证，同时也是维护了传输的高效性。</p>
 <h5 id="快重传和快恢复">快重传和快恢复</h5>
 <p><strong>快重传算法要求首先接收方收到一个失序的报文段后就立刻发出重复确认，而不要等待自己发送数据时才进行捎带确认</strong>。</p>
 <p>接收方成功的接受了发送方发送来的M1、M2并且分别给发送了ACK，现在接收方没有收到M3，而接收到了M4，显然接收方不能确认M4，因为M4是失序的报文段。如果根据可靠性传输原理接收方什么都不做，但是按照快速重传算法，在收到M4、M5等报文段的时候，不断重复的向发送方发送M2的ACK，如果接收方一连收到三个重复的ACK，那么发送方不必等待重传计时器到期，由发送方尽早重传未被确认的报文段。</p>
-<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210410201904592.png"><img src="/dajiangdahe.github.io/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210410201904592.png" class="" title="image-20210410201904592"></a></p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210410201904592.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210410201904592.png" class="" title="image-20210410201904592"></a></p>
 <p>与快重传配合使用的还有<strong>快恢复</strong>算法，其过程有以下两个要点：</p>
 <ul>
 <li>当发送方连续收到三个重复确认，就执行“乘法减小”算法，把慢开始门限ssthresh减半。这是为了预防网络发生拥塞。请注意：接下去不执行慢开始算法。</li>
@@ -707,7 +707,7 @@
 </li>
 <li>
 <p>当服务器收到客户端的确认后也进入ESTABLISHED状态，此后双方就可以开始通信了。</p>
-<img src="/dajiangdahe.github.io/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210330145507987.png" class="" title="image-20210330145507987">
+<img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210330145507987.png" class="" title="image-20210330145507987">
 </li>
 </ul>
 <h5 id="为什么不能两次握手">为什么不能两次握手</h5>
@@ -732,7 +732,7 @@
 </li>
 <li>
 <p><strong>服务器只要收到了客户端发出的确认，立即进入CLOSED状态</strong>。同样，撤销TCB后，就结束了这次的TCP连接。可以看到，服务器结束TCP连接的时间要比客户端早一些。</p>
-<img src="/dajiangdahe.github.io/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210330145711359.png" class="" title="image-20210330145711359">
+<img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210330145711359.png" class="" title="image-20210330145711359">
 </li>
 </ul>
 <h5 id="为什么客户端最后还要等待2MSL？">为什么客户端最后还要等待2MSL？</h5>
@@ -857,10 +857,10 @@
 <h4 id="3、缓存检查">3、缓存检查</h4>
 <p>有时候博客在gitee上进行了更新，但是通过谷歌浏览器查看博客时，仍是更新前的博客，这是因为浏览器中缓存了之前的博客界面。</p>
 <p>浏览器会先检测是否缓存了目标URL的页面，如果有且缓存未过期，则直接展示缓存页面，无需再向服务器进行请求</p>
-<img src="/dajiangdahe.github.io/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210415185211636.png" class="" title="image-20210415185211636">
+<img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210415185211636.png" class="" title="image-20210415185211636">
 <h3 id="DNS解析">DNS解析</h3>
 <p><strong>DNS解析是寻找所需要的资源的IP地址的过程</strong>。因为互联网中每一台连网的机器都有<strong>唯一IP作为标识</strong>，但是它是一串数字，记忆太过困难。所以就需要将网址和IP地址进行转换，也就是DNS解析。其具体步骤如下。</p>
-<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210415185234770.png"><img src="/dajiangdahe.github.io/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210415185234770.png" class="" title="image-20210415185234770"></a></p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210415185234770.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210415185234770.png" class="" title="image-20210415185234770"></a></p>
 <h4 id="第一步：检查浏览器缓存中是否缓存过该域名对应的IP地址">第一步：检查浏览器缓存中是否缓存过该域名对应的IP地址</h4>
 <p>用户通过浏览器浏览过某网站之后，浏览器就会自动缓存该网站域名对应的地址，当用户再次访问的时候，浏览器就会从缓存中查找该域名对应的IP地址，因为缓存不仅是有大小限制，而且还有时间限制（域名被缓存的时间通过属性来设置），所以存在域名对应的找不到的情况。当浏览器从缓存中找到了该网站域名对应的地址，那么整个解析过程结束，如果没有找到，将进行下一步骤。对于的缓存时间问题，不宜设置太长的缓存时间，时间太长，如果域名对应的发生变化，那么用户将在一段时间内无法正常访问到网站，如果太短，那么又造成频繁解析域名。</p>
 <h4 id="第二步：如果在浏览器缓存中没有找到IP，那么将继续查找本机系统是否缓存过IP">第二步：如果在浏览器缓存中没有找到IP，那么将继续查找本机系统是否缓存过IP</h4>
@@ -902,10 +902,10 @@
 </blockquote>
 <h3 id="建立TCP连接">建立TCP连接</h3>
 <p>TCP/IP 分为四层，在发送数据时，<strong>每层都要对数据进行封装</strong></p>
-<p>[<img src="/dajiangdahe.github.io/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/20201209141851.png" class="" title="img"></p>
+<p>[<img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/20201209141851.png" class="" title="img"></p>
 <h3 id="发送HTTPS请求">发送HTTPS请求</h3>
 <p><strong>大致过程如下</strong></p>
-<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921110642708.png"><img src="/dajiangdahe.github.io/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921110642708.png" class="" title="image-20210921110642708"></a></p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921110642708.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921110642708.png" class="" title="image-20210921110642708"></a></p>
 <h3 id="查询MAC地址">查询MAC地址</h3>
 <p>这一步主要负责为打包好的<code>数据+TCP首部+IP首部</code>寻找传输路线，<strong>找到IP对应的物理机</strong>，这里会用到ARP协议。</p>
 <p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/#arp">ARP协议</a></p>
@@ -915,7 +915,7 @@
 <p>Tomcat的核心组件主要有：<strong>Server、Service、Connector、Engine、Host和Context</strong>。</p>
 <p><strong>一个Server可以包含多个Service，一个Service可以包含多个Connector，但只能包含一个Engine，一个Engine可以包含多个Host，一个Host可以包含多个Context</strong>。</p>
 <p><strong>它们之间的关系如下图所示</strong></p>
-<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921111523133.png"><img src="/dajiangdahe.github.io/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921111523133.png" class="" title="image-20210921111523133"></a></p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921111523133.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921111523133.png" class="" title="image-20210921111523133"></a></p>
 <p><strong>配置文件的结构如下</strong></p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-section">&lt;Server&gt;</span>                              <br>    <span class="hljs-section">&lt;Service&gt;</span><br>        <span class="hljs-section">&lt;Engine&gt;</span><br>            <span class="hljs-section">&lt;Host&gt;</span><br>                <span class="hljs-section">&lt;Context /&gt;</span><br>            <span class="hljs-section">&lt;/Host&gt;</span><br>            <span class="hljs-section">&lt;Host&gt;</span><br>                <span class="hljs-section">&lt;Context /&gt;</span><br>            <span class="hljs-section">&lt;/Host&gt;</span><br>        <span class="hljs-section">&lt;/Engine&gt;</span>  <br>        <span class="hljs-section">&lt;Connector /&gt;</span><br>        <span class="hljs-section">&lt;Connector /&gt;</span><br>    <span class="hljs-section">&lt;/Service&gt;</span><br><span class="hljs-section">&lt;/Server&gt;</span><br><span class="hljs-attribute">Copy</span><br></code></pre></td></tr></table></figure>
 <h5 id="Server">Server</h5>
@@ -929,7 +929,7 @@
 <li>作为Web服务器，直接接收客户端的请求</li>
 <li>作为Java Web服务器，接收前置Web服务器的请求</li>
 </ul>
-<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921111734338.png"><img src="/dajiangdahe.github.io/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921111734338.png" class="" title="image-20210921111734338"></a></p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921111734338.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921111734338.png" class="" title="image-20210921111734338"></a></p>
 <p>每个 Service 可以有一个或多个 Connector，不同工作模式下，Tomcat 需要为各种类型的请求分别定义相应的 Connector，这样才能正确接收客户端对应协议的请求。定义 Connector 可以使用多种属性，某些属性只适用于某种特定的 Connector 类型。</p>
 <p>一般说来，常见的 Connector 有 4 种类型</p>
 <ul>
@@ -938,7 +938,7 @@
 <li><strong>AJP</strong></li>
 <li><strong>Proxy</strong></li>
 </ul>
-<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921111805468.png"><img src="/dajiangdahe.github.io/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921111805468.png" class="" title="image-20210921111805468"></a></p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921111805468.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921111805468.png" class="" title="image-20210921111805468"></a></p>
 <p>Connector作为通信接口，<strong>它为其所属特定的 Service 接收外部客户端请求，以及回送应答至外部客户端</strong>。具体职责包括创建 Request、Response 对象用于跟外部客户端交换数据，并<strong>将 Request 交给配套的 Engine 来处理</strong>。</p>
 <h5 id="Engine">Engine</h5>
 <p>Engine 是 Service 组件中<strong>负责请求处理的组件</strong>，其内部可以包含多个 Host。Engine 从一个或多个 Connector 中接收请求并处理，并将处理结果封装成应答交给 Connector，最终回传给外部客户端。</p>
@@ -1008,7 +1008,7 @@
 <h4 id="Web应用处理HTTP请求流程">Web应用处理HTTP请求流程</h4>
 <p>Web 应用处理 HTTP 请求的流程主要是<strong>穿越 Listener 和多个 Filters，最终抵达 Servlet 的过程</strong>，Servlet再进行下一步的处理。</p>
 <p><strong>具体流程如下图</strong></p>
-<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921112418359.png"><img src="/dajiangdahe.github.io/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921112418359.png" class="" title="image-20210921112418359"></a></p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921112418359.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921112418359.png" class="" title="image-20210921112418359"></a></p>
 <hr>
 <h3 id="请求在Spring-Web应用中的处理流程">请求在Spring Web应用中的处理流程</h3>
 <p>因为使用 SSM 框架，所以 Spring MVC 中的 DispatcherServlet 充当了 Web 应用中的 Serlvet，负责将任务分配给对应的Controller，并将最终视图返回给 Web 容器。</p>
@@ -1033,11 +1033,11 @@
 <li>Hander 处理完成请求后会返回模型数据，模型数据由 DispatcherServlet 封装后返回给Web 容器</li>
 </ul>
 <p><strong>处理的流程图如下</strong></p>
-<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921112655885.png"><img src="/dajiangdahe.github.io/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921112655885.png" class="" title="image-20210921112655885"></a></p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921112655885.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921112655885.png" class="" title="image-20210921112655885"></a></p>
 <hr>
 <h3 id="返回过程">返回过程</h3>
 <p>Web 应用处理完请求并将结果返回给 Web 容器后，容器会将响应结果返回给客户端，这是上面流程的逆过程。浏览器收到响应结果后，会对结果进行解析和渲染。这样我们就能看到浏览器给我们显示的网页了。</p>
-<img src="/dajiangdahe.github.io/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921113017358.png" class="" title="image-20210921113017358">
+<img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921113017358.png" class="" title="image-20210921113017358">
 <hr>
 <h2 id="8-3-HTTP协议">8.3 HTTP协议</h2>
 <h3 id="概述-3">概述</h3>
@@ -1046,14 +1046,14 @@
 <ul>
 <li>超文本：超文本指的是HTML，css，JavaScript和图片等，HTTP的出现是为了接收和发布HTML页面，经过不断的发展也可以用于接收一些音频，视频，文件等内容。</li>
 </ul>
-<img src="/dajiangdahe.github.io/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210910145213312.png" class="" title="image-20210910145213312">
+<img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210910145213312.png" class="" title="image-20210910145213312">
 <hr>
 <h3 id="报文结构">报文结构</h3>
 <p>报文结构：<strong>起始行 + 头部 + 空行 + 实体</strong></p>
 <blockquote>
 <p>http <code>请求报文</code>和<code>响应报文</code>是有一定区别</p>
 </blockquote>
-<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210915150323696.png"><img src="/dajiangdahe.github.io/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210915150323696.png" class="" title="image-20210915150323696"></a></p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210915150323696.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210915150323696.png" class="" title="image-20210915150323696"></a></p>
 <h4 id="起始行">起始行</h4>
 <h5 id="请求行">请求行</h5>
 <ul>
@@ -1062,20 +1062,20 @@
 <p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/#http%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95">HTTP请求方法</a></p>
 <p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/#uri%E4%B8%8Eurl">URI与URL</a></p>
 <p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/#http%E7%89%88%E6%9C%AC">HTTP版本</a></p>
-<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/1625556960701-67d07a26-61ea-4708-b378-a33ce98e5907.webp"><img src="/dajiangdahe.github.io/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/1625556960701-67d07a26-61ea-4708-b378-a33ce98e5907.webp" class="" title="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/1625556960701-67d07a26-61ea-4708-b378-a33ce98e5907.webp"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/1625556960701-67d07a26-61ea-4708-b378-a33ce98e5907.webp" class="" title="img"></a></p>
 <h5 id="状态行">状态行</h5>
 <ul>
 <li>响应报文 HTTP/1.1 200 OK ，由<strong>http版本、状态码和原因</strong>三部分组成</li>
 </ul>
 <p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/#http%E7%89%88%E6%9C%AC">HTTP版本</a></p>
 <p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/#http%E7%8A%B6%E6%80%81%E7%A0%81">HTTP状态码</a></p>
-<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/1625556999909-c5905faf-64de-41a8-a43b-780207247fa8.webp"><img src="/dajiangdahe.github.io/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/1625556999909-c5905faf-64de-41a8-a43b-780207247fa8.webp" class="" title="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/1625556999909-c5905faf-64de-41a8-a43b-780207247fa8.webp"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/1625556999909-c5905faf-64de-41a8-a43b-780207247fa8.webp" class="" title="img"></a></p>
 <blockquote>
 <p>在起始行中，每两个部分之间用<strong>空格</strong>隔开，最后一个部分后面应该接一个<strong>换行</strong>，严格遵循<code>ABNF</code>语法规范。</p>
 </blockquote>
 <h4 id="头部">头部</h4>
 <h5 id="请求头">请求头</h5>
-<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210915151245871.png"><img src="/dajiangdahe.github.io/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210915151245871.png" class="" title="image-20210915151245871"></a></p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210915151245871.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210915151245871.png" class="" title="image-20210915151245871"></a></p>
 <p>Cache-Control：</p>
 <ul>
 <li><strong>private：</strong> 仅浏览器可以缓存</li>
@@ -1085,12 +1085,12 @@
 <li><strong>no-store</strong> 真正的不缓存</li>
 </ul>
 <h5 id="响应头">响应头</h5>
-<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210915151401084.png"><img src="/dajiangdahe.github.io/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210915151401084.png" class="" title="image-20210915151401084"></a></p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210915151401084.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210915151401084.png" class="" title="image-20210915151401084"></a></p>
 <p>Content-Type：</p>
 <p>常见的媒体格式：text/html,text/plain,image/gif</p>
 <p>application开头的媒体格式类型：application/xml, appliation/json</p>
 <p>multipart/form-data</p>
-<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210915151540851.png"><img src="/dajiangdahe.github.io/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210915151540851.png" class="" title="image-20210915151540851"></a></p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210915151540851.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210915151540851.png" class="" title="image-20210915151540851"></a></p>
 <h4 id="实体">实体</h4>
 <h5 id="请求体">请求体</h5>
 <h5 id="响应体">响应体</h5>
@@ -1269,7 +1269,7 @@
 </ul>
 <h4 id="URI结构">URI结构</h4>
 <p>URI 真正最完整的结构是这样的。</p>
-<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210915233628185.png"><img src="/dajiangdahe.github.io/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210915233628185.png" class="" title="image-20210915233628185"></a></p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210915233628185.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210915233628185.png" class="" title="image-20210915233628185"></a></p>
 <ul>
 <li><strong>scheme</strong> 表示协议名，比如<code>http</code>, <code>https</code>, <code>file</code>等等。后面必须和<code>://</code>连在一起。</li>
 <li><strong>user:passwd</strong>@ 表示登录主机时的用户信息，不过很不安全，不推荐使用，也不常用。</li>
@@ -1285,7 +1285,7 @@
 <blockquote>
 <p><strong>URL和URN都是URI的子集</strong>。换而言之，URL和URN都是URI，但是URI不一定是URL或者URN。</p>
 </blockquote>
-<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/640"><img src="/dajiangdahe.github.io/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/640" class="" title="图片"></a></p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/640"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/640" class="" title="图片"></a></p>
 <p>举例如下：</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs awk">构造一个URI	<br>	http:*<span class="hljs-regexp">//</span>bitpoetry.io<span class="hljs-regexp">/posts/</span>hello.html<span class="hljs-comment">#intro</span><br><br>其中<br>   http:<span class="hljs-regexp">//</span>  <span class="hljs-regexp">//</span> 是定义如何访问资源的方式<br>   bitpoetry.io<span class="hljs-regexp">/posts/</span>hello.html  <span class="hljs-regexp">//</span> 是资源存放的位置<br>   <span class="hljs-comment">#intro  // 是资源</span><br>   <br>URL是URI的一个子集，告诉我们访问资源位置的方式。在例子中，URL应该如下所示：   <br>    http:<span class="hljs-regexp">//</span>bitpoetry.io<span class="hljs-regexp">/posts/</span>hello.html<br>    <br>URN是URI的子集，包括名字（给定的命名空间内），但是不包括访问方式。在例子中，URN如下所示：  <br>	 bitpoetry.io<span class="hljs-regexp">/posts/</span>hello.html<span class="hljs-comment">#intro</span><br>Copy<br></code></pre></td></tr></table></figure>
 <hr>
@@ -1314,7 +1314,7 @@
 <p>然后我们试着将这个长度设置得大一些:</p>
 <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile">res.setHeader(<span class="hljs-string">&#x27;Content-Length&#x27;</span>, <span class="hljs-number">12</span>);<br><span class="hljs-keyword">Copy</span><br></code></pre></td></tr></table></figure>
 <p>此时浏览器显示如下：</p>
-<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210916161841752.png"><img src="/dajiangdahe.github.io/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210916161841752.png" class="" title="image-20210916161841752"></a></p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210916161841752.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210916161841752.png" class="" title="image-20210916161841752"></a></p>
 <p>直接无法显示了。可以看到<code>Content-Length</code>对于 http 传输过程起到了十分关键的作用，如果设置不当可以直接导致传输失败。</p>
 <h4 id="不定长包体">不定长包体</h4>
 <p>上述是针对于<code>定长包体</code>，那么对于<code>不定长包体</code>而言是如何传输的呢？</p>
@@ -1328,42 +1328,42 @@
 <p>我们依然以一个实际的例子来模拟分块传输，nodejs 程序如下:</p>
 <figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript">const http = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;http&#x27;</span>);<br><br>const server = http.createServer();<br><br>server.<span class="hljs-literal">on</span>(<span class="hljs-string">&#x27;request&#x27;</span>, <span class="hljs-function"><span class="hljs-params">(req, res)</span> =&gt;</span> &#123;<br>  <span class="hljs-keyword">if</span>(req.url === <span class="hljs-string">&#x27;/&#x27;</span>) &#123;<br>    res.setHeader(<span class="hljs-string">&#x27;Content-Type&#x27;</span>, <span class="hljs-string">&#x27;text/html; charset=utf8&#x27;</span>);<br>    res.setHeader(<span class="hljs-string">&#x27;Content-Length&#x27;</span>, <span class="hljs-number">10</span>);<br>    res.setHeader(<span class="hljs-string">&#x27;Transfer-Encoding&#x27;</span>, <span class="hljs-string">&#x27;chunked&#x27;</span>);<br>    res.write(<span class="hljs-string">&quot;&lt;p&gt;来啦&lt;/p&gt;&quot;</span>);<br>    <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;<br>      res.write(<span class="hljs-string">&quot;第一次传输&lt;br/&gt;&quot;</span>);<br>    &#125;, <span class="hljs-number">1000</span>);<br>    <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;<br>      res.write(<span class="hljs-string">&quot;第二次传输&quot;</span>);<br>      res.end()<br>    &#125;, <span class="hljs-number">2000</span>);<br>  &#125;<br>&#125;)<br><br>server.listen(<span class="hljs-number">8009</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;成功启动&quot;</span>);<br>&#125;)<br>Copy<br></code></pre></td></tr></table></figure>
 <p>访问效果入下:</p>
-<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210917105352387.png"><img src="/dajiangdahe.github.io/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210917105352387.png" class="" title="image-20210917105352387"></a></p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210917105352387.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210917105352387.png" class="" title="image-20210917105352387"></a></p>
 <hr>
 <h3 id="传输过程">传输过程</h3>
-<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921105357172.png"><img src="/dajiangdahe.github.io/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921105357172.png" class="" title="image-20210921105357172"></a></p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921105357172.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921105357172.png" class="" title="image-20210921105357172"></a></p>
 <hr>
 <h2 id="8-4-HTTPS协议">8.4 HTTPS协议</h2>
 <p>顾名思义，就是在HTTP（超文本传输协议）的基础上再加一层TLS（传输层安全性协议）或者SSL（安全套接层），说白了就是为了应付HTTP是明文传输的缺点，容易被中间人窃听或者篡改，导致隐私和信息安全出现问题的解决方案。</p>
-<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210918144054923.png"><img src="/dajiangdahe.github.io/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210918144054923.png" class="" title="image-20210918144054923"></a></p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210918144054923.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210918144054923.png" class="" title="image-20210918144054923"></a></p>
 <h3 id="通信过程">通信过程</h3>
 <h4 id="Client-Hello">Client Hello</h4>
 <p>握手第一步是客户端向服务端发送 Client Hello 消息，这个消息里包含了一个客户端生成的随机数 <strong>Random1</strong>、客户端支持的加密套件（Support Ciphers）和 SSL Version 等信息。</p>
-<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210918151748632.png"><img src="/dajiangdahe.github.io/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210918151748632.png" class="" title="image-20210918151748632"></a></p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210918151748632.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210918151748632.png" class="" title="image-20210918151748632"></a></p>
 <h4 id="Server-Hello">Server Hello</h4>
 <p>第二步是服务端向客户端发送 Server Hello 消息，这个消息会从 Client Hello 传过来的 Support Ciphers 里确定一份加密套件，这个套件决定了后续加密和生成摘要时具体使用哪些算法，另外还会生成一份随机数 <strong>Random2</strong>。注意，至此客户端和服务端都拥有了两个随机数（Random1+ Random2），这两个随机数会在后续生成对称秘钥时用到。</p>
-<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210918151908297.png"><img src="/dajiangdahe.github.io/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210918151908297.png" class="" title="image-20210918151908297"></a></p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210918151908297.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210918151908297.png" class="" title="image-20210918151908297"></a></p>
 <h4 id="Certificate">Certificate</h4>
 <p>这一步是服务端将自己的证书下发给客户端，让客户端验证自己的身份，客户端验证通过后取出证书中的公钥。</p>
-<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210918152228237.png"><img src="/dajiangdahe.github.io/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210918152228237.png" class="" title="image-20210918152228237"></a></p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210918152228237.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210918152228237.png" class="" title="image-20210918152228237"></a></p>
 <h4 id="Certificate-Verify">Certificate Verify</h4>
 <p>客户端收到服务端传来的证书后，先从 CA 验证该证书的合法性，验证通过后取出证书中的服务端公钥，再生成一个随机数 <strong>Random3</strong>，再用服务端公钥非对称加密 <strong>Random3</strong> 生成 <strong>PreMaster Key</strong>。</p>
 <h4 id="Client-Key-Exchange">Client Key Exchange</h4>
 <p>上面客户端根据服务器传来的公钥生成了 <strong>PreMaster Key</strong>，Client Key Exchange 就是将这个 key 传给服务端，服务端再用自己的私钥解出这个 <strong>PreMaster Key</strong> 得到客户端生成的 <strong>Random3</strong>。至此，客户端和服务端都拥有 <strong>Random1</strong> + <strong>Random2</strong> + <strong>Random3</strong>，两边再根据同样的算法就可以生成一份秘钥，握手结束后的应用层数据都是使用这个秘钥进行对称加密。为什么要使用三个随机数呢？这是因为 SSL/TLS 握手过程的数据都是明文传输的，并且多个随机数种子来生成秘钥不容易被暴力破解出来。客户端将 <strong>PreMaster Key</strong> 传给服务端的过程如下图所示：</p>
-<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210918152355695.png"><img src="/dajiangdahe.github.io/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210918152355695.png" class="" title="image-20210918152355695"></a></p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210918152355695.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210918152355695.png" class="" title="image-20210918152355695"></a></p>
 <h4 id="Encrypted-Handshake-Message-Client">Encrypted Handshake Message(Client)</h4>
 <p>这一步对应的是 Client Finish 消息，客户端将前面的握手消息生成摘要再用协商好的秘钥加密，这是客户端发出的第一条加密消息。服务端接收后会用秘钥解密，能解出来说明前面协商出来的秘钥是一致的。</p>
-<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210918152438216.png"><img src="/dajiangdahe.github.io/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210918152438216.png" class="" title="image-20210918152438216"></a></p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210918152438216.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210918152438216.png" class="" title="image-20210918152438216"></a></p>
 <h4 id="Change-Cipher-Spec-Server">Change Cipher Spec(Server)</h4>
 <p>这一步是服务端通知客户端后面再发送的消息都会使用加密，也是一条事件消息。</p>
 <h4 id="Encrypted-Handshake-Message-Server">Encrypted Handshake Message(Server)</h4>
 <p>这一步对应的是 Server Finish 消息，服务端也会将握手过程的消息生成摘要再用秘钥加密，这是服务端发出的第一条加密消息。客户端接收后会用秘钥解密，能解出来说明协商的秘钥是一致的。</p>
-<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210918152522642.png"><img src="/dajiangdahe.github.io/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210918152522642.png" class="" title="image-20210918152522642"></a></p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210918152522642.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210918152522642.png" class="" title="image-20210918152522642"></a></p>
 <h4 id="Application-Data">Application Data</h4>
 <p>到这里，双方已安全地协商出了同一份秘钥，所有的应用层数据都会用这个秘钥加密后再通过 TCP 进行可靠传输。</p>
 <hr>
 <h3 id="传输过程-2">传输过程</h3>
-<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921105440452.png"><img src="/dajiangdahe.github.io/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921105440452.png" class="" title="image-20210921105440452"></a></p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921105440452.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921105440452.png" class="" title="image-20210921105440452"></a></p>
 <ul>
 <li><strong>HTTPS传输过程最多会比HTTP多7个RTT</strong></li>
 </ul>
@@ -1435,7 +1435,7 @@
 <hr>
 <h2 id="9-2-跨域">9.2 跨域</h2>
 <p>当一个请求url的协议、域名、端口三者之间任意一个与当前页面url不同即为跨域</p>
-<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210918143407829.png"><img src="/dajiangdahe.github.io/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210918143407829.png" class="" title="image-20210918143407829"></a></p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210918143407829.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210918143407829.png" class="" title="image-20210918143407829"></a></p>
 <h3 id="跨域问题出现原因">跨域问题出现原因</h3>
 <p>出于浏览器的同源策略限制。同源策略（Sameoriginpolicy）是一种约定，它是浏览器最核心也最基本的安全功能，如果缺少了同源策略，则浏览器的正常功能可能都会受到影响。可以说Web是构建在同源策略基础之上的，浏览器只是针对同源策略的一种实现。</p>
 <p><strong>同源策略会阻止一个域的javascript脚本和另外一个域的内容进行交互</strong>。所谓同源（即指在同一个域）就是两个页面具有相同的协议（protocol），主机（host）和端口号（port）</p>
@@ -1484,7 +1484,7 @@
 <h4 id="危害-2">危害</h4>
 <p>攻击者盗用了你的身份，以你的名义发送恶意请求。CSRF能够做的事情包括：以你名义发送邮件，发消息，盗取你的账号，甚至于购买商品，虚拟货币转账……造成的问题包括：<strong>个人隐私泄露以及财产安全</strong>。</p>
 <h4 id="原理">原理</h4>
-<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921115900826.png"><img src="/dajiangdahe.github.io/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921115900826.png" class="" title="image-20210921115900826"></a></p>
+<p><a target="_blank" rel="noopener" href="https://igotcha.gitee.io/2021/09/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921115900826.png"><img src="/dajiangdahe/2021/11/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/image-20210921115900826.png" class="" title="image-20210921115900826"></a></p>
 <p>从上图可以看出，要完成一次CSRF攻击，受害者必须依次完成两个步骤：</p>
 <ul>
 <li>登录受信任网站A，并在本地生成Cookie。</li>

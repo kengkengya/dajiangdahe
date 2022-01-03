@@ -292,7 +292,7 @@
 </ul>
 <h2 id="使用技巧">使用技巧</h2>
 <p>如果空间越大，hash函数越多，结果就越精确，但是空间效率和查询效率就会越低。</p>
-<img src="/dajiangdahe.github.io/2021/10/22/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X3BuZy9OTnNzMDMyRklTZzVvREY3eWtnVUxqSUhvZWQ5Vm1wZGlhbWtKVGdMTVhzTnRFTEhyVFF4MDYwc1k2bjdPN0NVaWNUd1VpYzlGMWdGRXQ1d2R4UUdpY05pYmd3LzY0MA" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X3BuZy9OTnNzMDMyRklTZzVvREY3eWtnVUxqSUhvZWQ5Vm1wZGlhbWtKVGdMTVhzTnRFTEhyVFF4MDYwc1k2bjdPN0NVaWNUd1VpYzlGMWdGRXQ1d2R4UUdpY05pYmd3LzY0MA" class="" title="img">
 <p>后面4列中的数据就是发生误差的数量。可见，空间大小和集合大小不变的情况下，增加hash函数可以显著减小误差。但一旦集合大小达到空间大小的25%左右后，增加hash函数带来的提神效果并不明显。这个时候应该增加空间大小。</p>
 <h2 id="Redis中的布隆过滤器">Redis中的布隆过滤器</h2>
 <p>Redis的布隆过滤器不是原生自带的，而是要通过module加载进去。Redis在4.0的版本中加入了module功能。具体使用可以直接看RedisBloom github的README：<a target="_blank" rel="noopener" href="https://github.com/RedisBloom/RedisBloom%E3%80%82%E4%B8%8A%E9%9D%A2%E6%9C%89docker%E4%B8%80%E9%94%AE%E5%90%AF%E5%8A%A8%E5%91%BD%E4%BB%A4%EF%BC%8C%E5%8F%AF%E4%BB%A5%E5%BE%88%E6%96%B9%E4%BE%BF%E5%9C%B0%E5%AE%9E%E9%AA%8C%E3%80%82%E4%B9%9F%E6%9C%89%E5%87%A0%E7%A7%8D%E4%B8%BB%E6%B5%81%E8%AF%AD%E8%A8%80%E7%9A%84%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%BA%93%E7%9A%84%E9%93%BE%E6%8E%A5%EF%BC%8C%E6%AF%94%E5%A6%82Java%E8%AF%AD%E8%A8%80%E7%9A%84JReBloom%E3%80%82%E6%9C%89%E5%85%B4%E8%B6%A3%E7%9A%84%E6%9C%8B%E5%8F%8B%E5%8F%AF%E4%BB%A5%E8%87%AA%E8%A1%8C%E4%BA%86%E8%A7%A3%E3%80%82">https://github.com/RedisBloom/RedisBloom。上面有docker一键启动命令，可以很方便地实验。也有几种主流语言的客户端库的链接，比如Java语言的JReBloom。有兴趣的朋友可以自行了解。</a></p>
@@ -323,7 +323,7 @@
 <p>位数组大小：m = 5g x 13 = 65G = 650亿bit</p>
 <p>我们的内存是 4g x 8bit = 32G = 320亿bit。按此错误率大于0.01</p>
 <p>2.采用分治的思想</p>
-<img src="/dajiangdahe.github.io/2021/10/22/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/20191023182333584.jpg" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/20191023182333584.jpg" class="" title="img">
 <p>Step1：遍历文件a，对每个url求取hash(url)%1000，然后根据所取得的值将url分别存储到1000个小文件(记为a0,a1,…,a999，每个小文件约300M);</p>
 <p>Step2:遍历文件b，采取和a相同的方式将url分别存储到1000个小文件(记为b0,b1,…,b999);</p>
 <p>巧妙之处：这样处理后，所有可能相同的url都被保存在对应的小文件(a0vsb0,a1vsb1,…,a999vsb999)中，不对应的小文件不可能有相同的url。然后我们只要求出这个1000对小文件中相同的url即可。</p>

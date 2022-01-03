@@ -261,7 +261,7 @@
 <li>接受观察者（服务）的注册</li>
 <li>负责通知已经在zookeeper上注册的观察者（服务）</li>
 </ol>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211023222918327.png" class="" title="image-20211023222918327">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211023222918327.png" class="" title="image-20211023222918327">
 <ol>
 <li>服务端启动时去注册信息（创建都是临时节点）</li>
 <li>客户端从zookeeper获取当前在线服务器列表，并且注册监听</li>
@@ -270,7 +270,7 @@
 <li>客户端再次获取在线服务器列表，并注册监听</li>
 </ol>
 <h2 id="1-3-zookeeper特点">1.3 zookeeper特点</h2>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211023223955588.png" class="" title="image-20211023223955588">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211023223955588.png" class="" title="image-20211023223955588">
 <ol>
 <li>Zookeeper：<strong>一个领导者</strong>（Leader），<strong>多个跟随者</strong>（Follower）组成的集群。</li>
 <li>集群中只要有<strong>半数以上节点存活</strong>，Zookeeper集群就能正常服务。所以Zookeeper适合<strong>安装奇数台服务器</strong>。</li>
@@ -281,45 +281,45 @@
 </ol>
 <h2 id="1-4-数据结构">1.4 数据结构</h2>
 <p>ZooKeeper 数据模型的结构与 Unix 文件系统很类似，整体上可以看作是<strong>一棵树</strong>，每个 节点称做一个 <strong>ZNode</strong>。每一个 ZNode 默认能够<strong>存储 1MB</strong> 的数据，每个 ZNode 都可以通<strong>过其路径唯一标识</strong>。</p>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211023224426987.png" class="" title="image-20211023224426987">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211023224426987.png" class="" title="image-20211023224426987">
 <h2 id="1-5-应用场景">1.5 应用场景</h2>
 <ol>
 <li>
 <p><strong>统一命名服务</strong></p>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211023224814675.png" class="" title="image-20211023224814675">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211023224814675.png" class="" title="image-20211023224814675">
 </li>
 <li>
 <p><strong>统一配置管理</strong></p>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211023225045932.png" class="" title="image-20211023225045932">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211023225045932.png" class="" title="image-20211023225045932">
 </li>
 <li>
 <p><strong>统一集群管理</strong></p>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211023225313620.png" class="" title="image-20211023225313620">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211023225313620.png" class="" title="image-20211023225313620">
 </li>
 <li>
 <p><strong>服务器节点动态上下线</strong></p>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211023225524570.png" class="" title="image-20211023225524570">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211023225524570.png" class="" title="image-20211023225524570">
 </li>
 <li>
 <p><strong>软负载均衡</strong></p>
 </li>
 </ol>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211023225737241.png" class="" title="image-20211023225737241">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211023225737241.png" class="" title="image-20211023225737241">
 <h1>2. zookeeper安装</h1>
 <h2 id="2-1-本地安装以及目录解读">2.1 本地安装以及目录解读</h2>
 <p><strong>zookeeper目录</strong></p>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211023232208355.png" class="" title="image-20211023232208355">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211023232208355.png" class="" title="image-20211023232208355">
 <p><strong>zookeeper/bin 目录结构</strong></p>
 <p>其中<strong><a target="_blank" rel="noopener" href="http://zkCli.sh">zkCli.sh</a></strong> 是作为客户端启动</p>
 <p>其中<strong><a target="_blank" rel="noopener" href="http://zkServer.sh">zkServer.sh</a></strong> 是作为服务端启动</p>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211023232835716.png" class="" title="image-20211023232835716">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211023232835716.png" class="" title="image-20211023232835716">
 <p><strong>zookeeper/conf 目录结构</strong></p>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211023233200810.png" class="" title="image-20211023233200810">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211023233200810.png" class="" title="image-20211023233200810">
 <p>其中 <strong>zoo_sample.cfg</strong> 是zookeeper配置文件，是示例配置文件，本套课程中修改为zoo.cfg。</p>
 <p>由于/tmp为Linux临时储存地址（会被清理清理），所以将其默认dataDir地址改成自己新建的zkData文件夹下。</p>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211025095457555.png" class="" title="image-20211025095457555">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211025095457555.png" class="" title="image-20211025095457555">
 <p>一般我们将zookeeper的数据文件放到<strong>zookeeper/zkData</strong>下</p>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211025095409917.png" class="" title="image-20211025095409917">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211025095409917.png" class="" title="image-20211025095409917">
 <p>启动时</p>
 <ul>
 <li>先启动zkServer</li>
@@ -327,11 +327,11 @@
 </ul>
 <h2 id="2-2-参数配置解析">2.2 参数配置解析</h2>
 <p>1）<strong>tickTime = 2000</strong>：通信心跳时间，Zookeeper服务器与客户端心跳时间，单位毫秒</p>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211023235631976.png" class="" title="image-20211023235631976">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211023235631976.png" class="" title="image-20211023235631976">
 <p>2）<strong>initLimit = 10</strong>：LF初始通信时限</p>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211023235701539.png" class="" title="image-20211023235701539">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211023235701539.png" class="" title="image-20211023235701539">
 <p>3）<strong>syncLimit = 5</strong>：LF同步通信时限</p>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211023235734230.png" class="" title="image-20211023235734230">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211023235734230.png" class="" title="image-20211023235734230">
 <p>4）<strong>dataDir</strong>：保存Zookeeper中的数据 注意：<strong>默认的tmp目录，容易被Linux系统定期删除</strong>，所以一般不用默认的tmp目录。</p>
 <p>5）<strong>clientPort = 2181</strong>：客户端连接端口，通常不做修改。</p>
 <h1>3. zookeeper集群操作</h1>
@@ -375,16 +375,16 @@
 </ol>
 <h2 id="3-2-选举机制">3.2 选举机制</h2>
 <h3 id="3-2-1-zookeeper集群第一次启动时">3.2.1 zookeeper集群第一次启动时</h3>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211025102232854.png" class="" title="image-20211025102232854">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211025102232854.png" class="" title="image-20211025102232854">
 <ul>
 <li>总结：一般来说，第一次启动时，leader为server编号（start+end）/2。</li>
 </ul>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211025103218805.png" class="" title="image-20211025103218805">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211025103218805.png" class="" title="image-20211025103218805">
 <ul>
 <li>客户端对于集群的写操作，主要通过是三个ID号来标志访问的节点，分别是SID、ZXID、Epoch。</li>
 </ul>
 <h3 id="3-2-2-zookeeper集群非第一次启动时">3.2.2 zookeeper集群非第一次启动时</h3>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211025104410548.png" class="" title="image-20211025104410548">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211025104410548.png" class="" title="image-20211025104410548">
 <h2 id="3-3-客户端命令行操作">3.3 客户端命令行操作</h2>
 <h3 id="3-3-1-启动客户端和znode参数信息">3.3.1 启动客户端和znode参数信息</h3>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">bin/zkCli.sh --server name:xxxx //此方式可以指定服务器等名字<br></code></pre></td></tr></table></figure>
@@ -410,7 +410,7 @@
 <li>持久节点不带顺序编号</li>
 <li>持久节点带顺序编号，只是zookeeper会给该节点进行编号而已，顺序号由父节点维护</li>
 </ol>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211026214405461.png" class="" title="image-20211026214405461">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211026214405461.png" class="" title="image-20211026214405461">
 </li>
 <li>
 <p>短暂节点：当客户端与服务器断开连接时，创建的节点会自己删除</p>
@@ -427,27 +427,27 @@
 </li>
 </ol>
 <h4 id="3-3-2-1-创建永久节点">3.3.2.1 创建永久节点</h4>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211026214711434.png" class="" title="image-20211026214711434">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211026214711434.png" class="" title="image-20211026214711434">
 <h4 id="3-3-2-2-获取节点值与其属性">3.3.2.2 获取节点值与其属性</h4>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211026214817531.png" class="" title="image-20211026214817531">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211026214817531.png" class="" title="image-20211026214817531">
 <h4 id="3-3-2-3-创建持久带序号的节点">3.3.2.3 创建持久带序号的节点</h4>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211026215051736.png" class="" title="image-20211026215051736">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211026215051736.png" class="" title="image-20211026215051736">
 <h4 id="3-3-2-4-创建短暂节点">3.3.2.4 创建短暂节点</h4>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211026215720659.png" class="" title="image-20211026215720659">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211026215720659.png" class="" title="image-20211026215720659">
 <h4 id="3-3-2-5-创建短暂带序号节点">3.3.2.5 创建短暂带序号节点</h4>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211026215806271.png" class="" title="image-20211026215806271">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211026215806271.png" class="" title="image-20211026215806271">
 <h4 id="3-3-2-6-修改节点">3.3.2.6 修改节点</h4>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211026215848192.png" class="" title="image-20211026215848192">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211026215848192.png" class="" title="image-20211026215848192">
 <h3 id="3-3-4-监听器原理">3.3.4 监听器原理</h3>
 <p>客户端注册监听它关心的目录节点，当目录节点发生变化（数据改变、节点删除、子目 录节点增加删除）时，ZooKeeper 会通知客户端。监听机制保证 ZooKeeper 保存的任何的数 据的任何改变都能快速的响应到监听了该节点的应用程序。</p>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211026220152902.png" class="" title="image-20211026220152902">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211026220152902.png" class="" title="image-20211026220152902">
 <h4 id="3-3-4-1-节点的值变化监听">3.3.4.1 节点的值变化监听</h4>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211026220610359.png" class="" title="image-20211026220610359">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211026220610359.png" class="" title="image-20211026220610359">
 <h4 id="3-3-4-2-节点的子节点变化监听">3.3.4.2 节点的子节点变化监听</h4>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211026220849104.png" class="" title="image-20211026220849104">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211026220910133.png" class="" title="image-20211026220910133">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211026220849104.png" class="" title="image-20211026220849104">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211026220910133.png" class="" title="image-20211026220910133">
 <h4 id="3-3-4-3-节点的删除与查看">3.3.4.3 节点的删除与查看</h4>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211026221008642.png" class="" title="image-20211026221008642">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211026221008642.png" class="" title="image-20211026221008642">
 <h3 id="3-3-5-客户端API操作">3.3.5 客户端API操作</h3>
 <h4 id="3-3-5-1-初始化zookeeper">3.3.5.1 初始化zookeeper</h4>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">    * 初始化</span><br><span class="hljs-comment">    *</span><br><span class="hljs-comment">    * <span class="hljs-doctag">@throws</span> IOException ioexception</span><br><span class="hljs-comment">    */</span><br>   <span class="hljs-meta">@Before</span><br>   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">init</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;<br>       <span class="hljs-comment">//string多台服务器地址之间不允许有空格</span><br>       String coonectString = <span class="hljs-string">&quot;hadoop102:2181,hadoop103:2181,hadoop104:2181&quot;</span>;<br>       <span class="hljs-keyword">int</span> sessionTimeout = <span class="hljs-number">2000</span>;<br>       zkClient = <span class="hljs-keyword">new</span> ZooKeeper(coonectString, sessionTimeout, <span class="hljs-keyword">new</span> Watcher() &#123;<br>           <span class="hljs-comment">/**</span><br><span class="hljs-comment">            * 这是监听线程，观察服务器集群中是否有新的节点变化</span><br><span class="hljs-comment">            *</span><br><span class="hljs-comment">            * <span class="hljs-doctag">@param</span> watchedEvent 关注的事件</span><br><span class="hljs-comment">            */</span><br>           <span class="hljs-meta">@Override</span><br>           <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">process</span><span class="hljs-params">(WatchedEvent watchedEvent)</span> </span>&#123;<br>               List&lt;String&gt; children = <span class="hljs-keyword">null</span>;<br>               <span class="hljs-keyword">try</span> &#123;<br>                   children = zkClient.getChildren(<span class="hljs-string">&quot;/&quot;</span>, <span class="hljs-keyword">true</span>);<br>               &#125; <span class="hljs-keyword">catch</span> (KeeperException e) &#123;<br>                   e.printStackTrace();<br>               &#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;<br>                   e.printStackTrace();<br>               &#125;<br>               <span class="hljs-keyword">for</span> (String child : children) &#123;<br>                   System.out.println(<span class="hljs-string">&quot;子节点：&quot;</span> + child);<br>               &#125;<br>           &#125;<br>       &#125;);<br>   &#125;<br></code></pre></td></tr></table></figure>
@@ -461,20 +461,20 @@
 <ol>
 <li>
 <p><strong>向leader节点写数据流程</strong></p>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211026225528071.png" class="" title="image-20211026225528071">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211026225528071.png" class="" title="image-20211026225528071">
 <p>实际上当服务器集群中<strong>超过半数的节点</strong>完成write操作，就由leader返回ack通知</p>
 </li>
 <li>
 <p><strong>向follower节点写数据流程</strong></p>
 </li>
 </ol>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211026225541675.png" class="" title="image-20211026225541675">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211026225541675.png" class="" title="image-20211026225541675">
 <p>​	当数据流向follower时，<strong>follower不会先进行write操作，而是先进行write请求转发到leader</strong>，再由leader进行write请求分发，可谓等级森严。<strong>当流向follower完成write操作时，返回ack给client，而不是由leader返回。</strong></p>
 <h1>4. 服务器动态上下线监听案例</h1>
 <h2 id="4-1-需求">4.1 需求</h2>
 <p>在分布式系统中，主节点可以用多台，可以动态上下线，任意一台客户端都能实时感受到主节点服务器的上下线</p>
 <h2 id="4-2-需求分析">4.2 需求分析</h2>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211027094852005.png" class="" title="image-20211027094852005">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211027094852005.png" class="" title="image-20211027094852005">
 <p>zookeeper集群中 主要分两大类，一类是服务器，一类是客户端，服务器主要用作create节点，客户端主要用作get节点。</p>
 <h2 id="4-3-具体代码">4.3 具体代码</h2>
 <ol>
@@ -496,7 +496,7 @@
 <p><strong>什么叫做分布式锁呢？</strong><br>
 比如说&quot;进程   1&quot;在使用该资源的时候，会先去获得锁，&quot;进程   1&quot;获得锁以后会对该资源保持独占，这样其他进程就无法访问资源，&quot;进程 1&quot;用完该资源以后就将锁释放掉，让其他进程来获得锁，那么通过这个锁机制，我们就能保证了分布式系统中多个进程能够有序的访问该临界资源。那么我们把这个分布式环境下的这个锁叫作分布式锁。</p>
 <h2 id="5-1-原生zookeeper分布式锁案例">5.1 原生zookeeper分布式锁案例</h2>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211027104946833.png" class="" title="image-20211027104946833">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211027104946833.png" class="" title="image-20211027104946833">
 <ol>
 <li>当多台客户端同时访问zookeeper集群时，zookeeper集群会将所有的client都创建一个临时顺序节点，其目录为/locks</li>
 <li>在locks中的节点按照其编号顺序进行取锁访问，处理业务。</li>
@@ -552,14 +552,14 @@
 <p>ls、get、create、delete</p>
 <h1>7.算法基础</h1>
 <h2 id="7-1-拜占庭将军问题">7.1 拜占庭将军问题</h2>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211027162834105.png" class="" title="image-20211027162834105">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211027162834105.png" class="" title="image-20211027162834105">
 <h2 id="7-2-Paxos算法">7.2 Paxos算法</h2>
 <p><strong>Paxos算法</strong>：一种基于消息传递且具有高度容错特性的一致性算法。</p>
 <p><strong>Paxos算法解决的问题</strong>：如何快速正确的在一个分布<code>式系统中实现数据的一致性，并且保证</code>不论发生什么异常，都不会破坏整个系统的一致性</p>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211028100509787.png" class="">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211028100509787.png" class="">
 <h3 id="7-2-1-算法描述">7.2.1 算法描述</h3>
 <p>在一个Paxos系统中，将所有的节点划分成了Proposer（提议者）、Acceptor（接受者）、learner（学习者）。每个节点都可以身兼数职。</p>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211028102420149.png" class="" title="image-20211028102420149">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211028102420149.png" class="" title="image-20211028102420149">
 <p>一个完整的Paxos算法流程分为三个阶段：</p>
 <ol>
 <li>prepare准备阶段
@@ -577,7 +577,7 @@
 <li>Learn学习阶段：Proposer将形成的决议发给全部Learner</li>
 </ol>
 <h3 id="7-2-2-算法流程">7.2.2 算法流程</h3>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211028104555482.png" class="" title="image-20211028104555482">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211028104555482.png" class="" title="image-20211028104555482">
 <ol>
 <li><strong>Prepare</strong>: Proposer生成全局唯一旦递增的Proposal 1D，向所有Acceptor发送Propose请求，这里无需携带提案内容，只携<br>
 带Proposal ID即可</li>
@@ -596,10 +596,10 @@ Propose请求。</li>
 <li><strong>Learn</strong>: Proposer收到多数Acceptor的Accept后，决议形成，将形成的决议发送给所有Learner。</li>
 </ol>
 <h3 id="7-2-3-举例">7.2.3 举例</h3>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211028105528384.png" class="" title="image-20211028105528384">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211028105601544.png" class="" title="image-20211028105601544">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211028105528384.png" class="" title="image-20211028105528384">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211028105601544.png" class="" title="image-20211028105601544">
 <p>Paxos 算法缺陷：在网络复杂的情况下，一个应用  Paxos 算法的分布式系统，可能很久 无法收敛，甚至陷入活锁的情况。</p>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211028145240380.png" class="" title="image-20211028145240380">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211028145240380.png" class="" title="image-20211028145240380">
 <p>造成这种情况的原因是系统中有一个以上的 Proposer，多 个 Proposers 相互争夺 Acceptor， 造成迟迟无法达成一致的情况。**针对这种情况，一种改进的 Paxos 算法被提出：从系统中选 出一个节点作为 Leader，只有 Leader 能够发起提案。**这样，一次 Paxos 流程中只有一个 Proposer，不会出现活锁的情况，此时只会出现例子中第一种情况。</p>
 <h2 id="7-3-ZAB算法">7.3 ZAB算法</h2>
 <h3 id="7-3-1-什么是ZAB算法">7.3.1 什么是ZAB算法</h3>
@@ -607,7 +607,7 @@ Propose请求。</li>
 <h3 id="7-3-2-ZAB协议内容">7.3.2 ZAB协议内容</h3>
 <p>Zab 协议包括两种基本的模式：消息广播、崩溃恢复。</p>
 <h4 id="7-3-2-1-消息广播模式">7.3.2.1 消息广播模式</h4>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211028151529925.png" class="" title="image-20211028151529925">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211028151529925.png" class="" title="image-20211028151529925">
 <ol>
 <li>客户端发起一个写操作请求。</li>
 <li>Leader服务器<strong>将客户端的请求转化为事务Proposal 提案</strong>，同时<strong>为每个Proposal 分配一个全局的1D，即zxid.</strong></li>
@@ -625,7 +625,7 @@ Propose请求。</li>
 <p>（2）Leader收到半数的ACK后，还没有来的及commit，就宕机了，Follower也没有办法完成proposal</p>
 <h4 id="7-3-2-2-崩溃恢复">7.3.2.2 崩溃恢复</h4>
 <p>一旦Leader出现了崩溃现象或者因为网络问题与过半的follower失去了连接，Leader就会进入崩溃恢复模式。</p>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211028152824245.png" class="" title="image-20211028152824245">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211028152824245.png" class="" title="image-20211028152824245">
 <ol>
 <li>假设两种服务器异常情况：
 <ol>
@@ -643,12 +643,12 @@ Propose请求。</li>
 </ol>
 <p>崩溃恢复主要包括两个阶段即：<strong>【Leader选举】和【数据恢复】</strong></p>
 <p><strong>【Leader选举】</strong></p>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211028153512643.png" class="" title="image-20211028153512643">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211028153512643.png" class="" title="image-20211028153512643">
 <p>Leader选举:根据上述要求，Zab协议需要保证选举出来的Leader需要要满足以下条件:</p>
 <p>(1)新选举出来的Leader不能包含未提交的Proposal。<strong>即新Leader必须都是已经提交了Proposal的Follower服务器节点。</strong></p>
 <p>(2)新选举的Leader节点中含有最大的zxid。<strong>这样做的好处是可以近避免Leader服务器检查Proposal的提交和丢弃工作。</strong></p>
 <p><strong>【数据恢复】</strong></p>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211028153957554.png" class="" title="image-20211028153957554">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211028153957554.png" class="" title="image-20211028153957554">
 <p>Zab如何数据同步:</p>
 <p>(1)完成Leader选举后，在正式开始工作之前(接收事务请求，然后提出新的Proposal)，Leader服务器会<strong>首先确认事务日志中的所有的Proposal 是否已经被集群中过半的服务器Commit。</strong></p>
 <p>(2)**Leader服务器需要确保所有的Follower服务器能够接收到每条事务的Proposal，并且能将所有已经提交的事务Proposal，应用到内存数据中。**等到Follower将所有尚未同步的事务Proposal都在Leader服务器上同步过，并且应用到内存数据中以后，Leader才会把该Follower加入到真正可用的Follower列表中。</p>
@@ -673,15 +673,15 @@ Propose请求。</li>
 <h2 id="8-1-辅助源码">8.1 辅助源码</h2>
 <h3 id="8-1-1-持久化源码">8.1.1 持久化源码</h3>
 <p>Leader和follower的数据会在内存和磁盘各保存一份，所以需要将内存中的数据持久化到磁盘里</p>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029094728816.png" class="" title="image-20211029094728816">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029094728816.png" class="" title="image-20211029094728816">
 <p>（1）：SnapShot源码：快照的源码一般就是序列化和反序列化</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">SnapShot</span> </span>&#123;<br>    <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * deserialize a data tree from the last valid snapshot and </span><br><span class="hljs-comment">     * return the last zxid that was deserialized</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> dt the datatree to be deserialized into</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> sessions the sessions to be deserialized into</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> the last zxid that was deserialized from the snapshot</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> IOException</span><br><span class="hljs-comment">     * 反序列化</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">long</span> <span class="hljs-title">deserialize</span><span class="hljs-params">(DataTree dt, Map&lt;Long, Integer&gt; sessions)</span> </span><br><span class="hljs-function">        <span class="hljs-keyword">throws</span> IOException</span>;<br>    <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * persist the datatree and the sessions into a persistence storage</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> dt the datatree to be serialized</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> sessions </span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> IOException</span><br><span class="hljs-comment">     * 序列化</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">serialize</span><span class="hljs-params">(DataTree dt, Map&lt;Long, Integer&gt; sessions, </span></span><br><span class="hljs-params"><span class="hljs-function">            File name)</span> </span><br><span class="hljs-function">        <span class="hljs-keyword">throws</span> IOException</span>;<br>    <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * find the most recent snapshot file</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> the most recent snapshot file</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> IOException</span><br><span class="hljs-comment">     * 找到最近的快照</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function">File <span class="hljs-title">findMostRecentSnapshot</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * free resources from this snapshot immediately</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> IOException</span><br><span class="hljs-comment">     * 关闭</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">close</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>&#125; <br><br></code></pre></td></tr></table></figure>
 <p>（2）TxnLog 日志源码：一般就是对日志的增删改查或者一些定制化的功能</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">TxnLog</span> </span>&#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * Setter for ServerStats to monitor fsync threshold exceed</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> serverStats used to update fsyncThresholdExceedCount</span><br><span class="hljs-comment">     * 设置服务器的状态</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setServerStats</span><span class="hljs-params">(ServerStats serverStats)</span></span>;<br>    <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * roll the current</span><br><span class="hljs-comment">     * log being appended to</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> IOException </span><br><span class="hljs-comment">     * 回滚日志</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">rollLog</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * Append a request to the transaction log</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> hdr the transaction header</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> r the transaction itself</span><br><span class="hljs-comment">     * returns true iff something appended, otw false </span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> IOException</span><br><span class="hljs-comment">     * 追加日志</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">boolean</span> <span class="hljs-title">append</span><span class="hljs-params">(TxnHeader hdr, Record r)</span> <span class="hljs-keyword">throws</span> IOException</span>;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * Start reading the transaction logs</span><br><span class="hljs-comment">     * from a given zxid</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> zxid</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> returns an iterator to read the </span><br><span class="hljs-comment">     * next transaction in the logs.</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> IOException</span><br><span class="hljs-comment">     * 根据对应的事务ID读取日志</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function">TxnIterator <span class="hljs-title">read</span><span class="hljs-params">(<span class="hljs-keyword">long</span> zxid)</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * the last zxid of the logged transactions.</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> the last zxid of the logged transactions.</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> IOException</span><br><span class="hljs-comment">     * 得到最后一个日志事务ID</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">long</span> <span class="hljs-title">getLastLoggedZxid</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * truncate the log to get in sync with the </span><br><span class="hljs-comment">     * leader.</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> zxid the zxid to truncate at.</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> IOException </span><br><span class="hljs-comment">     * 删除</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">boolean</span> <span class="hljs-title">truncate</span><span class="hljs-params">(<span class="hljs-keyword">long</span> zxid)</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * the dbid for this transaction log. </span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> the dbid for this transaction log.</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> IOException</span><br><span class="hljs-comment">     * 获取BDID</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">long</span> <span class="hljs-title">getDbId</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * commit the transaction and make sure</span><br><span class="hljs-comment">     * they are persisted</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> IOException</span><br><span class="hljs-comment">     * 提交</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">commit</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException</span>;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> transaction log&#x27;s elapsed sync time in milliseconds</span><br><span class="hljs-comment">     * 获取同步时间</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">long</span> <span class="hljs-title">getTxnLogSyncElapsedTime</span><span class="hljs-params">()</span></span>;<br>   <br>    <span class="hljs-comment">/** </span><br><span class="hljs-comment">     * close the transactions logs</span><br><span class="hljs-comment">     * 关闭</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">close</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * an iterating interface for reading </span><br><span class="hljs-comment">     * transaction logs. </span><br><span class="hljs-comment">     * 读取日志的接口</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">TxnIterator</span> </span>&#123;<br>        <span class="hljs-comment">/**</span><br><span class="hljs-comment">         * return the transaction header.</span><br><span class="hljs-comment">         * <span class="hljs-doctag">@return</span> return the transaction header.</span><br><span class="hljs-comment">         * 获取头信息</span><br><span class="hljs-comment">         */</span><br>        <span class="hljs-function">TxnHeader <span class="hljs-title">getHeader</span><span class="hljs-params">()</span></span>;<br>        <br>        <span class="hljs-comment">/**</span><br><span class="hljs-comment">         * return the transaction record.</span><br><span class="hljs-comment">         * <span class="hljs-doctag">@return</span> return the transaction record.</span><br><span class="hljs-comment">         * 获取传输的内容</span><br><span class="hljs-comment">         */</span><br>        <span class="hljs-function">Record <span class="hljs-title">getTxn</span><span class="hljs-params">()</span></span>;<br>     <br>        <span class="hljs-comment">/**</span><br><span class="hljs-comment">         * go to the next transaction record.</span><br><span class="hljs-comment">         * <span class="hljs-doctag">@throws</span> IOException</span><br><span class="hljs-comment">         * 下一条资源</span><br><span class="hljs-comment">         */</span><br>        <span class="hljs-function"><span class="hljs-keyword">boolean</span> <span class="hljs-title">next</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>        <br>        <span class="hljs-comment">/**</span><br><span class="hljs-comment">         * close files and release the </span><br><span class="hljs-comment">         * resources</span><br><span class="hljs-comment">         * <span class="hljs-doctag">@throws</span> IOException</span><br><span class="hljs-comment">         * 关闭</span><br><span class="hljs-comment">         */</span><br>        <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">close</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>        <br>        <span class="hljs-comment">/**</span><br><span class="hljs-comment">         * Get an estimated storage space used to store transaction records</span><br><span class="hljs-comment">         * that will return by this iterator</span><br><span class="hljs-comment">         * <span class="hljs-doctag">@throws</span> IOException</span><br><span class="hljs-comment">         * 获取存储的大小</span><br><span class="hljs-comment">         */</span><br>        <span class="hljs-function"><span class="hljs-keyword">long</span> <span class="hljs-title">getStorageSize</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    &#125;<br>&#125;<br><br><br></code></pre></td></tr></table></figure>
 <p>（3）处理持久化的核心类</p>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029100817877.png" class="" title="image-20211029100817877">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029100817877.png" class="" title="image-20211029100817877">
 <h3 id="8-1-2-序列化源码">8.1.2 序列化源码</h3>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029100855921.png" class="" title="image-20211029100855921">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029100855921.png" class="" title="image-20211029100855921">
 <p>（1）序列化和反序列化</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Interface that is implemented by generated classes.</span><br><span class="hljs-comment"> * </span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@InterfaceAudience</span>.Public<br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Record</span> </span>&#123;<br>  <span class="hljs-comment">// 序列化</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">serialize</span><span class="hljs-params">(OutputArchive archive, String tag)</span></span><br><span class="hljs-function">        <span class="hljs-keyword">throws</span> IOException</span>;<br>  <span class="hljs-comment">// 反序列化</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">deserialize</span><span class="hljs-params">(InputArchive archive, String tag)</span></span><br><span class="hljs-function">        <span class="hljs-keyword">throws</span> IOException</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
 <p>（2）迭代</p>
@@ -691,18 +691,18 @@ Propose请求。</li>
 <p>(4) 反序列化支持的数据类型</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Interface that all the Deserializers have to implement.</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">InputArchive</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">byte</span> <span class="hljs-title">readByte</span><span class="hljs-params">(String tag)</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">readBool</span><span class="hljs-params">(String tag)</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">readInt</span><span class="hljs-params">(String tag)</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">long</span> <span class="hljs-title">readLong</span><span class="hljs-params">(String tag)</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">float</span> <span class="hljs-title">readFloat</span><span class="hljs-params">(String tag)</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">readDouble</span><span class="hljs-params">(String tag)</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">readString</span><span class="hljs-params">(String tag)</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">byte</span>[] readBuffer(String tag) <span class="hljs-keyword">throws</span> IOException;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">readRecord</span><span class="hljs-params">(Record r, String tag)</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">startRecord</span><span class="hljs-params">(String tag)</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">endRecord</span><span class="hljs-params">(String tag)</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Index <span class="hljs-title">startVector</span><span class="hljs-params">(String tag)</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">endVector</span><span class="hljs-params">(String tag)</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Index <span class="hljs-title">startMap</span><span class="hljs-params">(String tag)</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">endMap</span><span class="hljs-params">(String tag)</span> <span class="hljs-keyword">throws</span> IOException</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
 <h2 id="8-2-ZK-服务端初始化源码解析">8.2 ZK 服务端初始化源码解析</h2>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029101916331.png" class="" title="image-20211029101916331">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029101916331.png" class="" title="image-20211029101916331">
 <h3 id="8-2-1-ZK-服务端启动脚本分析">8.2.1 ZK 服务端启动脚本分析</h3>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029102200208.png" class="" title="image-20211029102200208">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029102302273.png" class="" title="image-20211029102302273">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029102414373.png" class="" title="image-20211029102414373">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029102508800.png" class="" title="image-20211029102508800">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029102200208.png" class="" title="image-20211029102200208">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029102302273.png" class="" title="image-20211029102302273">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029102414373.png" class="" title="image-20211029102414373">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029102508800.png" class="" title="image-20211029102508800">
 <h3 id="8-2-2-ZK-服务端启动入口">8.2.2 ZK 服务端启动入口</h3>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029103021012.png" class="" title="image-20211029103021012">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029103021012.png" class="" title="image-20211029103021012">
 <ol>
 <li>首先是创建了一个QuorumPeerMain实例对象，然后执行QuorumPeerMain.initializeAndRun()方法</li>
 </ol>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029103145824.png" class="" title="image-20211029103145824">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029103145824.png" class="" title="image-20211029103145824">
 <ol start="2">
 <li>其中initializeAndRun方法用来管理zk的配置信息</li>
 </ol>
@@ -711,7 +711,7 @@ Propose请求。</li>
 <ol>
 <li>解析zoo.cfg 和 myid</li>
 </ol>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029103735304.png" class="" title="image-20211029103735304">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029103735304.png" class="" title="image-20211029103735304">
 <ol start="4">
 <li>根据路径解析zoo.cfg 然后将其转换为properties文件</li>
 </ol>
@@ -740,16 +740,16 @@ Propose请求。</li>
 <h3 id="8-2-4-过期快照删除">8.2.4  过期快照删除</h3>
 <p>可以启动定时任务，对过期的快照，执行删除。默认该功能时关闭的</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">initializeAndRun</span><span class="hljs-params">(String[] args)</span></span><br><span class="hljs-function">        <span class="hljs-keyword">throws</span> ConfigException, IOException, AdminServerException</span><br><span class="hljs-function">    </span>&#123;<br>        QuorumPeerConfig config = <span class="hljs-keyword">new</span> QuorumPeerConfig();<br>        <span class="hljs-keyword">if</span> (args.length == <span class="hljs-number">1</span>) &#123;<br>            config.parse(args[<span class="hljs-number">0</span>]);<br>        &#125;<br><br>        <span class="hljs-comment">// 启动定时任务</span><br>        DatadirCleanupManager purgeMgr = <span class="hljs-keyword">new</span> DatadirCleanupManager(config<br>                .getDataDir(), config.getDataLogDir(), config<br>                .getSnapRetainCount(), config.getPurgeInterval());<br>        purgeMgr.start();<br><br>        <span class="hljs-keyword">if</span> (args.length == <span class="hljs-number">1</span> &amp;&amp; config.isDistributed()) &#123;<br>            runFromConfig(config);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            LOG.warn(<span class="hljs-string">&quot;Either no config or no quorum defined in config, running &quot;</span><br>                    + <span class="hljs-string">&quot; in standalone mode&quot;</span>);<br>            <span class="hljs-comment">// there is only server in the quorum -- run as standalone</span><br>            ZooKeeperServerMain.main(args);<br>        &#125;<br>    &#125;<br><br><span class="hljs-keyword">protected</span> <span class="hljs-keyword">int</span> snapRetainCount = <span class="hljs-number">3</span>; <br><span class="hljs-keyword">protected</span> <span class="hljs-keyword">int</span> purgeInterval = <span class="hljs-number">0</span>;<br></code></pre></td></tr></table></figure>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029105415327.png" class="" title="image-20211029105415327">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029105415327.png" class="" title="image-20211029105415327">
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><code class="hljs java"> <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">start</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (PurgeTaskStatus.STARTED == purgeTaskStatus) &#123;<br>            LOG.warn(<span class="hljs-string">&quot;Purge task is already running.&quot;</span>);<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br>   			<span class="hljs-comment">// //  默认情况  purgeInterval=0，该任务关闭，直接返回</span><br>        <span class="hljs-comment">// Don&#x27;t schedule the purge task with zero or negative purge interval.</span><br>        <span class="hljs-keyword">if</span> (purgeInterval &lt;= <span class="hljs-number">0</span>) &#123;<br>            LOG.info(<span class="hljs-string">&quot;Purge task is not scheduled.&quot;</span>);<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br>				<span class="hljs-comment">//  创建一个定时器</span><br>        timer = <span class="hljs-keyword">new</span> Timer(<span class="hljs-string">&quot;PurgeTask&quot;</span>, <span class="hljs-keyword">true</span>);<br>   			<span class="hljs-comment">//  创建一个清理快照任务</span><br>        TimerTask task = <span class="hljs-keyword">new</span> PurgeTask(dataLogDir, snapDir, snapRetainCount);<br>   			<span class="hljs-comment">//  如果  purgeInterval 设置的值是 1，表示  1 小时检查一次，判断是否有过期快照， 有则删除</span><br>        timer.scheduleAtFixedRate(task, <span class="hljs-number">0</span>, TimeUnit.HOURS.toMillis(purgeInterval));<br><br>        purgeTaskStatus = PurgeTaskStatus.STARTED;<br>    &#125;<br><br> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PurgeTask</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">TimerTask</span> </span>&#123;<br>        <span class="hljs-keyword">private</span> File logsDir;<br>        <span class="hljs-keyword">private</span> File snapsDir;<br>        <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> snapRetainCount;<br><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">PurgeTask</span><span class="hljs-params">(File dataDir, File snapDir, <span class="hljs-keyword">int</span> count)</span> </span>&#123;<br>            logsDir = dataDir;<br>            snapsDir = snapDir;<br>            snapRetainCount = count;<br>        &#125;<br><br>        <span class="hljs-meta">@Override</span><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span> </span>&#123;<br>          	<span class="hljs-comment">//  清理过期的数据</span><br>            LOG.info(<span class="hljs-string">&quot;Purge task started.&quot;</span>);<br>            <span class="hljs-keyword">try</span> &#123;<br>                PurgeTxnLog.purge(logsDir, snapsDir, snapRetainCount);<br>            &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>                LOG.error(<span class="hljs-string">&quot;Error occurred while purging.&quot;</span>, e);<br>            &#125;<br>            LOG.info(<span class="hljs-string">&quot;Purge task completed.&quot;</span>);<br>        &#125;<br>    &#125;<br><br><span class="hljs-comment">//PurgeTxnLog类中的方法</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">purge</span><span class="hljs-params">(File dataDir, File snapDir, <span class="hljs-keyword">int</span> num)</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;<br>        <span class="hljs-keyword">if</span> (num &lt; <span class="hljs-number">3</span>) &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IllegalArgumentException(COUNT_ERR_MSG);<br>        &#125;<br><br>        FileTxnSnapLog txnLog = <span class="hljs-keyword">new</span> FileTxnSnapLog(dataDir, snapDir);<br><br>        List&lt;File&gt; snaps = txnLog.findNRecentSnapshots(num);<br>        <span class="hljs-keyword">int</span> numSnaps = snaps.size();<br>        <span class="hljs-keyword">if</span> (numSnaps &gt; <span class="hljs-number">0</span>) &#123;<br>            purgeOlderSnapshots(txnLog, snaps.get(numSnaps - <span class="hljs-number">1</span>));<br>        &#125;<br>    &#125;<br></code></pre></td></tr></table></figure>
 <h3 id="8-2-5-初始化通信组件">8.2.5  初始化通信组件</h3>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029105918689.png" class="" title="image-20211029105918689">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029105934464.png" class="" title="image-20211029105934464">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029105954513.png" class="" title="image-20211029105954513">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029110018034.png" class="" title="image-20211029110018034">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029110033262.png" class="" title="image-20211029110033262">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029105918689.png" class="" title="image-20211029105918689">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029105934464.png" class="" title="image-20211029105934464">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029105954513.png" class="" title="image-20211029105954513">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029110018034.png" class="" title="image-20211029110018034">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211029110033262.png" class="" title="image-20211029110033262">
 <h2 id="8-3-ZK-服务端加载数据源码解析">8.3 ZK 服务端加载数据源码解析</h2>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030212621640.png" class="" title="image-20211030212621640">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030212621640.png" class="" title="image-20211030212621640">
 <ol>
 <li>zk 中的数据模型，是一棵树，DataTree，每个节点，叫做 DataNode</li>
 <li>zk 集群中的 DataTree 时刻保持状态同步</li>
@@ -760,30 +760,30 @@ Propose请求。</li>
 </ol>
 </li>
 </ol>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030212738023.png" class="" title="image-20211030212738023">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030212738023.png" class="" title="image-20211030212738023">
 <h3 id="8-3-1-冷启动数据恢复快照数据">8.3.1 冷启动数据恢复快照数据</h3>
 <p>（1） 启动集群</p>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030212915995.png" class="" title="image-20211030212915995">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030212935913.png" class="" title="image-20211030212935913">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030212958876.png" class="" title="image-20211030212958876">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030213013216.png" class="" title="image-20211030213013216">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030213026552.png" class="" title="image-20211030213026552">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030212915995.png" class="" title="image-20211030212915995">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030212935913.png" class="" title="image-20211030212935913">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030212958876.png" class="" title="image-20211030212958876">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030213013216.png" class="" title="image-20211030213013216">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030213026552.png" class="" title="image-20211030213026552">
 <h3 id="8-3-2-冷启动恢复数据">8.3.2 冷启动恢复数据</h3>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030213100808.png" class="" title="image-20211030213100808">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030213138996.png" class="" title="image-20211030213138996">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030213227375.png" class="" title="image-20211030213227375">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030213244097.png" class="" title="image-20211030213244097">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030213258817.png" class="" title="image-20211030213258817">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030213342877.png" class="" title="image-20211030213342877">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030213357497.png" class="" title="image-20211030213357497">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030213100808.png" class="" title="image-20211030213100808">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030213138996.png" class="" title="image-20211030213138996">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030213227375.png" class="" title="image-20211030213227375">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030213244097.png" class="" title="image-20211030213244097">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030213258817.png" class="" title="image-20211030213258817">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030213342877.png" class="" title="image-20211030213342877">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030213357497.png" class="" title="image-20211030213357497">
 <h3 id="8-3-3-冷启动数据恢复编辑日志">8.3.3  冷启动数据恢复编辑日志</h3>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030213731826.png" class="" title="image-20211030213731826">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030213748259.png" class="" title="image-20211030213748259">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030213803310.png" class="" title="image-20211030213803310">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030213907481.png" class="" title="image-20211030213907481">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030213920741.png" class="" title="image-20211030213920741">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030213731826.png" class="" title="image-20211030213731826">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030213748259.png" class="" title="image-20211030213748259">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030213803310.png" class="" title="image-20211030213803310">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030213907481.png" class="" title="image-20211030213907481">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030213920741.png" class="" title="image-20211030213920741">
 <h2 id="8-4-ZK选举机制源码解析">8.4 ZK选举机制源码解析</h2>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030214158626.png" class="" title="image-20211030214158626">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030214158626.png" class="" title="image-20211030214158626">
 <p>QuorumPeer类包含两个部分：1.快速选举选择部分。2.通信部分</p>
 <ol>
 <li>首先生成选举算法（生成 选票）</li>
@@ -797,53 +797,53 @@ Propose请求。</li>
 </li>
 </ol>
 <h3 id="8-4-1-选举准备">8.4.1 选举准备</h3>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030214859394.png" class="" title="image-20211030214859394">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030214912240.png" class="" title="image-20211030214912240">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030214939573.png" class="" title="image-20211030214939573">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215014397.png" class="" title="image-20211030215014397">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215034395.png" class="" title="image-20211030215034395">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215046337.png" class="" title="image-20211030215046337">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215056946.png" class="" title="image-20211030215056946">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215107302.png" class="" title="image-20211030215107302">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215118265.png" class="" title="image-20211030215118265">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030214859394.png" class="" title="image-20211030214859394">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030214912240.png" class="" title="image-20211030214912240">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030214939573.png" class="" title="image-20211030214939573">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215014397.png" class="" title="image-20211030215014397">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215034395.png" class="" title="image-20211030215034395">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215046337.png" class="" title="image-20211030215046337">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215056946.png" class="" title="image-20211030215056946">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215107302.png" class="" title="image-20211030215107302">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215118265.png" class="" title="image-20211030215118265">
 <h3 id="8-4-2-选举执行">8.4.2 选举执行</h3>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215249974.png" class="" title="image-20211030215249974">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215348106.png" class="" title="image-20211030215348106">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215249974.png" class="" title="image-20211030215249974">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215348106.png" class="" title="image-20211030215348106">
 <p>1）执行 super.start();就相当于执行 QuorumPeer.java 类中的  run()方法</p>
 <p>2）当 Zookeeper 启动后，首先都是 Looking 状态，通过选举，让其中一台服务器成为 Leader， 其他的服务器成为 Follower。</p>
 <p>QuorumPeer.java类</p>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215429881.png" class="" title="image-20211030215429881">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215444136.png" class="" title="image-20211030215444136">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215459890.png" class="" title="image-20211030215459890">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215511802.png" class="" title="image-20211030215511802">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215429881.png" class="" title="image-20211030215429881">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215444136.png" class="" title="image-20211030215444136">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215459890.png" class="" title="image-20211030215459890">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215511802.png" class="" title="image-20211030215511802">
 <p>2）ctrl+alt+b 点击 lookForLeader()的实现类 FastLeaderElection.java</p>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215529162.png" class="" title="image-20211030215529162">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215542587.png" class="" title="image-20211030215542587">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215529162.png" class="" title="image-20211030215529162">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215542587.png" class="" title="image-20211030215542587">
 <p>3）点击 sendNotifications，广播选票，把自己的选票发给其他服务器</p>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215600689.png" class="" title="image-20211030215600689">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215600689.png" class="" title="image-20211030215600689">
 <p>4）在 FastLeaderElection.java 类中查找 WorkerSender 线程。</p>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215625746.png" class="" title="image-20211030215625746">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215638853.png" class="" title="image-20211030215638853">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215625746.png" class="" title="image-20211030215625746">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215638853.png" class="" title="image-20211030215638853">
 <p>5）如果数据是发送给自己的，添加到自己的接收队列</p>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215654633.png" class="" title="image-20211030215654633">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215654633.png" class="" title="image-20211030215654633">
 <p>6）数据添加到发送队列</p>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215710145.png" class="" title="image-20211030215710145">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215722219.png" class="" title="image-20211030215722219">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215710145.png" class="" title="image-20211030215710145">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215722219.png" class="" title="image-20211030215722219">
 <p>7）与要发送的服务器节点建立通信连接</p>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215741633.png" class="" title="image-20211030215741633">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215802592.png" class="" title="image-20211030215802592">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215741633.png" class="" title="image-20211030215741633">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215802592.png" class="" title="image-20211030215802592">
 <p>8）创建并启动发送器线程和接收器线程</p>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215821268.png" class="" title="image-20211030215821268">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215833919.png" class="" title="image-20211030215833919">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215821268.png" class="" title="image-20211030215821268">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215833919.png" class="" title="image-20211030215833919">
 <p>9）点击 SendWorker，并查找该类下的 run 方法</p>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215852138.png" class="" title="image-20211030215852138">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215902615.png" class="" title="image-20211030215902615">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215852138.png" class="" title="image-20211030215852138">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215902615.png" class="" title="image-20211030215902615">
 <p>10）点击 RecvWorker，并查找该类下的 run 方法</p>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215920441.png" class="" title="image-20211030215920441">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215931808.png" class="" title="image-20211030215931808">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215920441.png" class="" title="image-20211030215920441">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215931808.png" class="" title="image-20211030215931808">
 <p>11）在  FastLeaderElection.java 类中查找 WorkerReceiver 线程。</p>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215947280.png" class="" title="image-20211030215947280">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215957762.png" class="" title="image-20211030215957762">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215947280.png" class="" title="image-20211030215947280">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030215957762.png" class="" title="image-20211030215957762">
 <h2 id="8-5-Follower-和-Leader-状态同步源码">8.5 Follower 和  Leader 状态同步源码</h2>
 <p>当选举结束后，每个节点都需要根据自己的角色更新自己的状态。选举出的  Leader 更 新自己状态为 Leader，其他节点更新自己状态为  Follower。<br>
 Leader 更新状态入口：leader.lead()<br>
@@ -860,102 +860,102 @@ leader 接收到信息，必须要返回对应的信息给 follower。<br>
 （2）TRUNC follower 的 zxid 比  leader 的  zxid 大，所以  Follower 要回滚<br>
 （3）COMMIT leader 的 zxid 比  follower 的  zxid 大，发送  Proposal 给 foloower 提交执行<br>
 （4）如果  follower 并没有任何数据，直接使用  SNAP 的方式来执行数据同步（直接把数据全部序列到 follower）</p>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030220245513.png" class="" title="image-20211030220245513">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030220257505.png" class="" title="image-20211030220257505">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030220245513.png" class="" title="image-20211030220245513">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030220257505.png" class="" title="image-20211030220257505">
 <h3 id="8-5-1-Leader-lead-等待接收-follower-的状态同步申请">8.5.1 Leader.lead()等待接收 follower 的状态同步申请</h3>
 <p>1）在 Leader.java 种查找  lead()方法</p>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030220621010.png" class="" title="image-20211030220621010">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030220645569.png" class="" title="image-20211030220645569">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030220658893.png" class="" title="image-20211030220658893">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030220709319.png" class="" title="image-20211030220709319">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030220621010.png" class="" title="image-20211030220621010">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030220645569.png" class="" title="image-20211030220645569">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030220658893.png" class="" title="image-20211030220658893">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030220709319.png" class="" title="image-20211030220709319">
 <p>其中  ss 的初始化是在创建 Leader 对象时，创建的  socket</p>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030220731560.png" class="" title="image-20211030220731560">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030220731560.png" class="" title="image-20211030220731560">
 <h3 id="8-5-2-Follower-lead-查找并连接-Leader">8.5.2 Follower.lead()查找并连接 Leader</h3>
 <p>1）在 Follower.java 种查找  followLeader()方法</p>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030220802936.png" class="" title="image-20211030220802936">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030220816526.png" class="" title="image-20211030220816526">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030220828497.png" class="" title="image-20211030220828497">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030220802936.png" class="" title="image-20211030220802936">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030220816526.png" class="" title="image-20211030220816526">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030220828497.png" class="" title="image-20211030220828497">
 <h3 id="8-5-3-Leader-lead-创建-LearnerHandler">8.5.3 Leader.lead()创建 LearnerHandler</h3>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030220853998.png" class="" title="image-20211030220853998">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030220904550.png" class="" title="image-20211030220904550">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030220853998.png" class="" title="image-20211030220853998">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030220904550.png" class="" title="image-20211030220904550">
 <p>由于  public class LearnerHandler extends ZooKeeperThread{}，说明 LearnerHandler 是一 个线程。所以 fh.start()执行的是  LearnerHandler 中的  run()方法。</p>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030220921577.png" class="" title="image-20211030220921577">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030220933993.png" class="" title="image-20211030220933993">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030220945549.png" class="" title="image-20211030220945549">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030220956473.png" class="" title="image-20211030220956473">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221007757.png" class="" title="image-20211030221007757">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221018867.png" class="" title="image-20211030221018867">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030220921577.png" class="" title="image-20211030220921577">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030220933993.png" class="" title="image-20211030220933993">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030220945549.png" class="" title="image-20211030220945549">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030220956473.png" class="" title="image-20211030220956473">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221007757.png" class="" title="image-20211030221007757">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221018867.png" class="" title="image-20211030221018867">
 <h3 id="8-5-4-Follower-lead-创建-registerWithLeader">8.5.4 Follower.lead()创建 registerWithLeader</h3>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221045608.png" class="" title="image-20211030221045608">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221057508.png" class="" title="image-20211030221057508">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221109212.png" class="" title="image-20211030221109212">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221045608.png" class="" title="image-20211030221045608">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221057508.png" class="" title="image-20211030221057508">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221109212.png" class="" title="image-20211030221109212">
 <h3 id="8-5-5-Leader-lead-接收-Follwer-状态，根据同步方式发送同步消息">8.5.5 Leader.lead()接收 Follwer 状态，根据同步方式发送同步消息</h3>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221133892.png" class="" title="image-20211030221133892">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221147124.png" class="" title="image-20211030221147124">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221200410.png" class="" title="image-20211030221200410">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221213079.png" class="" title="image-20211030221213079">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221224433.png" class="" title="image-20211030221224433">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221235376.png" class="" title="image-20211030221235376">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221133892.png" class="" title="image-20211030221133892">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221147124.png" class="" title="image-20211030221147124">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221200410.png" class="" title="image-20211030221200410">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221213079.png" class="" title="image-20211030221213079">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221224433.png" class="" title="image-20211030221224433">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221235376.png" class="" title="image-20211030221235376">
 <h3 id="8-5-6-Follower-lead-应答-Leader-同步结果">8.5.6 Follower.lead()应答 Leader 同步结果</h3>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221302556.png" class="" title="image-20211030221302556">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221313344.png" class="" title="image-20211030221313344">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221302556.png" class="" title="image-20211030221302556">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221313344.png" class="" title="image-20211030221313344">
 <h3 id="8-5-7-Leader-lead-应答-Follower">8.5.7 Leader.lead()应答 Follower</h3>
 <p>由于  public class LearnerHandler extends ZooKeeperThread{}，说明 LearnerHandler 是一个线程。所以 fh.start()执行的是  LearnerHandler 中的  run()方法。</p>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221456812.png" class="" title="image-20211030221456812">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221456812.png" class="" title="image-20211030221456812">
 <h2 id="8-6-服务端-Leader-启动">8.6 服务端  Leader 启动</h2>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221600403.png" class="" title="image-20211030221600403">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221600403.png" class="" title="image-20211030221600403">
 <p>Leader.java</p>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221630700.png" class="" title="image-20211030221630700">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221641139.png" class="" title="image-20211030221641139">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221630700.png" class="" title="image-20211030221630700">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221641139.png" class="" title="image-20211030221641139">
 <p>LeaderZooKeeperServer.java</p>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221716803.png" class="" title="image-20211030221716803">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221716803.png" class="" title="image-20211030221716803">
 <p>ZookeeperServer.java</p>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221732734.png" class="" title="image-20211030221732734">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221732734.png" class="" title="image-20211030221732734">
 <p>点击  PrepRequestProcessor，并查找它的  run 方法</p>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221755242.png" class="" title="image-20211030221755242">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221814625.png" class="" title="image-20211030221814625">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221826191.png" class="" title="image-20211030221826191">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221840829.png" class="" title="image-20211030221840829">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221755242.png" class="" title="image-20211030221755242">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221814625.png" class="" title="image-20211030221814625">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221826191.png" class="" title="image-20211030221826191">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221840829.png" class="" title="image-20211030221840829">
 <h2 id="8-7-服务端-Follower-启动">8.7 服务端  Follower 启动</h2>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221913656.png" class="" title="image-20211030221913656">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221935387.png" class="" title="image-20211030221935387">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221950327.png" class="" title="image-20211030221950327">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222000679.png" class="" title="image-20211030222000679">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221913656.png" class="" title="image-20211030221913656">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221935387.png" class="" title="image-20211030221935387">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030221950327.png" class="" title="image-20211030221950327">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222000679.png" class="" title="image-20211030222000679">
 <h2 id="8-8-客户端启动">8.8 客户端启动</h2>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222020324.png" class="" title="image-20211030222020324">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222208842.png" class="" title="image-20211030222208842">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222224429.png" class="" title="image-20211030222224429">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222020324.png" class="" title="image-20211030222020324">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222208842.png" class="" title="image-20211030222208842">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222224429.png" class="" title="image-20211030222224429">
 <p>在 <a target="_blank" rel="noopener" href="http://ZkCli.sh">ZkCli.sh</a> 启动 Zookeeper 时，会调用 ZooKeeperMain.java Ctrl + n  查找 ZooKeeperMain，找到程序的入口 main()方法</p>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222247705.png" class="" title="image-20211030222247705">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222247705.png" class="" title="image-20211030222247705">
 <h3 id="8-8-1-创建-ZookeeperMain">8.8.1  创建  ZookeeperMain</h3>
 <p>连接  zk</p>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222326239.png" class="" title="image-20211030222326239">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222326239.png" class="" title="image-20211030222326239">
 <p>创建 ZooKeeperAdmin 对象</p>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222349163.png" class="" title="image-20211030222349163">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222400599.png" class="" title="image-20211030222400599">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222349163.png" class="" title="image-20211030222349163">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222400599.png" class="" title="image-20211030222400599">
 <h3 id="8-8-2-初始化监听器">8.8.2  初始化监听器</h3>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222428088.png" class="" title="image-20211030222428088">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222428088.png" class="" title="image-20211030222428088">
 <h3 id="8-8-3-解析连接地址">8.8.3  解析连接地址</h3>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222455728.png" class="" title="image-20211030222455728">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222514022.png" class="" title="image-20211030222514022">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222455728.png" class="" title="image-20211030222455728">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222514022.png" class="" title="image-20211030222514022">
 <h3 id="8-8-4-创建通信">8.8.4  创建通信</h3>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222550649.png" class="" title="image-20211030222550649">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222608264.png" class="" title="image-20211030222608264">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222623896.png" class="" title="image-20211030222623896">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222641142.png" class="" title="image-20211030222641142">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222656757.png" class="" title="image-20211030222656757">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222708109.png" class="" title="image-20211030222708109">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222550649.png" class="" title="image-20211030222550649">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222608264.png" class="" title="image-20211030222608264">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222623896.png" class="" title="image-20211030222623896">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222641142.png" class="" title="image-20211030222641142">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222656757.png" class="" title="image-20211030222656757">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222708109.png" class="" title="image-20211030222708109">
 <p>ctrl + alt +B  查找  connect 实现类，ClientCnxnSocketNIO.java</p>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222833428.png" class="" title="image-20211030222833428">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222833428.png" class="" title="image-20211030222833428">
 <p>ctrl + alt +B  查找  doTransport 实现类，ClientCnxnSocketNIO.java</p>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222854939.png" class="" title="image-20211030222854939">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222908968.png" class="" title="image-20211030222908968">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222922391.png" class="" title="image-20211030222922391">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222932871.png" class="" title="image-20211030222932871">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222854939.png" class="" title="image-20211030222854939">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222908968.png" class="" title="image-20211030222908968">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222922391.png" class="" title="image-20211030222922391">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030222932871.png" class="" title="image-20211030222932871">
 <h3 id="8-8-5-执行-run">8.8.5  执行  run()</h3>
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030223009732.png" class="" title="image-20211030223009732">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030223023920.png" class="" title="image-20211030223023920">
-<img src="/dajiangdahe.github.io/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030223036400.png" class="" title="image-20211030223036400">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030223009732.png" class="" title="image-20211030223009732">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030223023920.png" class="" title="image-20211030223023920">
+<img src="/dajiangdahe/2021/10/23/zookeeper%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20211030223036400.png" class="" title="image-20211030223036400">
 
             </div>
             <hr>
@@ -992,7 +992,7 @@ leader 接收到信息，必须要返回对应的信息给 follower。<br>
                     
                       <a href="/dajiangdahe/2021/10/30/xcrun/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">MacOS系统每次更新系统后missing xcrun</span>
+                        <span class="hidden-mobile">MacOS系统每次更新系统后missing Xcrun</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -1001,7 +1001,7 @@ leader 接收到信息，必须要返回对应的信息给 follower。<br>
                     
                     
                       <a href="/dajiangdahe/2021/10/22/%E7%A0%B4%E8%A7%A3%E5%8E%8B%E7%BC%A9%E5%8C%85/">
-                        <span class="hidden-mobile">python暴力破解压缩包</span>
+                        <span class="hidden-mobile">Python暴力破解压缩包</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

@@ -268,7 +268,7 @@
 <li>高可用基石：除了上述作用以外，主从复制还是哨兵和集群实现的基础。</li>
 </ol>
 <h2 id="如何使用主从复制">如何使用主从复制</h2>
-<img src="/dajiangdahe.github.io/2021/10/22/Redis%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/a6c2adcacf3c3ebebd2853021a02ca32.png" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/Redis%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/a6c2adcacf3c3ebebd2853021a02ca32.png" class="" title="img">
 <p><strong>主从复制的开启，完全是在从节点发起的；不需要我们在主节点做任何事情。</strong></p>
 <ol>
 <li>
@@ -333,10 +333,10 @@
 </li>
 </ol>
 <h2 id="示例">示例</h2>
-<img src="/dajiangdahe.github.io/2021/10/22/Redis%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/image-20210924143457687.png" class="" title="image-20210924143457687">
-<img src="/dajiangdahe.github.io/2021/10/22/Redis%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/image-20210924143508264.png" class="" title="image-20210924143508264">
-<img src="/dajiangdahe.github.io/2021/10/22/Redis%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/image-20210924143519389.png" class="" title="image-20210924143519389">
-<img src="/dajiangdahe.github.io/2021/10/22/Redis%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/image-20210924143551169.png" class="" title="image-20210924143551169">
+<img src="/dajiangdahe/2021/10/22/Redis%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/image-20210924143457687.png" class="" title="image-20210924143457687">
+<img src="/dajiangdahe/2021/10/22/Redis%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/image-20210924143508264.png" class="" title="image-20210924143508264">
+<img src="/dajiangdahe/2021/10/22/Redis%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/image-20210924143519389.png" class="" title="image-20210924143519389">
+<img src="/dajiangdahe/2021/10/22/Redis%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/image-20210924143551169.png" class="" title="image-20210924143551169">
 <h2 id="【数据同步阶段】全量复制和部分复制">【数据同步阶段】全量复制和部分复制</h2>
 <ol>
 <li>全量复制：用于初次复制或其他无法进行部分复制的情况，将主节点中的所有数据都发送给从节点，是一个非常重型的操作。</li>
@@ -354,7 +354,7 @@
 <p>（2）主节点通过网络将RDB文件发送给从节点，对主从节点的带宽都会带来很大的消耗</p>
 <p>（3）从节点清空老数据、载入新RDB文件的过程是阻塞的，无法响应客户端的命令；如果从节点执行bgrewriteaof，也会带来额外的消耗</p>
 <p><strong>【示例】</strong></p>
-<img src="/dajiangdahe.github.io/2021/10/22/Redis%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/image-20210924152335494.png" class="" title="image-20210924152335494">
+<img src="/dajiangdahe/2021/10/22/Redis%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/image-20210924152335494.png" class="" title="image-20210924152335494">
 <h3 id="部分复制">部分复制</h3>
 <p>由于全量复制在主节点数据量较大时效率太低，因此Redis2.8开始提供部分复制，用于处理网络中断时的数据同步。</p>
 <p>部分复制的实现，依赖于三个重要的概念：</p>
@@ -372,28 +372,28 @@
 </ul>
 <h4 id="（3）服务器运行ID-runid">（3）服务器运行ID(runid)</h4>
 <p>每个Redis节点(无论主从)，在启动时都会自动生成一个随机ID(每次启动都不一样)，由40个随机的十六进制字符组成；runid用来唯一识别一个Redis节点。通过info Server命令，可以查看节点的runid：</p>
-<img src="/dajiangdahe.github.io/2021/10/22/Redis%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/1174710-20180628011537662-712436367.png" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/Redis%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/1174710-20180628011537662-712436367.png" class="" title="img">
 <p>主从节点初次复制时，主节点将自己的runid发送给从节点，从节点将这个runid保存起来；当断线重连时，从节点会将这个runid发送给主节点；主节点根据runid判断能否进行部分复制：</p>
 <ul>
 <li>如果从节点保存的runid与主节点现在的runid相同，说明主从节点之前同步过，主节点会继续尝试使用部分复制(到底能不能部分复制还要看offset和复制积压缓冲区的情况)；</li>
 <li>如果从节点保存的runid与主节点现在的runid不同，说明从节点在断线前同步的Redis节点并不是当前的主节点，只能进行全量复制。</li>
 </ul>
 <p><strong>【示例】</strong></p>
-<img src="/dajiangdahe.github.io/2021/10/22/Redis%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/image-20210924155035634.png" class="" title="image-20210924155035634">
-<img src="/dajiangdahe.github.io/2021/10/22/Redis%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/image-20210924155043945.png" class="" title="image-20210924155043945">
+<img src="/dajiangdahe/2021/10/22/Redis%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/image-20210924155035634.png" class="" title="image-20210924155035634">
+<img src="/dajiangdahe/2021/10/22/Redis%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/image-20210924155043945.png" class="" title="image-20210924155043945">
 <h2 id="【命令传播阶段】心跳机制">【命令传播阶段】心跳机制</h2>
 <p>在命令传播阶段，除了发送写命令，主从节点还维持着心跳机制：PING和REPLCONF ACK。心跳机制对于<strong>主从复制的超时判断、数据安全</strong>等有作用。</p>
 <h3 id="1-主-从：PING">1.主-&gt;从：PING</h3>
 <p>每隔指定的时间，<strong>主节点会向从节点发送PING命令</strong>，这个PING命令的作用，主要是为了让从节点进行超时判断。</p>
 <p>PING发送的频率由repl-ping-slave-period参数控制，单位是秒，默认值是10s。</p>
 <p>关于该PING命令究竟是由主节点发给从节点，还是相反，有一些争议；因为在Redis的官方文档中，对该参数的注释中说明是从节点向主节点发送PING命令，如下图所示：</p>
-<img src="/dajiangdahe.github.io/2021/10/22/Redis%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/1174710-20180628011653835-25800141.png" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/Redis%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/1174710-20180628011653835-25800141.png" class="" title="img">
 <p>但是根据该参数的名称(含有ping-slave)，以及代码实现，我认为该PING命令是主节点发给从节点的。相关代码如下：</p>
-<img src="/dajiangdahe.github.io/2021/10/22/Redis%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/1174710-20180628011700171-401488218.png" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/Redis%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/1174710-20180628011700171-401488218.png" class="" title="img">
 <h3 id="2-从-主：REPLCONF-ACK">2. 从-&gt;主：REPLCONF ACK</h3>
 <p>在命令传播阶段，**从节点会向主节点发送REPLCONF ACK命令，**频率是每秒1次；命令格式为：REPLCONF ACK {offset}，其中offset指从节点保存的复制偏移量。REPLCONF ACK命令的作用包括：</p>
 <p>（1）实时监测主从节点网络状态：该命令会被主节点用于复制超时的判断。此外，在主节点中使用info Replication，可以看到其从节点的状态中的lag值，代表的是主节点上次收到该REPLCONF ACK命令的时间间隔，在正常情况下，该值应该是0或1，如下图所示：</p>
-<img src="/dajiangdahe.github.io/2021/10/22/Redis%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/1174710-20180628011708219-1385546367.png" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/Redis%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/1174710-20180628011708219-1385546367.png" class="" title="img">
 <p>（2）检测命令丢失：从节点发送了自身的offset，主节点会与自己的offset对比，如果从节点数据缺失（如网络丢包），主节点会推送缺失的数据（这里也会利用复制积压缓冲区）。<strong>注意，offset和复制积压缓冲区，不仅可以用于部分复制，也可以用于处理命令丢失等情形；区别在于前者是在断线重连后进行的，而后者是在主从节点没有断线的情况下进行的。</strong></p>
 <p>（3）辅助保证从节点的数量和延迟：Redis主节点中使用min-slaves-to-write和min-slaves-max-lag参数，来保证主节点在不安全的情况下不会执行写命令；所谓不安全，是指从节点数量太少，或延迟过高。例如min-slaves-to-write和min-slaves-max-lag分别是3和10，含义是如果从节点数量小于3个，或所有从节点的延迟值都大于10s，则主节点拒绝执行写命令。而这里从节点延迟值的获取，就是通过主节点接收到REPLCONF ACK命令的时间来判断的，即前面所说的info Replication中的lag值。</p>
 <h2 id="【部分事故场景】">【部分事故场景】</h2>
@@ -406,7 +406,7 @@
 <p>前面曾提到过，在全量复制阶段，主节点会将执行的写命令放到复制缓冲区中，该缓冲区存放的数据包括了以下几个时间段内主节点执行的写命令：bgsave生成RDB文件、RDB文件由主节点发往从节点、从节点清空老数据并载入RDB文件中的数据。当主节点数据量较大，或者主从节点之间网络延迟较大时，可能导致该缓冲区的大小超过了限制，此时主节点会断开与从节点之间的连接；这种情况可能引起全量复制-&gt;复制缓冲区溢出导致连接中断-&gt;重连-&gt;全量复制-&gt;复制缓冲区溢出导致连接中断……的循环。</p>
 <p>复制缓冲区的大小由client-output-buffer-limit slave {hard limit} {soft limit} {soft seconds}配置，默认值为client-output-buffer-limit slave 256MB 64MB 60，其含义是：如果buffer大于256MB，或者连续60s大于64MB，则主节点会断开与该从节点的连接。该参数是可以通过config set命令动态配置的（即不重启Redis也可以生效）。</p>
 <p>当复制缓冲区溢出时，主节点打印日志如下所示：</p>
-<img src="/dajiangdahe.github.io/2021/10/22/Redis%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/1174710-20180628012000540-1190099498.png" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/Redis%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/1174710-20180628012000540-1190099498.png" class="" title="img">
 <p><strong>需要注意的是，复制缓冲区是客户端输出缓冲区的一种，主节点会为每一个从节点分别分配复制缓冲区；而复制积压缓冲区则是一个主节点只有一个，无论它有多少个从节点。</strong></p>
 <h3 id="3-第一次建立复制选择">3.第一次建立复制选择</h3>
 <p>此时全量复制不可避免，但仍有几点需要注意：如果主节点的数据量较大，应该尽量避开流量的高峰期，避免造成阻塞；如果有多个从节点需要建立对主节点的复制，可以考虑将几个从节点错开，避免主节点带宽占用过大。此外，如果从节点过多，也可以调整主从复制的拓扑结构，由一主多从结构变为树状结构（中间的节点既是其主节点的从节点，也是其从节点的主节点）；但使用树状结构应该谨慎：虽然主节点的直接从节点减少，降低了主节点的负担，但是多层从节点的延迟增大，数据一致性变差；且结构复杂，维护相当困难。</p>
@@ -418,7 +418,7 @@
 <p><strong>安全重启：debug reload</strong></p>
 <p>在一些场景下，可能希望对主节点进行重启，例如主节点内存碎片率过高，或者希望调整一些只能在启动时调整的参数。如果使用普通的手段重启主节点，会使得runid发生变化，可能导致不必要的全量复制。</p>
 <p>为了解决这个问题，Redis提供了debug reload的重启方式：<strong>重启后，主节点的runid和offset都不受影响，避免了全量复制</strong>。</p>
-<img src="/dajiangdahe.github.io/2021/10/22/Redis%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/1174710-20180628012018427-1532559550.png" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/Redis%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/1174710-20180628012018427-1532559550.png" class="" title="img">
 <p>但debug reload是一柄双刃剑：<strong>它会清空当前内存中的数据，重新从RDB文件中加载</strong>，这个过程会导致主节点的阻塞，因此也需要谨慎。</p>
 <h3 id="5-网络中断">5.网络中断</h3>
 <p>如果主从节点之间出现网络问题，造成短时间内网络中断，可以分为多种情况讨论。</p>
@@ -447,7 +447,7 @@
 <li>配置提供者（Configuration provider）：客户端在初始化时，通过连接哨兵来获得当前Redis服务的主节点地址。</li>
 <li>通知（Notification）：哨兵可以将故障转移的结果发送给客户端。</li>
 </ul>
-<img src="/dajiangdahe.github.io/2021/10/22/Redis%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/1174710-20180908182924632-1069251418.png" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/Redis%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/1174710-20180908182924632-1069251418.png" class="" title="img">
 <p>它由两部分组成，哨兵节点和数据节点：</p>
 <ul>
 <li>哨兵节点：哨兵系统由一个或多个哨兵节点组成，哨兵节点是特殊的redis节点，不存储数据。</li>
@@ -484,7 +484,7 @@
 </li>
 <li>
 <p>将已经下线的主节点(即6379)设置为新的主节点的从节点，当6379重新上线后，它会成为新的主节点的从节点。</p>
-<img src="/dajiangdahe.github.io/2021/10/22/Redis%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/1174710-20180909004056625-1501495024.png" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/Redis%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/1174710-20180909004056625-1501495024.png" class="" title="img">
 </li>
 </ul>
 <h2 id="【实践建议】">【实践建议】</h2>
@@ -533,7 +533,7 @@
 <p>哈希取余分区思路非常简单：计算key的hash值，然后对节点数量进行取余，从而决定数据映射到哪个节点上。该方案最大的问题是，当新增或删减节点时，节点数量发生变化，系统中所有的数据都需要重新计算映射关系，引发大规模数据迁移。</p>
 <p>（2）一致性哈希分区</p>
 <p>一致性哈希算法将整个哈希值空间组织成一个虚拟的圆环，如下图所示，范围为0-2^32-1；对于每个数据，根据key计算hash值，确定数据在环上的位置，然后从此位置沿环顺时针行走，找到的第一台服务器就是其应该映射到的服务器。</p>
-<img src="/dajiangdahe.github.io/2021/10/22/Redis%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/1174710-20181025213424713-1246878063.png" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/Redis%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/1174710-20181025213424713-1246878063.png" class="" title="img">
 <p>与哈希取余分区相比，一致性哈希分区将增减节点的影响限制在相邻节点。以上图为例，如果在node1和node2之间增加node5，则只有node2中的一部分数据会迁移到node5；如果去掉node2，则原node2中的数据只会迁移到node4中，只有node4会受影响。</p>
 <p>一致性哈希分区的主要问题在于，当节点数量较少时，增加或删减节点，对单个节点的影响可能很大，造成数据的严重不平衡。还是以上图为例，如果去掉node2，node4中的数据由总数据的1/4左右变为1/2左右，与其他节点相比负载过高。</p>
 <p>（3）带虚拟节点的一致性哈希分区</p>
@@ -541,7 +541,7 @@
 <p>**在使用了槽的一致性哈希分区中，槽是数据管理和迁移的基本单位。槽解耦了数据和实际节点之间的关系，增加或删除节点对系统的影响很小。**仍以上图为例，系统中有4个实际节点，假设为其分配16个槽(0-15)； 槽0-3位于node1，4-7位于node2，以此类推。如果此时删除node2，只需要将槽4-7重新分配即可，例如槽4-5分配给node1，槽6分配给node3，槽7分配给node4；可以看出删除node2后，数据在其他节点的分布仍然较为均衡。</p>
 <p>槽的数量一般远小于2^32，远大于实际节点的数量；在Redis集群中，槽的数量为16384。</p>
 <p>下面这张图很好的总结了Redis集群将数据映射到实际节点的过程：</p>
-<img src="/dajiangdahe.github.io/2021/10/22/Redis%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/1174710-20190802191100758-1110624103.png" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/Redis%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/1174710-20190802191100758-1110624103.png" class="" title="img">
 <p>（1）Redis对数据的特征值（一般是key）计算哈希值，使用的算法是CRC16。</p>
 <p>（2）根据哈希值，计算数据属于哪个槽。</p>
 <p>（3）根据槽与节点的映射关系，计算数据属于哪个节点。</p>

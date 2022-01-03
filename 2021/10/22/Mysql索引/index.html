@@ -263,7 +263,7 @@
 </li>
 <li>
 <p><strong>B+树索引</strong>：B+树是b树的变种，主要区别在于：B+树的==非叶子节点==只<strong>存储 key + 指向下一层节点的指针</strong>。另外，<strong>B+树的叶子节点之间通过指针来连接</strong>，构成一个有序链表，因此对整棵树的遍历只需要一次线性遍历叶子结点即可（o（n）时间复杂度遍历全部节点）。</p>
-<img src="/dajiangdahe.github.io/2021/10/22/Mysql%E7%B4%A2%E5%BC%95/aHR0cHM6Ly9tbWJpei5xcGljLmNuL3N6X21tYml6X3BuZy9LUlJ4dnFHY2ljWkhHY0JXdFdpYmxRb1RFWWdZcUlGQVJ3R0UydDhDdTZKeHZibTFNcDMxMGlhWlU1ekhYazZTNzhpYldUcDlodzQ4RE4wQ3U0ZUlIaWFjRVVnLw" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/Mysql%E7%B4%A2%E5%BC%95/aHR0cHM6Ly9tbWJpei5xcGljLmNuL3N6X21tYml6X3BuZy9LUlJ4dnFHY2ljWkhHY0JXdFdpYmxRb1RFWWdZcUlGQVJ3R0UydDhDdTZKeHZibTFNcDMxMGlhWlU1ekhYazZTNzhpYldUcDlodzQ4RE4wQ3U0ZUlIaWFjRVVnLw" class="" title="img">
 </li>
 </ul>
 <p>==从逻辑结构角度划分：==</p>
@@ -302,7 +302,7 @@
 </li>
 <li>
 <p><strong>覆盖索引</strong>：覆盖索引（covering index）指一个<strong>查询语句的执行只用从索引中就能够取得</strong>，不必从数据表中读取。也可以称之为实现了索引覆盖。 当一条查询语句符合覆盖索引条件时，MySQL只需要通过索引就可以返回查询所需要的数据，这样避免了查到索引后再返回表操作，减少I/O提高效率。 如，表covering_index_sample中有一个普通索引 idx_key1_key2(key1,key2)。当我们通过SQL语句：select key2 from covering_index_sample where key1 = ‘keytest’;的时候，就可以通过覆盖索引查询，无需回表。</p>
-<img src="/dajiangdahe.github.io/2021/10/22/Mysql%E7%B4%A2%E5%BC%95/aHR0cHM6Ly9tbWJpei5xcGljLmNuL3N6X21tYml6X3BuZy9LUlJ4dnFHY2ljWkhHY0JXdFdpYmxRb1RFWWdZcUlGQVJ3eDB5c3FQZ3JlemJteVFCdFRqMmJYWGZpYjR5aWJTZmxBNWhjT0JXZ0NpYXNjVUNvaWJDUDV1WmZuQS8" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/Mysql%E7%B4%A2%E5%BC%95/aHR0cHM6Ly9tbWJpei5xcGljLmNuL3N6X21tYml6X3BuZy9LUlJ4dnFHY2ljWkhHY0JXdFdpYmxRb1RFWWdZcUlGQVJ3eDB5c3FQZ3JlemJteVFCdFRqMmJYWGZpYjR5aWJTZmxBNWhjT0JXZ0NpYXNjVUNvaWJDUDV1WmZuQS8" class="" title="img">
 </li>
 <li>
 <p>**自适应哈希索引(adaptive hash index）：**InnoDB 会监控对表上索引的查找，如果观察到某些索引被频繁访问，索引成为热数据，建立哈希索引可以带来速度的提升，则建立哈希索引，所以称之为自适应（adaptive）的。自适应哈希索引通过缓冲池的 B+ 树构造而来，因此建立的速度很快。而且不需要将整个表都建哈希索引，InnoDB 会自动根据访问的频率和模式来为某些页建立哈希索引。</p>
@@ -312,11 +312,11 @@
 <p>InnoDB<strong>也使用B+Tree作为索引结构</strong>，但具体实现方式却与MyISAM截然不同.</p>
 <p>1）主键索引：</p>
 <p><strong>MyISAM索引文件和数据文件是分离的</strong>，<strong>索引文件仅保存数据记录的地址</strong>。而在<strong>InnoDB中，表数据文件本身就是按B+Tree组织的一个索引结构</strong>，这棵树的叶节点data域保存了完整的数据记录。这个索引的key是数据表的主键，因此InnoDB表数据文件本身就是主索引。</p>
-<img src="/dajiangdahe.github.io/2021/10/22/Mysql%E7%B4%A2%E5%BC%95/1464190-20191106145200302-932404581.png" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/Mysql%E7%B4%A2%E5%BC%95/1464190-20191106145200302-932404581.png" class="" title="img">
 <p>(图inndb主键索引）是InnoDB主索引（同时也是数据文件）的示意图，可以看到叶节点包含了完整的数据记录。这种索引叫做聚簇索引。因为InnoDB的数据文件本身要按主键聚集，所以InnoDB要求表必须有主键（MyISAM可以没有），如果没有显式指定，则MySQL系统会自动选择一个可以唯一标识数据记录的列作为主键，如果不存在这种列，则*<em>MySQL自动为InnoDB表生成一个隐含字段作为主键，这个字段（row_id）<em>长度为6个字节，类型为长整形</em></em>。</p>
 <p>2）InnoDB的辅助索引</p>
 <p>InnoDB的所有辅助索引都引用主键作为data域。例如，下图为定义在Col3上的一个辅助索引：</p>
-<img src="/dajiangdahe.github.io/2021/10/22/Mysql%E7%B4%A2%E5%BC%95/1464190-20191106145241480-1330791289.png" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/Mysql%E7%B4%A2%E5%BC%95/1464190-20191106145241480-1330791289.png" class="" title="img">
 <p>InnoDB 表是基于聚簇索引建立的。因此InnoDB 的索引能提供一种非常快速的主键查找性能。不过，它的辅助索引（Secondary Index， 也就是非主键索引）也会包含主键列，所以，<strong>如果主键定义的比较大，其他索引也将很大</strong>。如果想在表上定义 、很多索引，则争取尽量把主键定义得小一些。InnoDB 不会压缩索引。</p>
 <p>文字符的ASCII码作为比较准则。聚集索引这种实现方式使得按主键的搜索十分高效，但是辅助索引搜索需要检索两遍索引：首先检索辅助索引获得主键，然后用主键到主索引中检索获得记录。</p>
 <p>不同存储引擎的索引实现方式对于正确使用和优化索引都非常有帮助，例如知道了InnoDB的索引实现后，就很容易明白：</p>
@@ -327,18 +327,18 @@
 <p>MyISAM<strong>索引文件和数据文件是分离的</strong>，索引文件仅保存数据记录的地址</p>
 <p>1）主键索引：</p>
 <p>MyISAM引擎使用B+Tree作为索引结构，叶节点的<strong>data域存放的是数据记录的地址</strong>。下图是MyISAM主键索引的原理图：</p>
-<img src="/dajiangdahe.github.io/2021/10/22/Mysql%E7%B4%A2%E5%BC%95/1464190-20191106151308457-531875534.png" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/Mysql%E7%B4%A2%E5%BC%95/1464190-20191106151308457-531875534.png" class="" title="img">
 <p>这里设表一共有三列，假设我们以Col1为主键，图myisam1是一个MyISAM表的主索引（Primary key）示意。可以看出MyISAM的索引文件仅仅保存数据记录的地址。</p>
 <p>2）辅助索引（Secondary key）</p>
 <p>在MyISAM中，主索引和辅助索引（Secondary key）在结构上没有任何区别，<strong>只是主索引要求key是唯一的，而辅助索引的key可以重复</strong>。如果我们在Col2上建立一个辅助索引，则此索引的结构如下图所示：</p>
-<img src="/dajiangdahe.github.io/2021/10/22/Mysql%E7%B4%A2%E5%BC%95/1464190-20191106151427711-625351515.png" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/Mysql%E7%B4%A2%E5%BC%95/1464190-20191106151427711-625351515.png" class="" title="img">
 <p>同样也是一颗B+Tree，data域保存数据记录的地址。因此，MyISAM中索引检索的算法为首先按照B+Tree搜索算法搜索索引，如果指定的Key存在，则取出其data域的值，然后以data域的值为地址，读取相应数据记录。</p>
 <p>MyISAM的索引方式也叫做“非聚集”的，之所以这么称呼是为了与InnoDB的聚集索引区分。</p>
-<img src="/dajiangdahe.github.io/2021/10/22/Mysql%E7%B4%A2%E5%BC%95/1464190-20191106151527647-152458631.png" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/Mysql%E7%B4%A2%E5%BC%95/1464190-20191106151527647-152458631.png" class="" title="img">
 <h2 id="【最左前缀匹配原则】">【最左前缀匹配原则】</h2>
 <p>在MySQL建立联合索引时会遵守最左前缀匹配原则，即最左优先，在检索数据时从联合索引的最左边开始匹配。</p>
 <p>举例：创建一个（a,b）的联合索引，那么它的索引树就是下图的样子。</p>
-<img src="/dajiangdahe.github.io/2021/10/22/Mysql%E7%B4%A2%E5%BC%95/1804577-20200521182659976-48843100.png" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/Mysql%E7%B4%A2%E5%BC%95/1804577-20200521182659976-48843100.png" class="" title="img">
 <p>可以看到a的值是有顺序的，1，1，2，2，3，3，而b的值是没有顺序的1，2，1，4，1，2。但是我们又可发现a在等值的情况下，b值又是按顺序排列的，但是这种顺序是相对的。这是因为<strong>MySQL创建联合索引的规则是首先会对联合索引的最左边第一个字段排序，在第一个字段的排序基础上，然后在对第二个字段进行排序</strong>。所以b=2这种查询条件没有办法利用索引。</p>
 <p>由于整个过程是基于explain结果分析的，那接下来在了解下explain中的type字段和key_lef字段。</p>
 <p><strong>1.type</strong>：<strong>联接类型。下面给出各种联接类型,按照从最佳类型到最坏类型进行排序:（重点看ref,rang,index）</strong></p>
@@ -358,38 +358,38 @@
 <p>（由于我数据库使用的是Latin1编码的格式，所以在后面的计算中，一个字符按一个字节算）</p>
 <p>4.对于所有的索引字段，如果设置为NULL，则还需要1个字节。</p>
 <h3 id="1-全值匹配查询时"><strong>1.全值匹配查询时</strong></h3>
-<p>​	<img src="/dajiangdahe.github.io/2021/10/22/Mysql%E7%B4%A2%E5%BC%95/1804577-20200521202947593-2126832810.png" class="" title="img"></p>
-<img src="/dajiangdahe.github.io/2021/10/22/Mysql%E7%B4%A2%E5%BC%95/1804577-20200521203003652-366842075.png" class="" title="img">
-<img src="/dajiangdahe.github.io/2021/10/22/Mysql%E7%B4%A2%E5%BC%95/1804577-20200521203020127-1655735915.png" class="" title="img">
+<p>​	<img src="/dajiangdahe/2021/10/22/Mysql%E7%B4%A2%E5%BC%95/1804577-20200521202947593-2126832810.png" class="" title="img"></p>
+<img src="/dajiangdahe/2021/10/22/Mysql%E7%B4%A2%E5%BC%95/1804577-20200521203003652-366842075.png" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/Mysql%E7%B4%A2%E5%BC%95/1804577-20200521203020127-1655735915.png" class="" title="img">
 <p>通过观察上面的结果图可知，where后面的查询条件，不论是使用（id，age，name）（name，id，age）还是（age，name，id）顺序，在查询时都使用到了联合索引，可能有同学会疑惑，为什么底下两个的搜索条件明明没有按照联合索引从左到右进行匹配，却也使用到了联合索引？ 这是因为<strong>MySQL中有查询优化器explain，所以sql语句中字段的顺序不需要和联合索引定义的字段顺序相同，查询优化器会判断纠正这条SQL语句以什么样的顺序执行效率高</strong>，最后才能生成真正的执行计划，所以不论以何种顺序都可使用到联合索引。另外通过观察上<strong>面三个图中的key_len字段，也可说明在搜索时使用的联合索引中的（id_name_age）索引</strong>，因为id为int型，允许null，所以占5个字节，name为char(10)，允许null，又使用的是latin1编码，所以占11个字节，age为int型允许null，所以也占用5个字节，所以该索引长度为21（5+11+5），而上面key_len的值也正好为21，<strong>可证明使用的（id_name_age）索引</strong>。</p>
 <h3 id="2-匹配最左边的列时"><strong>2.匹配最左边的列时</strong></h3>
-<img src="/dajiangdahe.github.io/2021/10/22/Mysql%E7%B4%A2%E5%BC%95/1804577-20200521202447168-1029938685.png" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/Mysql%E7%B4%A2%E5%BC%95/1804577-20200521202447168-1029938685.png" class="" title="img">
 <p>该搜索是遵循最左匹配原则的，通过key字段也可知，在搜索过程中使用到了联合索引，且使用的是联合索引中的（id）索引，因为<strong>key_len字段值为5，而id索引的长度正好为5</strong>（因为id为int型，允许null，所以占5个字节）。</p>
-<img src="/dajiangdahe.github.io/2021/10/22/Mysql%E7%B4%A2%E5%BC%95/1804577-20200521202737461-1486677111.png" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/Mysql%E7%B4%A2%E5%BC%95/1804577-20200521202737461-1486677111.png" class="" title="img">
 <p><strong>由于id到name是从左边依次往右边匹配，这两个字段中的值都是有序的，所以也遵循最左匹配原则</strong>，通过key字段可知，在搜索过程中也使用到了联合索引，但使用的是联合索引中的（id_name）索引，因为key_len字段值为16，而(id_name)索引的长度正好为16（因为id为int型，允许null，所以占5个字节，name为char(10)，允许null，又使用的是latin1编码，所以占11个字节）。</p>
-<img src="/dajiangdahe.github.io/2021/10/22/Mysql%E7%B4%A2%E5%BC%95/1804577-20200521202810363-1061003410.png" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/Mysql%E7%B4%A2%E5%BC%95/1804577-20200521202810363-1061003410.png" class="" title="img">
 <p>由于上面三个搜索都是从最左边id依次向右开始匹配的，所以都用到了id_name_age_index联合索引。</p>
 <p><strong>==那如果不是依次匹配呢？==</strong></p>
-<img src="/dajiangdahe.github.io/2021/10/22/Mysql%E7%B4%A2%E5%BC%95/1804577-20200521204203700-302471529.png" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/Mysql%E7%B4%A2%E5%BC%95/1804577-20200521204203700-302471529.png" class="" title="img">
 <p>通过key字段可知，在搜索过程中也使用到了联合索引，但使用的是联合索引中的（id）索引，从key_len字段也可知。因为联合索引树是按照id字段创建的，<strong>但age相对于id来说是无序的，只有id只有序的，所以他只能使用联合索引中的id索引。</strong></p>
-<img src="/dajiangdahe.github.io/2021/10/22/Mysql%E7%B4%A2%E5%BC%95/1804577-20200521203757147-65081383.png" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/Mysql%E7%B4%A2%E5%BC%95/1804577-20200521203757147-65081383.png" class="" title="img">
 <p>通过观察发现上面key字段发现在搜索中也使用了id_name_age_index索引，可能许多同学就会疑惑它并没有遵守最左匹配原则，按道理会索引失效，为什么也使用到了联合索引？<strong>因为没有从id开始匹配，且name单独来说是无序的，所以它确实不遵循最左匹配原则，然而从type字段可知，它虽然使用了联合索引，但是它是对整个索引树进行了扫描，正好匹配到该索引，与最左匹配原则无关</strong>，一般只要是某联合索引的一部分，但又不遵循最左匹配原则时，都可能会采用index类型的方式扫描，但它的效率远不如最做匹配原则的查询效率高，index类型类型的扫描方式是从索引第一个字段一个一个的查找，直到找到符合的某个索引，<strong>与all不同的是，index是对所有索引树进行扫描，而all是对整个磁盘的数据进行全表扫描。</strong></p>
-<img src="/dajiangdahe.github.io/2021/10/22/Mysql%E7%B4%A2%E5%BC%95/1804577-20200521203731486-172947522.png" class="" title="img">
-<img src="/dajiangdahe.github.io/2021/10/22/Mysql%E7%B4%A2%E5%BC%95/1804577-20200521203818877-809915868.png" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/Mysql%E7%B4%A2%E5%BC%95/1804577-20200521203731486-172947522.png" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/Mysql%E7%B4%A2%E5%BC%95/1804577-20200521203818877-809915868.png" class="" title="img">
 <p>这两个结果跟上面的是同样的道理，由于它们都没有从最左边开始匹配，所以没有用到联合索引，使用的<strong>都是index全索引扫描。</strong></p>
 <h3 id="3-匹配列前缀"><strong>3.匹配列前缀</strong></h3>
 <p>如果id是字符型，那么前缀匹配用的是索引，中坠和后缀用的是全表扫描。</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> staffs <span class="hljs-keyword">where</span> id <span class="hljs-keyword">like</span> <span class="hljs-string">&#x27;A%&#x27;</span>;<span class="hljs-operator">/</span><span class="hljs-operator">/</span>前缀都是排好序的，使用的都是联合索引<br><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> staffs <span class="hljs-keyword">where</span> id <span class="hljs-keyword">like</span> <span class="hljs-string">&#x27;%A%&#x27;</span>;<span class="hljs-operator">/</span><span class="hljs-operator">/</span>全表查询<br><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> staffs <span class="hljs-keyword">where</span> id <span class="hljs-keyword">like</span> <span class="hljs-string">&#x27;%A&#x27;</span>;<span class="hljs-operator">/</span><span class="hljs-operator">/</span>全表查询<br></code></pre></td></tr></table></figure>
 <h3 id="4-匹配范围值"><strong>4.匹配范围值</strong></h3>
-<img src="/dajiangdahe.github.io/2021/10/22/Mysql%E7%B4%A2%E5%BC%95/1804577-20200521210125009-1177423028.png" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/Mysql%E7%B4%A2%E5%BC%95/1804577-20200521210125009-1177423028.png" class="" title="img">
 <p>在匹配的过程中<strong>遇到&lt;&gt;=号，就会停止匹配</strong>，但id本身就是有序的，所以通过possible_keys字段和key_len 字段可知，在该搜索过程中<strong>使用了联合索引的id索引</strong>（因为id为int型，允许null，所以占5个字节），且进行的是rang范围查询。</p>
-<img src="/dajiangdahe.github.io/2021/10/22/Mysql%E7%B4%A2%E5%BC%95/1804577-20200522115901524-226070462.png" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/Mysql%E7%B4%A2%E5%BC%95/1804577-20200522115901524-226070462.png" class="" title="img">
 <p>由于不遵循最左匹配原则，且在<strong>id&lt;4的范围中，age是无序的，所以使用的是index全索引扫描</strong>。</p>
-<img src="/dajiangdahe.github.io/2021/10/22/Mysql%E7%B4%A2%E5%BC%95/1804577-20200521210146172-1428008775.png" class="" title="img">
-<p>不遵循最左匹配原则，但在数据库中id&lt;2的只有一条（id），所以在<strong>id&lt;2的范围中，age是有序的，所以使用的是rang范围查询。</strong><img src="/dajiangdahe.github.io/2021/10/22/Mysql%E7%B4%A2%E5%BC%95/1804577-20200521210203002-1943736888.png" class="" title="img"></p>
+<img src="/dajiangdahe/2021/10/22/Mysql%E7%B4%A2%E5%BC%95/1804577-20200521210146172-1428008775.png" class="" title="img">
+<p>不遵循最左匹配原则，但在数据库中id&lt;2的只有一条（id），所以在<strong>id&lt;2的范围中，age是有序的，所以使用的是rang范围查询。</strong><img src="/dajiangdahe/2021/10/22/Mysql%E7%B4%A2%E5%BC%95/1804577-20200521210203002-1943736888.png" class="" title="img"></p>
 <p>不遵循最左匹配原则，而age又是无序的，所以进行的<strong>全索引扫描</strong>。</p>
 <h3 id="5-准确匹配第一列并范围匹配其他某一列"><strong>5.准确匹配第一列并范围匹配其他某一列</strong></h3>
-<img src="/dajiangdahe.github.io/2021/10/22/Mysql%E7%B4%A2%E5%BC%95/1804577-20200521210726024-2037980339.png" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/Mysql%E7%B4%A2%E5%BC%95/1804577-20200521210726024-2037980339.png" class="" title="img">
 <p>由于搜索中有id=1，所以在id范围内age是无序的，所以只<strong>使用了联合索引中的id索引。</strong></p>
 <h2 id="【索引优化问题】">【索引优化问题】</h2>
 <p><strong>1.创建索引</strong></p>

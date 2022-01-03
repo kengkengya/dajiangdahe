@@ -283,17 +283,17 @@
 <li><strong>脏读</strong></li>
 </ul>
 <p>脏读是指在一个事务处理过程里读取了另一个未提交的事务中的数据。当一个事务正在多次修改某个数据，而在这个事务中这多次的修改都还未提交，这时一个并发的事务来访问该数据，就会造成两个事务得到的数据不一致。</p>
-<img src="/dajiangdahe.github.io/2021/10/22/MysqlMVCC/aHR0cHM6Ly9tbWJpei5xcGljLmNuL3N6X21tYml6X3BuZy9LUlJ4dnFHY2ljWkZxZzc4MjI5eWppYlBuOE9iczN2U040Vlo3TEtYanpsM3E1WE9wSWtxUUFLcGFwUDhoY0pLVlhHM21LbWtsMEk0WG9pYVM3eVRrdndWdy82NDA" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/MysqlMVCC/aHR0cHM6Ly9tbWJpei5xcGljLmNuL3N6X21tYml6X3BuZy9LUlJ4dnFHY2ljWkZxZzc4MjI5eWppYlBuOE9iczN2U040Vlo3TEtYanpsM3E1WE9wSWtxUUFLcGFwUDhoY0pLVlhHM21LbWtsMEk0WG9pYVM3eVRrdndWdy82NDA" class="" title="img">
 <ul>
 <li><strong>不可重复读</strong></li>
 </ul>
 <p>不可重复读是指在对于数据库中的某个数据，一个事务范围内多次查询却返回了不同的数据值，这是由于在查询间隔，被另一个事务修改并提交了。</p>
-<img src="/dajiangdahe.github.io/2021/10/22/MysqlMVCC/aHR0cHM6Ly9tbWJpei5xcGljLmNuL3N6X21tYml6X3BuZy9LUlJ4dnFHY2ljWkZxZzc4MjI5eWppYlBuOE9iczN2U040cWdRWWFrM043c29CRFZ3eVdKRHJpYU1ycVB2bE9zSXdURlpnVldxM1lNcUlTbUYxTkREWDVqZy82NDA" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/MysqlMVCC/aHR0cHM6Ly9tbWJpei5xcGljLmNuL3N6X21tYml6X3BuZy9LUlJ4dnFHY2ljWkZxZzc4MjI5eWppYlBuOE9iczN2U040cWdRWWFrM043c29CRFZ3eVdKRHJpYU1ycVB2bE9zSXdURlpnVldxM1lNcUlTbUYxTkREWDVqZy82NDA" class="" title="img">
 <ul>
 <li><strong>虚读(幻读)</strong></li>
 </ul>
 <p>一个事务按相同的查询条件重新读取以前检索过的数据，却发现其他事务插入了满足其查询条件的新数据，这种现象就称为“幻读”。</p>
-<img src="/dajiangdahe.github.io/2021/10/22/MysqlMVCC/aHR0cHM6Ly9tbWJpei5xcGljLmNuL3N6X21tYml6X3BuZy9LUlJ4dnFHY2ljWkZxZzc4MjI5eWppYlBuOE9iczN2U040WG1BSWpwRTRIVlpZaE5hTHZLNUNIeGNLWW4yaWJwZW9oVUxFbnE5ZThFSkNpYlZ0aWJZaGFzcW9nLzY0MA" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/MysqlMVCC/aHR0cHM6Ly9tbWJpei5xcGljLmNuL3N6X21tYml6X3BuZy9LUlJ4dnFHY2ljWkZxZzc4MjI5eWppYlBuOE9iczN2U040WG1BSWpwRTRIVlpZaE5hTHZLNUNIeGNLWW4yaWJwZW9oVUxFbnE5ZThFSkNpYlZ0aWJZaGFzcW9nLzY0MA" class="" title="img">
 <h3 id="【隔离级别】">【隔离级别】</h3>
 <p>① Serializable (串行化)：可避免脏读、不可重复读、幻读的发生。</p>
 <p>② Repeatable read (可重复读)：可避免脏读、不可重复读的发生。</p>
@@ -397,7 +397,7 @@ MVCC解决读写冲突，乐观锁解决写写冲突</li>
 6byte，隐含的自增ID（隐藏主键），如果数据表没有主键，InnoDB会自动以<code>DB_ROW_ID</code>产生一个聚簇索引</li>
 <li>实际还有一个删除flag隐藏字段, 既记录被更新或删除并不代表真的删除，而是删除flag变了</li>
 </ul>
-<img src="/dajiangdahe.github.io/2021/10/22/MysqlMVCC/20190313213705258.png" class="" title="在这里插入图片描述">
+<img src="/dajiangdahe/2021/10/22/MysqlMVCC/20190313213705258.png" class="" title="在这里插入图片描述">
 <p>如上图，<code>DB_ROW_ID</code>是数据库默认为该行记录生成的唯一隐式主键，<strong><code>DB_TRX_ID</code>是当前操作该记录的事务ID,而<code>DB_ROLL_PTR</code>是一个回滚指针，用于配合undo日志，指向上一个旧版本</strong></p>
 <h3 id="【undo日志】">【<strong>undo日志</strong>】</h3>
 <p>undo log主要分为两种：</p>
@@ -415,7 +415,7 @@ MVCC解决读写冲突，乐观锁解决写写冲突</li>
 <h3 id="【示例】">【<strong>示例</strong>】</h3>
 <p>对MVCC有帮助的实质是<code>update undo log</code> ，<code>undo log</code>实际上就是存在<code>rollback segment</code>中旧记录链，它的执行流程如下：</p>
 <p><strong>一、 比如一个有个事务插入persion表插入了一条新记录，记录如下，<code>name</code>为Jerry, <code>age</code>为24岁，<code>隐式主键</code>是1，<code>事务ID</code>和<code>回滚指针</code>，我们假设为NULL。</strong></p>
-<img src="/dajiangdahe.github.io/2021/10/22/MysqlMVCC/20190313213836406.png" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/MysqlMVCC/20190313213836406.png" class="" title="img">
 <p><strong>二、 现在来了一个<code>事务1</code>对该记录的<code>name</code>做出了修改，改为Tom</strong></p>
 <ul>
 <li>在<code>事务1</code>修改该行(记录)数据时，数据库会先对该行加<code>排他锁</code></li>
@@ -423,7 +423,7 @@ MVCC解决读写冲突，乐观锁解决写写冲突</li>
 <li>拷贝完毕后，修改该行<code>name</code>为Tom，并且<strong>修改隐藏字段的事务ID为当前<code>事务1</code>的ID</strong>, 我们默认从<code>1</code>开始，之后递增，回滚指针指向拷贝到<code>undo log</code>的副本记录，既表示我的上一个版本就是它</li>
 <li>事务提交后，释放锁。</li>
 </ul>
-<img src="/dajiangdahe.github.io/2021/10/22/MysqlMVCC/20190313220441831.png" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/MysqlMVCC/20190313220441831.png" class="" title="img">
 <p><strong>三、 又来了个<code>事务2</code>修改<code>person表</code>的同一个记录，将<code>age</code>修改为30岁</strong></p>
 <ul>
 <li>在<code>事务2</code>修改该行数据时，数据库也先为该行加锁</li>
@@ -431,7 +431,7 @@ MVCC解决读写冲突，乐观锁解决写写冲突</li>
 <li>修改该行<code>age</code>为30岁，并且修改隐藏字段的事务ID为当前<code>事务2</code>的ID, 那就是<code>2</code>，回滚指针指向刚刚拷贝到<code>undo log</code>的副本记录</li>
 <li>事务提交，释放锁</li>
 </ul>
-<img src="/dajiangdahe.github.io/2021/10/22/MysqlMVCC/20190313220528630.png" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/MysqlMVCC/20190313220528630.png" class="" title="img">
 <p>从上面，我们就可以看出，不同事务或者相同事务的对同一记录的修改，会导致该记录的<code>undo log</code>成为一条记录版本线性表，既链表，<code>undo log</code>的链首就是最新的旧记录，<strong>链尾就是最早的旧记录</strong>（当然就像之前说的该undo log的节点可能是会purge线程清除掉，向图中的第一条insert undo log，其实在事务提交之后可能就被删除丢失了，不过这里为了演示，所以还放在这里）</p>
 <h3 id="Read-View-读视图">Read View(读视图)</h3>
 <p>什么是Read View?</p>
@@ -439,7 +439,7 @@ MVCC解决读写冲突，乐观锁解决写写冲突</li>
 <p>所以我们知道 <code>Read View</code>主要是用来做可见性判断的, 即当我们某个事务执行快照读的时候，对该记录创建一个<code>Read View</code>读视图，把它比作条件用来判断当前事务能够看到哪个版本的数据，既可能是当前最新的数据，也有可能是该行记录的<code>undo log</code>里面的某个版本的数据。</p>
 <figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs autohotkey">Read View`遵循一个可见性算法，主要是将`要被修改的数据`的最新记录中的`DB_TRX_ID`（即当前事务ID）取出来，与系统当前其他活跃事务的ID去对比（由Read View维护），如果`DB_TRX_ID`跟Read View的属性做了某些比较，不符合可见性，那就通过`DB_ROLL_PTR`回滚指针去取出`Undo Log`中的`DB_TRX_ID`再比较，即遍历链表的`DB_TRX_ID`（从链首到链尾，即从最近的一次修改查起），直到	找到满足特定条件的`DB_TRX_ID`, 那么这个DB_TRX_ID所在的旧记录就是当前事务能看见的最新`老版本<br></code></pre></td></tr></table></figure>
 <p>那么这个判断条件是什么呢？</p>
-<img src="/dajiangdahe.github.io/2021/10/22/MysqlMVCC/20190314144440494.png" class="" title="在这里插入图片描述">
+<img src="/dajiangdahe/2021/10/22/MysqlMVCC/20190314144440494.png" class="" title="在这里插入图片描述">
 <ul>
 <li>
 <p><code>trx_list</code>（名字我随便取的）<br>
@@ -508,15 +508,15 @@ ReadView生成时刻系统尚未分配的下一个事务ID，也就是<code>目�
 <ul>
 <li>Read View不仅仅会通过一个列表<code>trx_list</code>来维护<code>事务2</code>执行<code>快照读</code>那刻系统正活跃的事务ID，还会有两个属性<code>up_limit_id</code>（记录trx_list列表中事务ID最小的ID），<code>low_limit_id</code>(记录trx_list列表中事务ID最大的ID，也有人说快照读那刻系统尚未分配的下一个事务ID也就是<code>目前已出现过的事务ID的最大值+1</code>，我更倾向于后者。所以在这里例子中<code>up_limit_id</code>就是1，<code>low_limit_id</code>就是4 + 1 = 5，trx_list集合的值是1,3，<code>Read View</code>如下图</li>
 </ul>
-<img src="/dajiangdahe.github.io/2021/10/22/MysqlMVCC/20190313224045780.png" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/MysqlMVCC/20190313224045780.png" class="" title="img">
 <ul>
 <li>我们的例子中，只有<code>事务4</code>修改过该行记录，并在<code>事务2</code>执行<code>快照读</code>前，就提交了事务，所以当前该行当前数据的<code>undo log</code>如下图所示；我们的事务2在快照读该行记录的时候，就会拿该行记录的<code>DB_TRX_ID</code>去跟<code>up_limit_id</code>,<code>low_limit_id</code>和<code>活跃事务ID列表(trx_list)</code>进行比较，判断当前<code>事务2</code>能看到该记录的版本是哪个。</li>
 </ul>
-<img src="/dajiangdahe.github.io/2021/10/22/MysqlMVCC/2019031322511052.png" class="" title="img">
+<img src="/dajiangdahe/2021/10/22/MysqlMVCC/2019031322511052.png" class="" title="img">
 <ul>
 <li>所以先拿该记录<code>DB_TRX_ID</code>字段记录的事务ID <code>4</code>去跟<code>Read View</code>的的<code>up_limit_id</code>比较，看<code>4</code>是否小于<code>up_limit_id</code>(1)，所以不符合条件，继续判断 <code>4</code> 是否大于等于 <code>low_limit_id</code>(5)，也不符合条件，最后判断<code>4</code>是否处于<code>trx_list</code>中的活跃事务, 最后发现事务ID为<code>4</code>的事务不在当前活跃事务列表中, 符合可见性条件，所以<code>事务4</code>修改后提交的最新结果对<code>事务2</code>快照读时是可见的，所以<code>事务2</code>能读到的最新数据记录是<code>事务4</code>所提交的版本，而事务4提交的版本也是全局角度上最新的版本</li>
 </ul>
-<img src="/dajiangdahe.github.io/2021/10/22/MysqlMVCC/20190314141320189.jpg" class="" title="在这里插入图片描述">
+<img src="/dajiangdahe/2021/10/22/MysqlMVCC/20190314141320189.jpg" class="" title="在这里插入图片描述">
 <ul>
 <li>也正是Read View生成时机的不同，从而造成RC,RR级别下快照读的结果的不同</li>
 </ul>

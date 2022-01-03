@@ -20,7 +20,7 @@
   <meta name="author" content="kengkeng">
   <meta name="keywords" content="">
   
-  <title>关于hexo自动推送问题 - kengkeng&#39;s life</title>
+  <title>关于Hexo自动推送问题 - kengkeng&#39;s life</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -165,7 +165,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="关于hexo自动推送问题">
+            <span class="h2" id="subtitle" title="关于Hexo自动推送问题">
               
             </span>
 
@@ -240,7 +240,7 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">关于hexo自动推送问题</h1>
+            <h1 style="display: none">关于Hexo自动推送问题</h1>
             
               <p class="note note-info">
                 
@@ -265,7 +265,7 @@
 <figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs maxima">npm install hexo-asset-<span class="hljs-built_in">image</span> --<span class="hljs-built_in">save</span><br></code></pre></td></tr></table></figure>
 <p>2.设置博客目录下_config.yml文件中的 post_asset_folder：选项是否为 true</p>
 <p>3.设置Typora</p>
-<img src="/dajiangdahe.github.io/2021/10/22/hexo%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/image-20210913131129705.png" class="" title="image-20210913131129705">
+<img src="/dajiangdahe/2021/10/22/hexo%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/image-20210913131129705.png" class="" title="image-20210913131129705">
 <p>4.将下面的index.js中的代码替换node_modules\hexo-asset-image中的index.js。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> log = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;hexo-log&#x27;</span>)(&#123; <span class="hljs-string">&#x27;debug&#x27;</span>: <span class="hljs-literal">false</span>, <span class="hljs-string">&#x27;slient&#x27;</span>: <span class="hljs-literal">false</span> &#125;);<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * md文件返回 true</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param <span class="hljs-type">&#123;*&#125;</span> </span>data </span><br><span class="hljs-comment"> */</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ignore</span>(<span class="hljs-params">data</span>) </span>&#123;<br>    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> 好奇怪，试了一下, md返回true, 但却需要忽略 取反!</span><br>    <span class="hljs-keyword">var</span> source = data.source;<br>    <span class="hljs-keyword">var</span> ext = source.substring(source.lastIndexOf(<span class="hljs-string">&#x27;.&#x27;</span>)).toLowerCase();<br>    <span class="hljs-keyword">return</span> [<span class="hljs-string">&#x27;md&#x27;</span>,].indexOf(ext) &gt; -<span class="hljs-number">1</span>;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">action</span>(<span class="hljs-params">data</span>) </span>&#123;<br>    <span class="hljs-keyword">var</span> reverseSource = data.source.split(<span class="hljs-string">&quot;&quot;</span>).reverse().join(<span class="hljs-string">&quot;&quot;</span>);<br>    <span class="hljs-keyword">var</span> fileName = reverseSource.substring(<span class="hljs-number">3</span>, reverseSource.indexOf(<span class="hljs-string">&quot;/&quot;</span>)).split(<span class="hljs-string">&quot;&quot;</span>).reverse().join(<span class="hljs-string">&quot;&quot;</span>);<br><br>    <span class="hljs-comment">// ![example](postname/example.jpg)  --&gt;  &#123;% asset_img example.jpg example %&#125;</span><br>    <span class="hljs-keyword">var</span> regExp = <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">&quot;!\\[(.*?)\\]\\(&quot;</span> + fileName + <span class="hljs-string">&#x27;/(.+?)\\)&#x27;</span>, <span class="hljs-string">&quot;g&quot;</span>);<br>    <span class="hljs-comment">// hexo g</span><br>    data.content = data.content.replace(regExp, <span class="hljs-string">&quot;&#123;% asset_img $2 $1 %&#125;&quot;</span>,<span class="hljs-string">&quot;g&quot;</span>);<br><br>    <span class="hljs-comment">// log.info(`hexo-asset-img: filename: $&#123;fileName&#125;, title: $&#123;data.title.trim()&#125;`);</span><br>    <br>    <span class="hljs-keyword">return</span> data;<br>&#125;<br><br>hexo.extend.filter.register(<span class="hljs-string">&#x27;before_post_render&#x27;</span>,<span class="hljs-function">(<span class="hljs-params">data</span>)=&gt;</span>&#123;<br>    <span class="hljs-keyword">if</span>(!ignore(data))&#123;<br>        action(data)<br>    &#125;<br>&#125;, <span class="hljs-number">0</span>);<br><br></code></pre></td></tr></table></figure>
 <p>5.测试</p>
