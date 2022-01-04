@@ -20,7 +20,7 @@
   <meta name="author" content="kengkeng">
   <meta name="keywords" content="">
   
-  <title>定时提醒脚本 - kengkeng&#39;s life</title>
+  <title>Kafka从入门到放弃 - kengkeng&#39;s life</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -165,7 +165,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="定时提醒脚本">
+            <span class="h2" id="subtitle" title="Kafka从入门到放弃">
               
             </span>
 
@@ -180,8 +180,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-12-28 22:19" pubdate>
-        2021年12月28日 晚上
+      <time datetime="2022-01-04 18:51" pubdate>
+        2022年1月4日 晚上
       </time>
     </span>
   
@@ -192,7 +192,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      393 字
+      1.4k 字
     </span>
   
 
@@ -202,7 +202,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      6
+      16
        分钟
     </span>
   
@@ -240,18 +240,91 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">定时提醒脚本</h1>
+            <h1 style="display: none">Kafka从入门到放弃</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：6 天前
+                  本文最后更新于：3 分钟前
                 
               </p>
             
             <div class="markdown-body">
-              <h1>通过server酱实现定时提醒XXX功能，配合其他爬虫使用更香😬</h1>
-<p><code>Apscheduler</code>包是python执行定时任务的包，通过将执行函数放入<code>scheduler</code>中实现阻塞队列。<code>scheduler.add_job</code>方法中写入<code>cron</code>类型，选择合适的时间即可实现。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">from</span> urllib.request <span class="hljs-keyword">import</span> urlopen<br><span class="hljs-keyword">from</span> apscheduler.schedulers.blocking <span class="hljs-keyword">import</span> BlockingScheduler<br><span class="hljs-keyword">from</span> datetime <span class="hljs-keyword">import</span> datetime<br><span class="hljs-keyword">from</span> bs4 <span class="hljs-keyword">import</span> BeautifulSoup<br><span class="hljs-comment"># 获取天气情况</span><br><br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_weather</span>():</span><br>    <span class="hljs-comment"># 济南编码：101120101</span><br>    <span class="hljs-comment"># 北京编码：101010100</span><br>    <span class="hljs-comment"># 常州编码：101191101</span><br>    <span class="hljs-comment"># 成都编码：101270101</span><br>    resp = urlopen(<span class="hljs-string">&#x27;http://www.weather.com.cn/weather/101270101.shtml&#x27;</span>)<br>    soup = BeautifulSoup(resp, <span class="hljs-string">&#x27;html.parser&#x27;</span>)<br>    tagDate = soup.find(<span class="hljs-string">&#x27;ul&#x27;</span>, class_=<span class="hljs-string">&quot;t clearfix&quot;</span>)<br>    dates = tagDate.h1.string<br><br>    tagToday = soup.find(<span class="hljs-string">&#x27;p&#x27;</span>, class_=<span class="hljs-string">&quot;tem&quot;</span>)<br>    <span class="hljs-keyword">try</span>:<br>        temperatureHigh = tagToday.span.string<br>    <span class="hljs-keyword">except</span> AttributeError <span class="hljs-keyword">as</span> e:<br>        temperatureHigh = tagToday.find_next(<span class="hljs-string">&#x27;p&#x27;</span>, class_=<span class="hljs-string">&quot;tem&quot;</span>).span.string<br><br>    temperatureLow = tagToday.i.string<br>    weather = soup.find(<span class="hljs-string">&#x27;p&#x27;</span>, class_=<span class="hljs-string">&quot;wea&quot;</span>).string<br><br>    tagWind = soup.find(<span class="hljs-string">&#x27;p&#x27;</span>, class_=<span class="hljs-string">&quot;win&quot;</span>)<br>    winL = tagWind.i.string<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;今天是：&#x27;</span> + dates)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;风级：&#x27;</span> + winL)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;最低温度：&#x27;</span> + temperatureLow)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;最高温度：&#x27;</span> + temperatureHigh)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;天气：&#x27;</span> + weather)<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;- 今天是：&#x27;</span> + dates + <span class="hljs-string">&#x27;\n&#x27;</span> \<br>           + <span class="hljs-string">&#x27;- 风级：&#x27;</span> + winL + <span class="hljs-string">&#x27;\n&#x27;</span> \<br>           + <span class="hljs-string">&#x27;- 最低温度：&#x27;</span> + temperatureLow + <span class="hljs-string">&#x27;\n&#x27;</span> \<br>           + <span class="hljs-string">&#x27;- 最高温度：&#x27;</span> + temperatureHigh + <span class="hljs-string">&#x27;\n&#x27;</span> \<br>           + <span class="hljs-string">&#x27;- 天气：&#x27;</span> + weather<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">server_jiang_push</span>():</span><br>    <span class="hljs-comment"># SCT107154Tql4S5x7TkGJR8yyFSKBK2IpN 玲玲sendKey</span><br>    <span class="hljs-comment"># SCT107162To1V84RPruXW4TpOdshLHIxZq 娇娇sendKey</span><br>    <span class="hljs-comment"># SCT107171T5ezOqVN1e4QVarvp7D1YxbiC 死鱼sendKey</span><br>    <span class="hljs-comment"># SCT107509TRGThxFFS38QoqO7CBPZywvey 老大</span><br>    SCKEY = <span class="hljs-string">&#x27;SCT107509TRGThxFFS38QoqO7CBPZywvey&#x27;</span>  <span class="hljs-comment"># server酱的sendKey</span><br>    title = <span class="hljs-string">&#x27;坑坑天气小助手&#x27;</span><br>    message = get_weather()<br>    requests.post(<span class="hljs-string">f&#x27;https://sc.ftqq.com/<span class="hljs-subst">&#123;SCKEY&#125;</span>.send?title=<span class="hljs-subst">&#123;title&#125;</span>&amp;desp=<span class="hljs-subst">&#123;message&#125;</span>&#x27;</span>)<br><br><span class="hljs-comment"># 定时任务</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">job</span>():</span><br>    <span class="hljs-built_in">print</span>(datetime.now().strftime(<span class="hljs-string">&quot;%Y-%m-%d %H:%M:%S&quot;</span>))<br>    <span class="hljs-comment"># BlockingScheduler</span><br>    scheduler = BlockingScheduler(timezone=<span class="hljs-string">&#x27;Asia/Shanghai&#x27;</span>)<br>    scheduler.add_job(server_jiang_push, <span class="hljs-string">&#x27;cron&#x27;</span>, day_of_week=<span class="hljs-string">&#x27;0-6&#x27;</span>, hour=<span class="hljs-number">22</span>, minute=<span class="hljs-number">21</span>)<br>    scheduler.start()<br><br><span class="hljs-keyword">if</span> __name__==<span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    job()<br></code></pre></td></tr></table></figure>
+              <h1>第 1章 Kafka 概述</h1>
+<h2 id="1-1-定义"><strong>1.1</strong> <strong>定义</strong></h2>
+<p>Kafka 是一个分布式的基于发布/订阅模式的消息队列（Message Queue），主要应用于大数据实时处理领域。</p>
+<h2 id="1-2-消息队列"><strong>1.2</strong> <strong>消息队列</strong></h2>
+<h3 id="1-2-1-传统消息队列的应用场景"><strong>1.2.1</strong> 传统消息队列的应用场景</h3>
+<img src="/dajiangdahe/2022/01/04/kafka%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20220104190400222.png" class="" title="image-20220104190400222"> 
+<p><strong>使用消息队列的好处</strong></p>
+<p>1） 解耦</p>
+<p>允许你独立的扩展或修改两边的处理过程，只要确保它们遵守同样的接口约束。</p>
+<p>2） 可恢复性</p>
+<p>系统的一部分组件失效时，不会影响到整个系统。消息队列降低了进程间的耦合度，所以即使一个处理消息的进程挂掉，加入队列中的消息仍然可以在系统恢复后被处理。</p>
+<p>3） 缓冲</p>
+<p>有助于控制和优化数据流经过系统的速度，解决生产消息和消费消息的处理速度不一致 的情况。</p>
+<p>4）灵活性   &amp;  峰值处理能力</p>
+<p>在访问量剧增的情况下，应用仍然需要继续发挥作用，但是这样的突发流量并不常见。 如果为以能处理这类峰值访问为标准来投入资源随时待命无疑是巨大的浪费。使用消息队列 能够使关键组件顶住突发的访问压力，而不会因为突发的超负荷的请求而完全崩溃。</p>
+<p>5）异步通信</p>
+<p>很多时候，用户不想也不需要立即处理消息。消息队列提供了异步处理机制，允许用户 把一个消息放入队列，但并不立即处理它。想向队列中放入多少消息就放多少，然后在需要 的时候再去处理它们。</p>
+<h3 id="1-2-2-消息队列的两种模式">1.2.2  消息队列的两种模式</h3>
+<p><strong>（1）点对点模式（一对一，消费者主动拉取数据，消息收到后消息清除）</strong></p>
+<p>消息生产者生产消息发送到 Queue 中，然后消息消费者从 Queue 中取出并且消费消息。 消息被消费以后，queue 中不再有存储，所以消息消费者不可能消费到已经被消费的消息。 Queue 支 持 存 在 多 个 消 费 者 ， 但 是 对 一 个 消 息 而 言 ， 只 会 有 一 个 消 费 者 可 以 消 费 。</p>
+<img src="/dajiangdahe/2022/01/04/kafka%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20220104190607741.png" class="" title="image-20220104190607741">
+<p><strong>（2）发布/订阅模式（一对多，消费者消费数据之后不会清除消息）</strong><br>
+消息生产者（发布）将消息发布到  topic 中，同时有多个消息消费者（订阅）消费该消 息。和点对点方式不同，发布到  topic 的消息会被所有订阅者消费。</p>
+<img src="/dajiangdahe/2022/01/04/kafka%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20220104190623124.png" class="" title="image-20220104190623124">
+<h3 id="1-3-Kafka-基础架构">1.3 Kafka 基础架构</h3>
+<img src="/dajiangdahe/2022/01/04/kafka%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20220104190748143.png" class="" title="image-20220104190748143">
+<p>1）<strong>Producer</strong>  ：消息生产者，就是向  kafka broker 发消息的客户端；</p>
+<p>2）<strong>Consumer</strong>  ：消息消费者，向  kafka broker 取消息的客户端；</p>
+<p>3）<strong>Consumer Group  （CG</strong>）：消费者组，由多个 consumer 组成。消费者组内每个消费者负 责消费不同分区的数据，一个分区只能由一个组内消费者消费；消费者组之间互不影响。所 有的消费者都属于某个消费者组，即消费者组是逻辑上的一个订阅者。</p>
+<p>4）<strong>Broker</strong>  ：一台 kafka 服务器就是一个 broker。一个集群由多个 broker 组成。一个 broker可以容纳多个 topic。</p>
+<p>5）<strong>Topic</strong>  ：可以理解为一个队列，生产者和消费者面向的都是一个  topic；</p>
+<p>6）<strong>Partition</strong>：为了实现扩展性，一个非常大的 topic 可以分布到多个 broker（即服务器）上，一个 topic 可以分为多个  partition，每个 partition 是一个有序的队列；</p>
+<p>7）<strong>Replica</strong>：副本，为保证集群中的某个节点发生故障时，该节点上的 partition 数据不丢失，且 kafka 仍然能够继续工作，kafka 提供了副本机制，一个 topic 的每个分区都有若干个副本， 一个 leader 和若干个 follower。</p>
+<p>8）<strong>leader</strong>：每个分区多个副本的“主”，生产者发送数据的对象，以及消费者消费数据的对象都是 leader。</p>
+<p>9）<strong>follower</strong>：每个分区多个副本中的“从”，实时从 leader 中同步数据，保持和 leader 数据的同步。leader 发生故障时，某个  follower 会成为新的  follower。</p>
+<h1>第  2 章    Kafka 快速入门</h1>
+<h2 id="2-1-安装部署">2.1 安装部署</h2>
+<p><a href="https://kengkengya.github.io/dajiangdahe/2022/01/03/zookeeper_kafka_kafka-Manager%E5%8D%95%E6%9C%BA%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/">Zookeeper_kafka_kafka-Manager单机伪集群环境安装</a></p>
+<h2 id="2-2-Kafka-命令行操作">2.2 Kafka 命令行操作</h2>
+<ol>
+<li>
+<p>查看当前服务器里所有的<code>topics</code>:</p>
+<figure class="highlight shell"><figcaption><span>l</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">/opt/kafka_2.13-2.8.1 # bin/kafka-topics.sh   --zookeeper 10.121.17.138:2181 --list<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>创建<code>tpoic</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">/opt/kafka_2.13-2.8.1 # bin/kafka-topics.sh --create  --zookeeper 10.121.17.138:2181 --topic first --partitions 2 --replication-factor 2<br>Created topic first.<br></code></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>​		选项说明：<br>
+​					--topic  定义 topic 名</p>
+<p>​			--replication-factor    定义副本数</p>
+<p>​			--partitions    定义分区数</p>
+<ol start="3">
+<li>
+<p>删除<code>topic</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">/opt/kafka_2.13-2.8.1 # bin/kafka-topics.sh --delete  --zookeeper 10.121.17.138:2181 --topic first<br>Topic first is marked for deletion.<br>Note: This will have no impact if delete.topic.enable is not set to true.<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查看<code>topic</code>详细信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell">/opt/kafka_2.13-2.8.1 # bin/kafka-topics.sh --describe  --zookeeper 10.121.17.138:2181 --topic first<br><br>Topic: first	TopicId: h7I5zqd-R7Sj3hd-P7q1gQ	PartitionCount: 2	ReplicationFactor: 2	Configs:<br>	Topic: first	Partition: 0	Leader: 1	Replicas: 0,1	Isr: 1,0<br>	Topic: first	Partition: 1	Leader: 2	Replicas: 1,2	Isr: 2,1<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>发送消息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">bin/kafka-console-producer.sh --broker-list 10.121.17.138:9092 --topic first<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>消费消息（必须先开启消息，再启动生产者）</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">bin/kafka-console-consumer.sh  --zookeeper 10.121.17.138:2181 --topic first --from-beginning<br></code></pre></td></tr></table></figure>
+<p>–from-beginning：会把主题中以往所有的数据都读取出来</p>
+</li>
+<li>
+<p>修改分区数</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">bin/kafka-topics.sh   --zookeeper 10.121.17.138:2181 --alter --topic first --partitions 6<br></code></pre></td></tr></table></figure>
+</li>
+</ol>
 
             </div>
             <hr>
@@ -261,7 +334,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/dajiangdahe/categories/%E8%84%9A%E6%9C%AC/">脚本</a>
+                      <a class="hover-with-bg" href="/dajiangdahe/categories/kafka/">kafka</a>
                     
                   </div>
                 
@@ -269,7 +342,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/dajiangdahe/tags/%E5%AE%9A%E6%97%B6%E6%8F%90%E9%86%92%E8%84%9A%E6%9C%AC/">定时提醒脚本</a>
+                      <a class="hover-with-bg" href="/dajiangdahe/tags/kafka/">kafka</a>
                     
                   </div>
                 
@@ -286,18 +359,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/dajiangdahe/2022/01/03/zookeeper_kafka_kafka-Manager%E5%8D%95%E6%9C%BA%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Zookeeper_kafka_kafka-Manager单机集群环境安装</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/dajiangdahe/2021/12/26/%E3%80%90%E6%94%BF%E6%B2%BB%E3%80%911984/">
-                        <span class="hidden-mobile">1984</span>
+                      <a href="/dajiangdahe/2022/01/03/zookeeper_kafka_kafka-Manager%E5%8D%95%E6%9C%BA%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/">
+                        <span class="hidden-mobile">Zookeeper_kafka_kafka-Manager单机集群环境安装</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
