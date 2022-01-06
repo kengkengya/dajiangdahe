@@ -192,7 +192,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      4.4k 字
+      10.5k 字
     </span>
   
 
@@ -202,7 +202,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      50
+      120
        分钟
     </span>
   
@@ -244,7 +244,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：5 小时前
+                  本文最后更新于：几秒前
                 
               </p>
             
@@ -373,7 +373,7 @@
 <h3 id="3-2-2-数据可靠性保证">3.2.2  数据可靠性保证</h3>
 <p>为保证 <code>producer</code> 发送的数据，能可靠的发送到指定的 <code>topic</code>，<code>topic</code> 的每个 <code>partition</code> 收到 <code>producer</code> 发送的数据后，都需要向 <code>producer</code> 发送 <code>ack</code>（<code>acknowledgement</code> 确认收到），如果 <code>producer</code> 收到 <code>ack</code>，就会进行下一轮的发送，否则重新发送数据。</p>
 <img src="/dajiangdahe/2022/01/04/kafka%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20220105161526377.png" class="" title="image-20220105161526377">
-<p>1）副本数据同步策略</p>
+<p><strong>1）副本数据同步策略</strong></p>
 <table>
 <thead>
 <tr>
@@ -406,7 +406,7 @@
 <li>全部同步才发送<code>ack</code>的方案：因为是所有的<code>follower</code>都同步好了，参照上面的解释，我们就仅仅需要N+1个副本就好。</li>
 </ul>
 </blockquote>
-<p>2）ISR</p>
+<p><strong>2）ISR</strong></p>
 <p>采用第二种方案之后，设想以下情景：<code>leader</code> 收到数据，所有 <code>follower</code> 都开始同步数据， 但有一个 <code>follower</code>，因为某种故障，迟迟不能与 <code>leader</code> 进行同步，那 <code>leader</code> 就要一直等下去， 直到它完成同步，才能发送 <code>ack</code>。这个问题怎么解决呢？</p>
 <p><code>Leader</code> 维护了一个动态的 <code>in-sync replica set (ISR)</code>，意为和 <code>leader</code> 保持同步的 <code>follower</code> 集 合。当 <code>ISR</code> 中的 <code>follower</code> 完成数据的同步之后，<code>leader</code> 就会给 <code>follower</code> 发送 <code>ack</code>。如果 <code>follower</code> 长时间未 向 <code>leader</code> 同 步 数 据 ， 则 该 <code>follower</code> 将 被 踢 出<code> ISR</code> ， 该 时 间 阈 值 由<code>replica.lag.time.max.ms</code> 参数设定。<code>Leader</code> 发生故障之后，就会从  <code>ISR</code> 中选举新的  <code>leader</code>。</p>
 <p>默认情况下<code>Kafka</code>的<code>replica</code>数量为1，即每个<code>partition</code>都有一个唯一的<code>leader</code>，为了确保消息的可靠性，通常应用中将其值(由<code>broker</code>的参数<code>offsets.topic.replication.factor</code>指定)大小设置为大于1，比如3。 所有的副本（<code>replicas</code>）统称为<code>Assigned Replicas</code>，即<code>AR</code>。<code>ISR</code>是<code>AR</code>中的一个子集，由<code>leader</code>维护<code>ISR</code>列表，<code>follower</code>从<code>leader</code>同步数据有一些延迟（包括延迟时间<code>replica.lag.time.max.ms</code>和延迟条数<code>replica.lag.max.messages</code>两个维度, 当前最新的版本<code>0.10.x</code>中只支持<code>replica.lag.time.max.ms</code>这个维度），任意一个超过阈值都会把<code>follower</code>剔除出<code>ISR</code>, 存入<code>OSR</code>（<code>Outof-Sync Replicas</code>）列表，新加入的<code>follower</code>也会先存放在<code>OSR</code>中。<code>AR=ISR+OSR</code>。</p>
@@ -415,6 +415,220 @@
 <blockquote>
 <p><code>ISR</code>包括<code>leader</code>和<code>follow</code></p>
 </blockquote>
+<p><strong>3）<code>ack</code> 应答机制</strong><br>
+对于某些不太重要的数据，对数据的可靠性要求不是很高，能够容忍数据的少量丢失， 所以没必要等 <code>ISR</code> 中的  <code>follower</code> 全部接收成功。所以  <code>Kafka</code> 为用户提供了三种可靠性级别，用户根据对可靠性和延迟的要求进行权衡， 选择以下的配置。</p>
+<p>当<code>producer</code>向<code>leader</code>发送数据时，可以通过<code>request.required.acks</code>参数来设置数据可靠性的级别：</p>
+<ul>
+<li><strong>1</strong>（默认）：这意味着<code>producer</code>在<code>ISR</code>中的<code>leader</code>已成功收到数据并得到确认。如果<code>leader</code>宕机了，则会丢失数据。</li>
+<li><strong>0</strong>：这意味着<code>producer</code>无需等待来自<code>broker</code>的确认而继续发送下一批消息。这种情况下数据传输效率最高，但是数据可靠性确是最低的。</li>
+<li><strong>-1</strong>：<code>producer</code>需要等待ISR中的所有<code>follower</code>都确认接收到数据后才算一次发送完成，可靠性最高。但是这样也不能保证数据不丢失，比如当<code>ISR</code>中只有<code>leader</code>时（前面<code>ISR</code>那一节讲到，<code>ISR</code>中的成员由于某些情况会增加也会减少，最少就只剩一个<code>leader</code>），这样就变成了<code>acks</code>=1的情况。</li>
+</ul>
+<p>如果要提高数据的可靠性，在设置<code>request.required.acks</code>=-1的同时，也要<code>min.insync.replicas</code>这个参数(可以在<code>broker</code>或者<code>topic</code>层面进行设置)的配合，这样才能发挥最大的功效。<code>min.insync.replicas</code>这个参数设定<code>ISR</code>中的最小副本数是多少，默认值为<code>1</code>，当且仅当<code>request.required.acks</code>参数设置为<code>-1</code>时，此参数才生效。如果ISR中的副本数少于<code>min.insync.replicas</code>配置的数量时，客户端会返回异常：<code>org.apache.kafka.common.errors.NotEnoughReplicasExceptoin</code>: <code>Messages are rejected since there are fewer in-sync replicas than required。</code></p>
+<p>接下来对<code>acks</code>=1和-1的两种情况进行详细分析：</p>
+<p><strong>1. request.required.acks=1</strong></p>
+<p><code>producer</code>发送数据到<code>leader</code>，<code>leader</code>写本地日志成功，返回客户端成功；此时<code>ISR</code>中的副本还没有来得及拉取该消息，<code>leader</code>就宕机了，那么此次发送的消息就会丢失。</p>
+<img src="/dajiangdahe/2022/01/04/kafka%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/format,png-1439968.png" class="" title="这里写图片描述">
+<ol start="2">
+<li><strong>request.required.acks=-1</strong></li>
+</ol>
+<p>同步（<code>Kafka</code>默认为同步，即<code>producer.type=sync</code>）的发送模式，<code>replication.factor&gt;=2</code>且<code>min.insync.replicas&gt;=2</code>的情况下，不会丢失数据。</p>
+<p>有两种典型情况。<code>acks=-1</code>的情况下（如无特殊说明，以下<code>acks</code>都表示为参数<code>request.required.acks</code>），数据发送到<code>leader</code>, <code>ISR</code>的<code>follower</code>全部完成数据同步后，<code>leader</code>此时挂掉，那么会选举出新的<code>leader</code>，数据不会丢失。</p>
+<img src="/dajiangdahe/2022/01/04/kafka%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/format,png-20220106113345033.png" class="" title="这里写图片描述">
+<p><code>acks</code>=-1的情况下，数据发送到<code>leader</code>后 ，部分<code>ISR</code>的副本同步，<code>leader</code>此时挂掉。比如<code>follower1</code>和<code>follower2</code>都有可能变成新的<code>leader</code>, <code>producer</code>端会得到返回异常，<code>producer</code>端会重新发送数据，数据可能会重复。</p>
+<img src="/dajiangdahe/2022/01/04/kafka%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/format,png-20220106113413975.png" class="" title="这里写图片描述">
+<p>当然上图中如果在<code>leader crash</code>的时候，<code>follower2</code>还没有同步到任何数据，而且<code>follower2</code>被选举为新的<code>leader</code>的话，这样消息就不会重复。</p>
+<blockquote>
+<p>注：Kafka只处理fail/recover问题,不处理Byzantine问题。</p>
+</blockquote>
+<h3 id="3-2-3-关于HW的进一步探讨">3.2.3 关于HW的进一步探讨</h3>
+<p>考虑上图（即<code>acks=-1</code>,部分<code>ISR</code>副本同步）中的另一种情况，如果在<code>Leader</code>挂掉的时候，<code>follower1</code>同步了消息4,5，<code>follower2</code>同步了消息4，与此同时<code>follower2</code>被选举为<code>leader</code>，那么此时<code>follower1</code>中的多出的消息5该做如何处理呢？</p>
+<p>这里就需要<code>HW</code>的协同配合了。如前所述，一个<code>partition</code>中的<code>ISR</code>列表中，<code>leader</code>的<code>HW</code>是所有<code>ISR</code>列表里副本中最小的那个的<code>LEO</code>。类似于木桶原理，水位取决于最低那块短板。</p>
+<img src="/dajiangdahe/2022/01/04/kafka%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/format,png-20220106113832317.png" class="" title="这里写图片描述">
+<p>如上图，某个<code>topic</code>的某<code>partition</code>有三个副本，分别为A、B、C。A作为<code>leader</code>肯定是<code>LEO</code>最高，B紧随其后，C机器由于配置比较低，网络比较差，故而同步最慢。这个时候A机器宕机，这时候如果B成为<code>leader</code>，假如没有<code>HW</code>，在A重新恢复之后会做同步(<code>makeFollower</code>)操作，在宕机时<code>log</code>文件之后直接做追加操作，而假如B的<code>LEO</code>已经达到了A的<code>LEO</code>，会产生数据不一致的情况，所以使用<code>HW</code>来避免这种情况。<br>
+A在做同步操作的时候，先将<code>log</code>文件截断到之前自己的<code>HW</code>的位置，即3，之后再从B中拉取消息进行同步。</p>
+<p>如果失败的<code>follower</code>恢复过来，它首先将自己的<code>log</code>文件截断到上次<code>checkpointed</code>时刻的<code>HW</code>的位置，之后再从<code>leader</code>中同步消息。<code>leader</code>挂掉会重新选举，新的<code>leader</code>会发送“指令”让其余的<code>follower</code>截断至自身的<code>HW</code>的位置然后再拉取新的消息。</p>
+<blockquote>
+<p>当ISR中的个副本的LEO不一致时，如果此时leader挂掉，选举新的leader时并不是按照LEO的高低进行选举，而是按照ISR中的顺序选举。</p>
+</blockquote>
+<h3 id="3-2-4-消息传输保障">3.2.4 消息传输保障</h3>
+<p>将服务器的 <code>ACK</code> 级别设置为-1，可以保证 <code>Producer</code> 到 <code>Server</code> 之间不会丢失数据，即 <code>At Least Once </code>语义。相对的，将服务器 <code>ACK</code> 级别设置为 0，可以保证生产者每条消息只会被 发送一次，即 <code>At Most Once</code> 语义。</p>
+<p><code>At Least Once</code> 可以保证数据不丢失，但是不能保证数据不重复；相对的，<code>At Least Once</code> 可以保证数据不重复，但是不能保证数据不丢失。但是，对于一些非常重要的信息，比如说 交易数据，下游数据消费者要求数据既不重复也不丢失，即 <code>Exactly Once</code> 语义。在 0.11 版 本以前的 <code>Kafka</code>，对此是无能为力的，只能保证数据不丢失，再在下游消费者对数据做全局 去重。对于多个下游应用的情况，每个都需要单独做全局去重，这就对性能造成了很大影响。0.11 版本的 <code>Kafka</code>，引入了一项重大特性：幂等性。所谓的幂等性就是指 <code>Producer</code> 不论 向 <code>Server</code> 发送多少次重复数据，<code>Server</code> 端都只会持久化一条。幂等性结合 <code>At Least Once </code>语 义，就构成了 <code>Kafka</code> 的 <code>Exactly Once </code>语义。即：<br>
+$$<br>
+At Least Once + 幂等性   = Exactly Once<br>
+$$<br>
+要启用幂等性，只需要将 <code>Producer</code> 的参数中 <code>enable.idompotence </code>设置为 <code>true</code> 即可。<code>Kafka</code> 的幂等性实现其实就是将原来下游需要做的去重放在了数据上游。开启幂等性的 <code>Producer</code> 在 初始化的时候会被分配一个 <code>PID</code>，发往同一 <code>Partition</code> 的消息会附带 <code>Sequence Number</code>。而 <code>Broker</code> 端会对<code>&lt;PID, Partition, SeqNumber&gt;</code>做缓存，当具有相同主键的消息提交时，<code>Broker</code> 只 会持久化一条。</p>
+<p>但是 <code>PID</code> 重启就会变化，同时不同的 <code>Partition</code> 也具有不同主键，所以幂等性无法保证跨分区跨会话的 <code>Exactly Once</code>。</p>
+<h3 id="3-2-5-消息去重">3.2.5 消息去重</h3>
+<p>如上一节所述，<code>Kafka</code>在<code>producer</code>端和<code>consumer</code>端都会出现消息的重复，这就需要去重处理。</p>
+<p><code>Kafka</code>文档中提及<code>GUID(Globally Unique Identifier)</code>的概念，通过客户端生成算法得到每个消息的<code>unique id</code>，同时可映射至<code>broker</code>上存储的地址，即通过<code>GUID</code>便可查询提取消息内容，也便于发送方的幂等性保证，需要在<code>broker</code>上提供此去重处理模块，目前版本尚不支持。</p>
+<p>针对<code>GUID</code>, 如果从客户端的角度去重，那么需要引入集中式缓存，必然会增加依赖复杂度，另外缓存的大小难以界定。</p>
+<p>不只是<code>Kafka</code>, 类似<code>RabbitMQ</code>以及<code>RocketMQ</code>这类商业级中间件也只保障<code>at least once</code>, 且也无法从自身去进行消息去重。所以我们建议业务方根据自身的业务特点进行去重，比如业务消息本身具备幂等性，或者借助<code>Redis</code>等其他产品进行去重处理。</p>
+<h3 id="3-2-6-高可靠性配置">3.2.6 高可靠性配置</h3>
+<p><code>Kafka</code>提供了很高的数据冗余弹性，对于需要数据高可靠性的场景，我们可以增加数据冗余备份数<code>（replication.factor）</code>，调高最小写入副本数的个数<code>（min.insync.replicas）</code>等等，但是这样会影响性能。反之，性能提高而可靠性则降低，用户需要自身业务特性在彼此之间做一些权衡性选择。</p>
+<p>要保证数据写入到<code>Kafka</code>是安全的，高可靠的，需要如下的配置：</p>
+<p><code>topic</code>的配置：<code>replication.factor&gt;=3</code>,即副本数至少是3个；<code>2&lt;=min.insync.replicas&lt;=replication.factor</code><br>
+<code>broker</code>的配置：<code>leader</code>的选举条件<code>unclean.leader.election.enable=false</code><br>
+<code>producer</code>的配置：<code>request.required.acks=-1(all)，producer.type=sync</code></p>
+<h2 id="3-3-Kafka-消费者">3.3 Kafka 消费者</h2>
+<h3 id="3-3-1-消费方式">3.3.1  消费方式</h3>
+<p><code>consumer</code> 采用<code>  pull</code>（拉）模式从 <code>broker</code> 中读取数据。<code>push</code>（推）模式很难适应消费速率不同的消费者，因为消息发送速率是由  <code>broker</code> 决定的。它的目标是尽可能以最快速度传递消息，但是这样很容易造成 <code>consumer</code> 来不及处理消息，典型的表现就是拒绝服务以及网络拥塞。而  <code>pull</code> 模式则可以根据  <code>consumer</code> 的消费能力以适 当的速率消费消息。<code>pull</code> 模式不足之处是，如果 <code>kafka</code> 没有数据，消费者可能会陷入循环中，一直返回空数 据。针对这一点，<code>Kafka</code> 的消费者在消费数据时会传入一个时长参数 <code>timeout</code>，如果当前没有 数据可供消费，<code>consumer</code> 会等待一段时间之后再返回，这段时长即为 <code>timeout</code>。</p>
+<h3 id="3-3-2-分区分配策略">3.3.2  分区分配策略</h3>
+<p>一个  <code>consumer group</code> 中有多个 <code>consumer</code>，一个   <code>topic</code> 有多个 <code>partition</code>，所以必然会涉及 到 <code>partition</code> 的分配问题，即确定那个  <code>partition</code> 由哪个  <code>consumer</code> 来消费。<code>Kafka</code> 有两种分配策略，一是  <code>RoundRobin</code>，一是 <code>Range</code>。默认采用 <code>Range</code> 范围分区。 <code>Kafka</code>提供了消费者客户端参数 <code>partition.assignment.strategy</code> 用来设置消费者与订阅主题之间的分区分配策略。默认情况下，此参数的值为：<code>org.apache.kafka.clients.consumer.RangeAssignor</code>，即采用<code>RangeAssignor</code>分配策略。</p>
+<p><strong>1）RoundRobin</strong></p>
+<img src="/dajiangdahe/2022/01/04/kafka%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20220106142144381.png" class="" title="image-20220106142144381">
+<p><code>RoundRobin</code> 轮询分区策略，是把所有的 <code>partition</code> 和所有的 <code>consumer</code> 都列出来，然后按照 <code>hascode</code> 进行排序，最后通过轮询算法来分配 <code>partition</code> 给到各个消费者。</p>
+<p>轮询分区分为如下两种情况：①同一消费组内所有消费者订阅的消息都是相同的    ②同一消费者组内的消费者组订阅的消息不相同</p>
+<p>①如果同一消费组内，所有的消费者订阅的消息都是相同的，那么 <code>RoundRobin</code> 策略的分区分配会是均匀的。</p>
+<p>例如：同一消费者组中，有 3 个消费者C0、C1和C2，都订阅了 2 个主题 t0  和 t1，并且每个主题都有 3 个分区(p0、p1、p2)，那么所订阅的所以分区可以标识为<code>t0p0、t0p1、t0p2、t1p0、t1p1、t1p2</code>。最终分区分配结果如下：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th style="text-align:center">RoundRobin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>消费者C0</td>
+<td style="text-align:center">消费 t0p0 、t1p0 分区</td>
+</tr>
+<tr>
+<td>消费者C1</td>
+<td style="text-align:center">消费 t0p1 、t1p1 分区</td>
+</tr>
+<tr>
+<td>消费者C2</td>
+<td style="text-align:center">消费 t0p2 、t1p2 分区</td>
+</tr>
+</tbody>
+</table>
+<p>②如果同一消费者组内，所订阅的消息是不相同的，那么在执行分区分配的时候，就不是完全的轮询分配，有可能会导致分区分配的不均匀。如果某个消费者没有订阅消费组内的某个 topic，那么在分配分区的时候，此消费者将不会分配到这个 <code>topic</code> 的任何分区。</p>
+<p>例如：同一消费者组中，有3个消费者C0、C1和C2，他们共订阅了 3 个主题：t0、t1 和 t2，这 3 个主题分别有 1、2、3 个分区(即:t0有1个分区<code>(p0)</code>，t1有2个分区<code>(p0、p1)</code>，t2有3个分区<code>(p0、p1、p2))</code>，即整个消费者所订阅的所有分区可以标识为 <code>t0p0、t1p0、t1p1、t2p0、t2p1、t2p2</code>。具体而言，消费者C0订阅的是主题t0，消费者C1订阅的是主题t0和t1，消费者C2订阅的是主题t0、t1和t2，最终分区分配结果如下：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th style="text-align:center">RoundRobin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>消费者C0</td>
+<td style="text-align:center">消费 t0p0</td>
+</tr>
+<tr>
+<td>消费者C1</td>
+<td style="text-align:center">消费 t1p0 分区</td>
+</tr>
+<tr>
+<td>消费者C2</td>
+<td style="text-align:center">消费 t1p1、t2p0、t2p1、t2p2 分区</td>
+</tr>
+</tbody>
+</table>
+<p><strong>RoundRobin轮询分区的弊端：</strong></p>
+<blockquote>
+<p>从如上实例，可以看到RoundRobin策略也并不是十分完美，这样分配其实并不是最优解，因为完全可以将分区 t1p1 分配给消费者 C1。</p>
+<p>所以，如果想要使用RoundRobin 轮询分区策略，必须满足如下两个条件：</p>
+<p>①每个消费者订阅的主题，必须是相同的</p>
+<p>②每个主题的消费者实例都是相同的。(即：上面的第一种情况，才优先使用 RoundRobin 轮询分区策略)</p>
+</blockquote>
+<p><strong>2）Range</strong></p>
+<img src="/dajiangdahe/2022/01/04/kafka%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20220106142208609.png" class="" title="image-20220106142208609">
+<p><code>Range</code> 范围分区策略是对每个 <code>topic</code> 而言的。首先对同一个 <code>topic</code> 里面的分区按照序号进行排序，并对消费者按照字母顺序进行排序。假如现在有 10 个分区，3 个消费者，排序后的分区将会是0,1,2,3,4,5,6,7,8,9；消费者排序完之后将会是<code>C1-0,C2-0,C3-0</code>。通过 <strong><code>partitions</code>数/<code>consumer</code>数</strong> 来决定每个消费者应该消费几个分区。如果除不尽，那么前面几个消费者将会多消费 1 个分区。</p>
+<blockquote>
+<p>例如，10/3 = 3 余 1 ，除不尽，那么 消费者 C1-0 便会多消费 1 个分区，最终分区分配结果如下：</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th></th>
+<th style="text-align:center">Range分区</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C1-0</td>
+<td style="text-align:center">消费 0,1,2,3 分区</td>
+</tr>
+<tr>
+<td>C2-0</td>
+<td style="text-align:center">消费 4,5,6 分区</td>
+</tr>
+<tr>
+<td>C3-0</td>
+<td style="text-align:center">消费 7,8,9 分区(如果有11 个分区的话，C1-0 将消费0,1,2,3 分区，C2-0 将消费4,5,6,7分区  C3-0 将消费 8,9,10 分区)</td>
+</tr>
+</tbody>
+</table>
+<p><strong><code>Range</code> 范围分区的弊端：</strong></p>
+<blockquote>
+<p>如上，只是针对 1 个 <code>topic</code> 而言，<code>C1-0</code>消费者多消费<code>1</code>个分区影响不是很大。如果有 N 多个 <code>topic</code>，那么针对每个 <code>topic</code>，消费者<code>C1-0</code>都将多消费 1 个分区，<code>topic</code>越多，C1-0 消费的分区会比其他消费者明显多消费 N 个分区。这就是 <code>Range</code> 范围分区的一个很明显的弊端了.</p>
+</blockquote>
+<p><strong>2.什么时候触发分区分配策略</strong><br>
+当出现以下几种情况时，<code>Kafka</code> 会进行一次分区分配操作，即 <code>Kafka</code> 消费者端的 <code>Rebalance</code> 操作</p>
+<p>① 同一个 <code>consumer</code> 消费者组<code>group.id</code>中，新增了消费者进来，会执行 <code>Rebalance</code> 操作</p>
+<p>② 消费者离开当期所属的 <code>consumer group</code>组。比如 主动停机  或者  宕机</p>
+<p>③ 分区数量发生变化时(即 <code>topic</code> 的分区数量发生变化时)</p>
+<p>④ 消费者主动取消订阅</p>
+<p><code>Kafka</code> 消费端的 <code>Rebalance</code> 机制，规定了一个<code>Consumer group</code>下的所有 <code>consumer</code> 如何达成一致来分配订阅 <code>topic</code> 的每一个分区。而具体如何执行分区策略，就是上面提到的 <code>Range</code> 范围分区 和 <code>RoundRobin</code> 轮询分区 两种内置的分区策略。</p>
+<p><code>Kafka</code> 对于分区分配策略这块，也提供了可插拔式的实现方式，除了上面两种分区分配策略外，我们也可以创建满足自己使用的分区分配策略，即：<strong>自定义分区策略</strong></p>
+<h3 id="3-3-3-offset-的维护">3.3.3 offset 的维护</h3>
+<p>由于 <code>consumer</code> 在消费过程中可能会出现断电宕机等故障，<code>consumer</code> 恢复后，需要从故障前的位置的继续消费，所以 <code>consumer</code> 需要实时记录自己消费到了哪个 <code>offset</code>，以便故障恢 复后继续消费。</p>
+<img src="/dajiangdahe/2022/01/04/kafka%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20220106142242884.png" class="" title="image-20220106142242884">
+<p><code>Kafka 0.9</code> 版本之前，<code>consumer</code> 默认将  <code>offset</code> 保存在  <code>Zookeeper</code> 中，从  <code>0.9 </code>版本开始， <code>consumer</code> 默认将 <code>offset</code> 保存在 <code>Kafka</code> 一个内置的  <code>topic</code> 中，该 <code>topic</code> 为<code>__consumer_offsets</code>。</p>
+<p>1）修改配置文件 consumer.properties</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">exclude.internal.topics</span>=<span class="hljs-literal">false</span><br></code></pre></td></tr></table></figure>
+<p>2）读取 offset 0.11.0.0 之前版本:</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">bin/kafka-console-consumer.sh   <span class="hljs-params">--topic</span>   __consumer_offsets   <span class="hljs-params">--hadoop102</span><span class="hljs-function">:2181</span> zookeeper <span class="hljs-params">--formatter</span> <span class="hljs-string">&quot;kafka.coordinator.GroupMetadataManager\$OffsetsMessageFormatter&quot;</span> <span class="hljs-params">--consumer</span>.config config/consumer.properties <span class="hljs-params">--from-beginning</span><br></code></pre></td></tr></table></figure>
+<p>0.11.0.0 之后版本(含):</p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig"><span class="hljs-string">bin</span>/<span class="hljs-string">kafka-console-consumer</span>.<span class="hljs-string">sh</span>   <span class="hljs-built_in">--topic</span>   <span class="hljs-string">__consumer_offsets</span>   <span class="hljs-built_in">--hadoop102:2181</span> <span class="hljs-string">zookeeper</span> <br><span class="hljs-built_in">--formatter</span> <span class="hljs-string">&quot;kafka.coordinator.group.GroupMetadataManager\$OffsetsMessageForm atter&quot;</span>  <span class="hljs-built_in">--consumer.config</span>  <span class="hljs-string">config</span>/<span class="hljs-string">consumer</span>.<span class="hljs-string">properties</span> <span class="hljs-built_in">--from-</span> <span class="hljs-string">beginning</span><br></code></pre></td></tr></table></figure>
+<h2 id="3-4-Leader选举">3.4 Leader选举</h2>
+<p>一条消息只有被<code>ISR</code>中的所有<code>follower</code>都从<code>leader</code>复制过去才会被认为已提交。这样就避免了部分数据被写进了<code>leader</code>，还没来得及被任何<code>follower</code>复制就宕机了，而造成数据丢失。而对于<code>producer</code>而言，它可以选择是否等待消息<code>commit</code>，这可以通过<code>request.required.acks</code>来设置。这种机制确保了只要<code>ISR</code>中有一个或者以上的<code>follower</code>，一条被<code>commit</code>的消息就不会丢失。</p>
+<p>有一个很重要的问题是当<code>leader</code>宕机了，怎样在<code>follower</code>中选举出新的<code>leader</code>，因为<code>follower</code>可能落后很多或者直接<code>crash</code>了，所以必须确保选择“最新”的<code>follower</code>作为新的<code>leader</code>。一个基本的原则就是，如果<code>leader</code>不在了，新的<code>leader</code>必须拥有原来的<code>leader commit</code>的所有消息。这就需要做一个折中，如果<code>leader</code>在一个消息被<code>commit</code>前等待更多的<code>follower</code>确认，那么在它挂掉之后就有更多的follower可以成为新的<code>leader</code>，但这也会造成吞吐率的下降。</p>
+<p>一种非常常用的选举<code>leader</code>的方式是“少数服从多数”，<code>Kafka</code>并不是采用这种方式。这种模式下，如果我们有2f+1个副本，那么在<code>commit</code>之前必须保证有f+1个<code>replica</code>复制完消息，同时为了保证能正确选举出新的<code>leader</code>，失败的副本数不能超过f个。这种方式有个很大的优势，系统的延迟取决于最快的几台机器，也就是说比如副本数为3，那么延迟就取决于最快的那个<code>follower</code>而不是最慢的那个。“少数服从多数”的方式也有一些劣势，为了保证<code>leader</code>选举的正常进行，它所能容忍的失败的<code>follower</code>数比较少，如果要容忍1个<code>follower</code>挂掉，那么至少要3个以上<code>的</code>副本，如果要容忍2个<code>follower</code>挂掉，必须要有5个以上的副本。也就是说，在生产环境下为了保证较高的容错率，必须要有大量的副本，而大量的副本又会在大数据量下导致性能的急剧下降。这种算法更多用在<code>Zookeeper</code>这种共享集群配置的系统中而很少在需要大量数据的系统中使用的原因。<code>HDFS</code>的<code>HA</code>功能也是基于“少数服从多数”的方式，但是其数据存储并不是采用这样的方式。</p>
+<p>实际上，<code>leader</code>选举的算法非常多，比如<code>Zookeeper</code>的<code>Zab</code>、<code>Raft</code>以及<code>Viewstamped Replication</code>。而<code>Kafka</code>所使用的<code>leader</code>选举算法更像是微软的<code>PacificA</code>算法。</p>
+<p><code>Kafka</code>在<code>Zookeeper</code>中为每一个<code>partition</code>动态的维护了一个<code>ISR</code>，这个<code>ISR</code>里的所有<code>replica</code>都跟上了<code>leader</code>，只有<code>ISR</code>里的成员才能有被选为<code>leader</code>的可能（<code>unclean.leader.election.enable=false</code>）。在这种模式下，对于f+1个副本，一个<code>Kafka topic</code>能在保证不丢失已经<code>commit</code>消息的前提下容忍f个副本的失败，在大多数使用场景下，这种模式是十分有利的。事实上，为了容忍f个副本的失败，“少数服从多数”的方式和ISR在<code>commit</code>前需要等待的副本的数量是一样的，但是ISR需要的总的副本的个数几乎是“少数服从多数”的方式的一半。</p>
+<p>上文提到，在<code>ISR</code>中至少有一个<code>follower</code>时，<code>Kafka</code>可以确保已经<code>commit</code>的数据不丢失，但如果某一个<code>partition</code>的所有<code>replica</code>都挂了，就无法保证数据不丢失了。这种情况下有两种可行的方案：</p>
+<p>等待<code>ISR</code>中任意一个<code>replica</code>“活”过来，并且选它作为<code>leader</code>选择第一个“活”过来的<code>replica</code>（并不一定是在<code>ISR</code>中）作为<code>leader</code>这就需要在可用性和一致性当中作出一个简单的抉择。如果一定要等待<code>ISR</code>中的<code>replica</code>“活”过来，那不可用的时间就可能会相对较长。而且如果<code>ISR</code>中所有的<code>replica</code>都无法“活”过来了，或者数据丢失了，这个<code>partition</code>将永远不可用。选择第一个“活”过来的<code>replica</code>作为<code>leader</code>,而这个<code>replica</code>不是ISR中的<code>replica</code>,那即使它并不保障已经包含了所有已<code>commit</code>的消息，它也会成为<code>leader</code>而作为<code>consumer</code>的数据源。默认情况下，<code>Kafka</code>采用第二种策略，即<code>unclean.leader.election.enable=true</code>，也可以将此参数设置为false来启用第一种策略。</p>
+<p><code>unclean.leader.election.enable</code>这个参数对于<code>leader</code>的选举、系统的可用性以及数据的可靠性都有至关重要的影响。下面我们来分析下几种典型的场景。</p>
+<img src="/dajiangdahe/2022/01/04/kafka%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/format,png-20220106142829417.png" class="" title="这里写图片描述">
+<p>如果上图所示，假设某个<code>partition</code>中的副本数为3，<code>replica-0, replica-1, replica-2</code>分别存放在<code>broker0, broker1</code>和<code>broker2</code>中。<code>AR=(0,1,2)，ISR=(0,1)</code>。<br>
+设置<code>request.required.acks=-1, min.insync.replicas=2，unclean.leader.election.enable=false</code>。这里将<code>broker0</code>中的副本也称之为<code>broker0</code>起初<code>broker0</code>为<code>leader</code>，<code>broker1</code>为<code>follower</code>。</p>
+<ul>
+<li>
+<p>当<code>ISR</code>中的<code>replica-0</code>出现<code>crash</code>的情况时，<code>broker1</code>选举为新的<code>leader[ISR=(1)]</code>，因为受<code>min.insync.replicas=2</code>影响，<code>write</code>不能服务，但是<code>read</code>能继续正常服务。此种情况恢复方案：</p>
+<ol>
+<li>尝试恢复(重启)<code>replica-0</code>，如果能起来，系统正常；</li>
+<li>如果<code>replica-0</code>不能恢复，需要将<code>min.insync.replicas</code>设置为1，恢复<code>write</code>功能。</li>
+</ol>
+</li>
+<li>
+<p>当<code>ISR</code>中的<code>replica-0</code>出现<code>crash</code>，紧接着<code>replica-1</code>也出现了<code>crash</code>, 此时<code>[ISR=(1),leader=-1]</code>,不能对外提供服务，此种情况恢复方案：</p>
+<ol>
+<li>尝试恢复<code>replica-0</code>和<code>replica-1</code>，如果都能起来，则系统恢复正常；</li>
+<li>如果<code>replica-0</code>起来，而<code>replica-1</code>不能起来，这时候仍然不能选出<code>leader</code>，因为当设置<code>unclean.leader.election.enable=false</code>时，<code>leader</code>只能从<code>ISR</code>中选举，当<code>ISR</code>中所有副本都失效之后，需要<code>ISR</code>中最后失效的那个副本能恢复之后才能选举<code>leader</code>, 即<code>replica-0</code>先失效，<code>replica-1</code>后失效，需要<code>replica-1</code>恢复后才能选举<code>leader</code>。保守的方案建议<code>unclean.leader.election.enable</code>设置为<code>true</code>,但是这样会有丢失数据的情况发生，这样可以恢复<code>read</code>服务。同样需要将<code>min.insync.replicas</code>设置为1，恢复<code>write</code>功能；</li>
+<li><code>replica-1</code>恢复，<code>replica-0</code>不能恢复，这个情况上面遇到过，<code>read</code>服务可用，需要将<code>min.insync.replicas</code>设置为1，恢复<code>write</code>功能；</li>
+<li><code>replica-0</code>和<code>replica-1</code>都不能恢复，这种情况可以参考情形2.</li>
+</ol>
+</li>
+<li>
+<p>当<code>ISR</code>中的<code>replica-0, replica-1</code>同时宕机,此时<code>[ISR=(0,1)]</code>,不能对外提供服务，此种情况恢复方案：尝试恢复<code>replica-0</code>和<code>replica-1</code>，当其中任意一个副本恢复正常时，对外可以提供<code>read</code>服务。直到2个副本恢复正常，<code>write</code>功能才能恢复，或者将将<code>min.insync.replicas</code>设置为1。</p>
+<img src="/dajiangdahe/2022/01/04/kafka%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20220106145637929.png" class="" title="image-20220106145637929">
+</li>
+</ul>
+<h2 id="3-5-Kafka-高效读写数据">3.5 Kafka  高效读写数据</h2>
+<p><strong>1）顺序写磁盘</strong></p>
+<p><code>Kafka</code> 的 <code>producer</code> 生产数据，要写入到 <code>log</code> 文件中，写的过程是一直追加到文件末端， 为顺序写。官网有数据表明，同样的磁盘，顺序写能到  600M/s，而随机写只有  100K/s。这 与磁盘的机械机构有关，顺序写之所以快，是因为其省去了大量磁头寻址的时间。</p>
+<p><strong>2）零复制技术</strong></p>
+<img src="/dajiangdahe/2022/01/04/kafka%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20220106145550166.png" class="" title="image-20220106145550166">
+<h2 id="3-6-Kafka-事务">3.6 Kafka 事务</h2>
+<p><code>Kafka</code> 从 0.11 版本开始引入了事务支持。事务可以保证  <code>Kafka</code> 在 <code>Exactly Once</code> 语义的基 础上，生产和消费可以跨分区和会话，要么全部成功，要么全部失败。</p>
+<h3 id="3-6-1-Producer-事务">3.6.1 Producer 事务</h3>
+<p>为了实现跨分区跨会话的事务，需要引入一个全局唯一的 <code>Transaction ID</code>，并将 <code>Producer</code> 获得的 <code>PID </code>和 <code>Transaction ID</code> 绑定。这样当 <code>Producer</code> 重启后就可以通过正在进行的 <code>Transaction ID </code>获得原来的 <code>PID</code>。</p>
+<p>为了管理 <code>Transaction</code>，<code>Kafka</code> 引入了一个新的组件<code> Transaction Coordinator</code>。<code>Producer</code> 就 是通过和 <code>Transaction Coordinator</code> 交互获得 <code>Transaction ID </code>对应的任务状态。<code>Transaction Coordinator </code>还负责将事务所有写入 <code>Kafka</code> 的一个内部 <code>Topic</code>，这样即使整个服务重启，由于 事务状态得到保存，进行中的事务状态可以得到恢复，从而继续进行。</p>
+<h3 id="3-6-2-Consumer-事务">3.6.2 Consumer 事务</h3>
+<p>上述事务机制主要是从 <code>Producer</code> 方面考虑，对于 <code>Consumer</code> 而言，事务的保证就会相对 较弱，尤其时无法保证 <code>Commit</code> 的信息被精确消费。这是由于 <code>Consumer</code> 可以通过 <code>offset</code> 访 问任意信息，而且不同的 <code>Segment File</code> 生命周期不同，同一事务的消息可能会出现重启后被 删除的情况。</p>
 
             </div>
             <hr>
