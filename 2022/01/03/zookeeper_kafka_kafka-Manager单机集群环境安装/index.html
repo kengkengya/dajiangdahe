@@ -192,7 +192,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.2k 字
+      2.3k 字
     </span>
   
 
@@ -244,7 +244,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：1 分钟前
+                  本文最后更新于：19 小时前
                 
               </p>
             
@@ -263,7 +263,7 @@
 <ul>
 <li>
 <p>这里演示使用。如需高可用，则最好部署多台zk节点。</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile">docker <span class="hljs-keyword">run</span><span class="bash"> -d --name zookeeper -p 2181:2181 -t wurstmeister/zookeeper</span><br><span class="hljs-comment"># ip地址：172.17.0.2</span><br>docker <span class="hljs-keyword">run</span><span class="bash"> -d --name zookeeper -p 2182:2181 -t wurstmeister/zookeeper</span><br><span class="hljs-comment"># ip地址：172.17.0.3</span><br>docker <span class="hljs-keyword">run</span><span class="bash"> -d --name zookeeper -p 2183:2181 -t wurstmeister/zookeeper</span><br><span class="hljs-comment"># ip地址：172.17.0.4</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile">docker <span class="hljs-keyword">run</span><span class="bash"> -d --name zoo1 -p 2181:2181  -t wurstmeister/zookeeper</span><br><span class="hljs-comment"># ip地址：172.17.0.2</span><br>docker <span class="hljs-keyword">run</span><span class="bash"> -d --name zoo2 -p 2182:2181  -t wurstmeister/zookeeper</span><br><span class="hljs-comment"># ip地址：172.17.0.3</span><br>docker <span class="hljs-keyword">run</span><span class="bash"> -d --name zoo3 -p 2183:2181 -t wurstmeister/zookeeper</span><br><span class="hljs-comment"># ip地址：172.17.0.4</span><br></code></pre></td></tr></table></figure>
 </li>
 <li>
 <p>默认容器内配置文件在<code>/conf/zoo.cfg</code>，数据和日志目录默认在<code>/data</code> 和 <code>/datalog</code>，需要的话可以将上述目录映射到宿主机的可靠文件目录下。</p>
@@ -272,7 +272,9 @@
 </li>
 <li>
 <p>将集群节点写入<code>zoo.cfg</code></p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">server</span>.<span class="hljs-number">1</span>=<span class="hljs-number">172.17.0.2:2888</span>:<span class="hljs-number">3888</span><br><span class="hljs-attribute">server</span>.<span class="hljs-number">2</span>=<span class="hljs-number">172.17.0.3:2888</span>:<span class="hljs-number">3888</span><br><span class="hljs-attribute">server</span>.<span class="hljs-number">3</span>=<span class="hljs-number">172.17.0.4:2888</span>:<span class="hljs-number">3888</span><br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">server.1=172.17.0.2:2888:3888<br>server.2=172.17.0.3:2888:3888<br>server.3=172.17.0.4:2888:3888<br></code></pre></td></tr></table></figure>
 <img src="/dajiangdahe/2022/01/03/zookeeper_kafka_kafka-Manager%E5%8D%95%E6%9C%BA%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/image-20220109194454721.png" class="" title="image-20220109194454721">
 <p>3台机器分别配置一样的</p>
 <ol>
@@ -294,9 +296,11 @@
 <p>同理配置其他2台服务器myid、conf。</p>
 <img src="/dajiangdahe/2022/01/03/zookeeper_kafka_kafka-Manager%E5%8D%95%E6%9C%BA%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/image-20220109195905491.png" class="" title="image-20220109195905491">
 <img src="/dajiangdahe/2022/01/03/zookeeper_kafka_kafka-Manager%E5%8D%95%E6%9C%BA%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/image-20220109195928105.png" class="" title="image-20220109195928105">
-</li>
-<li></li>
-</ul>
+<p><strong>启动集群并查看状态</strong></p>
+<img src="/dajiangdahe/2022/01/03/zookeeper_kafka_kafka-Manager%E5%8D%95%E6%9C%BA%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/image-20220110104519310.png" class="" title="image-20220110104519310">
+<p>依次启动zoo2，zoo3。</p>
+<p><code>./zkServer.sh status</code>查看状态。如果<code>mode</code>显示<code>standalone</code>，则需要重启容器。</p>
+<img src="/dajiangdahe/2022/01/03/zookeeper_kafka_kafka-Manager%E5%8D%95%E6%9C%BA%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/image-20220110124143375.png" class="" title="image-20220110124143375">
 <h3 id="kafka集群安装">kafka集群安装</h3>
 <ul>
 <li>
@@ -311,15 +315,15 @@
 <li>如果是docker集群搭建，将KAFKA_ZOOKEEPER_CONNECT设置成docker对应容器的地址</li>
 </ol>
 </blockquote>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile">docker <span class="hljs-keyword">run</span><span class="bash">  -d --name kafka1 -p 9092:9092 -e KAFKA_BROKER_ID=0 -e KAFKA_ZOOKEEPER_CONNECT=172.17.0.2:2181,172.17.0.3:2182,172.17.0.4:2183 -e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://172.17.0.2:9092 -e KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092 -t wurstmeister/kafka</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile">docker <span class="hljs-keyword">run</span><span class="bash">  -itd --name kafka1 -p 9092:9092 -e KAFKA_BROKER_ID=0 -e KAFKA_ZOOKEEPER_CONNECT=172.17.0.2:2181,172.17.0.3:2182,172.17.0.4:2183 -e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://172.17.0.2:9092 -e KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092 -t wurstmeister/kafka</span><br></code></pre></td></tr></table></figure>
 </li>
 <li>
 <p>节点2</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile">docker <span class="hljs-keyword">run</span><span class="bash">  -d --name kafka2 -p 9093:9093 -e KAFKA_BROKER_ID=1 -e KAFKA_ZOOKEEPER_CONNECT=172.17.0.2:2181,172.17.0.3:2182,172.17.0.4:2183 -e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://172.17.0.3:9093 -e KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9093 -t wurstmeister/kafka</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile">docker <span class="hljs-keyword">run</span><span class="bash">  -itd --name kafka2 -p 9093:9093 -e KAFKA_BROKER_ID=1 -e KAFKA_ZOOKEEPER_CONNECT=172.17.0.2:2181,172.17.0.3:2182,172.17.0.4:2183 -e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://172.17.0.3:9093 -e KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9093 -t wurstmeister/kafka</span><br></code></pre></td></tr></table></figure>
 </li>
 <li>
 <p>节点3</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile">docker <span class="hljs-keyword">run</span><span class="bash">  -d --name kafka3 -p 9094:9094 -e KAFKA_BROKER_ID=2 -e KAFKA_ZOOKEEPER_CONNECT=172.17.0.2:2181,172.17.0.3:2182,172.17.0.4:2183 -e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://172.17.0.4:9094 -e KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9094 -t wurstmeister/kafka</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile">docker <span class="hljs-keyword">run</span><span class="bash">  -itd --name kafka3 -p 9094:9094 -e KAFKA_BROKER_ID=2 -e KAFKA_ZOOKEEPER_CONNECT=172.17.0.2:2181,172.17.0.3:2182,172.17.0.4:2183 -e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://172.17.0.4:9094 -e KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9094 -t wurstmeister/kafka</span><br></code></pre></td></tr></table></figure>
 </li>
 <li>
 <p>最终kafka集群搭建完成，对应端口为 9092、9093、9094 通过命令docker ps</p>

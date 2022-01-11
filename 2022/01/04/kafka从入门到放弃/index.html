@@ -244,18 +244,18 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：3 天前
+                  本文最后更新于：17 分钟前
                 
               </p>
             
             <div class="markdown-body">
               <h1>第 1章 Kafka 概述</h1>
-<h2 id="1-1-定义"><strong>1.1</strong> <strong>定义</strong></h2>
+<h2 id="1-1-定义">1.1 定义</h2>
 <p><code>Kafka</code> 是一个分布式的基于发布/订阅模式的消息队列（<code>Message Queue</code>），主要应用于大数据实时处理领域。</p>
 <img src="/dajiangdahe/2022/01/04/kafka%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/format,png-20220105165020501.png" class="" title="img">
 <p>一个典型的Kafka体系架构包括若干Producer（可以是服务器日志，业务数据，页面前端产生的page view等等），若干broker（Kafka支持水平扩展，一般broker数量越多，集群吞吐率越高），若干Consumer (Group)，以及一个Zookeeper集群。Kafka通过Zookeeper管理集群配置，选举leader，以及在consumer group发生变化时进行rebalance。Producer使用push(推)模式将消息发布到broker，Consumer使用pull(拉)模式从broker订阅并消费消息。</p>
-<h2 id="1-2-消息队列"><strong>1.2</strong> <strong>消息队列</strong></h2>
-<h3 id="1-2-1-传统消息队列的应用场景"><strong>1.2.1</strong> 传统消息队列的应用场景</h3>
+<h2 id="1-2-消息队列">1.2 消息队列</h2>
+<h3 id="1-2-1-传统消息队列的应用场景">1.2.1 传统消息队列的应用场景</h3>
 <img src="/dajiangdahe/2022/01/04/kafka%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/image-20220104190400222.png" class="" title="image-20220104190400222"> 
 <p><strong>使用消息队列的好处</strong></p>
 <p>1） 解耦</p>
