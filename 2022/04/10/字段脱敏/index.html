@@ -1,0 +1,537 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/dajiangdahe/img/favicon.png">
+  <link rel="icon" href="/dajiangdahe/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="Hello,here is kengkeng&#39;s blog.">
+  <meta name="author" content="kengkeng">
+  <meta name="keywords" content="">
+  
+  <title>敏感型数据进行脱敏设置 - kengkeng&#39;s life</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/dajiangdahe/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/dajiangdahe/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"kengkengya.github.io","root":"/dajiangdahe/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/dajiangdahe/js/utils.js" ></script>
+  <script  src="/dajiangdahe/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/dajiangdahe/">&nbsp;<strong>kengkeng's life</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/dajiangdahe/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/dajiangdahe/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/dajiangdahe/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/dajiangdahe/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/dajiangdahe/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/dajiangdahe/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="敏感型数据进行脱敏设置">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      kengkeng
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-04-10 16:46" pubdate>
+        2022年4月10日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      39
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">敏感型数据进行脱敏设置</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：6 分钟前
+                
+              </p>
+            
+            <div class="markdown-body">
+              <p>随着互联网发展日益繁盛，数据安全也越来越受到人们重视，数据脱敏一方面为了数据安全，另一方面也是为了符合法务合规规范。本文主要实现特殊字段脱敏响应，通过切面+注解实现数据脱敏。通过切面获取指定脱敏类型，实现将数据统一脱敏返回。</p>
+<h1>1、脱敏类型枚举</h1>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.example.desensitizedDemo.enums;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 脱敏枚举类型</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> guolonghang</span><br><span class="hljs-comment"> */</span><br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">SensitiveTypeEnum</span> </span>&#123;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 中文名</span><br><span class="hljs-comment">     */</span><br>    CHINESE_NAME,<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 身份证号</span><br><span class="hljs-comment">     */</span><br>    ID_CARD,<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 座机号</span><br><span class="hljs-comment">     */</span><br>    FIXED_PHONE,<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 手机号</span><br><span class="hljs-comment">     */</span><br>    MOBILE_PHONE,<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 地址</span><br><span class="hljs-comment">     */</span><br>    ADDRESS,<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 电子邮件</span><br><span class="hljs-comment">     */</span><br>    EMAIL,<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 银行卡</span><br><span class="hljs-comment">     */</span><br>    BANK_CARD,<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 公司开户银行联号</span><br><span class="hljs-comment">     */</span><br>    CNAPS_CODE;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<h1>2、脱敏策略类</h1>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.example.desensitizedDemo.annotation;<br><br><span class="hljs-keyword">import</span> com.example.desensitizedDemo.enums.SensitiveTypeEnum;<br><br><span class="hljs-keyword">import</span> java.lang.annotation.*;<br><br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 脱敏注解</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> guolonghang</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@Inherited</span><br><span class="hljs-meta">@Documented</span><br><span class="hljs-meta">@Target(ElementType.FIELD)</span><br><span class="hljs-meta">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="hljs-keyword">public</span> <span class="hljs-meta">@interface</span> Desensitized &#123;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 脱敏类型(规则)</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function">SensitiveTypeEnum <span class="hljs-title">strategy</span><span class="hljs-params">()</span></span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<h1>3、脱敏工具类</h1>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.example.desensitizedDemo.utils;<br><br><br><span class="hljs-keyword">import</span> com.example.desensitizedDemo.annotation.Desensitized;<br><span class="hljs-keyword">import</span> com.example.desensitizedDemo.entities.Response;<br><span class="hljs-keyword">import</span> lombok.extern.slf4j.Slf4j;<br><br><span class="hljs-keyword">import</span> org.apache.commons.lang.ArrayUtils;<br><span class="hljs-keyword">import</span> org.apache.commons.lang.StringUtils;<br><br><br><span class="hljs-keyword">import</span> java.lang.reflect.Array;<br><span class="hljs-keyword">import</span> java.lang.reflect.Field;<br><span class="hljs-keyword">import</span> java.util.*;<br><br><span class="hljs-keyword">import</span> <span class="hljs-keyword">static</span> com.example.desensitizedDemo.enums.SensitiveTypeEnum.*;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 脱敏工具类</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> zrj</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@since</span> 2021/8/16</span><br><span class="hljs-comment"> **/</span><br><span class="hljs-meta">@Slf4j</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DesensitizedUtil</span> </span>&#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 脱敏工具开关，0：关闭，1：开启</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String DESENT_STATUS = <span class="hljs-string">&quot;0&quot;</span>;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 脱敏数据</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> obj</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> void</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">desentData</span><span class="hljs-params">(Object obj)</span> <span class="hljs-keyword">throws</span> IllegalAccessException </span>&#123;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">null</span> == obj) &#123;<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br><br>        <span class="hljs-comment">//如果是原始类型，则忽略处理</span><br>        <span class="hljs-keyword">if</span> (obj.getClass().isPrimitive()) &#123;<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br>        <span class="hljs-comment">// 是否是接口</span><br>        <span class="hljs-keyword">if</span> (obj.getClass().isInterface()) &#123;<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br><br>        Object data = <span class="hljs-keyword">null</span>;<br>        Class&lt;?&gt; clazz = <span class="hljs-keyword">null</span>;<br>        <span class="hljs-comment">//如果是通用的分页响应对象，则对该对象内部的List&lt;T&gt;进行脱敏</span><br>        <span class="hljs-keyword">if</span> (obj.getClass().equals(Response.class)) &#123;<br>            data = ((Response) obj).getData();<span class="hljs-comment">//这里是自定义返回对象</span><br>            clazz = data.getClass();<br>            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">null</span> == clazz) &#123;<br>                <span class="hljs-keyword">return</span>;<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-comment">// 获取所有属性</span><br>        Field[] fields = clazz.getDeclaredFields();<br>        <span class="hljs-keyword">while</span> (<span class="hljs-keyword">null</span> != clazz.getSuperclass() &amp;&amp; !Object.class.equals(clazz.getSuperclass())) &#123;<br>            fields = (Field[]) ArrayUtils.addAll(fields, clazz.getSuperclass().getDeclaredFields());<br>            clazz = clazz.getSuperclass();<br>        &#125;<br><br>        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">null</span> == fields &amp;&amp; fields.length == <span class="hljs-number">0</span>) &#123;<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br><br>        <span class="hljs-keyword">for</span> (Field field : fields) &#123;<br>            field.setAccessible(<span class="hljs-keyword">true</span>);<br>            Object value = field.get(data);<br>            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">null</span> != value) &#123;<br>                Class&lt;?&gt; type = value.getClass();<br><br>                <span class="hljs-comment">// 1.处理子属性，包括集合中的</span><br>                <span class="hljs-keyword">if</span> (type.isArray()) &#123;<br>                    <span class="hljs-keyword">int</span> len = Array.getLength(value);<br>                    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;<br>                        Object arrayObject = Array.get(value, i);<br>                        DesensitizedUtil.desentData(arrayObject);<br>                    &#125;<br>                &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (value <span class="hljs-keyword">instanceof</span> Collection&lt;?&gt;) &#123;<br>                    Collection&lt;?&gt; c = (Collection&lt;?&gt;) value;<br>                    <span class="hljs-keyword">for</span> (Object collectionObj : c) &#123;<br>                        DesensitizedUtil.desentData(collectionObj);<br>                    &#125;<br>                &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (value <span class="hljs-keyword">instanceof</span> Map&lt;?, ?&gt; m) &#123;<br>                    Set&lt;?&gt; set = m.entrySet();<br>                    <span class="hljs-keyword">for</span> (Object o : set) &#123;<br>                        Map.Entry&lt;?, ?&gt; entry = (Map.Entry&lt;?, ?&gt;) o;<br>                        Object mapVal = entry.getValue();<br>                        DesensitizedUtil.desentData(mapVal);<br>                    &#125;<br>                &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (!type.isPrimitive()<br>                        &amp;&amp; !StringUtils.startsWith(type.getPackage().getName(), <span class="hljs-string">&quot;javax.&quot;</span>)<br>                        &amp;&amp; !StringUtils.startsWith(type.getPackage().getName(), <span class="hljs-string">&quot;java.&quot;</span>)<br>                        &amp;&amp; !StringUtils.startsWith(field.getType().getName(), <span class="hljs-string">&quot;javax.&quot;</span>)<br>                        &amp;&amp; !StringUtils.startsWith(field.getName(), <span class="hljs-string">&quot;java.&quot;</span>)) &#123;<br>                    DesensitizedUtil.desentData(type);<br>                &#125;<br>            &#125;<br><br>            <span class="hljs-comment">// 2. 处理自身的属性</span><br>            Desensitized annotation = field.getDeclaredAnnotation(Desensitized.class);<br>            <span class="hljs-keyword">if</span> (field.getType().equals(String.class) &amp;&amp; <span class="hljs-keyword">null</span> != annotation) &#123;<br>                String valueStr = (String) field.get(data);<br>                <span class="hljs-keyword">if</span> (StringUtils.isNotBlank(valueStr)) &#123;<br>                    <span class="hljs-keyword">switch</span> (annotation.strategy()) &#123;<br>                        <span class="hljs-keyword">case</span> CHINESE_NAME -&gt; &#123;<br>                            field.set(data, DesensitizedUtil.chineseName(valueStr));<br>                            <span class="hljs-keyword">break</span>;<br>                        &#125;<br>                        <span class="hljs-keyword">case</span> ID_CARD -&gt; &#123;<br>                            field.set(data, DesensitizedUtil.idCardNum(valueStr));<br>                            <span class="hljs-keyword">break</span>;<br>                        &#125;<br>                        <span class="hljs-keyword">case</span> FIXED_PHONE -&gt; &#123;<br>                            field.set(data, DesensitizedUtil.fixedPhone(valueStr));<br>                            <span class="hljs-keyword">break</span>;<br>                        &#125;<br>                        <span class="hljs-keyword">case</span> MOBILE_PHONE -&gt; &#123;<br>                            field.set(data, DesensitizedUtil.mobilePhone(valueStr));<br>                            <span class="hljs-keyword">break</span>;<br>                        &#125;<br>                        <span class="hljs-keyword">case</span> ADDRESS -&gt; &#123;<br>                            field.set(data, DesensitizedUtil.address(valueStr));<br>                            <span class="hljs-keyword">break</span>;<br>                        &#125;<br>                        <span class="hljs-keyword">case</span> EMAIL -&gt; &#123;<br>                            field.set(data, DesensitizedUtil.email(valueStr));<br>                            <span class="hljs-keyword">break</span>;<br>                        &#125;<br>                        <span class="hljs-keyword">case</span> BANK_CARD -&gt; &#123;<br>                            field.set(data, DesensitizedUtil.bankCard(valueStr));<br>                            <span class="hljs-keyword">break</span>;<br>                        &#125;<br>                        <span class="hljs-keyword">case</span> CNAPS_CODE -&gt; &#123;<br>                            field.set(data, DesensitizedUtil.cnapsCode(valueStr));<br>                            <span class="hljs-keyword">break</span>;<br>                        &#125;<br>                        <span class="hljs-keyword">default</span> -&gt; &#123;<br>                            <span class="hljs-keyword">break</span>;<br>                        &#125;<br>                    &#125;<br>                &#125;<br>            &#125;<br>        &#125;<br><br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * [中文姓名] 只显示第一个汉字，其他隐藏为2个星号&lt;例子：李**&gt;</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> fullName 中文姓名</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 中文姓名</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> String <span class="hljs-title">chineseName</span><span class="hljs-params">(String fullName)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (StringUtils.isBlank(fullName)) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> fullName.replaceAll(<span class="hljs-string">&quot;(\\S)\\S(\\S*)&quot;</span>, <span class="hljs-string">&quot;$1*$2&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * [身份证号] 显示最后四位，其他隐藏。共计18位或者15位。&lt;例子：6222*********5762&gt;</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> id 身份证号</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 身份证号</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> String <span class="hljs-title">idCardNum</span><span class="hljs-params">(String id)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (StringUtils.isBlank(id)) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> id.replaceAll(<span class="hljs-string">&quot;(\\d&#123;4&#125;)\\d&#123;10&#125;(\\w&#123;4&#125;)&quot;</span>, <span class="hljs-string">&quot;$1****$2&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * [固定电话] 后四位，其他隐藏&lt;例子：****1234&gt;</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> num 固定电话</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 固定电话</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> String <span class="hljs-title">fixedPhone</span><span class="hljs-params">(String num)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (StringUtils.isBlank(num)) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> StringUtils.leftPad(StringUtils.right(num, <span class="hljs-number">4</span>), StringUtils.length(num), <span class="hljs-string">&quot;*&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * [手机号码] 前三位，后四位，其他隐藏&lt;例子:138******1234&gt;</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> num 手机号码</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> String</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> String <span class="hljs-title">mobilePhone</span><span class="hljs-params">(String num)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (StringUtils.isBlank(num)) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> num.replaceAll(<span class="hljs-string">&quot;(\\d&#123;3&#125;)\\d&#123;4&#125;(\\d&#123;4&#125;)&quot;</span>, <span class="hljs-string">&quot;$1****$2&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * [地址] 只显示到地区，不显示详细地址；我们要对个人信息增强保护&lt;例子：北京市***海淀区****&gt;</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> address       地址</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> String</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> String <span class="hljs-title">address</span><span class="hljs-params">(String address)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (StringUtils.isBlank(address)) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> address.replaceAll(<span class="hljs-string">&quot;(\\S&#123;3&#125;)\\S&#123;2&#125;(\\S*)\\S&#123;2&#125;&quot;</span>, <span class="hljs-string">&quot;$1****$2****&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * [电子邮箱] 邮箱前缀仅显示第一个字母，前缀其他隐藏，用星号代替，@及后面的地址显示&lt;例子:g**@163.com&gt;</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> email 电子邮箱</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> String</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> String <span class="hljs-title">email</span><span class="hljs-params">(String email)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (StringUtils.isBlank(email)) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span>;<br>        &#125;<br>        <span class="hljs-keyword">int</span> index = StringUtils.indexOf(email, <span class="hljs-string">&quot;@&quot;</span>);<br>        <span class="hljs-keyword">if</span> (index &lt;= <span class="hljs-number">1</span>) &#123;<br>            <span class="hljs-keyword">return</span> email;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">return</span> email.replaceAll(<span class="hljs-string">&quot;(\\S)\\S(\\S*)&quot;</span>, <span class="hljs-string">&quot;$1***$2&quot;</span>);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * [银行卡号] 前六位，后四位，其他用星号隐藏每位1个星号&lt;例子:6222600**********1234&gt;</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> cardNum 银行卡号</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> String</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> String <span class="hljs-title">bankCard</span><span class="hljs-params">(String cardNum)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (StringUtils.isBlank(cardNum)) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> cardNum.replaceAll(<span class="hljs-string">&quot;(\\d&#123;4&#125;)\\d&#123;10&#125;(\\w&#123;4&#125;)&quot;</span>, <span class="hljs-string">&quot;$1****$2&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * [公司开户银行联号] 公司开户银行联行号,显示前两位，其他用星号隐藏，每位1个星号&lt;例子:12********&gt;</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> code 卡号</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> java.lang.String</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> String <span class="hljs-title">cnapsCode</span><span class="hljs-params">(String code)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (StringUtils.isBlank(code)) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> code.replaceAll(<span class="hljs-string">&quot;(\\d&#123;4&#125;)\\d&#123;10&#125;(\\w&#123;4&#125;)&quot;</span>, <span class="hljs-string">&quot;$1****$2&quot;</span>);<br>    &#125;<br>&#125;<br><br><br></code></pre></td></tr></table></figure>
+<h1>4、拦截器</h1>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.example.desensitizedDemo.aspect;<br><br><br><span class="hljs-keyword">import</span> com.example.desensitizedDemo.utils.DesensitizedUtil;<br><span class="hljs-keyword">import</span> org.aspectj.lang.ProceedingJoinPoint;<br><span class="hljs-keyword">import</span> org.aspectj.lang.annotation.Around;<br><span class="hljs-keyword">import</span> org.aspectj.lang.annotation.Aspect;<br><span class="hljs-keyword">import</span> org.springframework.context.annotation.Configuration;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 统一拦截器</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> zrj</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@since</span> 2021/8/16</span><br><span class="hljs-comment"> **/</span><br><span class="hljs-meta">@Aspect</span><br><span class="hljs-meta">@Configuration</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SensitiveAspect</span> </span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String ACCESS_EXECUTION = <span class="hljs-string">&quot;execution(* com.example.desensitizedDemo.controller..*.*(..))&quot;</span>;<br>		<span class="hljs-comment">/**</span><br><span class="hljs-comment">		* 是否脱敏</span><br><span class="hljs-comment">		*/</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span>  String ACCESS_DESENT = <span class="hljs-string">&quot;1&quot;</span>;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 注解脱敏处理</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Around(ACCESS_EXECUTION)</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">sensitiveClass</span><span class="hljs-params">(ProceedingJoinPoint joinPoint)</span> <span class="hljs-keyword">throws</span> Throwable </span>&#123;<br>        <span class="hljs-keyword">return</span> sensitiveFormat(joinPoint);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 注解统一拦截器</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">sensitiveFormat</span><span class="hljs-params">(ProceedingJoinPoint joinPoint)</span> <span class="hljs-keyword">throws</span> Throwable </span>&#123;<br>        Object obj = joinPoint.proceed();<br>        <span class="hljs-keyword">if</span> (obj == <span class="hljs-keyword">null</span> || isPrimitive(obj.getClass())) &#123;<br>            <span class="hljs-keyword">return</span> obj;<br>        &#125;<br><br>        <span class="hljs-keyword">if</span> (ACCESS_DESENT.equals(DesensitizedUtil.DESENT_STATUS)) &#123;<br>            DesensitizedUtil.desentData(obj);<br>        &#125;<br>        <span class="hljs-keyword">return</span> obj;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 基本数据类型和String类型判断</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isPrimitive</span><span class="hljs-params">(Class&lt;?&gt; clz)</span> </span>&#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-keyword">if</span> (String.class.isAssignableFrom(clz) || clz.isPrimitive()) &#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                <span class="hljs-keyword">return</span> ((Class)clz.getField(<span class="hljs-string">&quot;TYPE&quot;</span>).get(<span class="hljs-keyword">null</span>)).isPrimitive();<br>            &#125;<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;<br>        &#125;<br>    &#125;<br>&#125;<br><br><br></code></pre></td></tr></table></figure>
+<h1>5、统一结果集</h1>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.example.desensitizedDemo.entities;<br><br><span class="hljs-keyword">import</span> lombok.Data;<br><span class="hljs-keyword">import</span> org.springframework.beans.factory.annotation.Autowired;<br><span class="hljs-keyword">import</span> org.springframework.stereotype.Component;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 统一结果集</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> **/</span><br><span class="hljs-meta">@Data</span><br><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Response</span>&lt;<span class="hljs-title">T</span>&gt; </span>&#123;<br>    <br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> ResponseCode responseCode;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 提示消息</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> String message;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 具体返回的数据</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> T data;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 状态码</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> String code;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Response</span><span class="hljs-params">(String code, String message, T data)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.message = message;<br>        <span class="hljs-keyword">this</span>.code = code;<br>        <span class="hljs-keyword">this</span>.data = data;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Response</span><span class="hljs-params">(String code, String msg)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.message = msg;<br>        <span class="hljs-keyword">this</span>.code = code;<br>    &#125;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Response</span><span class="hljs-params">(ResponseCode responseCode)</span> </span>&#123;<br>        Response.responseCode = responseCode;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 返回成功Response对象</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> &lt;T&gt; <span class="hljs-function">Response&lt;T&gt; <span class="hljs-title">success</span><span class="hljs-params">(String successMessage, T data)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Response&lt;&gt;(responseCode.getSuccessCode(), successMessage, data);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 返回错误Response对象</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> &lt;T&gt; <span class="hljs-function">Response&lt;T&gt; <span class="hljs-title">fail</span><span class="hljs-params">(String errorMessage)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Response&lt;&gt;(responseCode.getErrorCode(), errorMessage);<br>    &#125;<br>&#125;<br><br><br></code></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.example.desensitizedDemo.entities;<br><br><span class="hljs-keyword">import</span> lombok.Data;<br><span class="hljs-keyword">import</span> org.springframework.stereotype.Component;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 响应码</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> guolonghang</span><br><span class="hljs-comment"></span><br><span class="hljs-comment"> **/</span><br><span class="hljs-meta">@Data</span><br><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ResponseCode</span> </span>&#123;<br>    <span class="hljs-keyword">public</span> String successCode = <span class="hljs-string">&quot;200&quot;</span>;<br><br>    <span class="hljs-keyword">public</span> String errorCode = <span class="hljs-string">&quot;500&quot;</span>;<br><br>    <span class="hljs-keyword">public</span> String authErrorCode = <span class="hljs-string">&quot;300&quot;</span>;<br>&#125;<br><br><br></code></pre></td></tr></table></figure>
+<h1>6、实体类</h1>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.example.desensitizedDemo.entities;<br><br><br><span class="hljs-keyword">import</span> com.example.desensitizedDemo.annotation.Desensitized;<br><span class="hljs-keyword">import</span> com.example.desensitizedDemo.enums.SensitiveTypeEnum;<br><span class="hljs-keyword">import</span> lombok.Data;<br><br><span class="hljs-keyword">import</span> java.io.Serializable;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 用户实体类</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> guolonghang</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@Data</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Serializable</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">long</span> serialVersionUID = -<span class="hljs-number">37201319317456395L</span>;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * id</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> Integer id;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 姓名</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Desensitized(strategy = SensitiveTypeEnum.CHINESE_NAME)</span><br>    <span class="hljs-keyword">private</span> String name;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 手机号</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Desensitized(strategy = SensitiveTypeEnum.MOBILE_PHONE)</span><br>    <span class="hljs-keyword">private</span> String mobilePhone;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 身份证号码</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Desensitized(strategy = SensitiveTypeEnum.ID_CARD)</span><br>    <span class="hljs-keyword">private</span> String idCard;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 地址</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Desensitized(strategy = SensitiveTypeEnum.ADDRESS)</span><br>    <span class="hljs-keyword">private</span> String address;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 邮箱</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Desensitized(strategy = SensitiveTypeEnum.EMAIL)</span><br>    <span class="hljs-keyword">private</span> String email;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<h1>7、controller类</h1>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.example.desensitizedDemo.controller;<br><br><br><span class="hljs-keyword">import</span> com.example.desensitizedDemo.entities.Response;<br><span class="hljs-keyword">import</span> com.example.desensitizedDemo.entities.User;<br><br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.*;<br><br><br><span class="hljs-keyword">import</span> java.util.List;<br><br><span class="hljs-keyword">import</span> javax.annotation.Resource;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 用户控制类</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> makejava</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@since</span> 2021-06-21 16:44:24</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@RestController</span><br><span class="hljs-meta">@RequestMapping(&quot;/user&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserController</span> </span>&#123;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 脱敏测试</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@RequestMapping(value = &quot;test&quot;, method = RequestMethod.GET)</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Response&lt;User&gt; <span class="hljs-title">test</span><span class="hljs-params">()</span> </span>&#123;<br>        User result = <span class="hljs-keyword">new</span> User();<br>        result.setId(<span class="hljs-number">1</span>);<br>        result.setName(<span class="hljs-string">&quot;王小二&quot;</span>);<br>        result.setMobilePhone(<span class="hljs-string">&quot;13057631239&quot;</span>);<br>        result.setIdCard(<span class="hljs-string">&quot;320102199303073260&quot;</span>);<br>        result.setAddress(<span class="hljs-string">&quot;中国上海市张江高新区256号&quot;</span>);<br>        result.setEmail(<span class="hljs-string">&quot;hello@163.com&quot;</span>);<br><br>        <span class="hljs-keyword">if</span> (result != <span class="hljs-keyword">null</span>) &#123;<br>            Response&lt;User&gt; success = Response.success(<span class="hljs-string">&quot;查询成功&quot;</span>, result);<br>            System.out.println(success);<br>            <span class="hljs-keyword">return</span>  success;<br>        &#125;<br>        <span class="hljs-keyword">return</span> Response.fail(<span class="hljs-string">&quot;查询失败&quot;</span>);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<h1>8、测试</h1>
+<p>当<code>DESENT_STATUS=0</code>数据不脱敏时，测试结果如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs json">GET http:<span class="hljs-comment">//localhost:8080/user/test</span><br><br>HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> <br>Content-Type: application/json<br>Transfer-Encoding: chunked<br>Date: Sun, <span class="hljs-number">10</span> Apr <span class="hljs-number">2022</span> <span class="hljs-number">09</span>:<span class="hljs-number">50</span>:<span class="hljs-number">27</span> GMT<br>Keep-Alive: timeout=<span class="hljs-number">60</span><br>Connection: keep-alive<br><br>&#123;<br>  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;查询成功&quot;</span>,<br>  <span class="hljs-attr">&quot;data&quot;</span>: &#123;<br>    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">1</span>,<br>    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;王小二&quot;</span>,<br>    <span class="hljs-attr">&quot;mobilePhone&quot;</span>: <span class="hljs-string">&quot;13057631239&quot;</span>,<br>    <span class="hljs-attr">&quot;idCard&quot;</span>: <span class="hljs-string">&quot;320102199303073260&quot;</span>,<br>    <span class="hljs-attr">&quot;address&quot;</span>: <span class="hljs-string">&quot;中国上海市张江高新区256号&quot;</span>,<br>    <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;hello@163.com&quot;</span><br>  &#125;,<br>  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;200&quot;</span><br>&#125;<br><br>Response code: <span class="hljs-number">200</span>; Time: <span class="hljs-number">241</span>ms; Content length: <span class="hljs-number">169</span> bytes<br><br></code></pre></td></tr></table></figure>
+<p>当<code>DESENT_STATUS=1</code>数据不脱敏时，测试结果如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs json">GET http:<span class="hljs-comment">//localhost:8080/user/test</span><br><br>HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> <br>Content-Type: application/json<br>Transfer-Encoding: chunked<br>Date: Sun, <span class="hljs-number">10</span> Apr <span class="hljs-number">2022</span> <span class="hljs-number">10</span>:<span class="hljs-number">02</span>:<span class="hljs-number">29</span> GMT<br>Keep-Alive: timeout=<span class="hljs-number">60</span><br>Connection: keep-alive<br><br>&#123;<br>  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;查询成功&quot;</span>,<br>  <span class="hljs-attr">&quot;data&quot;</span>: &#123;<br>    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">1</span>,<br>    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;王*二&quot;</span>,<br>    <span class="hljs-attr">&quot;mobilePhone&quot;</span>: <span class="hljs-string">&quot;130****1239&quot;</span>,<br>    <span class="hljs-attr">&quot;idCard&quot;</span>: <span class="hljs-string">&quot;3201****3260&quot;</span>,<br>    <span class="hljs-attr">&quot;address&quot;</span>: <span class="hljs-string">&quot;中国上****张江高新区25****&quot;</span>,<br>    <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;h***llo@163.com&quot;</span><br>  &#125;,<br>  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;200&quot;</span><br>&#125;<br><br>Response code: <span class="hljs-number">200</span>; Time: <span class="hljs-number">225</span>ms; Content length: <span class="hljs-number">169</span> bytes<br><br></code></pre></td></tr></table></figure>
+<h1>参考文档：</h1>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/dajiangdahe/categories/Spring/">Spring</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/dajiangdahe/tags/Spring/">Spring</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/dajiangdahe/2022/04/05/Maven%E5%8F%91%E5%B8%83jar%E5%8C%85%E5%88%B0%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93/">
+                        <span class="hidden-mobile">Maven发布jar包到远程仓库</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        京ICP证123456号
+      </a>
+    </span>
+    
+      
+        <span>
+          <a
+            href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=12345678"
+            rel="nofollow noopener"
+            class="beian-police"
+            target="_blank"
+          >
+            
+              <span style="visibility: hidden; width: 0">|</span>
+              <img src="/dajiangdahe/img/police_beian.png" alt="police-icon"/>
+            
+            <span>京公网安备12345678号</span>
+          </a>
+        </span>
+      
+    
+  </div>
+
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/dajiangdahe/js/events.js" ></script>
+<script  src="/dajiangdahe/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/dajiangdahe/js/local-search.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/dajiangdahe/js/boot.js" ></script>
+
+
+</body>
+</html>
