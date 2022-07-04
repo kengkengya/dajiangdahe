@@ -184,6 +184,64 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/dajiangdahe/2022/07/04/%E6%8E%A5%E5%8F%A3%E5%A4%9A%E5%AE%9E%E7%8E%B0%E7%B1%BB%E5%8A%A8%E6%80%81%E8%B0%83%E7%94%A8%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F/" target="_self">
+          接口多实现类动态调用的两种方式
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/dajiangdahe/2022/07/04/%E6%8E%A5%E5%8F%A3%E5%A4%9A%E5%AE%9E%E7%8E%B0%E7%B1%BB%E5%8A%A8%E6%80%81%E8%B0%83%E7%94%A8%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F/" target="_self">
+          
+          
+            
+          
+          背景
+一个接口在不同场景，需要有不同的实现类，实现动态调用。
+
+模拟场景： 学生、教师部分在中国，部分在泰国，处理方式需要区分，接口国际化支持会传入一个来源，根据来源区分服务实现。
+
+方式一：利用 @Autowired 把多实现类注入到一个 Map
+利用 @Autowired 注解，可以把同一接口的实现类，注入到集合类型中，比如 List，Map，这里使用 Map 介绍。
+（1）定义接口
+1234
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-07-04 22:24" pubdate>
+              2022-07-04
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/dajiangdahe/categories/Spring/">Spring</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/dajiangdahe/tags/Spring/">Spring</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/dajiangdahe/2022/04/20/Thrift%E5%8D%8F%E8%AE%AE/" target="_self">
           Apache Thrift Rpc框架
         </a>
@@ -698,58 +756,6 @@ Apscheduler包是python执行定时任务的包，通过将执行函数放入sch
             <i class="iconfont icon-tags"></i>
             
               <a href="/dajiangdahe/tags/%E6%94%BF%E6%B2%BB/">政治</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/dajiangdahe/2021/12/16/remote:%20Support%20for%20password%20authentication%20was%20removed%20on%20August%2013,%202021./" target="_self">
-          Remote Support for Password Authentication Was Removed on August 13, 2021.
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/dajiangdahe/2021/12/16/remote:%20Support%20for%20password%20authentication%20was%20removed%20on%20August%2013,%202021./" target="_self">
-          
-          
-            
-          
-          remote: Support for password authentication was removed on August 13, 2021.
-https://blog.csdn.net/weixin_41010198/article/details/119698015
-
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-12-16 21:16" pubdate>
-              2021-12-16
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/dajiangdahe/categories/github/">github</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/dajiangdahe/tags/gitHub/">gitHub</a>
             
           </div>
         
