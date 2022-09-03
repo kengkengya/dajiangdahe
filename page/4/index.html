@@ -184,6 +184,59 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/dajiangdahe/2021/10/22/Redis%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/" target="_self">
+          Redis集群模式
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/dajiangdahe/2021/10/22/Redis%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/" target="_self">
+          
+          
+            
+          
+          从宏观角度回顾一下Redis实现高可用相关的技术。它们包括：持久化、复制、哨兵和集群，其主要作用和解决的问题是：
+
+持久化：持久化是最简单的高可用方法(有时甚至不被归为高可用的手段)，主要作用是数据备份，即将数据存储在硬盘，保证数据不会因进程退出而丢失。
+复制：复制是高可用Redis的基础，哨兵和集群都是在复制基础上实现高可用的。复制主要实现了数据的多机备份，以及对于读操作的负载均衡和简单的故障恢
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-10-22 15:21" pubdate>
+              2021-10-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/dajiangdahe/categories/Redis/">Redis</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/dajiangdahe/tags/Redis/">Redis</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/dajiangdahe/2021/10/22/Redis%E6%8C%81%E4%B9%85%E5%8C%96/" target="_self">
           Redis持久化
         </a>
@@ -656,63 +709,6 @@ kafka 不能脱离 zookeeper 单独使用，因为 kafka 使用 zookeeper 管理
 153.kafka 有几种数据保留的策略？
 kafka 有两种数据保存策略：按照过期时间保留和按照存储的消息大小保留。
 154.kafka 同时设置了 7 天和 10G 清除
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-10-22 15:21" pubdate>
-              2021-10-22
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/dajiangdahe/categories/JavaInterview/">JavaInterview</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/dajiangdahe/tags/%E9%9D%A2%E8%AF%95/">面试</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/dajiangdahe/2021/10/22/JavaInterview-03/" target="_self">
-          JavaInterview-03
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/dajiangdahe/2021/10/22/JavaInterview-03/" target="_self">
-          
-          
-            
-          
-          九、设计模式
-88.说一下你熟悉的设计模式？
-
-单例模式：保证被创建一次，节省系统开销。
-工厂模式（简单工厂、抽象工厂）：解耦代码。
-观察者模式：定义了对象之间的一对多的依赖，这样一来，当一个对象改变时，它的所有的依赖者都会收到通知并自动更新。
-外观模式：提供一个统一的接口，用来访问子系统中的一群接口，外观定义了一个高层的接口，让子系统更容易使用。
-模版方法模式：定义了一个算法的骨架，而将一些步骤
         </a>
       </p>
 
