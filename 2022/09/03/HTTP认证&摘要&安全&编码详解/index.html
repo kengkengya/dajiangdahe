@@ -192,7 +192,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.2k 字
+      6.8k 字
     </span>
   
 
@@ -202,7 +202,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      23
+      77
        分钟
     </span>
   
@@ -244,7 +244,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：几秒前
+                  本文最后更新于：3 小时前
                 
               </p>
             
@@ -320,22 +320,292 @@
 <img src="/dajiangdahe/2022/09/03/HTTP%E8%AE%A4%E8%AF%81&%E6%91%98%E8%A6%81&%E5%AE%89%E5%85%A8&%E7%BC%96%E7%A0%81%E8%AF%A6%E8%A7%A3/image-20220903233743276.png" class="" title="image-20220903233743276">
 <h2 id="1-4-基本认证的安全缺陷">1.4 基本认证的安全缺陷</h2>
 <ol>
-<li>
-<p>基本认证中传送的用户名和密码尽管进行了<code>base64</code>编码，但是这仍属于明文传输。</p>
-</li>
-<li>
-<p>即使密码进行过更复杂的加密，但是第三方仍然可以捕获到用户名和密码，对服务器发起不断地重放攻击。</p>
-</li>
-<li>
-<p>即使基本认证用于不重要的应用程序，第三方仍然可以截取用户名和密码，去对重要的应用程序进行访问、攻击。比如盗号、访问银行网站。</p>
-</li>
-<li>
-<p>基本认证对于中间人没有任何防护措施，如果报文被修改，服务端和客户端将无法感知。</p>
-</li>
-<li>
-<p>假冒服务器很容易骗过基本认证。比如，一些盗号、窃取信息的链接和邮件。</p>
-</li>
+<li>基本认证中传送的用户名和密码尽管进行了<code>base64</code>编码，但是这仍属于明文传输。</li>
+<li>即使密码进行过更复杂的加密，但是第三方仍然可以捕获到用户名和密码，对服务器发起不断地重放攻击。</li>
+<li>即使基本认证用于不重要的应用程序，第三方仍然可以截取用户名和密码，去对重要的应用程序进行访问、攻击。比如盗号、访问银行网站。</li>
+<li>基本认证对于中间人没有任何防护措施，如果报文被修改，服务端和客户端将无法感知。</li>
+<li>假冒服务器很容易骗过基本认证。比如，一些盗号、窃取信息的链接和邮件。</li>
 </ol>
+<h1>2 摘要认证</h1>
+<p>摘要认证相对于基本认证做出了重大的改进：</p>
+<ul>
+<li>永远不会以明文的方式发送报文</li>
+<li>可以防止恶意用户捕获并重放认证的握手过程</li>
+<li>可以有选择的防止对报文内容的篡改</li>
+<li>防范其他几种常见的攻击方式</li>
+</ul>
+<p>摘要认证并不是最安全的HTTP传输方式，不能够很好的满足安全HTTP事务的需求。想要完成这些需求，需要使用传输层安全<code>Transport Layer Secret</code>和安全HTTP<code>Secret HTTP</code>协议更适合一些。</p>
+<p>摘要认证过程：</p>
+<ul>
+<li>
+<p>客户端向服务端发起请求</p>
+</li>
+<li>
+<p>服务端向客户端发起质询，询问客户端需要填写的用户名和摘要密码</p>
+</li>
+<li>
+<p>用户填写用户名，密码，并且将密码变成摘要密码，再次发送请求</p>
+</li>
+<li>
+<p>服务端比对摘要密码</p>
+</li>
+<li>
+<p>服务端返回请求的报文</p>
+<img src="/dajiangdahe/2022/09/03/HTTP%E8%AE%A4%E8%AF%81&%E6%91%98%E8%A6%81&%E5%AE%89%E5%85%A8&%E7%BC%96%E7%A0%81%E8%AF%A6%E8%A7%A3/image-20220904143841598.png" class="" title="image-20220904143841598">
+</li>
+</ul>
+<h2 id="2-1-单向摘要">2.1 单向摘要</h2>
+<p>摘要是“对信息主体的浓缩”。摘要是一种单向函数，主要用于将无限的输入值转化为有限的浓缩输出值。常见的摘要函数为<code>MD5</code>。会将任意长度的字节序列转换成一个128位的摘要。</p>
+<p><code>MD5</code>输出的128位的摘要通常会被写成32个十六进制的字符，每个字符代表4位。有时我们也会成摘要函数为加密的校验和、单向散列函数或指纹函数。</p>
+<img src="/dajiangdahe/2022/09/03/HTTP%E8%AE%A4%E8%AF%81&%E6%91%98%E8%A6%81&%E5%AE%89%E5%85%A8&%E7%BC%96%E7%A0%81%E8%AF%A6%E8%A7%A3/image-20220904144644683.png" class="" title="image-20220904144644683">
+<h2 id="2-2-用随机数防止重放攻击">2.2 用随机数防止重放攻击</h2>
+<p>使用单项摘要的话，就无需以明文方式发送密码。可以只发送密码的摘要，而且可以确信，没有哪个恶意用户可以轻易的破解出摘要从而获取原始密码。为了防止恶意用户因为截取摘要，一遍遍的重放给服务器，服务端可以向客户端发送一个随机数<code>nonce</code>的特殊令牌，客户端在计算摘要前要先将这个随机数令牌附加到密码上面。</p>
+<p>这样每一次摘要计算都会随着随机数的变化而发生变化。记录下的密码摘要只对随机的特定值有效，而没有的密码的话，攻击者就没有办法计算出正确的摘要，这样就可以防止重放攻击。</p>
+<h2 id="2-3-摘要的计算">2.3 摘要的计算</h2>
+<p>摘要的核心就是对公共信息、保密信息和有时限的随机值这个组合进行单项摘要。</p>
+<h3 id="2-3-1-输入数据">2.3.1 输入数据</h3>
+<img src="/dajiangdahe/2022/09/03/HTTP%E8%AE%A4%E8%AF%81&%E6%91%98%E8%A6%81&%E5%AE%89%E5%85%A8&%E7%BC%96%E7%A0%81%E8%AF%A6%E8%A7%A3/image-20220904150708003.png" class="" title="image-20220904150708003">
+<ul>
+<li>由单向散列函数<code>H(d)</code>和摘要<code>KD(s,d)</code>组成的一对函数，其中<code>s</code>表示密码，<code>d</code>表示数据</li>
+<li>一个包含了安全信息的数据块，包含密码，称为A1</li>
+<li>一个包含了请求报文中非保密属性的数据块，称为A2</li>
+<li>单向散列函数<code>H(d)</code>和摘要<code>KD(s,d)</code>处理A1,A2，产生摘要</li>
+</ul>
+<h3 id="2-3-2-算法H-d-和KD-s-d">2.3.2 算法H(d)和KD(s,d)</h3>
+<p>​	摘要认证支持各种摘要算法的选择。RCF2617建议两种摘要算法，分别是<code>MD5</code>和<code>MD5-sess</code>其中<code>sess</code>表示会话，如果没有指认其他算法， 默认算法为<code>MD5</code></p>
+<p>无论哪一种摘要算法，都会使用<code>H(d)</code>来计算数据的<code>MD5</code>，使用<code>KD(s,d)</code>来进行计算以冒号连接的密码和非保密数据的<code>MD5</code>。</p>
+<img src="/dajiangdahe/2022/09/03/HTTP%E8%AE%A4%E8%AF%81&%E6%91%98%E8%A6%81&%E5%AE%89%E5%85%A8&%E7%BC%96%E7%A0%81%E8%AF%A6%E8%A7%A3/image-20220904151419620.png" class="" title="image-20220904151419620">
+<blockquote>
+<p>备注：</p>
+<p>​		这是一种摘要计算思想， 我们再实际使用场景中，完全可以将<code>H(d)</code>算法进行扩展，将<code>nonce</code>放入到<code>data</code>域中，实现一种<code>KD(s,d)</code>计算。</p>
+</blockquote>
+<h3 id="2-3-3-A1">2.3.3 A1</h3>
+<p>​	 A1是密码和受保护信息的产物，仅包含用户名、密码、安全域和随机数等内容。只涉及安全信息，与报文内容无关。A1和H、KD、A2一起完成摘要计算。</p>
+<ul>
+<li><code>MD5</code>为每条请求单独运行单向散列函数。A1是冒号连接起来的用户名、密码、安全域的三元组。</li>
+<li><code>MD5-sess</code>只在第一次握手时运行一次散列函数。对用户名、密码、安全域进行一次CPU密集型散列。并将其放在当前随机数和客户端随机数<code>cnonce</code>的前面。</li>
+</ul>
+<img src="/dajiangdahe/2022/09/03/HTTP%E8%AE%A4%E8%AF%81&%E6%91%98%E8%A6%81&%E5%AE%89%E5%85%A8&%E7%BC%96%E7%A0%81%E8%AF%A6%E8%A7%A3/image-20220904152913829.png" class="" title="image-20220904152913829">
+<h3 id="2-3-4-A2">2.3.4 A2</h3>
+<p>​	数据块A2是与报文内容相关的信息。比如URL，请求方法和报文实体的主体部分。A2有助于防止方法、资源或报文被篡改。</p>
+<p>​	<code>RFC2617</code>根据所选择的保护质量<code>qop</code>，为A2定义了两种策略。</p>
+<ul>
+<li>第一种策略只包含了HTTP请求方法和URL。当<code>qop=&quot;auth&quot;</code>时使用这种策略，这是默认的情况。</li>
+<li>第二种策略是添加了报文实体的主体部分，以提供一定程度的报文完整性检测<code>qop=auth-int</code>时使用。</li>
+</ul>
+<img src="HTTP认证&摘要&安全&编码详解/image-20220904153417096.png" alt="image-20220904153417096" style="zoom:50%;" />
+<h3 id="2-3-5-摘要算法综述">2.3.5 摘要算法综述</h3>
+<img src="/dajiangdahe/2022/09/03/HTTP%E8%AE%A4%E8%AF%81&%E6%91%98%E8%A6%81&%E5%AE%89%E5%85%A8&%E7%BC%96%E7%A0%81%E8%AF%A6%E8%A7%A3/image-20220904153615402.png" class="" title="image-20220904153615402">
+<h3 id="2-3-6-摘要认证会话">2.3.6 摘要认证会话</h3>
+<p>再每一次的请求/质询会话过程中，服务端携带一个随机数<code>nonce</code>和<code>401 </code>回送给客户端，客户端进行摘要计算时，将<code>nonce</code>计算进去，发送给服务端。如果<code>nonce</code>不新鲜了，服务端可以选择接受此次对话，或者重新返回给客户端一个新的<code>nonce</code>进行重试。</p>
+<blockquote>
+<p>备注：</p>
+<p>​	在计算摘要时,服务端回送的<code>nonce</code>有效期设置为5min，5min后将会替换成另一个随机数，当接收到客户端的请求报文后，再进行<code>MD5</code>校验时，会发现其中的<code>nonce</code>值发生了变化，<code>MD5</code>校验不一致。</p>
+</blockquote>
+<h3 id="2-3-7-预授权">2.3.7 预授权</h3>
+<p>在普通的认证过程中，事务结束之前，每条请求都会有一个请求/质询的过程，如果客户端事先知道下一个随机数是什么，就可以取消这个循环，再服务端发送随机数之前，进行摘要计算，将结果放入到<code>Authorization</code>首部，同理反之。</p>
+<img src="/dajiangdahe/2022/09/03/HTTP%E8%AE%A4%E8%AF%81&%E6%91%98%E8%A6%81&%E5%AE%89%E5%85%A8&%E7%BC%96%E7%A0%81%E8%AF%A6%E8%A7%A3/image-20220904154827893.png" class="" title="image-20220904154827893">
+<p>由于随机数的存在，使得预授权过程稍显复杂，这里列出了三种方式进行，通过这几种方式可以完成预授权</p>
+<ul>
+<li>服务器预先在<code>www-Authorization</code>首部中放入下一个随机数<code>nonce</code></li>
+<li>服务器允许在一小段时间内使用相同的一个随机数<code>nonce</code></li>
+<li>客户端和服务器使用同步的、可预测的随机数生成规则</li>
+</ul>
+<h3 id="2-3-8-安全考虑">2.3.8 安全考虑</h3>
+<ul>
+<li>首部纂改：为了防止首部被篡改，可以选择对摘要进行端到端加密，即形成数字签名。</li>
+<li>重放攻击：再随机数的生成中，一定确保唯一值</li>
+<li>多重机制认证</li>
+<li>词典攻击：通过对HTTP事务的监听，进行密码猜测性攻击</li>
+<li>恶意代理和中间人攻击：使用SSL协议</li>
+</ul>
+<h1>3 安全HTTP</h1>
+<h2 id="3-1-数字加密">3.1 数字加密</h2>
+<p>单纯的通过摘要认证+HTTP是没有办法达到更好水准的HTTP事务安全，因此，我们需要使用数字加密技术+HTTPS才能确保安全。</p>
+<h2 id="3-2-公钥基础设施">3.2 公钥基础设施</h2>
+<h2 id="3-3-证书、密钥表达、存储和传输">3.3 证书、密钥表达、存储和传输</h2>
+<h3 id="引子"><strong>引子</strong></h3>
+<p>在ssl的应用场景主要使用了两个东西，密钥对（公钥和私钥）和证书，那么密钥对和证书怎么表达、存储和传输呢？</p>
+<h3 id="ASN-1"><strong>ASN.1</strong></h3>
+<h4 id="简述"><strong>简述</strong></h4>
+<p>维基百科上写着</p>
+<blockquote>
+<p>在电信和计算机网络领域，<strong>ASN.1</strong>（<strong>Abstract Syntax Notation One</strong>) 是一套标准，是<strong>描述数据</strong>的表示、编码、传输、解码的灵活的记法。它提供了一套正式、无歧义和精确的规则以描述独立于特定计算机硬件的对象结构。</p>
+</blockquote>
+<p>简而言之，这个编码就是定义数据结构的，类比可以想象<code>THRIFT IDL</code>这种东西。很多的应用层协议都基于ASN.1完成数据描述。</p>
+<h4 id="样例"><strong>样例</strong></h4>
+<p>定义了<code>FooProtocol</code>协议内容，主要包括两个数据结构<code>FooQuestion</code>、<code>FooAnswer</code>。<code>FooQuetion</code>中有<code>trackingNumber</code>和<code>question</code>分别为<code>INTEGER</code>，和<code>IA5String</code>类型。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs java">*<span class="hljs-comment">//FooProtocol* *结构的定义系使用* *ASN.1* *表示法**:*</span><br><br>FooProtocol DEFINITIONS ::= BEGIN<br><br><br><br>  FooQuestion ::= SEQUENCE &#123;<br><br>​    trackingNumber INTEGER,<br><br>​    question    IA5String<br><br>  &#125;<br><br><br><br>  FooAnswer ::= SEQUENCE &#123;<br><br>​    questionNumber INTEGER,<br><br>​    answer     BOOLEAN<br><br>  &#125;<br><br><br><br>END<br></code></pre></td></tr></table></figure>
+<p>针对上面的数据结构我们可以类似如如下的实际消息</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java">myQuestion FooQuestion ::= &#123;<br><br>  trackingNumber   <span class="hljs-number">5</span>,<br><br>  question      <span class="hljs-string">&quot;Anybody there?&quot;</span><br><br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="编码格式"><strong>编码格式</strong></h3>
+<img src="/dajiangdahe/2022/09/03/HTTP%E8%AE%A4%E8%AF%81&%E6%91%98%E8%A6%81&%E5%AE%89%E5%85%A8&%E7%BC%96%E7%A0%81%E8%AF%A6%E8%A7%A3/image-20220904170811309.png" class="" title="image-20220904170811309">
+<p>前文中的消息我们要怎么保存和传输呢？</p>
+<p><code>ASN.1</code> 只是描述了数据结构，并没有指定怎么编码数据。因此，出现了多种编码规则以方便数据在网络上传输和不同终端间交互。<code>ASN.1</code>的编码格式有很多种:<code> BER</code>、<code>CER</code>、<code>DER</code>、<code>XER</code>，可以编码成<code>XML</code>格式，不仅仅是常用的二进制流。<code>BER</code>、<code>CER</code>、<code>DER</code>，是<code>ASN.1</code>的三种最常用的编码格式。</p>
+<ul>
+<li>所有<code>X.509</code>都是<code>DER</code>编码，<code>DER</code>是指ASN.1的编码规则，<code>.der</code>证书文件一般是二进制文件。</li>
+<li><code>CER</code>可用于<code>PKCS#7</code>证书(p7b)的编码，但一般是指证书的文件后缀，<code>.cer</code>证书可以是纯BASE64文件或二进制文件。</li>
+<li><code>PEM</code>通常也是指文件的后缀，为内容使用BASE64编码且带头带尾的特定格式，二进制的文件不应该命名为<code>pem</code>。</li>
+<li><code>CRT</code>是微软的证书后缀名，和<code>.CER</code>是一回事。</li>
+</ul>
+<p>XER和JER其实很好理解,但不是常用的编码格式,这里不多介绍</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java">XER:      &lt;FooQuestion&gt;<br><br>​        &lt;trackingNumber&gt;<span class="hljs-number">5</span>&lt;/trackingNumber&gt;<br><br>​        &lt;question&gt;Anybody there?&lt;/question&gt;<br><br>​      &lt;/FooQuestion&gt;<br>JER:      &#123; <span class="hljs-string">&quot;trackingNumber&quot;</span> : <span class="hljs-number">5</span>, <span class="hljs-string">&quot;question&quot;</span> : <span class="hljs-string">&quot;Anybody there?&quot;</span> &#125;<br></code></pre></td></tr></table></figure>
+<p>那么<code>BER</code>和<code>DER</code>又是怎么处理呢？</p>
+<p><code>BER</code>和<code>DER</code>是将<code>ASN.1</code>处理成二进制的文件格式，<code>DER</code>是<code>BER</code>编码的子集，密码学中更常使用的是DER格式的编码。</p>
+<h4 id="BER">BER</h4>
+<p>每一个编码后的<code>BER</code>数据依次由数据类型标识（Type identifier），长度描述（Length description）, 实际数据（actual Value）排列而成，即<code>BER</code>是一种二进制<code>TLV</code>编码。BER是一种<strong>不确定</strong>的编码规则</p>
+<p>举个简单的例子</p>
+<p>这里可以看到途中BER格式对于长数据就有两种编码规则（定长和非定长），主要原因是<code>Ber</code>对Length description有不同的处理方案。</p>
+<p><code>Length</code>:分三种情况，</p>
+<ul>
+<li>数据长度 &lt; 128：则 <code>Length</code> 的 <code>8bit</code>首位为0，其他7位表示数据长度。</li>
+<li>数据长度 &gt;= 128：则 <code>Length</code> 的第一个<code>8bit</code>为 ``0x8?<code>，其中 </code>?<code> 是后面跟的是长度。比如</code> 0x81<code> 表示后面一个字节为</code>Lenth<code>长度，如果是 </code>0x82` 则表示后面两个字节为length长度，以此类推。</li>
+<li>如果数据长度未知，则 <code>Length=0x80</code>，并增加 <code>End-of-contents=00 00</code> 结束标记。</li>
+</ul>
+<p><strong>Contents &amp; End-of-contents</strong>: 数据内容。对于未知数据长度的数据类型，才有 End-of-contents，为00 00。</p>
+<p>这就增加了一定的不确定性，那么数据编码格式的时候可以有多重编码方法，这样对于<code>ASN.1</code>数据结构的标识并不唯一，所以<code>DER</code>基于<code>BER</code>又增加了一些限制，比如</p>
+<ol>
+<li>如果长度在 0 － 127 之间，必须使用短型长度表示法。</li>
+<li>如果长度大于等于 128，必须使用长型长度表示法，并且长度必须使用尽可能少的字节表示。</li>
+<li>对于简单 string 类型和在其基础上使用隐式标签生成的类型，必须使用简单定长编码方法。</li>
+<li>对于结构化类型和在其基础上使用隐式标签生成的类型及在任何类型基础上使用显式标签生成的类型，必须使用结构化定长编码方法。</li>
+</ol>
+<p>DER增加了各种规则后，变成了一个<strong>确定性</strong>的编码规则，以此保证了一个ASN.1数据结构，在编码为DER后，只会有一种正确的结果。这使得DER更适合用在数字签名领域。</p>
+<h4 id="PEM"><strong>PEM</strong></h4>
+<p>因为 DER 编码是二进制数据，早期的 Email 不能发送附件，也不方便直接传输二进制数据([<a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2F8-bit_clean">原因]</a>)，因此密钥文件通常会在 DER 编码基础上进行 Base64 编码，这就是经常看到的密钥文件格式 PEM。PEM 最早是用来增强邮件安全性的，不过没有被广泛接受，最后却是在密码学中得到了发扬光大，如 openssl 和 ssh-keygen 工具生成的公私钥文件默认都采用 PEM 格式。需要注意的是，PEM 本身不是 ASN.1 的编码规则，它只是 Base64-encoded DER。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java">-----BEGIN LABEL-----<br><br>base64 der encoder<br><br>-----END LBAEL-----<br></code></pre></td></tr></table></figure>
+<h3 id="X509"><strong>X509</strong></h3>
+<p><strong>X.509</strong> 是密码学里公钥证书的格式标准，也是目前最常用的证书标准（SSL/TLS使用），为什么前文要提到ASN.1呢，因为X509是基于ASN.1来定义数据结构的，<a target="_blank" rel="noopener" href="https://tools.ietf.org/html/rfc5280#page-9">https://tools.ietf.org/html/rfc5280#page-9</a></p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><code class="hljs fortran">//X509 V3* *版本数据结构定义* <br><br>Certificate ::= <span class="hljs-keyword">SEQUENCE</span> &#123;<br><br>​    tbsCertificate    TBSCertificate,<br><br>​    signatureAlgorithm  AlgorithmIdentifier,<br><br>​    signatureValue    BIT STRING &#125;<br><br><br><br>  TBSCertificate ::= <span class="hljs-keyword">SEQUENCE</span> &#123;<br><br>​    version     [<span class="hljs-number">0</span>] EXPLICIT Version <span class="hljs-keyword">DEFAULT</span> v1,<br><br>​    serialNumber     CertificateSerialNumber,<br><br>​    signature      AlgorithmIdentifier,<br><br>​    issuer        <span class="hljs-keyword">Name</span>,<br><br>​    validity       Validity,<br><br>​    subject       <span class="hljs-keyword">Name</span>,<br><br>​    subjectPublicKeyInfo SubjectPublicKeyInfo,<br><br>​    issuerUniqueID [<span class="hljs-number">1</span>] <span class="hljs-keyword">IMPLICIT</span> UniqueIdentifier <span class="hljs-keyword">OPTIONAL</span>,<br><br>​               -- <span class="hljs-keyword">If</span> <span class="hljs-built_in">present</span>, version MUST be v2 or v3<br><br>​                 subjectUniqueID [<span class="hljs-number">2</span>] <span class="hljs-keyword">IMPLICIT</span> UniqueIdentifier <span class="hljs-keyword">OPTIONAL</span>,<br><br>​               -- <span class="hljs-keyword">If</span> <span class="hljs-built_in">present</span>, version MUST be v2 or v3<br><br>​    extensions   [<span class="hljs-number">3</span>] EXPLICIT Extensions <span class="hljs-keyword">OPTIONAL</span><br><br>​               -- <span class="hljs-keyword">If</span> <span class="hljs-built_in">present</span>, version MUST be v3<br><br>​    &#125;<br><br><br><br>  Version ::= <span class="hljs-keyword">INTEGER</span> &#123; v1(<span class="hljs-number">0</span>), v2(<span class="hljs-number">1</span>), v3(<span class="hljs-number">2</span>) &#125;<br><br><br><br>  CertificateSerialNumber ::= <span class="hljs-keyword">INTEGER</span><br><br><br><br>  Validity ::= <span class="hljs-keyword">SEQUENCE</span> &#123;<br><br>​    notBefore   Time,<br><br>​    notAfter    Time &#125;<br><br><br><br>  Time ::= CHOICE &#123;<br><br>​    utcTime    UTCTime,<br><br>​    generalTime  GeneralizedTime &#125;<br><br><br><br>  UniqueIdentifier ::= BIT STRING<br><br><br><br>  SubjectPublicKeyInfo ::= <span class="hljs-keyword">SEQUENCE</span> &#123;<br><br>​    algorithm      AlgorithmIdentifier,<br><br>​    subjectPublicKey   BIT STRING &#125;<br><br><br><br>  Extensions ::= <span class="hljs-keyword">SEQUENCE</span> <span class="hljs-built_in">SIZE</span> (<span class="hljs-number">1.</span>.<span class="hljs-built_in">MAX</span>) OF Extension<br><br><br><br>  Extension ::= <span class="hljs-keyword">SEQUENCE</span> &#123;<br><br>​    extnID   OBJECT IDENTIFIER,<br><br>​    critical  BOOLEAN <span class="hljs-keyword">DEFAULT</span> FALSE,<br><br>​    extnValue  OCTET STRING<br><br>​          -- <span class="hljs-keyword">contains</span> the DER encoding of an ASN<span class="hljs-number">.1</span> <span class="hljs-keyword">value</span><br><br>​          -- corresponding to the extension <span class="hljs-keyword">type</span> identified<br><br>​          -- by extnID<br><br>​    &#125;<br></code></pre></td></tr></table></figure>
+<p>有点复杂，用更直观的结构就是</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs java">证书<br><br> 版本号 --V1/V2/V3<br><br> 序列号 --对同一CA所颁发的证书，序列号唯一标识证书<br><br> 签名算法 --证书签名所使用的的算法<br><br> 颁发者 --证书发行者名称<br><br> 证书有效期<br><br>  此日期前无效<br><br>  此日期后无效<br><br> 主题<br><br> 主题公钥信息<br><br>  公钥算法<br><br>  主题公钥<br><br> 颁发者唯一身份信息（可选项） --只在证书版本<span class="hljs-number">2</span>、<span class="hljs-number">3</span>中才有<br><br> 主题唯一身份信息（可选项）--只在证书版本<span class="hljs-number">2</span>、<span class="hljs-number">3</span>中才有<br><br> 扩展信息（可选项）--只在证书版本<span class="hljs-number">3</span>中才有<br><br> ...<br></code></pre></td></tr></table></figure>
+<p><strong>x509</strong> 和其他证书区别，<code>v1 v2</code> <code>v3</code>区别？</p>
+<p>v1,v2是早期协议标准定义的，目前平常使用的都是v3的证书，v1,v2的证书算是进入历史舞台了。v3与前面的版本的证书主要不同点在于添加了Extension字段</p>
+<p><strong>Extension</strong>用途和常见字段</p>
+<p><strong>Extension</strong> 扩展信息主要用于标识证书的用途和一些特殊的证书信息，所有的扩展信息可以见RFC的定义https://tools.ietf.org/html/rfc5280#section-4.2。</p>
+<p>这里介绍几个常见常用的</p>
+<p><strong>Basic Constraints</strong></p>
+<img src="/dajiangdahe/2022/09/03/HTTP%E8%AE%A4%E8%AF%81&%E6%91%98%E8%A6%81&%E5%AE%89%E5%85%A8&%E7%BC%96%E7%A0%81%E8%AF%A6%E8%A7%A3/image-20220904170906797.png" class="" title="image-20220904170906797">
+<p>基本约束用于确认该证书是否是CA证书及其有效证书的最大路径</p>
+<p><strong>Key Usage</strong></p>
+<img src="HTTP认证&摘要&安全&编码详解/image-20220904170950092.png" alt="image-20220904170950092" style="zoom:50%;" />
+<p>密钥用法扩展定义了用途（例如，加密，签名，证书签名）。可以指定一个证书秘钥只能用于签名，而不能用来进行加密操作。</p>
+<p><strong>Subject Alternative Name</strong></p>
+<img src="/dajiangdahe/2022/09/03/HTTP%E8%AE%A4%E8%AF%81&%E6%91%98%E8%A6%81&%E5%AE%89%E5%85%A8&%E7%BC%96%E7%A0%81%E8%AF%A6%E8%A7%A3/image-20220904171001428.png" class="" title="image-20220904171001428">
+<p>主题备用名称扩展名，用于扩展主题名称中不能标识的证书可以代表的身份，比如ip，dns，mail address</p>
+<p>最常见的就是Dns名称的备用名称扩展了，在浏览器验证证书可靠性的时候，主要依赖的就是主题名称和主题备用名称两个字段</p>
+<p><strong>Subject Key Identifier Authority Key Identifier</strong></p>
+<img src="/dajiangdahe/2022/09/03/HTTP%E8%AE%A4%E8%AF%81&%E6%91%98%E8%A6%81&%E5%AE%89%E5%85%A8&%E7%BC%96%E7%A0%81%E8%AF%A6%E8%A7%A3/image-20220904171020985.png" class="" title="image-20220904171020985">
+<p>这两个用于标识主题秘钥的标识符，和授权秘钥的标识符，简单理解就是公钥的唯一摘要信息，一般用于快速定位证书链来使用。</p>
+<p><strong>Authority Information Access</strong></p>
+<p>提供授权证书的一些访问信息，如CA证书下载地址，OCSP协议地址也是一般写在这个字段里面</p>
+<p><strong>Subject Information Access</strong></p>
+<p>主题证书访问信息，如本证书的下载地址<br>
+<strong>CRL and CRL Extensions Profile</strong></p>
+<p>标识crl下载地址</p>
+<img src="/dajiangdahe/2022/09/03/HTTP%E8%AE%A4%E8%AF%81&%E6%91%98%E8%A6%81&%E5%AE%89%E5%85%A8&%E7%BC%96%E7%A0%81%E8%AF%A6%E8%A7%A3/image-20220904171039046.png" class="" title="image-20220904171039046">
+<img src="/dajiangdahe/2022/09/03/HTTP%E8%AE%A4%E8%AF%81&%E6%91%98%E8%A6%81&%E5%AE%89%E5%85%A8&%E7%BC%96%E7%A0%81%E8%AF%A6%E8%A7%A3/image-20220904171058178.png" class="" title="image-20220904171058178">
+<p>Certificate 证书pem样例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><code class="hljs java">-----BEGIN CERTIFICATE-----<br><br>MIIFKDCCBBCgAwIBAgIIEepSubQAMBkwDQYJKoZIhvcNAQELBQAwfzEkMCIGA1UE<br><br>AwwbU2Fua3VhaSBJbnRlcm5hbCBNT0EgU3ViIENhMSgwEgYDVQQKDAtNZWl0dWFu<br><br>IEx0ZDASBgNVBAoMC1Nhbmt1YWkgSW5jMSAwHgYDVQQLDBdJbmZyYXN0cnVjdHVy<br><br>ZSBTZWN1cml0eTELMAkGA1UEBhMCQ04wHhcNMjAwODA0MDg1ODMxWhcNMjAxMTEz<br><br>MDg1ODMxWjBwMRQwEgYDVQQDDAsxMC4xMS4yMi4zMzEVMBMGA1UECgwMU2Fua3Vh<br><br>aSBJbmMuMQswCQYDVQQLDAJJVDEQMA4GA1UEBwwHQmVpamluZzEQMA4GA1UECAwH<br><br>QmVpamluZzEQMA4GA1UEBhMHQmVpamluZzCCASIwDQYJKoZIhvcNAQEBBQADggEP<br><br>ADCCAQoCggEBAKliQlUodcxW7aemGuCjWSSwBMOQAYpuusviqsVguifExQE1uTR4<br><br>mIT+hOAC3Xtjz9J8NqwWw/V4m5x9qhtECH7xCMVZS21vd6lHJ9KSUVpQmgHWS2ax<br><br>dDoXeQNYY6fzGzw9w6A0DLxIOuX7zEc6XRzGe3prpPkkG1DbIFWM4j2K1KtfhHmW<br><br>s6ysvs+AdPzF/XZgg189lNzmJXwAqZQZYckdP4rAM0HRyikCIkVbt8liW2+FWXIb<br><br>vjfMrLXSOz1uvn9Nr/VU1T4Xs2XoRcMa5EPYhuYlMOmEqJ97spEY+4FkrCYr+nP7<br><br>WPFnChvUYTAA/dMYJ7FW9O+ex2GFZ/P4v9ECAwEAAaOCAbUwggGxMGAGA1UdEQRZ<br><br>MFeBNGNvcnA9bWVpdHVhbiZvd3Q9aW5mJnBkbD1rbXMmc3J2PXBheSZjbHVzdGVy<br><br>PXN0YWdpbmeBFmNvbS5zYW5rdWFpLmttcy5zZXJ2ZXKCB2FhYWJiY2MwDgYDVR0P<br><br>AQH/BAQDAgSQMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEFBQcDATAMBgNVHRMB<br><br>Af8EAjAAMB0GA1UdDgQWBBT8GMPOvxMyMaT7UPKSO0cVJPDFizAfBgNVHSMEGDAW<br><br>gBRtqeVYGxtCwozdgTQDvKvVibpA3TA9BgNVHR8ENjA0MDKgMKAuhixodHRwOi8v<br><br>Y3JsLmluZi5kZXYuc2Fua3VhaS5jb20vY3JsL21vYUcxLmNybDCBkAYIKwYBBQUH<br><br>AQEEgYMwgYAwSAYIKwYBBQUHMAKGPGh0dHA6Ly9jZXJ0aWZpY2F0ZXMuaW5mLmRl<br><br>di5zYW5rdWFpLmNvbS9hcGkvY2FDZXJ0L21vYUcxLmNydDA0BggrBgEFBQcwAYYo<br><br>aHR0cDovL29jc3AuaW5mLmRldi5zYW5rdWFpLmNvbS9vY3NwL21vYTANBgkqhkiG<br><br>9w0BAQsFAAOCAQEAm7HpGGZqk2qR69T+VizSdd/KY3ga6eb5xbEkQ8YJLZ9XZcGU<br><br>ykpdjBP5Zpa6qnIwkTjEDNqlSwjrfMnHu+E79j2QWNM1sWm3ZcnDBK0yFv5QGrIx<br><br>Cz2gzf0cfNoxudzdBUlzQlp5TPti9lgfmjGCzuARWhjTB24SJRxJQUOhdWcQZKLu<br><br>Eorwq82+DEmdGG75J2rQuOjXZUmbFvsRxY7adMSMxLQlpdVSTbLRAE5TsYpm6uhE<br><br>x/Oyeb3T1OS2zlYyOIJbeuiv0gGbDCbxK7/0gyJIYUXzM0+EnQ7GzR/jfp17s0ZV<br><br>7ETtRolmpdlAYQ5dX4kWH48o6kO5UDmQ6nMhbQ==<br><br>-----END CERTIFICATE-----<br><br><br></code></pre></td></tr></table></figure>
+<h3 id="PKCS簇"><strong>PKCS簇</strong></h3>
+<p>PKCS即公钥密码标准(<code>Public Key Cryptography Standards</code>),它是由<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/RSA_Security">美国RSA实验室</a>与遍布全球的安全系统开发者一起合作指定的一组规范，以推动公钥密码的发展。最早发布的PKCS文档是早期一群公钥技术使用者在1991年召开的一次会议的成果。目前PKCS规范早已被广泛的应用和实施，部分PKCS规范已经成为多个国际组织正式或事实上的标准，如<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/American_National_Standards_Institute">ANSI</a> X9文档系列，<a target="_blank" rel="noopener" href="https://en.wikipedia.org/w/index.php?title=PKIX&amp;redirect=no">PKIX</a>，<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Secure_Electronic_Transaction">SET</a>，<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/S/MIME">S/MIME</a>，<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Transport_Layer_Security">SSL</a>等。PKCS系列主要包括以下标准。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><strong>名称</strong></th>
+<th><strong>RFC</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PKCS #1</td>
+<td>RSA  Cryptography Standard (RSA密码标准)</td>
+<td><a target="_blank" rel="noopener" href="https://tools.ietf.org/html/rfc3447">RFC 3447</a></td>
+</tr>
+<tr>
+<td>PKCS #2</td>
+<td>已撤销，用以规范RSA加密摘要的转换方式，已并入PKCS #1</td>
+<td>-</td>
+</tr>
+<tr>
+<td>PKCS #3</td>
+<td><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange">Diffie–Hellman   Key Agreement</a> Standard (DH秘钥协商标准)</td>
+<td>-</td>
+</tr>
+<tr>
+<td>PKCS #4</td>
+<td>已撤销，用以定义RSA秘钥的格式，已并入PKCS #1</td>
+<td>-</td>
+</tr>
+<tr>
+<td>PKCS #5</td>
+<td>Password-based  Encryption Standard (基于口令的密码标准)</td>
+<td><a target="_blank" rel="noopener" href="https://tools.ietf.org/html/rfc2898">RFC 2898</a></td>
+</tr>
+<tr>
+<td>PKCS #6</td>
+<td>Extended-Certificate  Syntax Standard (扩展的证书语法标准)</td>
+<td>-</td>
+</tr>
+<tr>
+<td>PKCS #7</td>
+<td>Cryptographic  Message Syntax Standard (密码消息语法标准)</td>
+<td><a target="_blank" rel="noopener" href="https://tools.ietf.org/html/rfc2315">RFC 2315</a></td>
+</tr>
+<tr>
+<td>PKCS #8</td>
+<td>Private-Key  Information Syntax Standard (私钥信息语法标准)</td>
+<td><a target="_blank" rel="noopener" href="https://tools.ietf.org/html/rfc5958">RFC 5958</a></td>
+</tr>
+<tr>
+<td>PKCS #9</td>
+<td>Selected  Attribute Types (可供选择的属性类型)</td>
+<td><a target="_blank" rel="noopener" href="https://tools.ietf.org/html/rfc2985">RFC 2985</a></td>
+</tr>
+<tr>
+<td>PKCS #10</td>
+<td>Certification  Request Standard (证书请求语法标准)</td>
+<td><a target="_blank" rel="noopener" href="https://tools.ietf.org/html/rfc2986">RFC 2986</a></td>
+</tr>
+<tr>
+<td>PKCS #11</td>
+<td>Cryptographic  Token Interface (密码Token接口标准)</td>
+<td>-</td>
+</tr>
+<tr>
+<td>PKCS #12</td>
+<td>Personal  Information Exchange Syntax Standar (个人信息交换语法标准)</td>
+<td><a target="_blank" rel="noopener" href="https://tools.ietf.org/html/rfc7292">RFC 7292</a></td>
+</tr>
+<tr>
+<td>PKCS #13</td>
+<td><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Elliptic_curve_cryptography">Elliptic Curve   Cryptography</a> Standard (椭圆曲线密码标准)</td>
+<td><a target="_blank" rel="noopener" href="https://tools.ietf.org/html/rfc5915">https://tools.ietf.org/html/rfc5915</a>  <a target="_blank" rel="noopener" href="https://tools.ietf.org/html/rfc6090">https://tools.ietf.org/html/rfc6090</a></td>
+</tr>
+<tr>
+<td>PKCS #14</td>
+<td><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Pseudorandom_number_generator">Pseudo-random   Number Generation</a> (伪随机数生成算法PRNG)，正在制定中</td>
+<td></td>
+</tr>
+<tr>
+<td>PKCS #15</td>
+<td>Cryptographic  Token Information Format Standard (密码Token信息格式标准)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>PKCS1</strong></p>
+<p>主要定义了<strong>RSA</strong>秘钥的数据结构，算法等标准</p>
+<p><strong>代码块</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java">*<span class="hljs-comment">//* *公钥样式*</span><br><br>-----BEGIN RSA PUBLIC KEY-----<br><br>BASE64 ENCODED DATA<br><br>-----END RSA PUBLIC KEY-----<br><br>*<span class="hljs-comment">//* *私钥样式*</span><br><br>-----BEGIN RSA PRIVATE KEY-----<br><br>BASE64 ENCODED DATA<br><br>-----END RSA PRIVATE KEY-----<br></code></pre></td></tr></table></figure>
+<p><strong>PKCS8</strong></p>
+<p>用于定义 <strong>私钥</strong> 的存储格式和算法,这里面可以对秘钥数据进行简单的加密</p>
+<p><strong>代码块</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//**未加密的私钥*</span><br><br>-----BEGIN PRIVATE KEY-----<br><br>BASE64 ENCODED DATA<br><br>-----END PRIVATE KEY-----<br><br><br><br>*<span class="hljs-comment">//**加过密的私钥*</span><br><br>-----BEGIN ENCRYPTED PRIVATE KEY-----<br><br>BASE64 ENCODED DATA<br><br>-----END ENCRYPTED PRIVATE KEY-----<br></code></pre></td></tr></table></figure>
+<p><strong>PKCS12</strong></p>
+<p><code>PKCS#12</code>是一种交换数字证书的加密标准，用来描述个人身份信息。也就是可以一个p12里可以存公钥，私钥和证书。对应Java的KeyStore。</p>
+<p>用于实现存储许多加密对象在一个单独的文件中。通常用它来打包<strong>一个私钥</strong>及有关的 <code>X.509 </code>证书，或者打包信任链的全部项目。一般情况下是二进制存储的。</p>
 
             </div>
             <hr>
