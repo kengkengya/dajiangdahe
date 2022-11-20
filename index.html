@@ -184,6 +184,176 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/dajiangdahe/2022/11/21/%E5%B8%A6%E9%80%9A%E4%BF%A1%E8%AF%81%E4%B9%A6%E7%9A%84HTTP%E7%9A%84post%E6%96%B9%E6%B3%95/" target="_self">
+          带通信证书的HTTP的post方法
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/dajiangdahe/2022/11/21/%E5%B8%A6%E9%80%9A%E4%BF%A1%E8%AF%81%E4%B9%A6%E7%9A%84HTTP%E7%9A%84post%E6%96%B9%E6%B3%95/" target="_self">
+          
+          
+            
+          
+          1、前言
+
+最近在接需求时，需要使用通信证书，当前业务系统框架使用的证书名为certNo+&quot;.pfx&quot;被强行指定成了pfx类型证书。但是我这一次证书的编码格式是jks，这就导致了迁移业务系统时一直出现与外部联调不同的情况。wnm~~~~~~~
+
+2、源码解析
+再执行post方法时，我们主要是通过调用CloseableHttpClient对象的execute方法来进行通信
+
+
+而
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-11-21 00:34" pubdate>
+              2022-11-21
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/dajiangdahe/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/">计算机网络基础</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/dajiangdahe/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/dajiangdahe/2022/11/21/LInkedHashMap%20cannot%20cast%20to%20xxx%E5%88%86%E6%9E%90/" target="_self">
+          LinkedHashMap Cannot Be Cast to Xxx
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/dajiangdahe/2022/11/21/LInkedHashMap%20cannot%20cast%20to%20xxx%E5%88%86%E6%9E%90/" target="_self">
+          
+          
+            
+          
+          1、前言
+
+在代码开发中，为了去解析复杂的响应体，我们经常使用Map，通过JSON反序列化HTTP传递过来的响应体来获取其中的数据，有时候会出现Map&lt;String,Object&gt; ,有的value是一个JSON串，而恰巧你并没有匹配的实体类与之配对，且也不想构建新的实体类，这个时候通过JSON去获取就会出现LinkedHashMap cannot be cast to xxx 错误？
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-11-21 00:12" pubdate>
+              2022-11-21
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/dajiangdahe/categories/java/">java</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/dajiangdahe/tags/HashMap/">HashMap</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/dajiangdahe/2022/11/20/HTTP%E8%AF%B7%E6%B1%82%E5%A4%B4%E4%B8%ADHeader%E5%AD%97%E6%AE%B5%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99%E4%B8%8E%E5%AE%B9%E5%99%A8%E7%9A%84%E5%85%B3%E7%B3%BB/" target="_self">
+          HTTP请求头中Header字段命名规则与容器的关系
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/dajiangdahe/2022/11/20/HTTP%E8%AF%B7%E6%B1%82%E5%A4%B4%E4%B8%ADHeader%E5%AD%97%E6%AE%B5%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99%E4%B8%8E%E5%AE%B9%E5%99%A8%E7%9A%84%E5%85%B3%E7%B3%BB/" target="_self">
+          
+          
+            
+          
+          1、前言
+
+部署测试，部署预发布，Stage环境测试失败？？
+签名、加解密统统失效??
+What？？？
+原来是外部机构返回的HTTP请求头中的Signid变成了signId？？
+
+2、需求内容
+从 Header 中获取信息
+直接获取请求头某一个 headerName
+1234567@PostMapping(&quot;/getAuthorizationByKey&quot;)public Stri
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-11-20 23:59" pubdate>
+              2022-11-20
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/dajiangdahe/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/">计算机网络基础</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/dajiangdahe/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/dajiangdahe/2022/09/03/HTTP%E8%AE%A4%E8%AF%81&%E6%91%98%E8%A6%81&%E5%AE%89%E5%85%A8&%E7%BC%96%E7%A0%81%E8%AF%A6%E8%A7%A3/" target="_self">
           HTTP认证&amp;摘要&amp;安全&amp;编码详解
         </a>
@@ -549,168 +719,6 @@ Thrift支持多种不同的编程语言，包括C++、Java、Python、PHP、Ruby
             <i class="iconfont icon-tags"></i>
             
               <a href="/dajiangdahe/tags/%E6%94%BF%E6%B2%BB/">政治</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/dajiangdahe/2022/01/04/kafka%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/" target="_self">
-          Kafka从入门到放弃
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/dajiangdahe/2022/01/04/kafka%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/" target="_self">
-          
-          
-            
-          
-          第 1章 Kafka 概述
-1.1 定义
-Kafka 是一个分布式的基于发布/订阅模式的消息队列（Message Queue），主要应用于大数据实时处理领域。
-
-一个典型的Kafka体系架构包括若干Producer（可以是服务器日志，业务数据，页面前端产生的page view等等），若干broker（Kafka支持水平扩展，一般broker数量越多，集群吞吐率越高），若干Consumer (Gro
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-01-04 18:51" pubdate>
-              2022-01-04
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/dajiangdahe/categories/kafka/">kafka</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/dajiangdahe/tags/kafka/">kafka</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/dajiangdahe/2022/01/03/zookeeper_kafka_kafka-Manager%E5%8D%95%E6%9C%BA%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/" target="_self">
-          Zookeeper_kafka_kafka-Manager单机集群环境安装
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/dajiangdahe/2022/01/03/zookeeper_kafka_kafka-Manager%E5%8D%95%E6%9C%BA%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/" target="_self">
-          
-          
-            
-          
-          zookeeper_kafka_kafka-Manager单机集群环境安装
-docker环境
-本文使用docker环境下安装集群环境，通过kafka-Manager来进行可视化管理
-1https://www.docker.com/get-started 选择合适的桌面版进行安装
-docker换国内镜像源
-
-12345&quot;registry-mirrors&quot;: [    &quot;
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-01-03 20:41" pubdate>
-              2022-01-03
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/dajiangdahe/categories/Zookeeper/">Zookeeper</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/dajiangdahe/tags/Zookeeper/">Zookeeper</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/dajiangdahe/2021/12/28/%E5%AE%9A%E6%97%B6%E6%8F%90%E9%86%92%E8%84%9A%E6%9C%AC/" target="_self">
-          定时提醒脚本
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/dajiangdahe/2021/12/28/%E5%AE%9A%E6%97%B6%E6%8F%90%E9%86%92%E8%84%9A%E6%9C%AC/" target="_self">
-          
-          
-            
-          
-          通过server酱实现定时提醒XXX功能，配合其他爬虫使用更香😬
-Apscheduler包是python执行定时任务的包，通过将执行函数放入scheduler中实现阻塞队列。scheduler.add_job方法中写入cron类型，选择合适的时间即可实现。
-1234567891011121314151617181920212223242526272829303132333435363738394
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-12-28 22:19" pubdate>
-              2021-12-28
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/dajiangdahe/categories/%E8%84%9A%E6%9C%AC/">脚本</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/dajiangdahe/tags/%E5%AE%9A%E6%97%B6%E6%8F%90%E9%86%92%E8%84%9A%E6%9C%AC/">定时提醒脚本</a>
             
           </div>
         
