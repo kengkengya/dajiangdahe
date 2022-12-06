@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>HttpClient的NoHttpResponseException异常原因</title>
+    <link href="/dajiangdahe/2022/12/06/HttpClient%E7%9A%84NoHttpResponseException%E5%BC%82%E5%B8%B8%E5%8E%9F%E5%9B%A0/"/>
+    <url>/dajiangdahe/2022/12/06/HttpClient%E7%9A%84NoHttpResponseException%E5%BC%82%E5%B8%B8%E5%8E%9F%E5%9B%A0/</url>
+    
+    <content type="html"><![CDATA[<h1>1、前言</h1><blockquote><p><strong>调用第三方接口时会报NoHttpResponse异常，原因是上次的连接已经断掉了，但是客户端并未知道，复用上次连接就报错了，所以要解决这个问题，就是要校验上次链接是否断掉了</strong></p></blockquote><h1>2、分析</h1><p><code>httpclient</code>使用的<code>TCP</code>连接为长连接（<code>keep-alive=true</code>），不会主动去关闭连接。但是服务端为了节省资源会设置一个超时时间，超时时间后会主动关闭连接，此时客户端的<code>TCP</code>连接被连接池收回，并不会<code>ACK</code>服务端的关闭连接请求。下次请求如果从连接池中拿到该<code>TCP</code>连接，服务端就不会有响应，就会出现<code>failed to respond</code>。</p><p>一般<code>jetty</code>的设置的<code>http</code>连接时间为<code>30s</code>，就是说如果一个<code>TCP</code>连接如果<code>30s</code>内没有请求过来的话，服务端就会主动关闭（不会被客户端<code>ACKTCP</code>连接处于<code>CLOSE_WAIT</code>状态），这时正好客户端的一个请求从连接池拿到这个连接，就会出现<code>NoHttpResponseException</code>。</p><p><strong>四次挥手过程</strong>：</p><img src="/dajiangdahe/2022/12/06/HttpClient%E7%9A%84NoHttpResponseException%E5%BC%82%E5%B8%B8%E5%8E%9F%E5%9B%A0/image-20221206155400402.png" class="" title="image-20221206155400402"><h1>3、解决方案</h1><p>本次采用了长连接转短连接方式。</p><p>在<code>Head</code>中设置连接模式，不复用连接</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">HEADER.put(<span class="hljs-string">&quot;Connection&quot;</span>, <span class="hljs-string">&quot;close&quot;</span>);<br></code></pre></td></tr></table></figure><p>命令查看，确实不存在半关闭的<code>tcp</code>的连接</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">netstat -nltpa | grep CLOSE_WAIT<br></code></pre></td></tr></table></figure><h1>4、其他解决方案</h1><table><thead><tr><th>序号</th><th>方案</th><th style="text-align:left">优点</th><th>缺点</th><th>备注</th></tr></thead><tbody><tr><td>1</td><td>不使用连接池</td><td style="text-align:left">简单，不会出现半链接的状态</td><td>不能复用TCP连接，影响性能，每次http请求都需要建立一次TCP链接</td><td></td></tr><tr><td>2</td><td>采用thrift</td><td style="text-align:left">简单，不会出现半链接的状态</td><td>需要对所有接口进行thrift改造，也需要下游有thrift接口的支持</td><td></td></tr><tr><td>3</td><td>打开重试机制</td><td style="text-align:left">改造简单</td><td>可能会出现重复请求的情况，资金类接口可能有风险</td><td></td></tr><tr><td>4</td><td>开启一个线程，定期关闭无效的TCP链接</td><td style="text-align:left">能有效地解决问题，但是实现较为复杂，方案还没得到实践证明</td><td>官方文档给出的方案，实现较为复杂，方案还没有得到实践证明</td><td><a href="http://hc.apache.org/httpcomponents-client-ga/tutorial/html/connmgmt.html#d5e659">http://hc.apache.org/httpcomponents-client-ga/tutorial/html/connmgmt.html#d5e659</a> 2.5</td></tr><tr><td>5</td><td>客户端长连接转短连接，设置<code>ConnectionKeepAliveStrategy</code></td><td style="text-align:left">实现简单，能有效的解决<code>NoHttpResponseException</code>的问题，适合QPS较高的情况。</td><td>客户端长连接转短连接，当QPS请求量不高时，不能有效的发挥连接池的作用</td><td><a href="http://hc.apache.org/httpcomponents-client-ga/tutorial/html/connmgmt.html#d5e659">http://hc.apache.org/httpcomponents-client-ga/tutorial/html/connmgmt.html#d5e659</a> 2.5</td></tr></tbody></table>]]></content>
+    
+    
+    <categories>
+      
+      <category>计算机网络基础</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>计算机网络</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>带通信证书的HTTP的post方法</title>
     <link href="/dajiangdahe/2022/11/21/%E5%B8%A6%E9%80%9A%E4%BF%A1%E8%AF%81%E4%B9%A6%E7%9A%84HTTP%E7%9A%84post%E6%96%B9%E6%B3%95/"/>
     <url>/dajiangdahe/2022/11/21/%E5%B8%A6%E9%80%9A%E4%BF%A1%E8%AF%81%E4%B9%A6%E7%9A%84HTTP%E7%9A%84post%E6%96%B9%E6%B3%95/</url>

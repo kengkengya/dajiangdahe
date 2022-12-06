@@ -184,6 +184,61 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/dajiangdahe/2022/12/06/HttpClient%E7%9A%84NoHttpResponseException%E5%BC%82%E5%B8%B8%E5%8E%9F%E5%9B%A0/" target="_self">
+          HttpClient的NoHttpResponseException异常原因
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/dajiangdahe/2022/12/06/HttpClient%E7%9A%84NoHttpResponseException%E5%BC%82%E5%B8%B8%E5%8E%9F%E5%9B%A0/" target="_self">
+          
+          
+            
+          
+          1、前言
+
+调用第三方接口时会报NoHttpResponse异常，原因是上次的连接已经断掉了，但是客户端并未知道，复用上次连接就报错了，所以要解决这个问题，就是要校验上次链接是否断掉了
+
+2、分析
+httpclient使用的TCP连接为长连接（keep-alive=true），不会主动去关闭连接。但是服务端为了节省资源会设置一个超时时间，超时时间后会主动关闭连接，此时客户端的TCP连接被连接池收回
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-12-06 15:44" pubdate>
+              2022-12-06
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/dajiangdahe/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/">计算机网络基础</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/dajiangdahe/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/dajiangdahe/2022/11/21/%E5%B8%A6%E9%80%9A%E4%BF%A1%E8%AF%81%E4%B9%A6%E7%9A%84HTTP%E7%9A%84post%E6%96%B9%E6%B3%95/" target="_self">
           带通信证书的HTTP的post方法
         </a>
@@ -672,65 +727,11 @@ Thrift支持多种不同的编程语言，包括C++、Java、Python、PHP、Ruby
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/dajiangdahe/2022/01/05/%E3%80%90%E6%94%BF%E6%B2%BB%E3%80%91%E5%8A%A8%E7%89%A9%E5%86%9C%E5%9C%BA/" target="_self">
-          动物农场
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/dajiangdahe/2022/01/05/%E3%80%90%E6%94%BF%E6%B2%BB%E3%80%91%E5%8A%A8%E7%89%A9%E5%86%9C%E5%9C%BA/" target="_self">
-          
-          
-            
-          
-          动物农场（乔治奥威尔）
-◆ 第1章
-从1984看到动物农场发现，乔治写书的目的在于警醒人们，而没有提出切实可行的纲领或者理论。任何一场运动都需要有明确的纲领和理论，没有纲领和理论就如同一盘散沙。
-
-还有记住：在同人类作斗争的过程中，我们不要模仿他们。即使征服了他们，也决不沿用他们的恶习。是动物就决不住在房屋里，决不睡在床上，决不穿衣、喝酒、抽烟，决不接触钞票，从事交易。凡是人的习惯都是邪恶的。而且
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-01-05 16:59" pubdate>
-              2022-01-05
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/dajiangdahe/categories/%E4%B9%A6%E7%B1%8D/">书籍</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/dajiangdahe/tags/%E6%94%BF%E6%B2%BB/">政治</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <span class="page-number current">1</span><a class="page-number" href="/dajiangdahe/page/2/#board">2</a><a class="page-number" href="/dajiangdahe/page/3/#board">3</a><span class="space">&hellip;</span><a class="page-number" href="/dajiangdahe/page/5/#board">5</a><a class="extend next" rel="next" href="/dajiangdahe/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
+      <span class="page-number current">1</span><a class="page-number" href="/dajiangdahe/page/2/#board">2</a><a class="page-number" href="/dajiangdahe/page/3/#board">3</a><span class="space">&hellip;</span><a class="page-number" href="/dajiangdahe/page/6/#board">6</a><a class="extend next" rel="next" href="/dajiangdahe/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

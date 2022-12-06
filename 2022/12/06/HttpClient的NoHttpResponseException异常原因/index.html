@@ -20,7 +20,7 @@
   <meta name="author" content="kengkeng">
   <meta name="keywords" content="">
   
-  <title>带通信证书的HTTP的post方法 - kengkeng&#39;s life</title>
+  <title>HttpClient的NoHttpResponseException异常原因 - kengkeng&#39;s life</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -165,7 +165,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="带通信证书的HTTP的post方法">
+            <span class="h2" id="subtitle" title="HttpClient的NoHttpResponseException异常原因">
               
             </span>
 
@@ -180,8 +180,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-11-21 00:34" pubdate>
-        2022年11月21日 凌晨
+      <time datetime="2022-12-06 15:44" pubdate>
+        2022年12月6日 下午
       </time>
     </span>
   
@@ -192,7 +192,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      427 字
+      638 字
     </span>
   
 
@@ -202,7 +202,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      4
+      7
        分钟
     </span>
   
@@ -240,34 +240,79 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">带通信证书的HTTP的post方法</h1>
+            <h1 style="display: none">HttpClient的NoHttpResponseException异常原因</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：16 天前
+                  本文最后更新于：1 分钟前
                 
               </p>
             
             <div class="markdown-body">
               <h1>1、前言</h1>
 <blockquote>
-<p>最近在接需求时，需要使用通信证书，当前业务系统框架使用的证书名为<code>certNo+&quot;.pfx&quot;</code>被强行指定成了<code>pfx</code>类型证书。但是我这一次证书的编码格式是<code>jks</code>，这就导致了迁移业务系统时一直出现与外部联调不同的情况。wnm~~~~~~~</p>
+<p><strong>调用第三方接口时会报NoHttpResponse异常，原因是上次的连接已经断掉了，但是客户端并未知道，复用上次连接就报错了，所以要解决这个问题，就是要校验上次链接是否断掉了</strong></p>
 </blockquote>
-<h1>2、源码解析</h1>
-<p>再执行<code>post</code>方法时，我们主要是通过调用<code>CloseableHttpClient</code>对象的<code>execute</code>方法来进行通信</p>
-<img src="/dajiangdahe/2022/11/21/%E5%B8%A6%E9%80%9A%E4%BF%A1%E8%AF%81%E4%B9%A6%E7%9A%84HTTP%E7%9A%84post%E6%96%B9%E6%B3%95/image-20221121004334487.png" class="" title="image-20221121004334487">
-<img src="/dajiangdahe/2022/11/21/%E5%B8%A6%E9%80%9A%E4%BF%A1%E8%AF%81%E4%B9%A6%E7%9A%84HTTP%E7%9A%84post%E6%96%B9%E6%B3%95/image-20221121004423803.png" class="" title="image-20221121004423803">
-<p>而在进行通信时，我们需要调用一下证书初始化方法来进行生成证书。</p>
-<img src="/dajiangdahe/2022/11/21/%E5%B8%A6%E9%80%9A%E4%BF%A1%E8%AF%81%E4%B9%A6%E7%9A%84HTTP%E7%9A%84post%E6%96%B9%E6%B3%95/image-20221121005214921.png" class="" title="image-20221121005214921">
-<p>此时，进入<code>processOptions</code>方法</p>
-<img src="/dajiangdahe/2022/11/21/%E5%B8%A6%E9%80%9A%E4%BF%A1%E8%AF%81%E4%B9%A6%E7%9A%84HTTP%E7%9A%84post%E6%96%B9%E6%B3%95/image-20221121005309580.png" class="" title="image-20221121005309580">
-<p>进行证书的具体构造，注意到<code>keyStoreTYpe</code>再获取类型时，如果不传，这里取默认证书类型。进入到<code> getDefaultType</code>方法，我们看到，如果<code>keyType==null</code>，则就默认为<code>JKS</code>证书，所以当框架被写死成<code>.pfx</code>时，这里就会以传入的证书类型为主，进行通信传递，从而导致业务上的失败。</p>
-<img src="/dajiangdahe/2022/11/21/%E5%B8%A6%E9%80%9A%E4%BF%A1%E8%AF%81%E4%B9%A6%E7%9A%84HTTP%E7%9A%84post%E6%96%B9%E6%B3%95/image-20221121005450377.png" class="" title="image-20221121005450377">
-<h1>3、总结</h1>
-<p>在进行代码开发时，如果见到有些地方是写死的形式，一定要问清楚或者探究清楚此处为什么写死，如果不是外部机构反馈到请求一直没有发过去，真的是一直查不到原因。😭😭😭</p>
-<p>ps：确实也学到了一些底层原码知识，提升代码能力就要靠分析源码。加油！</p>
-<p>ps2: 由于不同HTTP类库不一致，这里用的是apache的库来作为分析。和工作中使用的情况一模一样。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java">&lt;dependency&gt;<br>           &lt;groupId&gt;org.apache.httpcomponents&lt;/groupId&gt;<br>           &lt;artifactId&gt;httpclient&lt;/artifactId&gt;<br>           &lt;version&gt;<span class="hljs-number">4.3</span><span class="hljs-number">.2</span>&lt;/version&gt;<br>       &lt;/dependency&gt;<br></code></pre></td></tr></table></figure>
+<h1>2、分析</h1>
+<p><code>httpclient</code>使用的<code>TCP</code>连接为长连接（<code>keep-alive=true</code>），不会主动去关闭连接。但是服务端为了节省资源会设置一个超时时间，超时时间后会主动关闭连接，此时客户端的<code>TCP</code>连接被连接池收回，并不会<code>ACK</code>服务端的关闭连接请求。下次请求如果从连接池中拿到该<code>TCP</code>连接，服务端就不会有响应，就会出现<code>failed to respond</code>。</p>
+<p>一般<code>jetty</code>的设置的<code>http</code>连接时间为<code>30s</code>，就是说如果一个<code>TCP</code>连接如果<code>30s</code>内没有请求过来的话，服务端就会主动关闭（不会被客户端<code>ACKTCP</code>连接处于<code>CLOSE_WAIT</code>状态），这时正好客户端的一个请求从连接池拿到这个连接，就会出现<code>NoHttpResponseException</code>。</p>
+<p><strong>四次挥手过程</strong>：</p>
+<img src="/dajiangdahe/2022/12/06/HttpClient%E7%9A%84NoHttpResponseException%E5%BC%82%E5%B8%B8%E5%8E%9F%E5%9B%A0/image-20221206155400402.png" class="" title="image-20221206155400402">
+<h1>3、解决方案</h1>
+<p>本次采用了长连接转短连接方式。</p>
+<p>在<code>Head</code>中设置连接模式，不复用连接</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">HEADER.put(<span class="hljs-string">&quot;Connection&quot;</span>, <span class="hljs-string">&quot;close&quot;</span>);<br></code></pre></td></tr></table></figure>
+<p>命令查看，确实不存在半关闭的<code>tcp</code>的连接</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">netstat -nltpa | grep CLOSE_WAIT<br></code></pre></td></tr></table></figure>
+<h1>4、其他解决方案</h1>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>方案</th>
+<th style="text-align:left">优点</th>
+<th>缺点</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>不使用连接池</td>
+<td style="text-align:left">简单，不会出现半链接的状态</td>
+<td>不能复用TCP连接，影响性能，每次http请求都需要建立一次TCP链接</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>采用thrift</td>
+<td style="text-align:left">简单，不会出现半链接的状态</td>
+<td>需要对所有接口进行thrift改造，也需要下游有thrift接口的支持</td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td>打开重试机制</td>
+<td style="text-align:left">改造简单</td>
+<td>可能会出现重复请求的情况，资金类接口可能有风险</td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td>开启一个线程，定期关闭无效的TCP链接</td>
+<td style="text-align:left">能有效地解决问题，但是实现较为复杂，方案还没得到实践证明</td>
+<td>官方文档给出的方案，实现较为复杂，方案还没有得到实践证明</td>
+<td><a target="_blank" rel="noopener" href="http://hc.apache.org/httpcomponents-client-ga/tutorial/html/connmgmt.html#d5e659">http://hc.apache.org/httpcomponents-client-ga/tutorial/html/connmgmt.html#d5e659</a> 2.5</td>
+</tr>
+<tr>
+<td>5</td>
+<td>客户端长连接转短连接，设置<code>ConnectionKeepAliveStrategy</code></td>
+<td style="text-align:left">实现简单，能有效的解决<code>NoHttpResponseException</code>的问题，适合QPS较高的情况。</td>
+<td>客户端长连接转短连接，当QPS请求量不高时，不能有效的发挥连接池的作用</td>
+<td><a target="_blank" rel="noopener" href="http://hc.apache.org/httpcomponents-client-ga/tutorial/html/connmgmt.html#d5e659">http://hc.apache.org/httpcomponents-client-ga/tutorial/html/connmgmt.html#d5e659</a> 2.5</td>
+</tr>
+</tbody>
+</table>
 
             </div>
             <hr>
@@ -302,18 +347,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/dajiangdahe/2022/12/06/HttpClient%E7%9A%84NoHttpResponseException%E5%BC%82%E5%B8%B8%E5%8E%9F%E5%9B%A0/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">HttpClient的NoHttpResponseException异常原因</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/dajiangdahe/2022/11/21/LInkedHashMap%20cannot%20cast%20to%20xxx%E5%88%86%E6%9E%90/">
-                        <span class="hidden-mobile">LinkedHashMap Cannot Be Cast to Xxx</span>
+                      <a href="/dajiangdahe/2022/11/21/%E5%B8%A6%E9%80%9A%E4%BF%A1%E8%AF%81%E4%B9%A6%E7%9A%84HTTP%E7%9A%84post%E6%96%B9%E6%B3%95/">
+                        <span class="hidden-mobile">带通信证书的HTTP的post方法</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
