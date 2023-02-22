@@ -1,0 +1,730 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/dajiangdahe/img/favicon.png">
+  <link rel="icon" href="/dajiangdahe/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="Hello,here is kengkeng&#39;s blog.">
+  <meta name="author" content="kengkeng">
+  <meta name="keywords" content="">
+  
+  <title>Java8 Stream流式操作 - kengkeng&#39;s life</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/dajiangdahe/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/dajiangdahe/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"kengkengya.github.io","root":"/dajiangdahe/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/dajiangdahe/js/utils.js" ></script>
+  <script  src="/dajiangdahe/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/dajiangdahe/">&nbsp;<strong>kengkeng's life</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/dajiangdahe/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/dajiangdahe/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/dajiangdahe/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/dajiangdahe/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/dajiangdahe/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/dajiangdahe/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Java8 Stream流式操作">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      kengkeng
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2023-02-22 21:52" pubdate>
+        2023年2月22日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      38
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Java8 Stream流式操作</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：23 分钟前
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h1>1、流概述</h1>
+<p>集合优化了对象的存储，大多数情况下，我们将对象存储在集合是为了处理他们。使用流可以帮助我们处理对象，无需迭代集合中的元素，即可直接提取和操作元素，并添加了很多便利的操作，例如查找、过滤、分组、排序等一系列操作。</p>
+<p>流的一个核心好处是：它使得程序更加短小并且易于理解，当结合 Lambda 表达式和方法引用时，会让人感觉自成一体。总而言之，流就是一种高效且易于使用的处理数据的方式。</p>
+<p>观察下面的例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Randoms</span> </span>&#123;<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        <span class="hljs-keyword">new</span> Random(<span class="hljs-number">47</span>)	<span class="hljs-comment">// 创建 Random 对象，并给一个种子</span><br>            .ints(<span class="hljs-number">5</span>, <span class="hljs-number">20</span>)	<span class="hljs-comment">// 产生一个限定了边界的随机整数流</span><br>            .distinct()	<span class="hljs-comment">// 使流中的整数不重复</span><br>            .limit(<span class="hljs-number">7</span>)	<span class="hljs-comment">// 取前7个元素</span><br>            .sorted()	<span class="hljs-comment">// 排序</span><br>            .forEach(System.out::println);	<span class="hljs-comment">// 根据传递给它的函数对流中每个对象执行操作</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>通过上面的示例，我们可以发现流有如下特点：</p>
+<ol>
+<li>流本身不存储元素，并且不会改变源对象，相反，它会返回一个持有结果的新流</li>
+<li>流可以在不使用赋值或可变数据的情况下对有状态的系统建模</li>
+<li>流是一种声明式编程风格，它声明想要做什么，而非指明如何做</li>
+<li>流的迭代过称为内部迭代，你看不到迭代过程，可读性更强</li>
+<li>流是懒加载的，它会等到需要时才执行</li>
+</ol>
+<h1>2、流创建</h1>
+<p>创建流的方式有很多，下面逐个介绍：</p>
+<h2 id="1-Stream-of"><strong>1. Stream.of()</strong></h2>
+<p>通过 <code>Stream.of()</code> 可以很容易地将一组元素转化为流</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">Stream.of(<span class="hljs-keyword">new</span> Bubble(<span class="hljs-number">1</span>), <span class="hljs-keyword">new</span> Bubble(<span class="hljs-number">2</span>), <span class="hljs-keyword">new</span> Bubble(<span class="hljs-number">3</span>)).forEach(System.out::println);<br>Stream.of(<span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-string">&quot;c&quot;</span>, <span class="hljs-string">&quot;d&quot;</span>, <span class="hljs-string">&quot;e&quot;</span>, <span class="hljs-string">&quot;f&quot;</span>).forEach(System.out::print);<br>Stream.of(<span class="hljs-number">3.14159</span>, <span class="hljs-number">2.718</span>, <span class="hljs-number">1.618</span>).forEach(System.out::println);<br></code></pre></td></tr></table></figure>
+<h2 id="2-stream"><strong>2. stream()</strong></h2>
+<p>每个集合也可以通过调用 <code>stream()</code> 方法来产生一个流</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java">List&lt;Bubble&gt; list = Arrays.asList(<span class="hljs-keyword">new</span> Bubble(<span class="hljs-number">1</span>), <span class="hljs-keyword">new</span> Bubble(<span class="hljs-number">2</span>), <span class="hljs-keyword">new</span> Bubble(<span class="hljs-number">3</span>));<br>list.stream().forEach(System.out::print);<br>Set&lt;String&gt; set = <span class="hljs-keyword">new</span> HashSet&lt;&gt;(Arrays.asList(<span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-string">&quot;c&quot;</span>, <span class="hljs-string">&quot;d&quot;</span>, <span class="hljs-string">&quot;e&quot;</span>, <span class="hljs-string">&quot;f&quot;</span>));<br>set.stream().forEach(System.out::print);<br></code></pre></td></tr></table></figure>
+<h2 id="3-Stream-generate"><strong>3. Stream.generate()</strong></h2>
+<p>使用 <code>Stream.generate()</code> 搭配 <code>Supplier&lt;T&gt;</code> 生成 T 类型的流</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">Stream.generate(Math::random).limit(<span class="hljs-number">10</span>).forEach(System.out::print);<br></code></pre></td></tr></table></figure>
+<h2 id="4-Stream-iterate"><strong>4. Stream.iterate()</strong></h2>
+<p><code>Stream.iterate()</code> 产生的流的第一个元素是种子，然后把种子传递给方法，方法的运行结果被添加到流，并作为下次调用 <code>iterate()</code> 的第一个参数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">Stream.iterate(<span class="hljs-number">0</span>, n -&gt; n + <span class="hljs-number">1</span>).limit(<span class="hljs-number">10</span>).forEach(System.out::print)<br></code></pre></td></tr></table></figure>
+<p>使用 <code>Stream.generate()</code> 和 <code>Stream.iterate()</code> 生成的无限流一定要用 <code>limit()</code> 截断</p>
+<h2 id="5-Stream-builder"><strong>5. Stream.builder()</strong></h2>
+<p>使用建造者模式创建一个 <code>builder</code> 对象，然后将创建流所需的多个信息传递给它，最后 <code>builder</code> 对象执行创建流的操作</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java">Stream.Builder&lt;String&gt; builder = Stream.builder();<br>builder.add(<span class="hljs-string">&quot;a&quot;</span>);<br>builder.add(<span class="hljs-string">&quot;b&quot;</span>);<br>...<br>builder.build();	<span class="hljs-comment">// 创建流</span><br><span class="hljs-comment">// builder.add(&quot;c&quot;)	// 调用 build() 方法后继续添加元素会产生异常</span><br></code></pre></td></tr></table></figure>
+<h2 id="6-Arrays-stream"><strong>6. Arrays.stream()</strong></h2>
+<p>Arrays 类中有一个名为 <code>stream()</code> 的静态方法用于把数组转换成流</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java">Arrays.stream(<span class="hljs-keyword">new</span> <span class="hljs-keyword">double</span>[] &#123;<span class="hljs-number">3.14159</span>, <span class="hljs-number">2.718</span>, <span class="hljs-number">1.618</span>&#125;).forEach(System.out::print);<br>Arrays.stream(<span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[] &#123;<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>&#125;).forEach(System.out::print);<br>Arrays.stream(<span class="hljs-keyword">new</span> <span class="hljs-keyword">long</span>[] &#123;<span class="hljs-number">11</span>, <span class="hljs-number">22</span>, <span class="hljs-number">44</span>, <span class="hljs-number">66</span>&#125;).forEach(System.out::print);<br><span class="hljs-comment">// 选择一个子域</span><br>Arrays.stream(<span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[] &#123;<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">7</span>, <span class="hljs-number">15</span>, <span class="hljs-number">28</span>, <span class="hljs-number">37</span>&#125;, <span class="hljs-number">3</span>, <span class="hljs-number">6</span>).forEach(System.out::print);<br></code></pre></td></tr></table></figure>
+<p>最后一次 <code>stream()</code> 的调用有两个额外的参数，第一个参数告诉 <code>stream()</code> 从数组的哪个位置开始选择元素，第二个参数告知在哪里停止</p>
+<h2 id="7-IntStream-range"><strong>7. IntStream.range()</strong></h2>
+<p><code>IntStream</code> 类提供 <code>range()</code> 方法用于生成整型序列的流，编写循环时，这个方法会更加便利</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">IntStream.range(<span class="hljs-number">10</span>, <span class="hljs-number">20</span>).sum();	<span class="hljs-comment">// 求得 10 - 20 的序列和</span><br>IntStream.range(<span class="hljs-number">10</span>, <span class="hljs-number">20</span>).forEach(System.out::print);	<span class="hljs-comment">// 循环输出 10 - 20</span><br></code></pre></td></tr></table></figure>
+<h2 id="8-随机数流"><strong>8. 随机数流</strong></h2>
+<p>Random 类被一组生成流的方式增强了，可以生成一组随机数流</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java">Random rand = <span class="hljs-keyword">new</span> Random(<span class="hljs-number">47</span>);<br><span class="hljs-comment">// 产生一个随机流</span><br>rand.ints().boxed();<br><span class="hljs-comment">// 控制上限和下限</span><br>rand.ints(<span class="hljs-number">10</span>, <span class="hljs-number">20</span>).boxed();<br><span class="hljs-comment">// 控制流的大小</span><br>rand.ints(<span class="hljs-number">2</span>).boxed();<br><span class="hljs-comment">// 控制流的大小和界限</span><br>rand.ints(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, <span class="hljs-number">9</span>).boxed();<br></code></pre></td></tr></table></figure>
+<p>Random 类除了能生成基本类型 int，long，double 的流，使用 <code>boxed()</code> 操作会自动把基本类型包装为对应的装箱类型</p>
+<h2 id="9-正则表达式"><strong>9. 正则表达式</strong></h2>
+<p>Java8 在 <code>java.util.regex.Pattern</code> 中新增了一个方法 <code>splitAsStream()</code>，这个方法可以根据传入的公式将字符序列转化为流</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">Pattern.compile(<span class="hljs-string">&quot;[.,?]+&quot;</span>).splitAsStream(<span class="hljs-string">&quot;a,b,c,d,e&quot;</span>).forEach(System.out::print);<br></code></pre></td></tr></table></figure>
+<h1>3、中间操作</h1>
+<p>中间操作具体包括去重、过滤、映射等操作，作用于从流中获取的每一个对象，并返回一个新的流对象。</p>
+<h2 id="1-跟踪和调试"><strong>1. 跟踪和调试</strong></h2>
+<p><code>peek()</code> 操作的目的是帮助调试，它提供了一种对流中所有元素操作的方法，同时提供一个消费函数，对流中元素进行操作，并返回一个新流。一般不建议这样做，更多的用途应该是无修改地查看流中的元素</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">Stream.of(<span class="hljs-string">&quot;a b c d e&quot;</span>.split(<span class="hljs-string">&quot; &quot;</span>)).map(w -&gt; w + <span class="hljs-string">&quot; &quot;</span>).peek(System.out::print);<br></code></pre></td></tr></table></figure>
+<h2 id="2-流元素排序"><strong>2. 流元素排序</strong></h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">sorted()` 可以帮助我们实现对流元素的排序，如果不使用默认的自然排序，则需要传入一个比较器，也可以把 Lambda 函数作为参数传递给 `sorted()<br></code></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">Stream.of(<span class="hljs-string">&quot;a b c d e&quot;</span>.split(<span class="hljs-string">&quot; &quot;</span>)).sorted(Comparator.reverseOrder())<br>    .map(w -&gt; w + <span class="hljs-string">&quot; &quot;</span>).peek(System.out::print);<br></code></pre></td></tr></table></figure>
+<h2 id="3-移除元素"><strong>3. 移除元素</strong></h2>
+<p><code>distinct()</code> 可用于消除流中的重复元素</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">new</span> Random(<span class="hljs-number">47</span>).ints(<span class="hljs-number">5</span>, <span class="hljs-number">20</span>).distinct().limit(<span class="hljs-number">7</span>).forEach(System.out::println);<br></code></pre></td></tr></table></figure>
+<p><code>filter(Predicate)</code> 将元素传递给过滤函数，若结果为 true，则保留元素</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 检测质数</span><br>Stream.iterate(<span class="hljs-number">2</span>, n -&gt; n + <span class="hljs-number">1</span>).filter(i -&gt; i % <span class="hljs-number">2</span> ==<span class="hljs-number">0</span>)<br>    .limit(<span class="hljs-number">10</span>).forEach(System.out::print)<br></code></pre></td></tr></table></figure>
+<h2 id="4-应用函数到元素"><strong>4. 应用函数到元素</strong></h2>
+<p><code>map(Function)</code> 将函数操作应用到输入流的元素，并将返回值传递到输出流</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">Arrays.stream(<span class="hljs-keyword">new</span> String[] &#123;<span class="hljs-string">&quot;12&quot;</span>, <span class="hljs-string">&quot;23&quot;</span>, <span class="hljs-string">&quot;34&quot;</span>&#125;).map(s -&gt; <span class="hljs-string">&quot;[&quot;</span> + s + <span class="hljs-string">&quot;]&quot;</span>)<br>    .forEach(System.out::print)<br></code></pre></td></tr></table></figure>
+<p>另外还有 <code>mapToInt(ToIntFunction)</code>、<code>mapToLong(ToLongFunction)</code>、<code>mapToDouble(ToDoubleFunction)</code>，操作和 <code>map(Function)</code> 相似，只是结果流为各自对应的基本类型</p>
+<p>如果在将函数应用到元素的过程中抛出了异常，此时会把原始元素放到输出流</p>
+<p><strong>5. 组合流</strong></p>
+<p>使用 <code>flatMap()</code> 将产生流的函数应用在每个元素上，然后将产生每个流都扁平化为元素</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">Stream.of(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>).flatMap(i -&gt; Stream.of(<span class="hljs-string">&quot;hello&quot;</span> + i)).forEach(System.out::println);<br></code></pre></td></tr></table></figure>
+<p>另外还有 <code>flatMapToInt(Function)</code>、<code>flatMapToLong(Function)</code>、<code>flatMapToDouble(Function)</code>，操作和 <code>flatMap()</code> 相似，只是结果元素为各自对应的基本类型</p>
+<h1>4、Optional 类</h1>
+<p>如果在一个空流中尝试获取元素，结果肯定是得到一个异常。我们希望可以得到友好的提示，而不是糊你一脸 NullPointException。Optional 的出现就是为了解决臭名昭著的空指针异常</p>
+<p>一些标准流操作返回 Optional 对象，因为它们不能保证预期结果一定存在，包括：</p>
+<ul>
+<li>
+<p><code>findFirst()</code></p>
+<p>返回一个包含第一个元素的 Optional 对象，如果流为空则返回 Optional.empty</p>
+</li>
+<li>
+<p><code>findAny()</code></p>
+<p>返回包含任意元素的 Optional 对象，如果流为空则返回 Optional.empty</p>
+</li>
+<li>
+<p><code>max()</code> 和 <code>min()</code></p>
+<p>返回一个包含最大值或者最小值的 Optional 对象，如果流为空则返回 Optional.empty</p>
+</li>
+<li>
+<p><code>reduce(Function)</code></p>
+<p>将函数的返回值包装在 Optional 中</p>
+</li>
+</ul>
+<h2 id="1-便利函数"><strong>1. 便利函数</strong></h2>
+<p>Optional 类本质上是一个容器对象，所谓容器是指：它可以保存类型 T 的值，也可以保存一个 null。此外，Optional 提供了许多有用的方法，可以帮助我们不用显示地进行空值检测：</p>
+<ul>
+<li>
+<p><code>ifPresent()</code></p>
+<p>是否有值存在，存在放回 true，否则返回 false</p>
+</li>
+<li>
+<p><code>ifPresent(Consumer)</code></p>
+<p>当值存在时调用 Consumer，否则什么也不做</p>
+</li>
+<li>
+<p><code>orElse(otherObject)</code></p>
+<p>如果值存在则直接返回，否则生成 otherObject</p>
+</li>
+<li>
+<p><code>orElseGet(Supplier)</code></p>
+<p>如果值存在则直接返回，否则使用 Supplier 函数生成一个可替代对象</p>
+</li>
+<li>
+<p><code>orElseThrow(Supplier)</code></p>
+<p>如果值存在则直接返回，否则使用 Supplier 函数生成一个异常</p>
+</li>
+</ul>
+<p>下面是对 Optional 的一个简单应用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OptionalBasics</span> </span>&#123;<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">test</span><span class="hljs-params">(Optional&lt;String&gt; optString)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span>(optString.isPresent())<br>            System.out.println(optString.get()); <br>        <span class="hljs-keyword">else</span><br>            System.out.println(<span class="hljs-string">&quot;Nothing inside!&quot;</span>);<br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        test(Stream.of(<span class="hljs-string">&quot;Epithets&quot;</span>).findFirst());<br>        test(Stream.&lt;String&gt;empty().findFirst());	<span class="hljs-comment">// 生成一个空流</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="2-创建-Optional"><strong>2.创建 Optional</strong></h2>
+<p>当我们需要在自己的代码中加入 Optional 时，可以使用下面三个静态方法：</p>
+<ul>
+<li>
+<p><code>empty()</code></p>
+<p>生成一个空 Optional</p>
+</li>
+<li>
+<p><code>of(value)</code></p>
+<p>将一个非空值包装到 Optional 里</p>
+</li>
+<li>
+<p><code>ofNullable(value)</code></p>
+<p>针对一个可能为空的值，为空时自动生成 Optional.empty，否则将值包装在 Optional 中</p>
+</li>
+</ul>
+<h2 id="3-Optional-对象操作"><strong>3. Optional 对象操作</strong></h2>
+<p>当我们的流管道生成 Optional 对象，下面三个方法可以使得 Optional 能做更多后续操作：</p>
+<ul>
+<li>
+<p><code>filter(Predicate)</code></p>
+<p>对 Optional 中的内容应用 Predicate 并将结果返回。如果 Optional 不满足 Predicate，将 Optional 转化为空 Optional 。如果 Optional 已经为空，则直接返回空 Optional</p>
+</li>
+<li>
+<p><code>map(Function)</code></p>
+<p>如果 Optional 不为空，应用 Function 于 Optional 中的内容，并返回结果，否则直接返回 Optional.empty</p>
+</li>
+<li>
+<p><code>flatMap(Function)</code></p>
+<p>一般应用于已生成 Optional 的映射函数，所以 <code>flatMap()</code> 不会像 <code>map()</code> 那样将结果封装在 Optional 中</p>
+</li>
+</ul>
+<h1>5、终端操作</h1>
+<p>终端操作将获取流的最终结果，至此我们无法再继续往后传递流。可以说，终端操作总是我们在使用流时所做的最后一件事</p>
+<h2 id="1-数组"><strong>1. 数组</strong></h2>
+<p>当我们需要得到数组类型的数据以便于后续操作时，可以使用下述方法产生数组：</p>
+<ul>
+<li>
+<p><code>toArray()</code></p>
+<p>将流转换成适当类型的数组</p>
+</li>
+<li>
+<p><code>toArray(generetor)</code></p>
+<p>生成自定义类型的数组</p>
+</li>
+</ul>
+<h2 id="2-循环"><strong>2. 循环</strong></h2>
+<p>常见的如 <code>forEach(Consumer)</code>，另外还有 <code>forEachOrdered(Consumer)</code>，保证按照原始流的顺序操作。第二种形式仅在引入并行流时才有意义。所谓并行流是将流分割为多个，并在不同的处理器上分别执行。由于多处理器并行操作的原因，输出的结果可能会不一样，因此需要用到 <code>forEachOrdered(Consumer)</code></p>
+<h2 id="3-集合"><strong>3. 集合</strong></h2>
+<p>在这里我们只是简单介绍一下常见的 Collectors 示例，实际上它还有一些非常复杂的实现。大多数情况下，<code>java.util.stream.Collectors</code> 中预设的 Collector 就能满足我们的需求</p>
+<ul>
+<li>
+<p><code>collect(Collector)</code></p>
+<p>使用 Collector 收集流元素到结果集合中</p>
+</li>
+<li>
+<p><code>collect(Supplier, BiConsumer, BiConsumer)</code></p>
+<p>第一个参数创建一个新的结果集合，第二个参数将下一个元素收集到结果集合中，第三个参数用于将两个结果集合合并起来</p>
+</li>
+</ul>
+<h2 id="4-组合"><strong>4. 组合</strong></h2>
+<p>组合意味着将流中所有元素以某种方式组合为一个元素</p>
+<ul>
+<li>
+<p><code>reduce(BinaryOperator)</code></p>
+<p>使用 BinaryOperator 来组合所有流中的元素。因为流可能为空，其返回值为 Optional</p>
+</li>
+<li>
+<p><code>reduce(identity, BinaryOperator)</code></p>
+<p>功能同上，但是使用 identity 作为其组合的初始值。因此如果流为空，identity 就是结果</p>
+</li>
+</ul>
+<p>看一段代码示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">Stream.generate(Math::random).limit(<span class="hljs-number">10</span>)<br>	.reduce((fr0, fr1) -&gt; fr0.size &lt; <span class="hljs-number">50</span> ? fr0 : fr1).ifPresent(System.out::println);<br></code></pre></td></tr></table></figure>
+<p>返回的结果是 Optional 类型，Lambda 表达式中的第一个参数 fr0 是 reduce 中上一次调用的结果，而第二个参数 fr1 是从流传递过来的值</p>
+<h2 id="5-匹配"><strong>5. 匹配</strong></h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">allMatch(Predicate)<br></code></pre></td></tr></table></figure>
+<p>如果流的每个元素提供给 Predicate 都返回 true ，结果返回为 true。在第一个 false 时，则停止执行计算</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">anyMatch(Predicate)<br></code></pre></td></tr></table></figure>
+<p>如果流的任意一个元素提供给 Predicate 返回 true ，结果返回为 true。在第一个 true 是停止执行计算</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">noneMatch(Predicate)<br></code></pre></td></tr></table></figure>
+<p>如果流的每个元素提供给 Predicate 都返回 false 时，结果返回为 true。在第一个 true 时停止执行计算</p>
+<h2 id="6-查找"><strong>6. 查找</strong></h2>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">findFirst</span><span class="hljs-params">()</span></span><br></code></pre></td></tr></table></figure>
+<p>返回第一个流元素的 Optional，如果流为空返回 Optional.empty</p>
+<figure class="highlight isbl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs isbl"><span class="hljs-function"><span class="hljs-title">findAny</span>(</span><br></code></pre></td></tr></table></figure>
+<p>返回含有任意流元素的 Optional，如果流为空返回 Optional.empty</p>
+<h2 id="7-信息"><strong>7. 信息</strong></h2>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">count</span><span class="hljs-params">()</span></span><br></code></pre></td></tr></table></figure>
+<p>流中的元素个数</p>
+<figure class="highlight isbl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs isbl"><span class="hljs-function"><span class="hljs-title"><span class="hljs-built_in">max</span></span>(<span class="hljs-variable">Comparator</span>)</span><br></code></pre></td></tr></table></figure>
+<p>根据所传入的 Comparator 所决定的最大元素</p>
+<figure class="highlight isbl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs isbl"><span class="hljs-function"><span class="hljs-title"><span class="hljs-built_in">min</span></span>(<span class="hljs-variable">Comparator</span>)</span><br></code></pre></td></tr></table></figure>
+<p>根据所传入的 Comparator 所决定的最小元素</p>
+<h2 id="8-数字流信息"><strong>8. 数字流信息</strong></h2>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">average</span><span class="hljs-params">()</span></span><br></code></pre></td></tr></table></figure>
+<p>求取流元素平均值</p>
+<figure class="highlight isbl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs isbl"><span class="hljs-function"><span class="hljs-title"><span class="hljs-built_in">max</span></span>()` 和 `<span class="hljs-title"><span class="hljs-built_in">min</span></span>()</span><br></code></pre></td></tr></table></figure>
+<p>数值流操作无需 Comparator</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">sum</span><span class="hljs-params">()</span></span><br></code></pre></td></tr></table></figure>
+<p>对所有流元素进行求和</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/dajiangdahe/categories/java/">java</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/dajiangdahe/tags/Stream%E6%B5%81%E5%BC%8F%E6%93%8D%E4%BD%9C/">Stream流式操作</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/dajiangdahe/2022/12/06/HttpClient%E7%9A%84NoHttpResponseException%E5%BC%82%E5%B8%B8%E5%8E%9F%E5%9B%A0/">
+                        <span class="hidden-mobile">HttpClient的NoHttpResponseException异常原因</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        京ICP证123456号
+      </a>
+    </span>
+    
+      
+        <span>
+          <a
+            href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=12345678"
+            rel="nofollow noopener"
+            class="beian-police"
+            target="_blank"
+          >
+            
+              <span style="visibility: hidden; width: 0">|</span>
+              <img src="/dajiangdahe/img/police_beian.png" alt="police-icon"/>
+            
+            <span>京公网安备12345678号</span>
+          </a>
+        </span>
+      
+    
+  </div>
+
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/dajiangdahe/js/events.js" ></script>
+<script  src="/dajiangdahe/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/dajiangdahe/js/local-search.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/dajiangdahe/js/boot.js" ></script>
+
+
+</body>
+</html>

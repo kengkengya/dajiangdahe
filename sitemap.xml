@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://kengkengya.github.io/dajiangdahe/2023/02/22/Java8%20Stream%E6%B5%81%E5%BC%8F%E6%93%8D%E4%BD%9C/</loc>
+    
+    <lastmod>2023-02-22</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://kengkengya.github.io/dajiangdahe/about/index.html</loc>
+    
+    <lastmod>2023-02-22</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://kengkengya.github.io/dajiangdahe/2022/12/06/HttpClient%E7%9A%84NoHttpResponseException%E5%BC%82%E5%B8%B8%E5%8E%9F%E5%9B%A0/</loc>
     
     <lastmod>2022-12-06</lastmod>
@@ -145,13 +159,6 @@
     <loc>https://kengkengya.github.io/dajiangdahe/2021/11/02/%E3%80%90%E5%B0%8F%E8%AF%B4%E3%80%91%E4%BD%A0%E5%BD%93%E5%83%8F%E9%B8%9F%E9%A3%9E%E5%BE%80%E4%BD%A0%E7%9A%84%E5%B1%B1/</loc>
     
     <lastmod>2021-12-10</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://kengkengya.github.io/dajiangdahe/about/index.html</loc>
-    
-    <lastmod>2021-12-07</lastmod>
     
   </url>
   
@@ -382,7 +389,7 @@
 
   <url>
     <loc>https://kengkengya.github.io/dajiangdahe</loc>
-    <lastmod>2022-12-11</lastmod>
+    <lastmod>2023-02-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -390,168 +397,175 @@
   
   <url>
     <loc>https://kengkengya.github.io/dajiangdahe/tags/%E6%A0%A1%E6%8B%9B/</loc>
-    <lastmod>2022-12-11</lastmod>
+    <lastmod>2023-02-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://kengkengya.github.io/dajiangdahe/tags/EasyExcel/</loc>
-    <lastmod>2022-12-11</lastmod>
+    <lastmod>2023-02-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://kengkengya.github.io/dajiangdahe/tags/HashMap/</loc>
-    <lastmod>2022-12-11</lastmod>
+    <lastmod>2023-02-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://kengkengya.github.io/dajiangdahe/tags/Spring/</loc>
-    <lastmod>2022-12-11</lastmod>
+    <lastmod>2023-02-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://kengkengya.github.io/dajiangdahe/tags/%E9%9D%A2%E8%AF%95/</loc>
-    <lastmod>2022-12-11</lastmod>
+    <lastmod>2023-02-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://kengkengya.github.io/dajiangdahe/tags/%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1/</loc>
-    <lastmod>2022-12-11</lastmod>
+    <lastmod>2023-02-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://kengkengya.github.io/dajiangdahe/tags/Mysql/</loc>
-    <lastmod>2022-12-11</lastmod>
+    <lastmod>2023-02-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://kengkengya.github.io/dajiangdahe/tags/Redis/</loc>
-    <lastmod>2022-12-11</lastmod>
+    <lastmod>2023-02-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://kengkengya.github.io/dajiangdahe/tags/blog/</loc>
-    <lastmod>2022-12-11</lastmod>
+    <lastmod>2023-02-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://kengkengya.github.io/dajiangdahe/tags/MacOS%E6%97%A5%E5%B8%B8/</loc>
-    <lastmod>2022-12-11</lastmod>
+    <lastmod>2023-02-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://kengkengya.github.io/dajiangdahe/tags/Zookeeper/</loc>
-    <lastmod>2022-12-11</lastmod>
+    <lastmod>2023-02-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://kengkengya.github.io/dajiangdahe/tags/%E5%B0%8F%E8%AF%B4/</loc>
-    <lastmod>2022-12-11</lastmod>
+    <lastmod>2023-02-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://kengkengya.github.io/dajiangdahe/tags/%E6%94%BF%E6%B2%BB/</loc>
-    <lastmod>2022-12-11</lastmod>
+    <lastmod>2023-02-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://kengkengya.github.io/dajiangdahe/tags/%E6%95%A3%E6%96%87/</loc>
-    <lastmod>2022-12-11</lastmod>
+    <lastmod>2023-02-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://kengkengya.github.io/dajiangdahe/tags/%E7%BB%8F%E6%B5%8E/</loc>
-    <lastmod>2022-12-11</lastmod>
+    <lastmod>2023-02-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://kengkengya.github.io/dajiangdahe/tags/%E5%AE%9A%E6%97%B6%E6%8F%90%E9%86%92%E8%84%9A%E6%9C%AC/</loc>
-    <lastmod>2022-12-11</lastmod>
+    <lastmod>2023-02-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://kengkengya.github.io/dajiangdahe/tags/gitHub/</loc>
-    <lastmod>2022-12-11</lastmod>
+    <lastmod>2023-02-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://kengkengya.github.io/dajiangdahe/tags/JUnit-Spock/</loc>
-    <lastmod>2022-12-11</lastmod>
+    <lastmod>2023-02-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://kengkengya.github.io/dajiangdahe/tags/%E7%A0%B4%E8%A7%A3%E5%8E%8B%E7%BC%A9%E5%8C%85/</loc>
-    <lastmod>2022-12-11</lastmod>
+    <lastmod>2023-02-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://kengkengya.github.io/dajiangdahe/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</loc>
-    <lastmod>2022-12-11</lastmod>
+    <lastmod>2023-02-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://kengkengya.github.io/dajiangdahe/tags/kafka/</loc>
-    <lastmod>2022-12-11</lastmod>
+    <lastmod>2023-02-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://kengkengya.github.io/dajiangdahe/tags/%E6%94%AF%E4%BB%98/</loc>
-    <lastmod>2022-12-11</lastmod>
+    <lastmod>2023-02-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://kengkengya.github.io/dajiangdahe/tags/Maven/</loc>
-    <lastmod>2022-12-11</lastmod>
+    <lastmod>2023-02-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://kengkengya.github.io/dajiangdahe/tags/Thrift/</loc>
-    <lastmod>2022-12-11</lastmod>
+    <lastmod>2023-02-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://kengkengya.github.io/dajiangdahe/tags/Stream%E6%B5%81%E5%BC%8F%E6%93%8D%E4%BD%9C/</loc>
+    <lastmod>2023-02-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
@@ -560,126 +574,126 @@
   
   <url>
     <loc>https://kengkengya.github.io/dajiangdahe/categories/JavaInterview/</loc>
-    <lastmod>2022-12-11</lastmod>
+    <lastmod>2023-02-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://kengkengya.github.io/dajiangdahe/categories/%E6%8F%92%E4%BB%B6/</loc>
-    <lastmod>2022-12-11</lastmod>
+    <lastmod>2023-02-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://kengkengya.github.io/dajiangdahe/categories/java/</loc>
-    <lastmod>2022-12-11</lastmod>
+    <lastmod>2023-02-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://kengkengya.github.io/dajiangdahe/categories/Spring/</loc>
-    <lastmod>2022-12-11</lastmod>
+    <lastmod>2023-02-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://kengkengya.github.io/dajiangdahe/categories/Linux/</loc>
-    <lastmod>2022-12-11</lastmod>
+    <lastmod>2023-02-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://kengkengya.github.io/dajiangdahe/categories/Mysql/</loc>
-    <lastmod>2022-12-11</lastmod>
+    <lastmod>2023-02-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://kengkengya.github.io/dajiangdahe/categories/Redis/</loc>
-    <lastmod>2022-12-11</lastmod>
+    <lastmod>2023-02-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://kengkengya.github.io/dajiangdahe/categories/blog/</loc>
-    <lastmod>2022-12-11</lastmod>
+    <lastmod>2023-02-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://kengkengya.github.io/dajiangdahe/categories/MacOS%E7%B3%BB%E7%BB%9F/</loc>
-    <lastmod>2022-12-11</lastmod>
+    <lastmod>2023-02-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://kengkengya.github.io/dajiangdahe/categories/Zookeeper/</loc>
-    <lastmod>2022-12-11</lastmod>
+    <lastmod>2023-02-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://kengkengya.github.io/dajiangdahe/categories/%E4%B9%A6%E7%B1%8D/</loc>
-    <lastmod>2022-12-11</lastmod>
+    <lastmod>2023-02-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://kengkengya.github.io/dajiangdahe/categories/%E8%84%9A%E6%9C%AC/</loc>
-    <lastmod>2022-12-11</lastmod>
+    <lastmod>2023-02-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://kengkengya.github.io/dajiangdahe/categories/github/</loc>
-    <lastmod>2022-12-11</lastmod>
+    <lastmod>2023-02-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://kengkengya.github.io/dajiangdahe/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/</loc>
-    <lastmod>2022-12-11</lastmod>
+    <lastmod>2023-02-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://kengkengya.github.io/dajiangdahe/categories/kafka/</loc>
-    <lastmod>2022-12-11</lastmod>
+    <lastmod>2023-02-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://kengkengya.github.io/dajiangdahe/categories/%E6%94%AF%E4%BB%98%E4%BD%93%E7%B3%BB/</loc>
-    <lastmod>2022-12-11</lastmod>
+    <lastmod>2023-02-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://kengkengya.github.io/dajiangdahe/categories/Maven/</loc>
-    <lastmod>2022-12-11</lastmod>
+    <lastmod>2023-02-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://kengkengya.github.io/dajiangdahe/categories/Thrift/</loc>
-    <lastmod>2022-12-11</lastmod>
+    <lastmod>2023-02-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
