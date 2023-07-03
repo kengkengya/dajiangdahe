@@ -184,6 +184,62 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/dajiangdahe/2021/10/22/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/" target="_self">
+          布隆过滤器
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/dajiangdahe/2021/10/22/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/" target="_self">
+          
+          
+            
+          
+          1.布隆过滤器
+场景
+在项目开发中，我们经常会遇到去重问题：判断一个人有没有浏览过一篇文章，判断一个ip是否发过一个请求，判断一个人当天是否登陆过某个系统
+常见的解决办法：
+​	（1）：set。缺点：当数据量过大时，set会非常消耗内存，性能也不高。
+​	（2）：bitmap。缺点：Bitmap可以提高性能，但是bitmap仍然比较消耗内存，尤其是在数据比较稀疏的情况下。
+​	（3）：布隆过滤器。
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-10-22 15:21" pubdate>
+              2021-10-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/dajiangdahe/categories/Redis/">Redis</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/dajiangdahe/tags/Redis/">Redis</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/dajiangdahe/2021/10/22/%E3%80%90%E7%BB%8F%E6%B5%8E%E3%80%91%E8%A7%A3%E8%AF%BB%E5%9F%BA%E9%87%91/" target="_self">
           解读基金
         </a>
@@ -678,66 +734,6 @@ HyperLogLog：Redis Hyper
             <i class="iconfont icon-tags"></i>
             
               <a href="/dajiangdahe/tags/Redis/">Redis</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/dajiangdahe/2021/10/22/Mysql%E7%B4%A2%E5%BC%95/" target="_self">
-          Mysql索引
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/dajiangdahe/2021/10/22/Mysql%E7%B4%A2%E5%BC%95/" target="_self">
-          
-          
-            
-          
-          Mysql索引
-【概念】
-MySQL 官方对索引的定义为：索引（Index）是帮助 MySQL 高效获取数据的数据结构。简单的理解，索引类似于字典里面的目录。
-【索引类型】
-==从数据结构角度划分：==
-
-
-hash索引：底层就是 hash 表。进行查找时，根据 key 调用 hash 函数获得对应的 hashcode，根据 hashcode 找到对应的数据行地址，根据地址拿到对应的数据。
-
-
-B
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-10-22 15:21" pubdate>
-              2021-10-22
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/dajiangdahe/categories/Mysql/">Mysql</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/dajiangdahe/tags/Mysql/">Mysql</a>
             
           </div>
         
