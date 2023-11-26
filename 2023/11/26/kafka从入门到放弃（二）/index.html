@@ -192,7 +192,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.6k 字
+      2.7k 字
     </span>
   
 
@@ -202,7 +202,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      17
+      28
        分钟
     </span>
   
@@ -252,6 +252,7 @@
               <h1>摘要</h1>
 <blockquote>
 <p>Kafka 是一款非常优秀的开源消息引擎，以<strong>消息吞吐量高</strong>、<strong>可动态扩容</strong>、<strong>可持久化存储</strong>、高可用的特性，以及完善的文档和社区支持成为目前最流行的消息队列中间件。是基于<strong>发布订阅模式的消息引擎系统。</strong></p>
+<p>ps：相当于另一篇来看，本篇是从复习温习的角度出发， 可能会有一些重复的内容，通过补全内容，两项印章，提升基本功。</p>
 </blockquote>
 <h2 id="基本术语">基本术语</h2>
 <ol>
@@ -322,15 +323,43 @@
 <li><code>高吞吐，低延迟</code>：kafka的最大的特点是收发消息非常快，kafka每秒可以处理几十万条消息，它的最低延迟只有几毫秒</li>
 <li><code>高伸缩性</code>:每个<code>topic</code>包含多个<code>partition</code>，<code>topic</code>中的<code>patition</code>可以分部在不同的<code>broker</code>中。</li>
 <li><code>持久性、可靠性</code>：kafka能够允许数据的持久化存储，消息被持久化到磁盘，并支持数据备份防止数据丢失，kafka底层的数据存储是基于zookeeper存储的。</li>
-<li><code>容错性</code>:允许集群中的节点失败，某个节点党纪，kafka集群能够正常工作</li>
+<li><code>容错性</code>:允许集群中的节点失败，某个节点宕机，kafka集群能够正常工作</li>
 <li><code>高并发</code>：能够支持数千个客户端同时读写。</li>
 </ul>
 <h1>kafka的应用架构</h1>
 <img src="/dajiangdahe/2023/11/26/kafka%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83%EF%BC%88%E4%BA%8C%EF%BC%89/image-20231126193145903.png" class="" title="image-20231126193145903">
 <p>这张图中居于核心地位的是 Kafka Core 的集群，也是我们常用的消息引擎的这部分功能，是我们这篇文档重点介绍的对象。在核心的周围，第一层是 Producer 和 Consumer 的基础 API，提供基础事件流消息的推送和消费。而基于这些基础 API Kafka 提供了更加高级的 Connect API，能够实现 Kafka 和其他数据系统的连接，比如消息数据自动推送到 MySQL 数据库或者将 RPC 请求转换为事件流消息进行推送。此外，Kafka 基于自己的消息引擎打造了一个流式计算平台 Streams，提供流式的计算和存储一体化的服务。</p>
+<p>Kafka 有四个核心API，它们分别是</p>
+<ul>
+<li>Producer API，它允许应用程序向一个或多个 topics 上发送消息记录</li>
+<li>Consumer API，允许应用程序订阅一个或多个 topics 并处理为其生成的记录流</li>
+<li>Streams API，它允许应用程序作为流处理器，从一个或多个主题中消费输入流并为其生成输出流，有效的将输入流转换为输出流。</li>
+<li>Connector API，它允许构建和运行将 Kafka 主题连接到现有应用程序或数据系统的可用生产者和消费者。例如，关系数据库的连接器可能会捕获对表的所有更改</li>
+</ul>
 <h1>kafka的系统架构</h1>
 <img src="/dajiangdahe/2023/11/26/kafka%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83%EF%BC%88%E4%BA%8C%EF%BC%89/image-20231126193510859.png" class="" title="image-20231126193510859">
 <p>如上图所示，一个典型的 Kafka 集群中包含若干Producer（可以是web前端产生的Page View，或者是服务器日志，系统CPU、Memory等），若干broker（Kafka支持水平扩展，一般broker数量越多，集群吞吐率越高），若干Consumer Group，以及一个Zookeeper集群。Kafka通过Zookeeper管理集群配置，选举leader，以及在Consumer Group发生变化时进行rebalance。Producer使用push模式将消息发布到broker，Consumer使用pull模式从broker订阅并消费消息。</p>
+<h1>kafka core 架构</h1>
+<p>kafka core 架构部分的解读从模型、角色和实体、典型架构三个方向层层递进</p>
+<h2 id="消息模型">消息模型</h2>
+<p>Kafka 的消息模型主要由生产消费模型、角色和实体，以及实体关系构成，前者表示了消息的生产消费模式，后者描述了为了实现前者，其内部角色和实体存在怎样的逻辑关系。</p>
+<p>基本消息生产消费模型如下图所示：</p>
+<img src="/dajiangdahe/2023/11/26/kafka%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83%EF%BC%88%E4%BA%8C%EF%BC%89/f85fc3b20a244e62bce50a81d4db01cf~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp" class="" title="流程图 (3).jpg">
+<blockquote>
+<p>图中展示了一个非常基本的生产消费场景，生产端向队列尾部发送消息，消费端从队列头部开始消费。</p>
+<p>Ps1：<code>partition0</code>和<code>partition2</code>解释了HW和LEO的关系，HW的最大值是LEO，消息终止偏移，同时可以看出，只有HW以下水位的消息才对外可见，并且可以消费。同时，消费者消费的时候需要从LSO开始。消费是在每个<code>partition</code>之间是有序的。</p>
+</blockquote>
+<h3 id="消费端">消费端</h3>
+<p>在消费端有众多消费者，它们之间用<strong>消费者组</strong>关联起来。注意图中 Consumer 0 是没有分配到分区进行消费的，因为消费者组主要起个负载均衡的作用，一个分区被两个消费者消费从业务视角来看就是在重复消费了。对已经分配到分区的消费者来说，消费从队列的头部开始，在 HW 前结束。</p>
+<h3 id="消息队列">消息队列</h3>
+<p>消息队列处于整个消息模型中心的地位，是连接生产端和消费端的枢纽，Kafka 在性能优化上做的工作最多的就是这一个部分。因为 Kafka 的消息存储是<strong>队列</strong>的数据结构，只<strong>允许消息追加写入</strong>，这样的设计能最大化利用现有持久化存储介质的写入性能（SSD 和 HDD 都存在<strong>顺序写入性能远大于随机写入的特性</strong>），实现消息队列的高吞吐量。此外，Kafka 的队列还设计了高水位机制，避免未被从副本完成同步的消息被消费者感知并消费</p>
+<h3 id="生产端">生产端</h3>
+<p>生产端的 Producer 持续发送消息到队列中，消息追加到队列尾部，通过指定分区算法可以决定消息发往 Topic 下的哪个分区</p>
+<h3 id="小结">小结</h3>
+<p>Kafka 的整个消息模型还是基于经典的消息模型去设计和改进的，消息模型的设计还是非常简洁易懂的，它的创新和优势就是在于将这一套模型用分布式的多机模式实现出来，能支撑住大并发、高吞吐量场景下的低时延、高可用的业务需求。</p>
+<h4 id="Push-vs-Pull">Push vs Pull</h4>
+<p>在 Kafka 定义的消息模型中，消费端是通过主动拉取消息的方式来消费的，但是与之对应的还有消息推送模型，Broker 对生产者推送过来的消息进行主动分发和推送到消费端</p>
+<p>直觉上我们会觉得这种方式很自然，或者认为这是消息引擎的唯一范式，但是实际上关于为什么选择 Pull 的方式来进行消费，Kafka 的官方文档中关于这部分设计有专门列出来，主要讨论的点是消息消费的流控策略应该放在 Broker 端还是 Consumer 端，感兴趣的可以去阅读一下 <a href="https://link.juejin.cn/?target=https%3A%2F%2Fkafka.apache.org%2Fdocumentation%2F%23design_pull">Apache Kafka Documentation</a>或者（kafka从入门到放弃中的1.2.2节介绍：点对点模型和发布订阅模型）</p>
 
             </div>
             <hr>
