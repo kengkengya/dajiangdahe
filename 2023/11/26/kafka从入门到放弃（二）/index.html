@@ -192,7 +192,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.7k 字
+      8.6k 字
     </span>
   
 
@@ -202,7 +202,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      28
+      93
        分钟
     </span>
   
@@ -244,7 +244,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：21 分钟前
+                  本文最后更新于：几秒前
                 
               </p>
             
@@ -357,9 +357,195 @@
 <p>生产端的 Producer 持续发送消息到队列中，消息追加到队列尾部，通过指定分区算法可以决定消息发往 Topic 下的哪个分区</p>
 <h3 id="小结">小结</h3>
 <p>Kafka 的整个消息模型还是基于经典的消息模型去设计和改进的，消息模型的设计还是非常简洁易懂的，它的创新和优势就是在于将这一套模型用分布式的多机模式实现出来，能支撑住大并发、高吞吐量场景下的低时延、高可用的业务需求。</p>
-<h4 id="Push-vs-Pull">Push vs Pull</h4>
+<h3 id="Push-vs-Pull">Push vs Pull</h3>
 <p>在 Kafka 定义的消息模型中，消费端是通过主动拉取消息的方式来消费的，但是与之对应的还有消息推送模型，Broker 对生产者推送过来的消息进行主动分发和推送到消费端</p>
 <p>直觉上我们会觉得这种方式很自然，或者认为这是消息引擎的唯一范式，但是实际上关于为什么选择 Pull 的方式来进行消费，Kafka 的官方文档中关于这部分设计有专门列出来，主要讨论的点是消息消费的流控策略应该放在 Broker 端还是 Consumer 端，感兴趣的可以去阅读一下 <a href="https://link.juejin.cn/?target=https%3A%2F%2Fkafka.apache.org%2Fdocumentation%2F%23design_pull">Apache Kafka Documentation</a>或者（kafka从入门到放弃中的1.2.2节介绍：点对点模型和发布订阅模型）</p>
+<h3 id="零拷贝机制">零拷贝机制</h3>
+<p>零拷贝是一种优化思想或者技巧，针对程序运行中<strong>不可变的数据</strong>或者不可变的部分减少或取消内存数据的拷贝，用<strong>内存地址</strong>去引用这些数据。</p>
+<p>kafka的消息队列的核心功能就是进行各种数据的IO和转发（IO密集型应用），零拷贝带来的收益非常明显：</p>
+<ul>
+<li>减少了JVM堆内存占用，降低了GC导致的服务暂停和OOM风险</li>
+<li>·减少了大批量频繁内存拷贝的时间，大幅优化数据吞吐性能。</li>
+</ul>
+<p>kafka的实例是运行在JVM里面的，零拷贝技术主要依赖JAVA提供的FileChannel去映射文件。</p>
+<p>针对消息拉取消费的场景：将日志段FileChannel中对应偏移和长度（kafka的日志段都有对应的索引文件，所以不需要读取原始消息日志段文件就能拿到这些信息）的数据发送到网络栈，规避应用层的数据拷贝中转。</p>
+<p>针对消息推送生产的场景：从网络栈读取出来处理好的消息直接从内存 Buffer 中向 FileChannel 写入追加，当然这个场景并没有实现严格意义上的零拷贝（JVM 堆内存存在于用户空间，写入文件中必须要拷贝到内核），只不过 Kafka 用了 MemoryRecords 这个类基于 Buffer 去管理内存中的消息，规避了使用对象结构的方式管理可能存在的内存拷贝和数据序列化行为（这个优化的思路和 String 以及 StringBuilder 一致）</p>
+<p>这里只是以场景的例子提供一些分析零拷贝实现机制的视角（系统原生支持 + 处理逻辑层面优化），零拷贝单独展开也是一个很大的话题，总体来讲就是在各个环节尽可能减少内存拷贝的次数，提高数据读写性能</p>
+<blockquote>
+<p>MemoryRecords学习：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/22e0d862149f%E3%80%82%E5%BA%95%E5%B1%82%E5%B0%81%E8%A3%85%E4%BA%86JAVA">https://www.jianshu.com/p/22e0d862149f。底层封装了JAVA</a> NIO的ByteBuffer用来保存消息数据。Compressor用于对ByteBuffer中的消息进行压缩。</p>
+<p>FileChannel通道转换特性：普通的读写方式是利用一个 ByteBuffer 缓冲区，作为数据的容器。但如果是两个通道之间的数据交互，利用缓冲区作为媒介是多余的。文件通道允许从一个 ReadableByteChannel 中直接输入数据，也允许直接往 WritableByteChannel 中写入数据。实现这两个操作的分别为 transferFrom(ReadableByteChannel src, position, count) 和 transferTo(position, count, WritableChannel target) 方法。</p>
+<p>这进行通道间的数据传输时，这两个方法比使用 ByteBuffer 作为媒介的效率要高；很多操作系统支持文件系统缓存，两个文件之间实际可能并没有发生复制。</p>
+<p>transferFrom 或者 transferTo 在调用之后并不会改变 position（FileChannel 提供了一种通过通道来访问文件的方式，它可以通过带参数 position(int) 方法定位到文件的任意位置开始进行操作，还能够将文件映射到直接内存，提高大文件的访问效率。<a target="_blank" rel="noopener" href="https://www.cnblogs.com/robothy/p/14235598.html%EF%BC%89">https://www.cnblogs.com/robothy/p/14235598.html）</a> 的位置。</p>
+<p>NIO：<a target="_blank" rel="noopener" href="https://juejin.cn/post/7131937244067315720">https://juejin.cn/post/7131937244067315720</a></p>
+</blockquote>
+<h2 id="角色和实体">角色和实体</h2>
+<p>kafka在对上述消息模型的实现中，定义了一系列负责执行的角色和表达数据结构的实体。每个角色和实体都有其对应的责任边界，这些角色和实体之间共同配合完成整个消息引擎的运转。</p>
+<ul>
+<li>Broker 是一个独立的 Kafka 服务端实例，是最大的实体范围，其他角色的实例都通过对象成员的形式引用进来，自身不负责请求的处理逻辑</li>
+<li>Controller 是整个 Kafka 集群的管理者角色，任何集群范围内的状态变更都需要通过 Controller 进行，在整个集群中是个单点的服务，可以通过选举协议进行故障转移</li>
+<li>Replica 是一个独立的消息队列实体，负责消息在物理层面上的存储</li>
+<li>Partition 是逻辑层面的“队列”实体，实际上是一组 Replica 的集合</li>
+<li>Topic 是 Partition 的实体集合</li>
+<li>Producer 是消息生产者角色，会发送消息到对应主题的分区中，写入到 LEO 的位置去</li>
+<li>Consumer 是消息的消费者角色，能消费到 Partition 对外可见的消息</li>
+<li>Consumer Group 是 Consumer 的集合实体，并对应一组管理机制用来协调 Consumer 的消费</li>
+<li>Group Coordinator 是 Broker 中一个负责管理对应消费者组元数据的角色，比较重要且熟知的功能就是负责消费进度的管理</li>
+</ul>
+<h3 id="Broker">Broker</h3>
+<p><code>broker</code>是一个kafka服务端实例，服务端进程启动的入口。</p>
+<p>broker中有一些需要关注的配置项，代表本实例具备什么样的能力。（举几个重要 的配置）</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://broker.id">broker.id</a>：broker端的唯一标识，默认值是0，可以任意设置。</li>
+<li>port：监听端口</li>
+<li>zookeeper.connect：监听地址</li>
+<li>log.dirs：kafka会将所有的消息都保存在磁盘上，存放这些日志片段的目录是通过<font color=red><code>log.dirs</code></font>配置的，没有默认值。需要手动指定</li>
+</ul>
+<h3 id="Controller">Controller</h3>
+<p>controller是broker中队kafka集群中来说一个比较重要的角色，负责集群范围内的：</p>
+<ol>
+<li>主题的新建和删除</li>
+<li>主题分区的新建、重新分配</li>
+<li>broker的加入、退出</li>
+<li>触发分区leader选举</li>
+</ol>
+<p>每个 Broker 里都有一个 Controller 实例，多个 Broker 的集群同时最多只有一个 Controller 可以对外提供集群管理服务，Controller 可以在 Broker 之间进行故障转移</p>
+<p>Controller 承担的责任在我们眼里更像是集群的 Leader，不过在 Kafka 的其他地方也出现了 Leader 这个角色，避免混淆还是先记住 Controller 也是集群中的重要角色吧</p>
+<h3 id="Partition">Partition</h3>
+<img src="/dajiangdahe/2023/11/26/kafka%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83%EF%BC%88%E4%BA%8C%EF%BC%89/image-20231128214335930.png" class="" title="image-20231128214335930">
+<p>Partition 是一个独立的消息队列，从数据结构的角度看可以理解为一个用数组实现的队列，起点是 Log start offset，此偏移会随着消息过期时间等配置的影响，逐渐向右移动</p>
+<p>HW 是已提交消息的可见性的边界，仅在此偏移之下的消息对外是可见的（注意，不含 HW 本身），该偏移的移动和 Kafka 的副本同步机制紧密关联，下面会专门介绍此机制</p>
+<p>Log start offset 和 HW 共同配合，形成了已提交消息的可见范围，需要注意的是受 Broker 的消息过期清理配置的影响，从副本的 Log start offset 的值通常小于等于领导者副本的 Log start offset，可见范围同样会因此缩减</p>
+<p>LEO 是消息队列的终点，下一条消息将在这个地方写入，同时 HW 的最大值就是更新到这里</p>
+<p>LW 的作用不是很大，因为分区的 Leader 副本一旦初始化完成，其 Log start offset 的值更新机制就是 LW 的更新机制，两者可以等价替换</p>
+<p>上面说的这几个偏移的管理主要和 Kafka 的副本管理机制相关，尤其是 HW 更新机制，因为消息数据需要在多个副本之间同步，所以需要这样的机制来管理数据同步的进度。</p>
+<h3 id="Topic">Topic</h3>
+<p>一个topic就是一组partition的集合。topic有很多默认配置参数。</p>
+<ul>
+<li>
+<p>num.partitions：指定新建的topic需要包含多少个分区。默认值是1.我们可以增加分区的个数，但是不能减少分区的个数。</p>
+<blockquote>
+<p>实现此功能需要考虑的因素很多：</p>
+<ol>
+<li>删除掉的分区中的消息该作何处理？</li>
+<li>如果随着分区一起消失则消息的可靠性得不到保障；</li>
+<li>如果需要保留则又需要考虑如何保留？
+<ol>
+<li>直接存储到现有分区的尾部，消息的时间戳就不会递增，如此对于Spark、Flink这类需要消息时间戳（事件时间）的组件将会受到影响；</li>
+<li>如果分散插入到现有的分区中，那么在消息量很大的时候，内部的数据复制会占用很大的资源，而且在复制期间，此主题的可用性又如何得到保障？</li>
+<li>与此同时，顺序性问题、事务性问题、以及分区和副本的状态机切换问题都是不得不面对的。</li>
+</ol>
+</li>
+</ol>
+<p>Q：如果我必须要减少分区怎么办？</p>
+<p>A：重新创建一个主题，确认好分区数量，将消息按规则同步过去。</p>
+</blockquote>
+</li>
+<li>
+<p>default.replication.factor：kafka保存消息的副本数。默认值是1。</p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="http://log.retention.ms">log.retention.ms</a>：根据时间来决定数据可以保留多久。默认使用log.retention.hours参数来配置时间，默认是一周。<a target="_blank" rel="noopener" href="http://xn--log-b56fm68eint.retention.ms">推荐用log.retention.ms</a></p>
+</li>
+<li>
+<p>log.retention.bytes：根据消息是否过期来选择保留消息。</p>
+</li>
+<li>
+<p>message.max.bytes：限制单个消息的大小，默认是1MB。超过这个大小，会收到broker返回的错误信息。此指直接表现影响IO吞吐量。（值越大，那么负责处理网络连接和请求的线程就需要花费更多的时间来处理，同时还会导致磁盘写入块的大小，影响IO效率）</p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="http://retention.ms">retention.ms</a>：规定了该主题的消息被保存的时常，默认是7天，一旦设置了这个值，他会覆盖掉broker端的全局参数值。</p>
+</li>
+<li>
+<p>retention.bytes：规定了要为topic留下多大的磁盘空间。默认值是-1，表示可以无限使用磁盘空间。</p>
+</li>
+</ul>
+<h3 id="Producer">Producer</h3>
+<p>生产者产生消息的模型如下：</p>
+<img src="/dajiangdahe/2023/11/26/kafka%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83%EF%BC%88%E4%BA%8C%EF%BC%89/image-20231224142506694.png" class="" title="image-20231224142506694">
+<p>kafka的一条消息的生命周期从producer开始，首先需要创建一个核心类：ProducerRecord，他代表了一组kafka需要发送的<code>key\value</code>键值对，并且该类还可以指定具体的topic和partition。再<code>send</code>传送过程中，首先需要将<code>key\value</code>字序列化成节数组，因此此处通常建议是String类型的消息，如果是自定义对象或者复杂的对象时，会导致序列化异常。转换成字节数组后，然后消息到达分区器。如果对象producerRecord指定了具体的分区编号的话，那直接到达指定分区编号，如果没有，则通过key的hash函数映射指定一个分区。</p>
+<img src="kafka从入门到放弃（二）/a2dad1fcede64f1081b095fe8f0c9ff2~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.avis" alt="img" style="zoom:50%;" />
+<p>每一条消息在发送到broker中时，都会有一个时间戳，生产者默认会在记录中使用当前时间作为时间戳。最终使用的时间戳取决于topic主题配置的时间戳模型。</p>
+<ul>
+<li>如果主题使用<code>createTime</code>，则为当前时间戳</li>
+<li>如果主题使用<code>logAppendTime</code>，当消息添加到日志中，则由broker重写。</li>
+</ul>
+<p>然后这个消息会被放到一个记录批次里，这个批次里的消息都在同一个主题和分区下面。然后会在通过一个独立的线程发到broker中去。Kafka Broker 在收到消息时会返回一个响应，如果写入成功，会返回一个 RecordMetaData 对象，<strong>它包含了主题和分区信息，以及记录在分区里的偏移量，上面两种的时间戳类型也会返回给用户</strong>。如果写入失败，会返回一个错误。生产者在收到错误之后会尝试重新发送消息，几次之后如果还是失败的话，就返回错误消息。</p>
+<p>生产者有两种消息发送机制，分别是同步消息发送、异步消息发送，详细如下。</p>
+<h4 id="同步消息发送">同步消息发送</h4>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java">ProducerRecord&lt;String,String&gt; record =<br>                <span class="hljs-keyword">new</span> ProducerRecord&lt;String, String&gt;(<span class="hljs-string">&quot;CustomerCountry&quot;</span>,<span class="hljs-string">&quot;West&quot;</span>,<span class="hljs-string">&quot;France&quot;</span>);<br><br><span class="hljs-keyword">try</span>&#123;<br>  RecordMetadata recordMetadata = producer.send(record).get();<br>&#125;<span class="hljs-keyword">catch</span>(Exception e)&#123;<br>  e.printStackTrace()；<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>这是一个很典型的使用方式，通过调用<code>send</code>来发送消息到对应的<code>topic</code>中去，然后通过<code>get</code>方法来获取来自broker的响应，如果能够正常获取到响应，那我们就得到了recordMetadata，然后就可以对他进行处理。生产者再发送中或出现两种错误，一种是可重试错误，如超时等，当重试多次后，还无法成功，则会抛出异常，一种是不可重试错误，如序列化异常、消息过大，这种会直接选择抛出异常。</p>
+<h4 id="异步消息发送">异步消息发送</h4>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java">ProducerRecord&lt;String, String&gt; producerRecord = <span class="hljs-keyword">new</span> ProducerRecord&lt;String, String&gt;(<span class="hljs-string">&quot;CustomerCountry&quot;</span>, <span class="hljs-string">&quot;Huston&quot;</span>, <span class="hljs-string">&quot;America&quot;</span>);<br>        producer.send(producerRecord,<span class="hljs-keyword">new</span> DemoProducerCallBack());<br><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DemoProducerCallBack</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Callback</span> </span>&#123;<br><br>  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onCompletion</span><span class="hljs-params">(RecordMetadata metadata, Exception exception)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span>(exception != <span class="hljs-keyword">null</span>)&#123;<br>      exception.printStackTrace();;<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>同步发送消息都有个问题，那就是同一时间只能有一个消息在发送，这会造成许多消息无法直接发送，造成消息滞后，无法发挥效益最大化。</p>
+<p>比如消息在应用程序和 Kafka 集群之间一个来回需要 10ms。如果发送完每个消息后都等待响应的话，那么发送100个消息需要 1 秒，但是如果是<code>异步</code>方式的话，发送 100 条消息所需要的时间就会少很多很多。大多数时候，虽然Kafka 会返回 <code>RecordMetadata</code> 消息，但是我们并不需要等待响应。</p>
+<p>为了在异步发送消息的同时能够对异常情况进行处理，生产者提供了回调支持。</p>
+<h4 id="生产者分区机制">生产者分区机制</h4>
+<p>kafka对于数据的读写是以<font color=red><code>分区</code></font>为粒度的，分区可以部署在多个broker中，这样每个节点都可以独立实现数据的读写，并且能够通过增加新的节点来增加 Kafka 集群的吞吐量，通过分区部署在多个 Broker 来实现<code>负载均衡</code>的效果。</p>
+<p>上面讲了两种消息发送机制，分别是同步发送和异步发送，当生产者一条消息调用send时，它会去哪个分区呢？</p>
+<h5 id="分区策略">分区策略</h5>
+<p>kafka会有默认的策略，如果你想自定义分区策略，那么完全可以通过要显示配置生产者端的参数 <code>Partitioner.class</code>，我们可以看一下这个类它位于 <code>org.apache.kafka.clients.producer</code> 包下来完成。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Partitioner</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Configurable</span>, <span class="hljs-title">Closeable</span> </span>&#123;<br>  <br>  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">partition</span><span class="hljs-params">(String topic, Object key, <span class="hljs-keyword">byte</span>[] keyBytes, Object value, <span class="hljs-keyword">byte</span>[] valueBytes, Cluster cluster)</span></span>;<br><br>  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">close</span><span class="hljs-params">()</span></span>;<br>  <br>  <span class="hljs-function"><span class="hljs-keyword">default</span> <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onNewBatch</span><span class="hljs-params">(String topic, Cluster cluster, <span class="hljs-keyword">int</span> prevPartition)</span> </span>&#123;&#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>Partitioner 类有三个方法，分别来解释一下</p>
+<ul>
+<li>partition(): 这个类有几个参数: <code>topic</code>，表示需要传递的主题；<code>key</code> 表示消息中的键值；<code>keyBytes</code>表示分区中序列化过后的key，byte数组的形式传递；<code>value</code> 表示消息的 value 值；<code>valueBytes</code> 表示分区中序列化后的值数组；<code>cluster</code>表示当前集群的原数据。Kafka 给你这么多信息，就是希望让你能够充分地利用这些信息对消息进行分区，计算出它要被发送到哪个分区中。</li>
+<li>close() : 继承了 <code>Closeable</code> 接口能够实现 close() 方法，在分区关闭时调用。</li>
+<li>onNewBatch(): 表示通知分区程序用来创建新的批次</li>
+</ul>
+<p>其中与分区策略息息相关的就是 partition() 方法了，分区策略有下面这几种</p>
+<p><strong>顺序轮询</strong></p>
+<p>顺序分配，消息是均匀的分配给每个 partition，即每个分区存储一次消息。就像下面这样。上图表示的就是轮询策略，轮训策略是 Kafka Producer 提供的默认策略，如果你不使用指定的轮训策略的话，Kafka 默认会使用顺序轮训策略的方式。</p>
+<img src="/dajiangdahe/2023/11/26/kafka%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83%EF%BC%88%E4%BA%8C%EF%BC%89/16eb068cdf11869e~tplv-t2oaga2asx-jj-mark:3024:0:0:0:q75.png" class="" title="img">
+<p><strong>随机轮询</strong></p>
+<p>随机轮询简而言之就是随机的向 partition 中保存消息，如下图所示</p>
+<img src="/dajiangdahe/2023/11/26/kafka%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83%EF%BC%88%E4%BA%8C%EF%BC%89/16eb068ce25be1db~tplv-t2oaga2asx-jj-mark:3024:0:0:0:q75.png" class="" title="img">
+<p>实现随机分配的代码只需要两行，如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">List&lt;PartitionInfo&gt; partitions = cluster.partitionsForTopic(topic);<br><span class="hljs-keyword">return</span> ThreadLocalRandom.current().nextInt(partitions.size());<br><br></code></pre></td></tr></table></figure>
+<p>先计算出该主题总的分区数，然后随机地返回一个小于它的正整数。</p>
+<p>本质上看随机策略也是力求将数据均匀地打散到各个分区，但从实际表现来看，它要逊于轮询策略，所以<strong>如果追求数据的均匀分布，还是使用轮询策略比较好</strong>。事实上，随机策略是老版本生产者使用的分区策略，在新版本中已经改为轮询了。</p>
+<p><strong>按照 key 进行消息保存</strong></p>
+<p>这个策略也叫做 <strong>key-ordering</strong> 策略，Kafka 中每条消息都会有自己的key，一旦消息被定义了 Key，那么你就可以保证同一个 Key 的所有消息都进入到相同的分区里面，由于每个分区下的消息处理都是有顺序的，故这个策略被称为按消息键保序策略，如下图所示</p>
+<img src="/dajiangdahe/2023/11/26/kafka%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83%EF%BC%88%E4%BA%8C%EF%BC%89/16eb068cdc3ca978~tplv-t2oaga2asx-jj-mark:3024:0:0:0:q75.png" class="" title="img">
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">List&lt;PartitionInfo&gt; partitions = cluster.partitionsForTopic(topic);<br><span class="hljs-keyword">return</span> Math.abs(key.hashCode()) % partitions.size();<br></code></pre></td></tr></table></figure>
+<h4 id="生产者压缩机制">生产者压缩机制</h4>
+<p>Kafka 的消息分为两层：消息集合 和 消息。一个消息集合中包含若干条日志项，而日志项才是真正封装消息的地方。Kafka 底层的消息日志由一系列消息集合日志项组成。Kafka 通常不会直接操作具体的一条条消息，它总是在消息集合这个层面上进行<code>写入</code>操作。</p>
+<p>在 Kafka 中，压缩会发生在两个地方：Kafka Producer 和 Kafka Consumer，为什么启用压缩？说白了就是消息太大，需要<code>变小一点</code> 来使消息发的更快一些。</p>
+<p>Kafka Producer 中使用 <code>compression.type</code> 来开启压缩。<strong>有压缩必有解压缩</strong>，Producer 使用压缩算法压缩消息后并发送给服务器后，由 Consumer 消费者进行解压缩，因为采用的何种压缩算法是随着 key、value 一起发送过去的，所以消费者知道采用何种压缩算法。</p>
+<h4 id="Kafka-重要参数配置">Kafka 重要参数配置</h4>
+<p>在上一篇文章 <a href="https://link.juejin.cn?target=https%3A%2F%2Fmp.weixin.qq.com%2Fs%3F__biz%3DMzU2NDg0OTgyMA%3D%3D%26mid%3D2247484570%26idx%3D1%26sn%3D1ad1c96bc7d47b88e976cbd045baf7d7%26chksm%3Dfc45f969cb32707f882c52d7434b2c0bf2ccbbc2cd854e1dc5c203deb8ae9c1831cf216e8bad%26token%3D343157109%26lang%3Dzh_CN%23rd">带你涨姿势的认识一下kafka</a>中，我们主要介绍了一下 kafka 集群搭建的参数，本篇文章我们来介绍一下 Kafka 生产者重要的配置，生产者有很多可配置的参数，在文档里（<a href="https://link.juejin.cn?target=http%3A%2F%2Fkafka.apache.org%2Fdocumentation%2F%23producerconfigs%EF%BC%89%E9%83%BD%E6%9C%89%E8%AF%B4%E6%98%8E%EF%BC%8C%E6%88%91%E4%BB%AC%E4%BB%8B%E7%BB%8D%E5%87%A0%E4%B8%AA%E5%9C%A8%E5%86%85%E5%AD%98%E4%BD%BF%E7%94%A8%E3%80%81%E6%80%A7%E8%83%BD%E5%92%8C%E5%8F%AF%E9%9D%A0%E6%80%A7%E6%96%B9%E9%9D%A2%E5%AF%B9%E7%94%9F%E4%BA%A7%E8%80%85%E5%BD%B1%E5%93%8D%E6%AF%94%E8%BE%83%E5%A4%A7%E7%9A%84%E5%8F%82%E6%95%B0%E8%BF%9B%E8%A1%8C%E8%AF%B4%E6%98%8E">kafka.apache.org/documentati…</a></p>
+<p><strong>key.serializer</strong></p>
+<p>用于 key 键的序列化，它实现了 <code>org.apache.kafka.common.serialization.Serializer</code> 接口</p>
+<p><strong>value.serializer</strong></p>
+<p>用于 value 值的序列化，实现了 <code>org.apache.kafka.common.serialization.Serializer</code> 接口</p>
+<p><strong>acks</strong></p>
+<p>acks 参数指定了要有多少个分区副本接收消息，生产者才认为消息是写入成功的。此参数对消息丢失的影响较大</p>
+<ul>
+<li>如果 acks = 0，就表示生产者也不知道自己产生的消息是否被服务器接收了，它才知道它写成功了。如果发送的途中产生了错误，生产者也不知道，它也比较懵逼，因为没有返回任何消息。这就类似于 UDP 的运输层协议，只管发，服务器接受不接受它也不关心。</li>
+<li>如果 acks = 1，只要集群的 Leader 接收到消息，就会给生产者返回一条消息，告诉它写入成功。如果发送途中造成了网络异常或者 Leader 还没选举出来等其他情况导致消息写入失败，生产者会受到错误消息，这时候生产者往往会再次重发数据。因为消息的发送也分为 <code>同步</code> 和 <code>异步</code>，Kafka 为了保证消息的高效传输会决定是同步发送还是异步发送。如果让客户端等待服务器的响应（通过调用 <code>Future</code> 中的 <code>get()</code> 方法），显然会增加延迟，如果客户端使用回调，就会解决这个问题。</li>
+<li>如果 acks = all，这种情况下是只有当所有参与复制的节点都收到消息时，生产者才会接收到一个来自服务器的消息。不过，它的延迟比 acks =1 时更高，因为我们要等待不只一个服务器节点接收消息。</li>
+</ul>
+<p><strong>buffer.memory</strong></p>
+<p>此参数用来设置生产者内存缓冲区的大小，生产者用它缓冲要发送到服务器的消息。如果应用程序发送消息的速度超过发送到服务器的速度，会导致生产者空间不足。这个时候，send() 方法调用要么被阻塞，要么抛出异常，具体取决于 <code>block.on.buffer.null</code> 参数的设置。</p>
+<p><strong>compression.type</strong></p>
+<p>此参数来表示生产者启用何种压缩算法，默认情况下，消息发送时不会被压缩。该参数可以设置为 snappy、gzip 和 lz4，它指定了消息发送给 broker 之前使用哪一种压缩算法进行压缩。下面是各压缩算法的对比</p>
+<img src="/dajiangdahe/2023/11/26/kafka%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83%EF%BC%88%E4%BA%8C%EF%BC%89/16eb068cf4f6ba76~tplv-t2oaga2asx-jj-mark:3024:0:0:0:q75.png" class="" title="img">
+<img src="/dajiangdahe/2023/11/26/kafka%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83%EF%BC%88%E4%BA%8C%EF%BC%89/16eb068d4a803cc4~tplv-t2oaga2asx-jj-mark:3024:0:0:0:q75.png" class="" title="img">
+<p><strong>retries</strong></p>
+<p>生产者从服务器收到的错误有可能是临时性的错误（比如分区找不到首领），在这种情况下，<code>reteis</code> 参数的值决定了生产者可以重发的消息次数，如果达到这个次数，生产者会放弃重试并返回错误。默认情况下，生产者在每次重试之间等待 100ms，这个等待参数可以通过 <code>retry.backoff.ms</code> 进行修改。</p>
+<p><strong>batch.size</strong></p>
+<p>当有多个消息需要被发送到同一个分区时，生产者会把它们放在同一个批次里。该参数指定了一个批次可以使用的内存大小，按照字节数计算。当批次被填满，批次里的所有消息会被发送出去。不过生产者井不一定都会等到批次被填满才发送，任意条数的消息都可能被发送。</p>
+<p><strong><a target="_blank" rel="noopener" href="http://client.id">client.id</a></strong></p>
+<p>此参数可以是任意的字符串，服务器会用它来识别消息的来源，一般配置在日志里</p>
+<p><strong>max.in.flight.requests.per.connection</strong></p>
+<p>此参数指定了生产者在收到服务器响应之前可以发送多少消息，它的值越高，就会占用越多的内存，不过也会提高吞吐量。把它设为1 可以保证消息是按照发送的顺序写入服务器。</p>
+<p><strong><a target="_blank" rel="noopener" href="http://timeout.ms">timeout.ms</a>、<a target="_blank" rel="noopener" href="http://request.timeout.ms">request.timeout.ms</a> 和 <a target="_blank" rel="noopener" href="http://metadata.fetch.timeout.ms">metadata.fetch.timeout.ms</a></strong></p>
+<p><a target="_blank" rel="noopener" href="http://request.timeout.ms">request.timeout.ms</a> 指定了生产者在发送数据时等待服务器返回的响应时间，<a target="_blank" rel="noopener" href="http://metadata.fetch.timeout.ms">metadata.fetch.timeout.ms</a> 指定了生产者在获取元数据（比如目标分区的首领是谁）时等待服务器返回响应的时间。如果等待时间超时，生产者要么重试发送数据，要么返回一个错误。<a target="_blank" rel="noopener" href="http://timeout.ms">timeout.ms</a> 指定了 broker 等待同步副本返回消息确认的时间，与 asks 的配置相匹配----如果在指定时间内没有收到同步副本的确认，那么 broker 就会返回一个错误。</p>
+<p><strong><a target="_blank" rel="noopener" href="http://max.block.ms">max.block.ms</a></strong></p>
+<p>此参数指定了在调用 send() 方法或使用 partitionFor() 方法获取元数据时生产者的阻塞时间当生产者的发送缓冲区已捕，或者没有可用的元数据时，这些方法就会阻塞。在阻塞时间达到 <a target="_blank" rel="noopener" href="http://max.block.ms">max.block.ms</a> 时，生产者会抛出超时异常。</p>
+<p><strong>max.request.size</strong></p>
+<p>该参数用于控制生产者发送的请求大小。它可以指能发送的单个消息的最大值，也可以指单个请求里所有消息的总大小。</p>
+<p><strong>receive.buffer.bytes 和 send.buffer.bytes</strong></p>
+<p>Kafka 是基于 TCP 实现的，为了保证可靠的消息传输，这两个参数分别指定了 TCP Socket 接收和发送数据包的缓冲区的大小。如果它们被设置为 -1，就使用操作系统的默认值。如果生产者或消费者与 broker 处于不同的数据中心，那么可以适当增大这些值。</p>
+<h3 id="Kafka-Consumer">Kafka Consumer</h3>
 
             </div>
             <hr>
